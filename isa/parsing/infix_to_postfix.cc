@@ -1,0 +1,124 @@
+#include <vector>
+#include <queue>
+#include <stack>
+#include <sstream>
+#include <iostream>
+
+#include "infix_to_postfix.hh"
+
+namespace isa {
+namespace parsing {
+
+struct token_t {
+  token_t(const std::string &s_, bool is_num_) : s(s_), is_num(is_num_) {}
+  std::string s;
+  bool is_num;
+};
+
+static void flush_buffer(std::string &buffer, std::vector<token_t> &tokens) {
+  if (!buffer.empty()) {
+    tokens.push_back(token_t(buffer, true));
+    buffer.clear();
+  }
+}
+
+static bool is_op(const char c) {
+  return c == '*' || c == '/' || c == '+' || c == '-' || c == '(' || c == ')' ||
+         c == '^';
+}
+
+static std::vector<token_t> get_tokens(const std::string &infix) {
+  std::vector<token_t> tokens;
+  std::string buffer;
+
+  for (const char &c : infix) {
+    if (isdigit(c)) {
+      buffer += c;
+    } else if (is_op(c)) {
+      flush_buffer(buffer, tokens);
+      tokens.push_back(token_t(std::string(1, c), false));
+    }
+  }
+
+  flush_buffer(buffer, tokens);
+  return tokens;
+}
+
+std::string infix_to_postfix(const std::string &infix) {
+  std::queue<token_t> q;
+  std::stack<token_t> s;
+
+  std::vector<token_t> tokens = get_tokens(infix);
+
+  for (token_t &token : tokens) {
+    if (token.is_num) {
+      q.push(token);
+    } else {
+      if (token.s == "(") {
+        s.push(token);
+      } else if (token.s == ")") {
+        while (!s.empty()) {
+          token_t t = s.top();
+          if (t.s == "(") {
+            s.pop();
+            break;
+          }
+          q.push(t);
+          s.pop();
+        }
+      } else if (token.s == "^") {
+        while (!s.empty()) {
+          token_t t = s.top();
+          if (t.s == "(" || t.s == "^" || t.s == "*" || t.s == "/") {
+            break;
+          }
+          q.push(t);
+          s.pop();
+        }
+      } else if (token.s == "+" || token.s == "-") {
+        while (!s.empty()) {
+          token_t t = s.top();
+          if (t.s == "(") {
+            break;
+          }
+          q.push(t);
+          s.pop();
+        }
+      } else {
+        if (token.s == "*" || token.s == "/") {
+          while (!s.empty()) {
+            token_t t = s.top();
+            if (t.s == "(") {
+              break;
+            }
+            if (t.s == "*" || t.s == "/" || t.s == "^") {
+              q.push(t);
+              s.pop();
+            } else {
+              break;
+            }
+          }
+        }
+      }
+
+      if (token.s != "(" && token.s != ")") {
+        s.push(token);
+      }
+    }
+  }
+
+  while (!s.empty()) {
+    q.push(s.top());
+    s.pop();
+  }
+
+  std::ostringstream ss;
+  while (!q.empty()) {
+    ss << q.front().s + " ";
+    q.pop();
+  }
+
+  return ss.str();
+}
+}
+}
