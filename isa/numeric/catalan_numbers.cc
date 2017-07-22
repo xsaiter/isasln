@@ -3,7 +3,7 @@
 namespace isa {
 namespace numeric {
 
-unsigned long c_catalan_numbers::get_number(unsigned int n) const {
+unsigned long catalan_numbers::get_number(unsigned int n) const {
   if (contains_key(n)) {
     return nums_.find(n)->second;
   }
@@ -29,7 +29,7 @@ unsigned long c_catalan_numbers::get_number(unsigned int n) const {
   return res;
 }
 
-bool c_catalan_numbers::contains_key(const unsigned int &key) const {
+bool catalan_numbers::contains_key(const unsigned int &key) const {
   return nums_.find(key) != nums_.end();
 }
 }
