@@ -16,7 +16,8 @@ HEADERS += \
     sorting/sort.hh \
     misc/all_queens.hh \
     misc/knight_tour.hh \
-    misc/lee_alg.hh
+    misc/lee_alg.hh \
+    strings/str_search.hh
 
 unix {
     target.path = /usr/lib
@@ -31,4 +32,5 @@ SOURCES += \
     strings/str_utils.cc \
     parsing/infix_to_postfix.cc \
     parsing/postfix_to_infix.cc \
-    parsing/brackets.cc
+    parsing/brackets.cc \
+    strings/str_search.cc

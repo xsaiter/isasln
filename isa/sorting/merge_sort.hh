@@ -9,13 +9,13 @@ namespace sorting {
 template <typename Iterator,
           typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
-class merge_sort {
+class merge_sort_t {
 public:
   static void sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
-    const size_t n = std::distance(beg, end);
+    const std::size_t n = std::distance(beg, end);
 
     int step = 2;
-    int pp = 1;
+    int diff = 1;
 
     while (step < 2 * n) {
       Iterator i = beg;
@@ -30,8 +30,8 @@ public:
           mid = std::next(i, distance(i, cend) / 2);
         } else {
           cend = end;
-          mid = std::prev(cend, pp);
-          pp = std::distance(i, cend);
+          mid = std::prev(cend, diff);
+          diff = std::distance(i, cend);
         }
 
         merge(i, mid, cend, cmp);

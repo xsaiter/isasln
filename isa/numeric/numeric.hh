@@ -9,8 +9,6 @@
 namespace isa {
 namespace numeric {
 
-using namespace std;
-
 template <class A, class B> A fast_pow(A a, B b) {
   if (b == 2) {
     return a * a;

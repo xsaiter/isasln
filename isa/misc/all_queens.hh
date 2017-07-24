@@ -6,7 +6,7 @@
 namespace isa {
 namespace misc {
 
-class all_queens {
+class all_queens_t {
 public:
   struct cell_t {
     std::size_t x_;
@@ -24,7 +24,7 @@ public:
     bool is_success() const { return success_; }
 
   private:
-    friend class all_queens;
+    friend class all_queens_t;
     std::shared_ptr<std::vector<cell_t>> cells_;
     bool success_;
 
@@ -32,7 +32,7 @@ public:
     std::size_t size() const { return cells_->size(); }
   };
 
-  all_queens(std::size_t n);
+  all_queens_t(std::size_t n);
   position_t find_position();
 
 private:

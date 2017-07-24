@@ -6,14 +6,14 @@
 
 namespace isa {
 namespace misc {
-bool lee_alg(const lee_opts &opts, std::vector<lee_cell> &result) {
+bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
   int dx[C_DIRECTIONS] = {1, 0, -1, 0};
   int dy[C_DIRECTIONS] = {0, -1, 0, 1};
 
   int rows = opts.rows;
   int cols = opts.cols;
 
-  lee_cell cc[rows][cols];
+  lee_cell_t cc[rows][cols];
 
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < cols; ++j) {
@@ -34,7 +34,7 @@ bool lee_alg(const lee_opts &opts, std::vector<lee_cell> &result) {
   cc[bx][by].y = by;
   cc[bx][by].visited = true;
 
-  std::queue<lee_cell> q;
+  std::queue<lee_cell_t> q;
 
   q.push(cc[bx][by]);
 
@@ -43,7 +43,7 @@ bool lee_alg(const lee_opts &opts, std::vector<lee_cell> &result) {
   int x, y, num, nx, ny;
 
   while (!stop && !q.empty()) {
-    lee_cell c = q.front();
+    lee_cell_t c = q.front();
     q.pop();
 
     x = c.x;

@@ -9,10 +9,10 @@ namespace sorting {
 template <typename Iterator,
           typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
-class heap_sort {
+class heap_sort_t {
 public:
   static void perform(Iterator beg, Iterator end, Compare cmp = Compare()) {
-    heap_sort s(beg, end, cmp);
+    heap_sort_t s(beg, end, cmp);
     s.sort();
   }
 
@@ -21,10 +21,10 @@ private:
   Iterator end_;
   Compare cmp_;
 
-  heap_sort(Iterator beg, Iterator end, Compare cmp = Compare())
+  heap_sort_t(Iterator beg, Iterator end, Compare cmp = Compare())
       : beg_(beg), end_(end), cmp_(cmp) {}
-  heap_sort(const heap_sort &) = delete;
-  heap_sort &operator=(const heap_sort &) = delete;
+  heap_sort_t(const heap_sort_t &) = delete;
+  heap_sort_t &operator=(const heap_sort_t &) = delete;
 
   void sort() {
     build_heap();

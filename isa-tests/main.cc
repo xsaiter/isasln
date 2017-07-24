@@ -5,9 +5,12 @@
 
 #include <gtest/gtest/gtest.h>
 
-#include <sorting/sort.hh>
-#include <sorting/heap_sort.hh>
-#include <sorting/merge_sort.hh>
+#include "sorting/sort.hh"
+#include "sorting/heap_sort.hh"
+#include "sorting/merge_sort.hh"
+
+#include "strings/str_utils.hh"
+#include "strings/str_search.hh"
 
 using namespace std;
 
