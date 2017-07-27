@@ -17,7 +17,8 @@ HEADERS += \
     misc/all_queens.hh \
     misc/knight_tour.hh \
     misc/lee_alg.hh \
-    strings/str_search.hh
+    strings/str_search.hh \
+    parsing/calculator.hh
 
 unix {
     target.path = /usr/lib
@@ -33,4 +34,5 @@ SOURCES += \
     parsing/infix_to_postfix.cc \
     parsing/postfix_to_infix.cc \
     parsing/brackets.cc \
-    strings/str_search.cc
+    strings/str_search.cc \
+    parsing/calculator.cc
