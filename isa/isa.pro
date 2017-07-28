@@ -1,5 +1,7 @@
 QT       -= core gui
 
+CONFIG += c++14
+
 TARGET = isa
 TEMPLATE = lib
 CONFIG += staticlib
@@ -18,7 +20,8 @@ HEADERS += \
     misc/knight_tour.hh \
     misc/lee_alg.hh \
     strings/str_search.hh \
-    parsing/calculator.hh
+    parsing/calculator.hh \
+    strings/aho_corasick.hh
 
 unix {
     target.path = /usr/lib
@@ -35,4 +38,5 @@ SOURCES += \
     parsing/postfix_to_infix.cc \
     parsing/brackets.cc \
     strings/str_search.cc \
-    parsing/calculator.cc
+    parsing/calculator.cc \
+    strings/aho_corasick.cc

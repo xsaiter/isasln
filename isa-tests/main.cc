@@ -11,6 +11,7 @@
 
 #include "strings/str_utils.hh"
 #include "strings/str_search.hh"
+#include "strings/aho_corasick.hh"
 
 using namespace std;
 
@@ -60,6 +61,14 @@ TEST(test_sort, selection_sort) {
 TEST(test_sort, gnome_sort) {
   check_sort<vector<int>::iterator, less<int>>(&isa::sorting::gnome_sort);
 }
+
+/*void test_aho_corasick() {
+  std::string s = "sheshe";
+  std::vector<std::string> patterns = {"he", "she", "hello"};
+  aho_corasick_t ac(patterns);
+  auto result = ac.search(s);
+  auto tmp = result;
+}*/
 
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
