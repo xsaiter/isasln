@@ -8,16 +8,6 @@ aho_corasick_t::aho_corasick_t(const std::vector<std::string> &patterns)
   build_machine();
 }
 
-aho_corasick_t::node_ptr_t aho_corasick_t::next_state(node_ptr_t node,
-                                                      char c) const {
-  auto found = std::find_if(node->children.begin(), node->children.end(),
-                            [&](node_ptr_t n) { return n->c == c; });
-  if (found != node->children.end()) {
-    return *found;
-  }
-  return nullptr;
-}
-
 std::vector<aho_corasick_t::result_t>
 aho_corasick_t::search(const std::string &text) const {
   std::vector<aho_corasick_t::result_t> result;
@@ -80,16 +70,6 @@ void aho_corasick_t::build_go() {
   }
 }
 
-aho_corasick_t::node_ptr_t
-aho_corasick_t::make_node(char c, unsigned int n,
-                          aho_corasick_t::node_ptr_t parent) const {
-  node_ptr_t node = std::make_shared<node_t>();
-  node->c = c;
-  node->n = n;
-  node->parent = parent;
-  return node;
-}
-
 void aho_corasick_t::build_failure() {
   std::queue<node_ptr_t> q;
   bool first = true;
@@ -138,6 +118,26 @@ void aho_corasick_t::build_failure() {
   }
 
   root_->failure = root_;
+}
+
+aho_corasick_t::node_ptr_t aho_corasick_t::next_state(node_ptr_t node,
+                                                      char c) const {
+  auto found = std::find_if(node->children.begin(), node->children.end(),
+                            [&](node_ptr_t n) { return n->c == c; });
+  if (found != node->children.end()) {
+    return *found;
+  }
+  return nullptr;
+}
+
+aho_corasick_t::node_ptr_t
+aho_corasick_t::make_node(char c, unsigned int n,
+                          aho_corasick_t::node_ptr_t parent) const {
+  node_ptr_t node = std::make_shared<node_t>();
+  node->c = c;
+  node->n = n;
+  node->parent = parent;
+  return node;
 }
 
 void aho_corasick_t::append(std::vector<result_t> &result, node_ptr_t node,

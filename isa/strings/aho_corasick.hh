@@ -37,8 +37,8 @@ private:
   void build_machine();
   void build_go();
   void build_failure();
-  void append(std::vector<result_t> &result, node_ptr_t node,
-              std::size_t end) const;
   node_ptr_t next_state(node_ptr_t node, char c) const;
   node_ptr_t make_node(char c, unsigned int n, node_ptr_t parent) const;
+  void append(std::vector<result_t> &result, node_ptr_t node,
+              std::size_t end) const;
 };

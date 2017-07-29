@@ -85,7 +85,7 @@ template <typename Iterator,
 void gnome_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   Iterator i = std::next(beg, 1);
   while (i != end) {
-    if (i == beg || cmp(*i, *(i - 1)) == -1) {
+    if (i == beg || cmp(*i, *(i - 1))) {
       ++i;
     } else {
       std::iter_swap(i, i - 1);
