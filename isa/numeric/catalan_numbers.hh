@@ -5,7 +5,7 @@
 namespace isa {
 namespace numeric {
 
-class catalan_numbers {
+class catalan_numbers_t {
 public:
   unsigned long get_number(unsigned int n) const;
 
