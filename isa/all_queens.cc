@@ -4,8 +4,8 @@
 namespace isa {
 namespace misc {
 
-typedef std::vector<all_queens_t::cell_t> cells_t;
-typedef std::shared_ptr<cells_t> cells_ptr_t;
+using cells_t = std::vector<all_queens_t::cell_t>;
+using cells_ptr_t = std::shared_ptr<cells_t>;
 
 all_queens_t::position_t::position_t() : cells_(new cells_t) {}
 all_queens_t::all_queens_t(std::size_t n) : n_(n) {}

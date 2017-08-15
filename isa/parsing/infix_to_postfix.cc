@@ -44,6 +44,7 @@ static std::vector<token_t> get_tokens(const std::string &infix) {
   return tokens;
 }
 
+// shunting-yard algorithm
 std::string infix_to_postfix(const std::string &infix) {
   std::queue<token_t> q;
   std::stack<token_t> s;

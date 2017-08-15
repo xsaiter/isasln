@@ -2,13 +2,13 @@
 
 #include "lee_alg.hh"
 
-#define C_DIRECTIONS (4)
+#define DIRECTIONS 4
 
 namespace isa {
 namespace graphs {
 bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
-  int dx[C_DIRECTIONS] = {1, 0, -1, 0};
-  int dy[C_DIRECTIONS] = {0, -1, 0, 1};
+  int dx[DIRECTIONS] = {1, 0, -1, 0};
+  int dy[DIRECTIONS] = {0, -1, 0, 1};
 
   int rows = opts.rows;
   int cols = opts.cols;
@@ -50,7 +50,7 @@ bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
     y = c.y;
     num = c.n + 1;
 
-    for (int i = 0; i < C_DIRECTIONS; ++i) {
+    for (int i = 0; i < DIRECTIONS; ++i) {
       nx = x + dx[i];
       ny = y + dy[i];
 
@@ -79,7 +79,7 @@ bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
   num = cc[x][y].n;
 
   while (x != bx || y != by) {
-    for (int i = 0; i < C_DIRECTIONS; ++i) {
+    for (int i = 0; i < DIRECTIONS; ++i) {
       nx = x + dx[i];
       ny = y + dy[i];
 

@@ -7,7 +7,7 @@ typedef std::vector<knight_tour_t::cell_t> cells_t;
 typedef std::shared_ptr<cells_t> cells_ptr_t;
 
 knight_tour_t::knight_tour_t(std::size_t width, std::size_t height,
-                         const cell_t &start)
+                             const cell_t &start)
     : width_(width), height_(height), n_cells_(width_ * height_),
       start_(start) {}
 
@@ -47,7 +47,7 @@ bool knight_tour_t::try_find(route_t &route, const cell_t &cell) {
 }
 
 cells_ptr_t knight_tour_t::next_moves(route_t &route,
-                                    const cell_t &current) const {
+                                      const cell_t &current) const {
   cells_ptr_t res(new cells_t);
   for (int i = 0; i < 8; ++i) {
     cell_t next(current.x_ + shifts_[0][i], current.y_ + shifts_[1][i]);

@@ -33,7 +33,7 @@ public:
 
     void set_success(bool success);
     std::size_t size() const;
-    bool exists(const cell_t &cell_t) const;
+    bool exists(const cell_t &cell) const;
   };
 
   knight_tour_t(std::size_t width, std::size_t height, const cell_t &start);
@@ -47,8 +47,8 @@ private:
   const int shifts_[2][8] = {{-2, -1, 1, 2, 2, 1, -1, -2},
                              {1, 2, 2, 1, -1, -2, -2, -1}};
 
-  bool try_find(route_t &route, const cell_t &cell_t);
-  std::shared_ptr<std::vector<cell_t>> next_moves(route_t &r,
+  bool try_find(route_t &route, const cell_t &cell);
+  std::shared_ptr<std::vector<cell_t>> next_moves(route_t &route,
                                                   const cell_t &current) const;
   bool valid_cell(const cell_t &c) const;
 };
