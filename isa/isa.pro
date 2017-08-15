@@ -12,10 +12,7 @@ HEADERS += \
     strings/str_utils.hh \
     parsing/postfix_to_infix.hh \
     parsing/infix_to_postfix.hh \
-    parsing/brackets.hh \    
-    sorting/heap_sort.hh \
-    sorting/merge_sort.hh \
-    sorting/sort.hh \
+    parsing/brackets.hh \        
     misc/all_queens.hh \
     misc/knight_tour.hh \
     misc/lee_alg.hh \
@@ -23,7 +20,10 @@ HEADERS += \
     parsing/calculator.hh \
     strings/aho_corasick.hh \
     bloom_filter.hh \
-    hash_funcs.hh
+    hash_funcs.hh \
+    heap_sort.hh \
+    merge_sort.hh \
+    sort.hh
 
 unix {
     target.path = /usr/lib
