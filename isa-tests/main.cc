@@ -13,6 +13,8 @@
 #include "strings/str_search.hh"
 #include "strings/aho_corasick.hh"
 
+#include "bloom_filter.hh"
+
 using namespace std;
 
 template <class T, class Cmp = less<int>>
@@ -36,9 +38,7 @@ void check_sort(void (*sort)(T, T, Cmp)) {
     less<int> lss;
     sort(v.begin(), v.end(), lss);
 
-    bool ok = is_sorted(v.begin(), v.end());
-
-    ASSERT_TRUE(ok);
+    EXPECT_TRUE(is_sorted(v.begin(), v.end()));
   }
 }
 
@@ -58,16 +58,24 @@ TEST(test_sort, selection_sort) {
   check_sort<vector<int>::iterator, less<int>>(&isa::sorting::selection_sort);
 }
 
-TEST(test_sort, gnome_sort) {
-  check_sort<vector<int>::iterator, less<int>>(&isa::sorting::gnome_sort);
+TEST(test_bloom_filter, bloom_filter) {
+  auto filter = isa::make_bloom_filter_str(10);
+
+  filter->add("cat");
+  filter->add("dog");
+
+  EXPECT_TRUE(filter->contains("cat"));
+  EXPECT_FALSE(filter->contains("yo"));
 }
 
-/*void test_aho_corasick() {
+TEST(test_aho_corasick, aho_corasick) {
   std::string s = "sheshe";
   std::vector<std::string> patterns = {"he", "she", "hello"};
   aho_corasick_t ac(patterns);
   auto result = ac.search(s);
-}*/
+
+  EXPECT_EQ(result.size(), 4);
+}
 
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);

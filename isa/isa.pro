@@ -21,7 +21,9 @@ HEADERS += \
     misc/lee_alg.hh \
     strings/str_search.hh \
     parsing/calculator.hh \
-    strings/aho_corasick.hh
+    strings/aho_corasick.hh \
+    bloom_filter.hh \
+    hash_funcs.hh
 
 unix {
     target.path = /usr/lib
