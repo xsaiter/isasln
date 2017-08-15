@@ -5,7 +5,7 @@
 #define C_DIRECTIONS (4)
 
 namespace isa {
-namespace misc {
+namespace graphs {
 bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
   int dx[C_DIRECTIONS] = {1, 0, -1, 0};
   int dy[C_DIRECTIONS] = {0, -1, 0, 1};

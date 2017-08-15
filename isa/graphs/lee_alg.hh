@@ -3,7 +3,7 @@
 #include <vector>
 
 namespace isa {
-namespace misc {
+namespace graphs {
 
 struct lee_cell_t {
   int n;
