@@ -54,7 +54,8 @@ bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
       nx = x + dx[i];
       ny = y + dy[i];
 
-      if (nx >= 0 && nx < cols && ny >= 0 && ny < rows && !cc[nx][ny].visited) {
+      if (nx >= 0 && nx < cols && ny >= 0 && ny < rows && !cc[nx][ny].visited &&
+          opts.a[nx][ny] == 0) {
         cc[nx][ny].x = nx;
         cc[nx][ny].y = ny;
         cc[nx][ny].n = num;

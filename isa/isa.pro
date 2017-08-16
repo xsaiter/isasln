@@ -7,8 +7,8 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 HEADERS += \    
-    numeric/catalan_numbers.hh \
-    numeric/numeric.hh \
+    catalan_numbers.hh \
+    numeric.hh \
     strings/str_utils.hh \
     parsing/postfix_to_infix.hh \
     parsing/infix_to_postfix.hh \
@@ -31,7 +31,7 @@ unix {
 }
 
 SOURCES += \    
-    numeric/catalan_numbers.cc \
+    catalan_numbers.cc \
     all_queens.cc \
     knight_tour.cc \
     graphs/lee_alg.cc  \
