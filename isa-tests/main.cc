@@ -15,6 +15,8 @@
 
 #include "bloom_filter.hh"
 
+#include "graphs/graph.hh"
+
 using namespace std;
 
 template <class T, class Cmp = less<int>>
@@ -78,6 +80,8 @@ TEST(test_aho_corasick, aho_corasick) {
 }
 
 int main(int argc, char *argv[]) {
+  isa::graphs::graph_t<int> g;
+  auto edges = g.get_edges();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

@@ -23,7 +23,8 @@ HEADERS += \
     hash_funcs.hh \
     heap_sort.hh \
     merge_sort.hh \
-    sort.hh
+    sort.hh \
+    graphs/graph.hh
 
 unix {
     target.path = /usr/lib
