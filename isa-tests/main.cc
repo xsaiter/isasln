@@ -81,6 +81,12 @@ TEST(test_aho_corasick, aho_corasick) {
 
 int main(int argc, char *argv[]) {
   isa::graphs::graph_t<int> g;
+  g.add_edge(1, 2);
+  g.add_edge(1, 2);
+  g.add_edge(2, 1);
+  g.add_edge(1, 3);
+  g.add_edge(3, 4);
+  g.add_edge(4, 1);
   auto edges = g.get_edges();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -11,51 +11,71 @@
 namespace isa {
 namespace graphs {
 
-template <typename Vertex> struct edge_t {
-  edge_t(const Vertex &v1_, const Vertex &v2_) : v1(v1_), v2(v2_) {}
-  Vertex v1, v2;
+enum class directed_t { directed, undirected, bidirected };
+
+template <class Vertex, directed_t directed> struct edge_t {
+  edge_t(const Vertex &v_, const Vertex &w_) : v(v_), w(w_) {}
+  Vertex v, w;
+  directed_t is_directed = directed;
 };
 
-template <typename Vertex>
-bool operator==(const edge_t<Vertex> &lhs, const edge_t<Vertex> &rhs) {
-  return lhs.v1 == rhs.v1 && lhs.v2 == rhs.v2;
+template <class Vertex, directed_t directed>
+bool operator==(const edge_t<Vertex, directed> &lhs,
+                const edge_t<Vertex, directed> &rhs) {
+  return lhs.v == rhs.v && lhs.w == rhs.w;
 }
 
-template <typename Vertex>
-bool operator!=(const edge_t<Vertex> &lhs, const edge_t<Vertex> &rhs) {
+template <class Vertex, directed_t directed>
+bool operator!=(const edge_t<Vertex, directed> &lhs,
+                const edge_t<Vertex, directed> &rhs) {
   return !(lhs == rhs);
 }
 
-template <typename Vertex, bool directed = false> class graph_t {
+template <class T> using edge_list_t = std::list<T>;
+
+template <class Vertex, directed_t directed = directed_t::undirected,
+          template <class> class EdgeList = edge_list_t>
+class graph_t {
 public:
-  using edges_t = typename std::vector<edge_t<Vertex>>;
+  using edge_t_ = edge_t<Vertex, directed>;
+  using edges_t = EdgeList<edge_t_>;
   using edges_ptr_t = typename std::shared_ptr<edges_t>;
   using adj_t = typename std::map<Vertex, edges_ptr_t>;
   using adj_iter_t = typename adj_t::iterator;
   using adj_const_iter_t = typename adj_t::const_iterator;
 
-  std::size_t v() const { return v_; }
+  std::size_t v() const { return adj_.size(); }
   std::size_t e() const { return e_; }
   adj_const_iter_t find(const Vertex &v) const { return adj_.find(v); }
   adj_const_iter_t end() const { return adj_.end(); }
 
-  bool add_edge(const Vertex &v1, const Vertex &v2) {
-    add_edge_impl(v1, v2);
-    if (directed) {
-      add_edge_impl(v2, v1);
+  void add_vertex(const Vertex &v) { add_vertex_impl(v); }
+
+  void add_edge(const Vertex &v, const Vertex &w) {
+    edges_ptr_t pv = add_vertex_impl(v);
+    edges_ptr_t pw = add_vertex_impl(w);
+
+    if (directed == directed_t::directed) {
+      if (not_exists_edge(pv, w)) {
+        pv->emplace_back(v, w);
+        ++e_;
+      } else if (directed == directed_t::undirected) {
+        if (not_exists_edge(pv, w) && not_exists_edge(pw, v)) {
+          pv->emplace_back(v, w);
+          ++e_;
+        }
+      }
     }
-    ++e_;
-    return true;
   }
 
-  std::vector<edge_t<Vertex>> get_edges() const {
-    std::vector<edge_t<Vertex>> res;
+  std::vector<edge_t_> get_edges() const {
+    std::vector<edge_t_> res;
 
     for (adj_const_iter_t i = adj_.begin(); i != adj_.end(); ++i) {
       edges_ptr_t p = (*i).second;
       for (typename edges_t::iterator j = p->begin(); j != p->end(); ++j) {
         if (std::find(res.begin(), res.end(), (*j)) == res.end()) {
-          res.push_back((*j));
+          res.push_back(*j);
         }
       }
     }
@@ -64,33 +84,23 @@ public:
   }
 
 private:
-  bool directed_;
-  std::size_t v_;
-  std::size_t e_;
+  std::size_t e_ = 0;
   adj_t adj_;
 
-  void add_edge_impl(const Vertex &v1, const Vertex &v2) {
-    edges_ptr_t edges_ptr = get_or_add_vertex(v1);
-
-    edge_t<Vertex> e(v1, v2);
-
-    auto edge_found = std::find(edges_ptr->begin(), edges_ptr->end(), e);
-    if (edge_found == edges_ptr->end()) {
-      edges_ptr->push_back(e);
-    }
+  inline bool not_exists_edge(const edges_ptr_t edges, const Vertex &v) const {
+    return std::find_if(edges->begin(), edges->end(), [&](const edge_t_ &e) {
+      return e.w == v;
+    }) == edges->end();
   }
 
-  inline edges_ptr_t get_or_add_vertex(const Vertex &v) {
+  inline edges_ptr_t add_vertex_impl(const Vertex &v) {
     adj_iter_t found = adj_.find(v);
     if (found != adj_.end()) {
       return (*found).second;
     }
-
-    edges_ptr_t p(new edges_t);
-    adj_.insert(std::make_pair(v, p));
-    ++v_;
-
-    return p;
+    edges_ptr_t ptr(new edges_t);
+    adj_.insert(std::make_pair(v, ptr));
+    return ptr;
   }
 };
 }
