@@ -81,7 +81,7 @@ TEST(test_aho_corasick, aho_corasick) {
 }
 
 int main(int argc, char *argv[]) {
-  using GT = isa::graph_t<int, isa::directed_t::undirected>;
+  using GT = isa::graph_t<int, isa::directed_t::directed>;
 
   GT g;
   g.add_edge(1, 2);

@@ -56,18 +56,18 @@ public:
   void add_vertex(const Vertex &v) { add_vertex_impl(v); }
 
   void add_edge(const Vertex &src, const Vertex &dest) {
-    edges_ptr_t pv = add_vertex_impl(src);
-    edges_ptr_t pw = add_vertex_impl(dest);
+    edges_ptr_t psrc = add_vertex_impl(src);
+    edges_ptr_t pdest = add_vertex_impl(dest);
 
     if (directed == directed_t::directed) {
-      if (not_exists_edge(pv, dest)) {
-        pv->emplace_back(src, dest);
+      if (not_exists_edge(psrc, dest)) {
+        psrc->emplace_back(src, dest);
         ++e_;
       }
     } else if (directed == directed_t::undirected) {
-      if (not_exists_edge(pv, dest) && not_exists_edge(pw, src)) {
-        pv->emplace_back(src, dest);
-        pw->emplace_back(dest, src);
+      if (not_exists_edge(psrc, dest) && not_exists_edge(pdest, src)) {
+        psrc->emplace_back(src, dest);
+        pdest->emplace_back(dest, src);
         ++e_;
       }
     }
@@ -77,7 +77,6 @@ public:
     std::vector<Vertex> res;
     for (adj_const_iter_t i = adj_.begin(); i != adj_.end(); ++i) {
       res.push_back(i->first);
-      ;
     }
     return res;
   }
@@ -128,7 +127,7 @@ private:
     if (found != adj_.end()) {
       return (*found).second;
     }
-    edges_ptr_t ptr(new edges_t);
+    edges_ptr_t ptr(std::make_shared<edges_t>());
     adj_.insert(std::make_pair(v, ptr));
     return ptr;
   }
