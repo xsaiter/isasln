@@ -16,6 +16,7 @@
 #include "bloom_filter.hh"
 
 #include "graphs/graph.hh"
+#include "graphs/bfs_paths.hh"
 
 using namespace std;
 
@@ -80,14 +81,22 @@ TEST(test_aho_corasick, aho_corasick) {
 }
 
 int main(int argc, char *argv[]) {
-  isa::graphs::graph_t<int> g;
+  using GT = isa::graph_t<int, isa::directed_t::undirected>;
+
+  GT g;
   g.add_edge(1, 2);
-  g.add_edge(1, 2);
-  g.add_edge(2, 1);
   g.add_edge(1, 3);
-  g.add_edge(3, 4);
+  g.add_edge(2, 4);
   g.add_edge(4, 1);
+
   auto edges = g.get_edges();
+  isa::bfs_paths<GT> bf(g, 1);
+  bf.build();
+  std::size_t dist = bf.get_dist_to(4);
+
+  isa::graph_t<std::string> gg;
+  isa::bfs_paths<isa::graph_t<std::string>> sbf(gg, "1");
+
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

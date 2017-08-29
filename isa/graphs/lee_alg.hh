@@ -3,7 +3,6 @@
 #include <vector>
 
 namespace isa {
-namespace graphs {
 
 struct lee_cell_t {
   int n;
@@ -20,5 +19,4 @@ struct lee_opts_t {
 };
 
 bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result);
-}
 }

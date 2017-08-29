@@ -5,7 +5,6 @@
 #define DIRECTIONS 4
 
 namespace isa {
-namespace graphs {
 bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
   int dx[DIRECTIONS] = {1, 0, -1, 0};
   int dy[DIRECTIONS] = {0, -1, 0, 1};
@@ -98,6 +97,5 @@ bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
   }
 
   return true;
-}
 }
 }

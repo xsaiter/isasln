@@ -24,7 +24,8 @@ HEADERS += \
     heap_sort.hh \
     merge_sort.hh \
     sort.hh \
-    graphs/graph.hh
+    graphs/graph.hh \
+    graphs/bfs_paths.hh
 
 unix {
     target.path = /usr/lib
