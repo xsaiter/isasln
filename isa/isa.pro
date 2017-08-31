@@ -25,7 +25,8 @@ HEADERS += \
     merge_sort.hh \
     sort.hh \
     graphs/graph.hh \
-    graphs/bfs_paths.hh
+    graphs/bfs_paths.hh \
+    ranges.hh
 
 unix {
     target.path = /usr/lib

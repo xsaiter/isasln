@@ -14,6 +14,7 @@
 #include "strings/aho_corasick.hh"
 
 #include "bloom_filter.hh"
+#include "ranges.hh"
 
 #include "graphs/graph.hh"
 #include "graphs/bfs_paths.hh"
@@ -86,6 +87,21 @@ TEST(test_str, remove_words_with_consecutive_repeated_letters) {
           "word wword");
 
   EXPECT_EQ(res, "word");
+}
+
+TEST(test_ranges, insert_range) {
+  std::vector<isa::range_t<int>> ranges = {{1, 2}, {4, 5}, {9, 15}};
+  isa::range_t<int> range(8, 11);
+
+  auto res = isa::insert_range(ranges, range);
+
+  std::vector<isa::range_t<int>> expected = {{1, 2}, {4, 5}, {8, 15}};
+
+  EXPECT_EQ(expected.size(), res.size());
+
+  for (auto i = 0; i < res.size(); ++i) {
+    EXPECT_EQ(res[i], expected[i]);
+  }
 }
 
 int main(int argc, char *argv[]) {
