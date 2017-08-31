@@ -14,5 +14,7 @@ bool str_is_palindrome(const std::string &s);
 int str_number_of_words(const std::string &s);
 int str_number_of_different_letters(const std::string &s);
 int str_levenshtein_distance(const std::string &from, const std::string &to);
+std::string
+remove_words_with_consecutive_repeated_letters(const std::string &s);
 }
 }

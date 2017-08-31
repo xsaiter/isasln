@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <locale>
 #include <sstream>
+#include <regex>
 
 #include "str_utils.hh"
 
@@ -123,6 +124,12 @@ int str_levenshtein_distance(const std::string &from, const std::string &to) {
   }
 
   return d[n - 1][m - 1];
+}
+
+std::string
+remove_words_with_consecutive_repeated_letters(const std::string &s) {
+  std::regex re(R"(\s?\b\w*(\w{1})\1\w*)");
+  return std::regex_replace(s, re, "");
 }
 }
 }

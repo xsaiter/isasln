@@ -80,8 +80,17 @@ TEST(test_aho_corasick, aho_corasick) {
   EXPECT_EQ(result.size(), 4);
 }
 
+TEST(test_str, remove_words_with_consecutive_repeated_letters) {
+  std::string res =
+      isa::strings::remove_words_with_consecutive_repeated_letters(
+          "word wword");
+
+  EXPECT_EQ(res, "word");
+}
+
 int main(int argc, char *argv[]) {
-  using GT = isa::graph_t<int, isa::directed_t::directed>;
+
+  /*using GT = isa::graph_t<int, isa::directed_t::directed>;
 
   GT g;
   g.add_edge(1, 2);
@@ -96,7 +105,7 @@ int main(int argc, char *argv[]) {
 
   isa::graph_t<std::string> gg;
   isa::bfs_paths<isa::graph_t<std::string>> sbf(gg, "1");
-
+*/
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
