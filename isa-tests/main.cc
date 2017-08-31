@@ -106,7 +106,7 @@ TEST(test_ranges, insert_range) {
 
 int main(int argc, char *argv[]) {
 
-  /*using GT = isa::graph_t<int, isa::directed_t::directed>;
+  using GT = isa::graph_t<int, isa::directed_t::directed>;
 
   GT g;
   g.add_edge(1, 2);
@@ -114,14 +114,15 @@ int main(int argc, char *argv[]) {
   g.add_edge(2, 4);
   g.add_edge(4, 1);
 
-  auto edges = g.get_edges();
+  auto edges = g.get_all_edges();
   isa::bfs_paths<GT> bf(g, 1);
   bf.build();
   std::size_t dist = bf.get_dist_to(4);
+  bool has = bf.has_path_to(4);
 
   isa::graph_t<std::string> gg;
   isa::bfs_paths<isa::graph_t<std::string>> sbf(gg, "1");
-*/
+
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

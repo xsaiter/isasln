@@ -10,12 +10,12 @@ public:
   using Vertex = typename Graph::vertex_t;
 
   bfs_paths(const Graph &g, const Vertex &s)
-      : g_(g), s_(s), marked_(g.v()), dist_(g.v()) {}
+      : g_(g), s_(s), marked_(g.v(), false), dist_(g.v(), 0) {}
 
   void build() {
-    std::vector<Vertex> vertices = g_.get_all_vertices();
-    const std::size_t n = vertices.size();
-    for (std::size_t i = 0; i < n; ++i) {
+    auto vertices = g_.get_all_vertices();
+    const auto n = vertices.size();
+    for (auto i = 0; i < n; ++i) {
       map_.insert(std::make_pair(vertices[i], i));
     }
 
@@ -23,23 +23,24 @@ public:
     q.push(s_);
 
     while (!q.empty()) {
-      Vertex p = q.front();
+      auto p = q.front();
       q.pop();
 
-      std::vector<Vertex> nbrs = g_.get_neighbors(p);
-      const std::size_t nn = nbrs.size();
+      auto nbr = g_.get_neighbors(p);
+      const auto nn = nbr.size();
 
-      for (std::size_t j = 0; j < nn; ++j) {
-        std::size_t x = map_[nbrs[j]];
+      for (auto j = 0; j < nn; ++j) {
+        auto x = map_[nbr[j]];
         if (!marked_[x]) {
           dist_[x] = dist_[map_[p]] + 1;
           marked_[x] = true;
-          q.push(nbrs[j]);
+          q.push(nbr[j]);
         }
       }
     }
   }
 
+  bool has_path_to(const Vertex &v) { return marked_[map_[v]]; }
   std::size_t get_dist_to(const Vertex &v) { return dist_[map_[v]]; }
 
 private:
