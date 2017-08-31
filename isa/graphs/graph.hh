@@ -114,6 +114,18 @@ public:
     return res;
   }
 
+  std::vector<edge_t_> get_edges_for(const Vertex &v) const {
+    std::vector<edge_t_> res;
+
+    auto i(find(v));
+    if (i != end()) {
+      edges_ptr_t s = (*i).second;
+      std::copy(s->begin(), s->end(), std::back_inserter(res));
+    }
+
+    return res;
+  }
+
 private:
   std::size_t e_ = 0;
   adj_t adj_;

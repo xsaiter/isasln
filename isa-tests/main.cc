@@ -18,6 +18,7 @@
 
 #include "graphs/graph.hh"
 #include "graphs/bfs_paths.hh"
+#include "graphs/dijkstra_sp.hh"
 
 using namespace std;
 
