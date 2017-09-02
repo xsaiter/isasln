@@ -100,30 +100,80 @@ TEST(test_ranges, insert_range) {
 
   EXPECT_EQ(expected.size(), res.size());
 
-  for (auto i = 0; i < res.size(); ++i) {
+  for (std::size_t i = 0; i < res.size(); ++i) {
     EXPECT_EQ(res[i], expected[i]);
   }
 }
 
-int main(int argc, char *argv[]) {
-
-  using GT = isa::graph_t<int, isa::directed_t::directed>;
+TEST(test_graph, dijkstra_sp) {
+  using GT = isa::graph_t<int>;
 
   GT g;
-  g.add_edge(1, 2);
-  g.add_edge(1, 3);
-  g.add_edge(2, 4);
-  g.add_edge(4, 1);
+  g.add_edge(1, 2, 7);
+  g.add_edge(1, 3, 9);
+  g.add_edge(2, 3, 10);
 
-  auto edges = g.get_all_edges();
+  g.add_edge(1, 6, 14);
+  g.add_edge(3, 6, 2);
+
+  g.add_edge(2, 4, 15);
+  g.add_edge(3, 4, 11);
+
+  g.add_edge(5, 6, 9);
+  g.add_edge(4, 5, 6);
+
+  isa::dijkstra_sp<GT> sp(g, 6);
+  sp.search();
+
+  auto res = sp.get_path_to(2);
+
+  GT::edge_tt e1(3, 2);
+  GT::edge_tt e2(6, 3);
+
+  std::stack<GT::edge_tt> expected;
+  expected.push(e1);
+  expected.push(e2);
+
+  EXPECT_EQ(expected.size(), res.size());
+
+  while (!res.empty()) {
+    auto expected_top = expected.top();
+    expected.pop();
+
+    auto actual_top = res.top();
+    res.pop();
+
+    EXPECT_EQ(actual_top, expected_top);
+  }
+}
+
+TEST(test_graph, bfs_path) {
+  using GT = isa::graph_t<int>;
+
+  GT g;
+  g.add_edge(1, 2, 7);
+  g.add_edge(1, 3, 9);
+  g.add_edge(2, 3, 10);
+
+  g.add_edge(1, 6, 14);
+  g.add_edge(3, 6, 2);
+
+  g.add_edge(2, 4, 15);
+  g.add_edge(3, 4, 11);
+
+  g.add_edge(5, 6, 9);
+  g.add_edge(4, 5, 6);
+
+  isa::dijkstra_sp<GT> dij(g, 6);
+
   isa::bfs_paths<GT> bf(g, 1);
   bf.build();
   std::size_t dist = bf.get_dist_to(4);
-  bool has = bf.has_path_to(4);
 
-  isa::graph_t<std::string> gg;
-  isa::bfs_paths<isa::graph_t<std::string>> sbf(gg, "1");
+  EXPECT_EQ(dist, 2);
+}
 
+int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
