@@ -10,9 +10,9 @@
 namespace isa {
 template <typename T> class bloom_filer_t {
 public:
-  using func_t = std::function<int(const T &)>;
+  using func_s = std::function<int(const T &)>;
 
-  bloom_filer_t(std::size_t capacity, std::initializer_list<func_t> funcs)
+  bloom_filer_t(std::size_t capacity, std::initializer_list<func_s> funcs)
       : capacity_(capacity), bits_(capacity), funcs_(funcs) {}
 
   void add(const T &item) {
@@ -40,7 +40,7 @@ public:
 private:
   std::size_t capacity_;
   std::vector<bool> bits_;
-  std::vector<func_t> funcs_;
+  std::vector<func_s> funcs_;
 
   inline std::size_t get_pos(std::size_t i, const T &item) const {
     return funcs_[i](item) % capacity_;
@@ -56,6 +56,6 @@ inline static int fnv_hash(const std::string &s) {
 std::unique_ptr<bloom_filter_str_t>
 make_bloom_filter_str(std::size_t capacity) {
   return std::make_unique<bloom_filter_str_t>(
-      capacity, std::initializer_list<bloom_filter_str_t::func_t>{&fnv_hash});
+      capacity, std::initializer_list<bloom_filter_str_t::func_s>{&fnv_hash});
 }
 }

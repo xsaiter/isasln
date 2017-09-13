@@ -127,10 +127,10 @@ TEST(test_graph, dijkstra_sp) {
 
   auto res = sp.get_path_to(2);
 
-  GT::edge_tt e1(3, 2);
-  GT::edge_tt e2(6, 3);
+  GT::edge_s e1(3, 2);
+  GT::edge_s e2(6, 3);
 
-  std::stack<GT::edge_tt> expected;
+  std::stack<GT::edge_s> expected;
   expected.push(e1);
   expected.push(e2);
 

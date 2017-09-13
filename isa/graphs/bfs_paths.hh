@@ -7,15 +7,15 @@
 namespace isa {
 template <class Graph> class bfs_paths {
 public:
-  using vertex_t = typename Graph::vertex_t;
+  using vertex_s = typename Graph::vertex_s;
 
-  bfs_paths(const Graph &g, const vertex_t &s)
+  bfs_paths(const Graph &g, const vertex_s &s)
       : g_(g), s_(s), marked_(g.v(), false), dist_(g.v(), 0) {
     g_.create_map(map_);
   }
 
   void build() {
-    std::queue<vertex_t> q;
+    std::queue<vertex_s> q;
     q.push(s_);
 
     while (!q.empty()) {
@@ -36,13 +36,13 @@ public:
     }
   }
 
-  bool has_path_to(const vertex_t &v) { return marked_[map_[v]]; }
-  std::size_t get_dist_to(const vertex_t &v) { return dist_[map_[v]]; }
+  bool has_path_to(const vertex_s &v) { return marked_[map_[v]]; }
+  std::size_t get_dist_to(const vertex_s &v) { return dist_[map_[v]]; }
 
 private:
   const Graph &g_;
-  const vertex_t s_;
-  std::map<vertex_t, std::size_t> map_;
+  const vertex_s s_;
+  std::map<vertex_s, std::size_t> map_;
   std::vector<bool> marked_;
   std::vector<std::size_t> dist_;
 };

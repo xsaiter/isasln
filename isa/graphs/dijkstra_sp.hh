@@ -9,19 +9,19 @@
 namespace isa {
 template <typename Graph> class dijkstra_sp {
 public:
-  using vertex_t = typename Graph::vertex_t;
-  using edge_t = typename Graph::edge_tt;
-  using pq_t = std::priority_queue<vertex_t, std::vector<vertex_t>,
-                                   std::greater<vertex_t>>;
+  using vertex_s = typename Graph::vertex_s;
+  using edge_t = typename Graph::edge_s;
+  using pq_s = std::priority_queue<vertex_s, std::vector<vertex_s>,
+                                   std::greater<vertex_s>>;
 
-  dijkstra_sp(const Graph &g, const vertex_t &s)
+  dijkstra_sp(const Graph &g, const vertex_s &s)
       : g_(g), s_(s), dist_(g.v(), -1), edges_(g.v()) {
     g_.create_map(map_);
     dist_[map_[s_]] = 0;
   }
 
   void search() {
-    pq_t q;
+    pq_s q;
     q.push(s_);
 
     while (!q.empty()) {
@@ -42,11 +42,11 @@ public:
     }
   }
 
-  bool has_path_to(const vertex_t &v) { return dist_[map_[v]] != -1; }
+  bool has_path_to(const vertex_s &v) { return dist_[map_[v]] != -1; }
 
-  int dist_to(const vertex_t &v) { return dist_[map_[v]]; }
+  int dist_to(const vertex_s &v) { return dist_[map_[v]]; }
 
-  std::stack<edge_t> get_path_to(const vertex_t &v) {
+  std::stack<edge_t> get_path_to(const vertex_s &v) {
     assert(has_path_to(v));
 
     std::stack<edge_t> res;
@@ -64,9 +64,9 @@ public:
 
 private:
   const Graph &g_;
-  const vertex_t s_;
+  const vertex_s s_;
   std::vector<int> dist_;
   std::vector<edge_t> edges_;
-  std::map<vertex_t, std::size_t> map_;
+  std::map<vertex_s, std::size_t> map_;
 };
 }
