@@ -173,6 +173,16 @@ TEST(test_graph, bfs_path) {
   EXPECT_EQ(dist, 2);
 }
 
+TEST(test_str, find_longest_repeated_substr) {
+  std::string s = "to be or not to be";
+
+  isa::strings::longest_repeated_substr_s res;
+  isa::strings::find_longest_repeated_substr(s, res);
+
+  EXPECT_EQ(res.all_pos.size(), 2);
+  EXPECT_EQ(res.s, "to be");
+}
+
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

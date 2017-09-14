@@ -2,6 +2,7 @@
 #include <locale>
 #include <sstream>
 #include <regex>
+#include <set>
 
 #include "str_utils.hh"
 
@@ -130,6 +131,57 @@ std::string
 remove_words_with_consecutive_repeated_letters(const std::string &s) {
   std::regex re(R"(\s?\b\w*(\w{1})\1\w*)");
   return std::regex_replace(s, re, "");
+}
+
+void find_longest_repeated_substr(const std::string &str,
+                                  longest_repeated_substr_s &res) {
+  struct pos_s {
+    pos_s(const std::string &s_, int pos_) : s(s_), pos(pos_) {}
+    std::string s;
+    int pos;
+  };
+
+  const auto n = str.size();
+  std::vector<pos_s> v;
+  v.reserve(n);
+
+  for (auto i = 0; i < n; ++i) {
+    v.emplace_back(str.substr(i, n - 1), i);
+  }
+
+  std::sort(v.begin(), v.end(),
+            [](const auto &lhs, const auto &rhs) { return lhs.s < rhs.s; });
+
+  std::set<int> ids;
+
+  int ri = 0;
+  int rj = 0;
+
+  for (auto i = 1; i < n; ++i) {
+    auto len = std::min(v[i].s.size(), v[i - 1].s.size());
+    auto j = 0;
+    while (j < len && v[i].s[j] == v[i - 1].s[j]) {
+      ++j;
+    }
+
+    if (j > rj) {
+      rj = j;
+      ri = i;
+
+      ids.clear();
+      ids.insert(i);
+      ids.insert(i - 1);
+    } else if (j == rj) {
+      ri = i;
+      ids.insert(i);
+    }
+  }
+
+  res.s = v[ri].s.substr(0, rj);
+
+  for (auto id : ids) {
+    res.all_pos.push_back(v[id].pos);
+  }
 }
 }
 }
