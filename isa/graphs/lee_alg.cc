@@ -5,14 +5,14 @@
 #define DIRECTIONS 4
 
 namespace isa {
-bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
+bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result) {
   int dx[DIRECTIONS] = {1, 0, -1, 0};
   int dy[DIRECTIONS] = {0, -1, 0, 1};
 
   int rows = opts.rows;
   int cols = opts.cols;
 
-  lee_cell_t cc[rows][cols];
+  lee_cell_s cc[rows][cols];
 
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < cols; ++j) {
@@ -33,7 +33,7 @@ bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
   cc[bx][by].y = by;
   cc[bx][by].visited = true;
 
-  std::queue<lee_cell_t> q;
+  std::queue<lee_cell_s> q;
 
   q.push(cc[bx][by]);
 
@@ -42,7 +42,7 @@ bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result) {
   int x, y, num, nx, ny;
 
   while (!stop && !q.empty()) {
-    lee_cell_t c = q.front();
+    lee_cell_s c = q.front();
     q.pop();
 
     x = c.x;

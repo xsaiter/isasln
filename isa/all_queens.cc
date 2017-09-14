@@ -4,19 +4,19 @@
 namespace isa {
 namespace misc {
 
-using cells_t = std::vector<all_queens_t::cell_t>;
+using cells_t = std::vector<all_queens_s::cell_s>;
 using cells_ptr_t = std::shared_ptr<cells_t>;
 
-all_queens_t::position_t::position_t() : cells_(new cells_t) {}
-all_queens_t::all_queens_t(std::size_t n) : n_(n) {}
+all_queens_s::position_s::position_s() : cells_(new cells_t) {}
+all_queens_s::all_queens_s(std::size_t n) : n_(n) {}
 
-all_queens_t::position_t all_queens_t::find_position() {
-  position_t pos;
+all_queens_s::position_s all_queens_s::find_position() {
+  position_s pos;
   pos.set_success(try_find(pos));
   return pos;
 }
 
-bool all_queens_t::try_find(position_t &pos) {
+bool all_queens_s::try_find(position_s &pos) {
   auto moves = next_moves(pos);
 
   for (auto m = moves->begin(); m != moves->end(); ++m) {
@@ -32,7 +32,7 @@ bool all_queens_t::try_find(position_t &pos) {
   return check_position(pos) && pos.size() == n_;
 }
 
-cells_ptr_t all_queens_t::next_moves(position_t &pos) const {
+cells_ptr_t all_queens_s::next_moves(position_s &pos) const {
   cells_ptr_t moves(new cells_t);
   int nx = 0;
 
@@ -46,13 +46,13 @@ cells_ptr_t all_queens_t::next_moves(position_t &pos) const {
   }
 
   for (int y = 0; y < 8; ++y) {
-    moves->push_back(all_queens_t::cell_t(nx + 1, y + 1));
+    moves->push_back(all_queens_s::cell_s(nx + 1, y + 1));
   }
 
   return moves;
 }
 
-bool all_queens_t::check_position(position_t &pos) const {
+bool all_queens_s::check_position(position_s &pos) const {
   for (auto c = pos.cells()->begin(); c != pos.cells()->end(); ++c) {
     for (int s = 0; s < 6; ++s) {
       std::size_t x = (*c).x_;
@@ -82,7 +82,7 @@ bool all_queens_t::check_position(position_t &pos) const {
           ++y;
           break;
         }
-        cell_t cc(x, y);
+        cell_s cc(x, y);
         if (std::find(pos.cells()->begin(), pos.cells()->end(), cc) !=
             pos.cells()->end()) {
           return false;

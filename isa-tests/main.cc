@@ -76,7 +76,7 @@ TEST(test_bloom_filter, bloom_filter) {
 TEST(test_aho_corasick, aho_corasick) {
   std::string s = "sheshe";
   std::vector<std::string> patterns = {"he", "she", "hello"};
-  aho_corasick_t ac(patterns);
+  aho_corasick_s ac(patterns);
   auto result = ac.search(s);
 
   EXPECT_EQ(result.size(), 4);
@@ -91,12 +91,12 @@ TEST(test_str, remove_words_with_consecutive_repeated_letters) {
 }
 
 TEST(test_ranges, insert_range) {
-  std::vector<isa::range_t<int>> ranges = {{1, 2}, {4, 5}, {9, 15}};
-  isa::range_t<int> range(8, 11);
+  std::vector<isa::range_s<int>> ranges = {{1, 2}, {4, 5}, {9, 15}};
+  isa::range_s<int> range(8, 11);
 
   auto res = isa::insert_range(ranges, range);
 
-  std::vector<isa::range_t<int>> expected = {{1, 2}, {4, 5}, {8, 15}};
+  std::vector<isa::range_s<int>> expected = {{1, 2}, {4, 5}, {8, 15}};
 
   EXPECT_EQ(expected.size(), res.size());
 
@@ -106,7 +106,7 @@ TEST(test_ranges, insert_range) {
 }
 
 TEST(test_graph, dijkstra_sp) {
-  using GT = isa::graph_t<int>;
+  using GT = isa::graph_s<int>;
 
   GT g;
   g.add_edge(1, 2, 7);
@@ -122,15 +122,15 @@ TEST(test_graph, dijkstra_sp) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  isa::dijkstra_sp<GT> sp(g, 6);
+  isa::dijkstra_sp_s<GT> sp(g, 6);
   sp.search();
 
   auto res = sp.get_path_to(2);
 
-  GT::edge_s e1(3, 2);
-  GT::edge_s e2(6, 3);
+  GT::edge_u e1(3, 2);
+  GT::edge_u e2(6, 3);
 
-  std::stack<GT::edge_s> expected;
+  std::stack<GT::edge_u> expected;
   expected.push(e1);
   expected.push(e2);
 
@@ -148,7 +148,7 @@ TEST(test_graph, dijkstra_sp) {
 }
 
 TEST(test_graph, bfs_path) {
-  using GT = isa::graph_t<int>;
+  using GT = isa::graph_s<int>;
 
   GT g;
   g.add_edge(1, 2, 7);
@@ -164,9 +164,9 @@ TEST(test_graph, bfs_path) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  isa::dijkstra_sp<GT> dij(g, 6);
+  isa::dijkstra_sp_s<GT> dij(g, 6);
 
-  isa::bfs_paths<GT> bf(g, 1);
+  isa::bfs_paths_s<GT> bf(g, 1);
   bf.build();
   std::size_t dist = bf.get_dist_to(4);
 

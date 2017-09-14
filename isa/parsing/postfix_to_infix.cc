@@ -10,13 +10,13 @@ static bool is_op(char c) {
   return c == '+' || c == '-' || c == '*' || c == '/';
 }
 
-struct token_t {
+struct token_s {
   std::string value;
   bool is_op;
   bool is_num;
 };
 
-class expr_t {
+class expr_s {
 public:
   std::string s;
   bool is_op = false;
@@ -28,7 +28,7 @@ public:
     }
   }
 
-  std::vector<expr_t> exprs;
+  std::vector<expr_s> exprs;
 
 private:
   bool processed = false;
@@ -38,7 +38,7 @@ private:
       return false;
     }
 
-    for (const expr_t &x : exprs) {
+    for (const expr_s &x : exprs) {
       if (x.is_op) {
         if (x.s == "+" || x.s == "-") {
           return true;
@@ -50,8 +50,8 @@ private:
   }
 };
 
-static std::string reverse_stack_to_string(std::stack<expr_t> &stack) {
-  std::stack<expr_t> rev;
+static std::string reverse_stack_to_string(std::stack<expr_s> &stack) {
+  std::stack<expr_s> rev;
   while (!stack.empty()) {
     rev.push(stack.top());
     stack.pop();
@@ -66,9 +66,9 @@ static std::string reverse_stack_to_string(std::stack<expr_t> &stack) {
   return ss.str();
 }
 
-static void flush_buffer(std::string &buffer, std::stack<expr_t> &stack) {
+static void flush_buffer(std::string &buffer, std::stack<expr_s> &stack) {
   if (!buffer.empty()) {
-    expr_t expr;
+    expr_s expr;
     expr.s = buffer;
     stack.push(expr);
     buffer.clear();
@@ -76,16 +76,16 @@ static void flush_buffer(std::string &buffer, std::stack<expr_t> &stack) {
 }
 
 std::string postfix_to_infix(const std::string &postfix) {
-  std::stack<expr_t> stack;
+  std::stack<expr_s> stack;
   std::string buffer;
 
   for (const char &c : postfix) {
     if (is_op(c)) {
       flush_buffer(buffer, stack);
 
-      expr_t b = stack.top();
+      expr_s b = stack.top();
       stack.pop();
-      expr_t a = stack.top();
+      expr_s a = stack.top();
       stack.pop();
 
       if (c == '*' || c == '/') {
@@ -93,11 +93,11 @@ std::string postfix_to_infix(const std::string &postfix) {
         a.process();
       }
 
-      expr_t e;
+      expr_s e;
       e.s = a.s + c + b.s;
       e.exprs.push_back(a);
 
-      expr_t x;
+      expr_s x;
       x.s = std::string(1, c);
       x.is_op = true;
 

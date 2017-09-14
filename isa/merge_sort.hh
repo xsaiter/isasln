@@ -9,7 +9,7 @@ namespace sorting {
 template <typename Iterator,
           typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
-class merge_sort_t {
+class merge_sort_s {
 public:
   static void sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
     const std::size_t n = std::distance(beg, end);

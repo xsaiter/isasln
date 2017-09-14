@@ -4,19 +4,19 @@
 
 namespace isa {
 
-struct lee_cell_t {
+struct lee_cell_s {
   int n;
   int x, y;
   bool discovered;
   bool visited;
 };
 
-struct lee_opts_t {
+struct lee_opts_s {
   int **a;
   int rows, cols;
   int beg_x, beg_y;
   int end_x, end_y;
 };
 
-bool lee_alg(const lee_opts_t &opts, std::vector<lee_cell_t> &result);
+bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result);
 }

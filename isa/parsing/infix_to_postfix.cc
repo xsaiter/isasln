@@ -9,15 +9,15 @@
 namespace isa {
 namespace parsing {
 
-struct token_t {
-  token_t(const std::string &s_, bool is_num_) : s(s_), is_num(is_num_) {}
+struct token_s {
+  token_s(const std::string &s_, bool is_num_) : s(s_), is_num(is_num_) {}
   std::string s;
   bool is_num;
 };
 
-static void flush_buffer(std::string &buffer, std::vector<token_t> &tokens) {
+static void flush_buffer(std::string &buffer, std::vector<token_s> &tokens) {
   if (!buffer.empty()) {
-    tokens.push_back(token_t(buffer, true));
+    tokens.push_back(token_s(buffer, true));
     buffer.clear();
   }
 }
@@ -27,8 +27,8 @@ static bool is_op(const char c) {
          c == '^';
 }
 
-static std::vector<token_t> get_tokens(const std::string &infix) {
-  std::vector<token_t> tokens;
+static std::vector<token_s> get_tokens(const std::string &infix) {
+  std::vector<token_s> tokens;
   std::string buffer;
 
   for (const char &c : infix) {
@@ -36,7 +36,7 @@ static std::vector<token_t> get_tokens(const std::string &infix) {
       buffer += c;
     } else if (is_op(c)) {
       flush_buffer(buffer, tokens);
-      tokens.push_back(token_t(std::string(1, c), false));
+      tokens.push_back(token_s(std::string(1, c), false));
     }
   }
 
@@ -46,12 +46,12 @@ static std::vector<token_t> get_tokens(const std::string &infix) {
 
 // shunting-yard algorithm
 std::string infix_to_postfix(const std::string &infix) {
-  std::queue<token_t> q;
-  std::stack<token_t> s;
+  std::queue<token_s> q;
+  std::stack<token_s> s;
 
-  std::vector<token_t> tokens = get_tokens(infix);
+  std::vector<token_s> tokens = get_tokens(infix);
 
-  for (token_t &token : tokens) {
+  for (token_s &token : tokens) {
     if (token.is_num) {
       q.push(token);
     } else {
@@ -59,7 +59,7 @@ std::string infix_to_postfix(const std::string &infix) {
         s.push(token);
       } else if (token.s == ")") {
         while (!s.empty()) {
-          token_t t = s.top();
+          token_s t = s.top();
           if (t.s == "(") {
             s.pop();
             break;
@@ -69,7 +69,7 @@ std::string infix_to_postfix(const std::string &infix) {
         }
       } else if (token.s == "^") {
         while (!s.empty()) {
-          token_t t = s.top();
+          token_s t = s.top();
           if (t.s == "(" || t.s == "^" || t.s == "*" || t.s == "/") {
             break;
           }
@@ -78,7 +78,7 @@ std::string infix_to_postfix(const std::string &infix) {
         }
       } else if (token.s == "+" || token.s == "-") {
         while (!s.empty()) {
-          token_t t = s.top();
+          token_s t = s.top();
           if (t.s == "(") {
             break;
           }
@@ -88,7 +88,7 @@ std::string infix_to_postfix(const std::string &infix) {
       } else {
         if (token.s == "*" || token.s == "/") {
           while (!s.empty()) {
-            token_t t = s.top();
+            token_s t = s.top();
             if (t.s == "(") {
               break;
             }

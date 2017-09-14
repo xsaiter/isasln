@@ -5,17 +5,17 @@
 #include "graph.hh"
 
 namespace isa {
-template <class Graph> class bfs_paths {
+template <class Graph> class bfs_paths_s {
 public:
-  using vertex_s = typename Graph::vertex_s;
+  using vertex_u = typename Graph::vertex_u;
 
-  bfs_paths(const Graph &g, const vertex_s &s)
+  bfs_paths_s(const Graph &g, const vertex_u &s)
       : g_(g), s_(s), marked_(g.v(), false), dist_(g.v(), 0) {
     g_.create_map(map_);
   }
 
   void build() {
-    std::queue<vertex_s> q;
+    std::queue<vertex_u> q;
     q.push(s_);
 
     while (!q.empty()) {
@@ -36,13 +36,13 @@ public:
     }
   }
 
-  bool has_path_to(const vertex_s &v) { return marked_[map_[v]]; }
-  std::size_t get_dist_to(const vertex_s &v) { return dist_[map_[v]]; }
+  bool has_path_to(const vertex_u &v) { return marked_[map_[v]]; }
+  std::size_t get_dist_to(const vertex_u &v) { return dist_[map_[v]]; }
 
 private:
   const Graph &g_;
-  const vertex_s s_;
-  std::map<vertex_s, std::size_t> map_;
+  const vertex_u s_;
+  std::map<vertex_u, std::size_t> map_;
   std::vector<bool> marked_;
   std::vector<std::size_t> dist_;
 };
