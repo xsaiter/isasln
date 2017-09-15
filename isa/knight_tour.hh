@@ -42,7 +42,7 @@ public:
 private:
   std::size_t width_;
   std::size_t height_;
-  std::size_t n_cells_;
+  std::size_t ncells_;
   cell_s start_;
   const int shifts_[2][8] = {{-2, -1, 1, 2, 2, 1, -1, -2},
                              {1, 2, 2, 1, -1, -2, -2, -1}};

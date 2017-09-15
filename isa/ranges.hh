@@ -6,17 +6,15 @@ namespace isa {
 template <class T> struct range_s {
   T beg, end;
   range_s(const T &beg_, const T &end_) : beg(beg_), end(end_) {}
+
+  friend bool operator==(const range_s<T> &lhs, const range_s<T> &rhs) {
+    return lhs.beg == rhs.beg && lhs.end == rhs.end;
+  }
+
+  friend bool operator!=(const range_s<T> &lhs, const range_s<T> &rhs) {
+    return !(lhs == rhs);
+  }
 };
-
-template <class T>
-bool operator==(const range_s<T> &lhs, const range_s<T> &rhs) {
-  return lhs.beg == rhs.beg && lhs.end == rhs.end;
-}
-
-template <class T>
-bool operator!=(const range_s<T> &lhs, const range_s<T> &rhs) {
-  return !(lhs == rhs);
-}
 
 template <class T>
 range_s<T> merge_intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
@@ -25,12 +23,12 @@ range_s<T> merge_intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
       return range_s<T>(a.beg, b.end);
     }
     return range_s<T>(a.beg, a.end);
-  } else {
-    if (a.end < b.end) {
-      return range_s<T>(b.beg, b.end);
-    }
-    return range_s<T>(b.beg, a.end);
   }
+
+  if (a.end < b.end) {
+    return range_s<T>(b.beg, b.end);
+  }
+  return range_s<T>(b.beg, a.end);
 }
 
 template <class T>

@@ -4,10 +4,10 @@
 namespace isa {
 namespace misc {
 
-using cells_t = std::vector<all_queens_s::cell_s>;
-using cells_ptr_t = std::shared_ptr<cells_t>;
+using cells_u = std::vector<all_queens_s::cell_s>;
+using cells_ptr_u = std::shared_ptr<cells_u>;
 
-all_queens_s::position_s::position_s() : cells_(new cells_t) {}
+all_queens_s::position_s::position_s() : cells_(new cells_u) {}
 all_queens_s::all_queens_s(std::size_t n) : n_(n) {}
 
 all_queens_s::position_s all_queens_s::find_position() {
@@ -32,8 +32,8 @@ bool all_queens_s::try_find(position_s &pos) {
   return check_position(pos) && pos.size() == n_;
 }
 
-cells_ptr_t all_queens_s::next_moves(position_s &pos) const {
-  cells_ptr_t moves(new cells_t);
+cells_ptr_u all_queens_s::next_moves(position_s &pos) const {
+  cells_ptr_u moves(new cells_u);
   int nx = 0;
 
   auto last = pos.cells()->rbegin();
