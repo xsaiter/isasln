@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     isa \
-    isa-tests
+    isa-tests \
+    isa-tss

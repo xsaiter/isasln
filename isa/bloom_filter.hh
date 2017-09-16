@@ -8,11 +8,11 @@
 #include "hash_funcs.hh"
 
 namespace isa {
-template <typename T> class bloom_filer_s {
+template <typename T> class bloom_filter_s {
 public:
   using func_u = std::function<int(const T &)>;
 
-  bloom_filer_s(std::size_t capacity, std::initializer_list<func_u> funcs)
+  bloom_filter_s(std::size_t capacity, std::initializer_list<func_u> funcs)
       : capacity_(capacity), bits_(capacity), funcs_(funcs) {}
 
   void add(const T &item) {
@@ -47,7 +47,7 @@ private:
   }
 };
 
-using bloom_filter_str_u = bloom_filer_s<std::string>;
+using bloom_filter_str_u = bloom_filter_s<std::string>;
 
 inline static int fnv_hash(const std::string &s) {
   return isa::FNV1aHash((char *)s.c_str());
