@@ -42,6 +42,9 @@ public:
   explicit graph_i_s(std::size_t nv) : nv_(nv), ne_(0), adj_(nv_) {}
 
   void add_edge(int a, int b) {
+    validate_vertex(a);
+    validate_vertex(b);
+
     add_edge_impl(a, b);
     if (directed == directed_s::undirected) {
       add_edge_impl(b, a);
@@ -71,7 +74,7 @@ private:
 
   void add_edge_impl(int a, int b) { adj_[a].push_front(edge_u(a, b)); }
 
-  void validate_vertex(int v) const { assert(0 < v && v < nv_); }
+  inline void validate_vertex(int v) const { assert(0 < v && v < nv_); }
 };
 
 template <class Pair> struct first_s {
@@ -107,19 +110,19 @@ public:
 
   void add_vertex(const vertex_u &v) { add_vertex_impl(v); }
 
-  void add_edge(const vertex_u &src, const vertex_u &dest, int w = 0) {
-    edges_ptr_u src_ptr = add_vertex_impl(src);
-    edges_ptr_u dest_ptr = add_vertex_impl(dest);
+  void add_edge(const vertex_u &a, const vertex_u &b, int w = 0) {
+    edges_ptr_u a_ptr = add_vertex_impl(a);
+    edges_ptr_u b_ptr = add_vertex_impl(b);
 
     if (directed == directed_s::directed) {
-      if (not_exists_edge(src_ptr, dest)) {
-        src_ptr->emplace_back(src, dest, w);
+      if (not_exists_edge(a_ptr, b)) {
+        a_ptr->emplace_back(a, b, w);
         ++e_;
       }
     } else if (directed == directed_s::undirected) {
-      if (not_exists_edge(src_ptr, dest) && not_exists_edge(dest_ptr, src)) {
-        src_ptr->emplace_back(src, dest, w);
-        dest_ptr->emplace_back(dest, src, w);
+      if (not_exists_edge(a_ptr, b) && not_exists_edge(b_ptr, a)) {
+        a_ptr->emplace_back(a, b, w);
+        b_ptr->emplace_back(b, a, w);
         ++e_;
       }
     }
