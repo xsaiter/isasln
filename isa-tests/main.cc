@@ -184,6 +184,13 @@ TEST(test_str, find_longest_repeated_substr) {
 }
 
 int main(int argc, char *argv[]) {
+  isa::graph_i_s<isa::directed_s::undirected> g(10);
+  g.add_edge(1, 2);
+  g.add_edge(2, 4);
+
+  auto nbr = g.neighbors(4);
+  auto edges = g.incident_edges(2);
+
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

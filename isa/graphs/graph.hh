@@ -7,29 +7,71 @@
 #include <map>
 #include <set>
 #include <algorithm>
+#include <cassert>
 
 namespace isa {
 enum class directed_s { directed, undirected, bidirected };
 
 template <class Vertex, directed_s directed> struct edge_s {
   edge_s() {}
-  edge_s(const Vertex &src_, const Vertex &dest_, int w_ = 0)
-      : src(src_), dest(dest_), w(w_) {}
-  Vertex src, dest;
+  edge_s(const Vertex &a_, const Vertex &b_, int w_ = 0)
+      : a(a_), b(b_), w(w_) {}
+  Vertex a, b;
   int w;
   directed_s is_directed = directed;
 
   friend bool operator==(const edge_s<Vertex, directed> &lhs,
                          const edge_s<Vertex, directed> &rhs) {
-    return (lhs.src == rhs.src && lhs.dest == rhs.dest) ||
-           (directed == directed_s::undirected && lhs.src == rhs.dest &&
-            lhs.dest == rhs.src);
+    return (lhs.a == rhs.a && lhs.b == rhs.b) ||
+           (directed == directed_s::undirected && lhs.a == rhs.b &&
+            lhs.b == rhs.a);
   }
 
   friend bool operator!=(const edge_s<Vertex, directed> &lhs,
                          const edge_s<Vertex, directed> &rhs) {
     return !(lhs == rhs);
   }
+};
+
+template <directed_s directed = directed_s::undirected> class graph_i_s {
+public:
+  using edge_u = edge_s<int, directed>;
+  using edges_u = std::list<edge_u>;
+  using adj_u = std::vector<edges_u>;
+
+  explicit graph_i_s(std::size_t nv) : nv_(nv), ne_(0), adj_(nv_) {}
+
+  void add_edge(int a, int b) {
+    add_edge_impl(a, b);
+    if (directed == directed_s::undirected) {
+      add_edge_impl(b, a);
+    }
+    ++ne_;
+  }
+
+  std::vector<int> neighbors(int v) const {
+    validate_vertex(v);
+    std::vector<int> res;
+    std::transform(adj_[v].begin(), adj_[v].end(), std::back_inserter(res),
+                   [](const auto &e) { return e.b; });
+    return res;
+  }
+
+  std::vector<edge_u> incident_edges(int v) const {
+    validate_vertex(v);
+    std::vector<edge_u> res;
+    std::copy(adj_[v].begin(), adj_[v].end(), std::back_inserter(res));
+    return res;
+  }
+
+private:
+  int nv_;
+  int ne_;
+  adj_u adj_;
+
+  void add_edge_impl(int a, int b) { adj_[a].push_front(edge_u(a, b)); }
+
+  void validate_vertex(int v) const { assert(0 < v && v < nv_); }
 };
 
 template <class Pair> struct first_s {
@@ -66,18 +108,18 @@ public:
   void add_vertex(const vertex_u &v) { add_vertex_impl(v); }
 
   void add_edge(const vertex_u &src, const vertex_u &dest, int w = 0) {
-    edges_ptr_u p_src = add_vertex_impl(src);
-    edges_ptr_u p_dest = add_vertex_impl(dest);
+    edges_ptr_u src_ptr = add_vertex_impl(src);
+    edges_ptr_u dest_ptr = add_vertex_impl(dest);
 
     if (directed == directed_s::directed) {
-      if (not_exists_edge(p_src, dest)) {
-        p_src->emplace_back(src, dest, w);
+      if (not_exists_edge(src_ptr, dest)) {
+        src_ptr->emplace_back(src, dest, w);
         ++e_;
       }
     } else if (directed == directed_s::undirected) {
-      if (not_exists_edge(p_src, dest) && not_exists_edge(p_dest, src)) {
-        p_src->emplace_back(src, dest, w);
-        p_dest->emplace_back(dest, src, w);
+      if (not_exists_edge(src_ptr, dest) && not_exists_edge(dest_ptr, src)) {
+        src_ptr->emplace_back(src, dest, w);
+        dest_ptr->emplace_back(dest, src, w);
         ++e_;
       }
     }
@@ -106,7 +148,7 @@ public:
     if (i != end()) {
       std::transform(i->second->begin(), i->second->end(),
                      std::back_inserter(res),
-                     [](const auto &e) { return e.dest; });
+                     [](const auto &e) { return e.b; });
     }
     return res;
   }
@@ -135,7 +177,7 @@ private:
   inline bool not_exists_edge(const edges_ptr_u edges,
                               const vertex_u &v) const {
     return std::find_if(edges->begin(), edges->end(), [&](const edge_u &e) {
-      return e.dest == v;
+      return e.b == v;
     }) == edges->end();
   }
 

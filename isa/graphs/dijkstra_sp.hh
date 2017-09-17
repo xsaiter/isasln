@@ -31,10 +31,10 @@ public:
       auto edges = g_.get_incident_edges(t);
 
       for (const auto &edge : edges) {
-        std::size_t i = map_[edge.dest];
+        std::size_t i = map_[edge.b];
         int d = dist_[map_[t]] + edge.w;
         if (dist_[i] == -1 || d < dist_[i]) {
-          q.push(edge.dest);
+          q.push(edge.b);
           dist_[i] = d;
           edges_[i] = edge;
         }
@@ -54,8 +54,8 @@ public:
     auto i = std::next(edges_.begin(), map_[v]);
     res.push(*i);
 
-    while (i->src != s_) {
-      i = std::next(edges_.begin(), map_[i->src]);
+    while (i->a != s_) {
+      i = std::next(edges_.begin(), map_[i->a]);
       res.push(*i);
     }
 
