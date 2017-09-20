@@ -12,7 +12,7 @@ struct lee_cell_s {
 };
 
 struct lee_opts_s {
-  int **a;
+  std::vector<std::vector<int>> a;
   int rows, cols;
   int beg_x, beg_y;
   int end_x, end_y;

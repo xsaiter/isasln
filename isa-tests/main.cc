@@ -76,7 +76,7 @@ TEST(test_bloom_filter, bloom_filter) {
 TEST(test_aho_corasick, aho_corasick) {
   std::string s = "sheshe";
   std::vector<std::string> patterns = {"he", "she", "hello"};
-  aho_corasick_s ac(patterns);
+  isa::strings::aho_corasick_s ac(patterns);
   auto result = ac.search(s);
 
   EXPECT_EQ(result.size(), 4);

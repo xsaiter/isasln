@@ -1,5 +1,7 @@
 #include "str_search.hh"
 
+namespace isa {
+namespace strings {
 std::vector<std::size_t> str_z_func(const std::string &s) {
   const std::size_t n = s.size();
   std::vector<std::size_t> res(n);
@@ -98,4 +100,6 @@ int str_kmp(const std::string &s, const std::string &p) {
   }
 
   return -1;
+}
+}
 }

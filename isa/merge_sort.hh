@@ -65,10 +65,10 @@ private:
       return;
     }
 
-    int n1 = std::distance(beg, mid);
-    int n2 = std::distance(mid, end);
+    const int n1 = std::distance(beg, mid);
+    const int n2 = std::distance(mid, end);
+    const int len = n1 + n2;
 
-    int len = n1 + n2;
     std::vector<int> vec(len);
 
     int p1 = 0, p2 = 0;

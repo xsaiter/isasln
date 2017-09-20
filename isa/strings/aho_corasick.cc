@@ -3,6 +3,8 @@
 
 #include "aho_corasick.hh"
 
+namespace isa {
+namespace strings {
 aho_corasick_s::aho_corasick_s(const std::vector<std::string> &patterns)
     : patterns_(patterns), root_(std::make_shared<node_s>()) {
   build_machine();
@@ -122,10 +124,10 @@ void aho_corasick_s::build_failure() {
 
 aho_corasick_s::node_ptr_u aho_corasick_s::next_state(node_ptr_u node,
                                                       char c) const {
-  auto found = std::find_if(node->children.begin(), node->children.end(),
-                            [&](node_ptr_u n) { return n->c == c; });
-  if (found != node->children.end()) {
-    return *found;
+  auto i = std::find_if(node->children.begin(), node->children.end(),
+                        [&](const node_ptr_u &n) { return n->c == c; });
+  if (i != node->children.end()) {
+    return *i;
   }
   return nullptr;
 }
@@ -145,4 +147,6 @@ void aho_corasick_s::append(std::vector<result_s> &result, node_ptr_u node,
   if (node->has_output) {
     result.emplace_back(node->output, end);
   }
+}
+}
 }

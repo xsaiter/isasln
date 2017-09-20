@@ -77,6 +77,8 @@ private:
   inline void validate_vertex(int v) const { assert(0 < v && v < nv_); }
 };
 
+namespace details {
+
 template <class Pair> struct first_s {
   typename Pair::first_type operator()(const Pair &p) const { return p.first; }
 };
@@ -84,6 +86,8 @@ template <class Pair> struct first_s {
 template <class Map> auto first(const Map &) {
   return first_s<typename Map::value_type>();
 }
+
+} // details
 
 template <class T> using edge_list_u = std::list<T>;
 
@@ -130,7 +134,7 @@ public:
 
   std::vector<vertex_u> get_all_vertices() const {
     std::vector<vertex_u> res;
-    std::transform(beg(), end(), std::back_inserter(res), first(adj_));
+    std::transform(beg(), end(), std::back_inserter(res), details::first(adj_));
     return res;
   }
 
