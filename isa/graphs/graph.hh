@@ -39,21 +39,24 @@ public:
   using edges_u = std::list<edge_u>;
   using adj_u = std::vector<edges_u>;
 
-  explicit graph_i_s(std::size_t nv) : nv_(nv), ne_(0), adj_(nv_) {}
+  explicit graph_i_s(std::size_t nv) : nnodes_(nv), nedges_(0), adj_(nnodes_) {}
+
+  int nnodes() const { return nnodes_; }
+  int nedges() const { return nedges_; }
 
   void add_edge(int a, int b) {
-    validate_vertex(a);
-    validate_vertex(b);
+    validate_node(a);
+    validate_node(b);
 
     add_edge_impl(a, b);
     if (directed == directed_s::undirected) {
       add_edge_impl(b, a);
     }
-    ++ne_;
+    ++nedges_;
   }
 
   std::vector<int> neighbors(int v) const {
-    validate_vertex(v);
+    validate_node(v);
     std::vector<int> res;
     std::transform(adj_[v].begin(), adj_[v].end(), std::back_inserter(res),
                    [](const auto &e) { return e.b; });
@@ -61,20 +64,20 @@ public:
   }
 
   std::vector<edge_u> incident_edges(int v) const {
-    validate_vertex(v);
+    validate_node(v);
     std::vector<edge_u> res;
     std::copy(adj_[v].begin(), adj_[v].end(), std::back_inserter(res));
     return res;
   }
 
 private:
-  int nv_;
-  int ne_;
+  int nnodes_;
+  int nedges_;
   adj_u adj_;
 
   void add_edge_impl(int a, int b) { adj_[a].push_front(edge_u(a, b)); }
 
-  inline void validate_vertex(int v) const { assert(0 < v && v < nv_); }
+  inline void validate_node(int v) const { assert(0 < v && v < nnodes_); }
 };
 
 namespace details {
@@ -90,6 +93,30 @@ template <class Map> auto first(const Map &) {
 } // details
 
 template <class T> using edge_list_u = std::list<T>;
+
+template <class Node, directed_s directed = directed_s::undirected>
+class graph_s_s {
+public:
+  using node_u = typename Node;
+
+  void add_edge(const node_u &a, const node_u &b) {}
+
+  int index(const node_u &node) const {
+    auto i = map_.find(node);
+    if (i == map_.end()) {
+      return -1;
+    }
+    return i->second;
+  }
+
+  node_u node(int index) const { return nodes_[index]; }
+  std::shared_ptr<graph_i_s> g() const { return g_; }
+
+private:
+  std::map<node_u, int> map_;
+  std::vector<node_u> nodes_;
+  std::shared_ptr<graph_i_s<directed>> g_;
+};
 
 template <class Vertex, directed_s directed = directed_s::undirected,
           template <class> class EdgeList = edge_list_u>
