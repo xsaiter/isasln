@@ -28,14 +28,14 @@ public:
 
       auto edges = g_.incident_edges(t);
 
-      for (const auto &edge : edges) {
-        int d = dist_[t] + edge.w;
-        int i = edge.b;
+      for (const auto &e : edges) {
+        int d = dist_[t] + e.w;
+        int i = e.b;
 
         if (dist_[i] == -1 || d < dist_[i]) {
-          q.push(edge.b);
+          q.push(e.b);
           dist_[i] = d;
-          edges_[i] = edge;
+          edges_[i] = e;
         }
       }
     }

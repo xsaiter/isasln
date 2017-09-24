@@ -26,8 +26,7 @@ HEADERS += \
     sort.hh \
     graphs/graph.hh \
     graphs/bfs_paths.hh \
-    ranges.hh \
-    graphs/dijkstra_sp.hh \
+    ranges.hh \    
     common.hh \
     graphs/dijkstra.hh
 
