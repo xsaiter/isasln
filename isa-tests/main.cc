@@ -19,6 +19,7 @@
 #include "graphs/graph.hh"
 #include "graphs/bfs_paths.hh"
 #include "graphs/dijkstra_sp.hh"
+#include "graphs/dijkstra.hh"
 
 using namespace std;
 
@@ -147,6 +148,48 @@ TEST(test_graph, dijkstra_sp) {
   }
 }
 
+TEST(test_graph, dijkstra) {
+  using GT = isa::graph_i_s<isa::directed_s::undirected>;
+
+  GT g(15);
+  g.add_edge(1, 2, 7);
+  g.add_edge(1, 3, 9);
+  g.add_edge(2, 3, 10);
+
+  g.add_edge(1, 6, 14);
+  g.add_edge(3, 6, 2);
+
+  g.add_edge(2, 4, 15);
+  g.add_edge(3, 4, 11);
+
+  g.add_edge(5, 6, 9);
+  g.add_edge(4, 5, 6);
+
+  isa::dijkstra_s<GT> sp(g, 6);
+  sp.search();
+
+  auto res = sp.get_path_to(2);
+
+  GT::edge_u e1(3, 2);
+  GT::edge_u e2(6, 3);
+
+  std::stack<GT::edge_u> expected;
+  expected.push(e1);
+  expected.push(e2);
+
+  EXPECT_EQ(expected.size(), res.size());
+
+  while (!res.empty()) {
+    auto expected_top = expected.top();
+    expected.pop();
+
+    auto actual_top = res.top();
+    res.pop();
+
+    EXPECT_EQ(actual_top, expected_top);
+  }
+}
+
 TEST(test_graph, bfs_path) {
   using GT = isa::graph_s<int>;
 
@@ -164,9 +207,31 @@ TEST(test_graph, bfs_path) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  isa::dijkstra_sp_s<GT> dij(g, 6);
-
   isa::bfs_paths_s<GT> bf(g, 1);
+  bf.build();
+  std::size_t dist = bf.get_dist_to(4);
+
+  EXPECT_EQ(dist, 2);
+}
+
+TEST(test_graph, bfs_paths) {
+  using GT = isa::graph_i_s<isa::directed_s::undirected>;
+
+  GT g(16);
+  g.add_edge(1, 2, 7);
+  g.add_edge(1, 3, 9);
+  g.add_edge(2, 3, 10);
+
+  g.add_edge(1, 6, 14);
+  g.add_edge(3, 6, 2);
+
+  g.add_edge(2, 4, 15);
+  g.add_edge(3, 4, 11);
+
+  g.add_edge(5, 6, 9);
+  g.add_edge(4, 5, 6);
+
+  isa::bfs_paths_ss<GT> bf(g, 1);
   bf.build();
   std::size_t dist = bf.get_dist_to(4);
 

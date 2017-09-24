@@ -39,24 +39,25 @@ public:
   using edges_u = std::list<edge_u>;
   using adj_u = std::vector<edges_u>;
 
-  explicit graph_i_s(std::size_t nv) : nnodes_(nv), nedges_(0), adj_(nnodes_) {}
+  explicit graph_i_s(std::size_t nv) : nv_(nv), ne_(0), adj_(nv_) {}
 
-  int nnodes() const { return nnodes_; }
-  int nedges() const { return nedges_; }
+  int nv() const { return nv_; }
+  int ne() const { return ne_; }
 
-  void add_edge(int a, int b) {
-    validate_node(a);
-    validate_node(b);
+  void add_edge(int a, int b, int w = 0) {
+    validate_vertex(a);
+    validate_vertex(b);
 
-    add_edge_impl(a, b);
+    add_edge_impl(a, b, w);
     if (directed == directed_s::undirected) {
-      add_edge_impl(b, a);
+      add_edge_impl(b, a, w);
     }
-    ++nedges_;
+
+    ++ne_;
   }
 
   std::vector<int> neighbors(int v) const {
-    validate_node(v);
+    validate_vertex(v);
     std::vector<int> res;
     std::transform(adj_[v].begin(), adj_[v].end(), std::back_inserter(res),
                    [](const auto &e) { return e.b; });
@@ -64,20 +65,22 @@ public:
   }
 
   std::vector<edge_u> incident_edges(int v) const {
-    validate_node(v);
+    validate_vertex(v);
     std::vector<edge_u> res;
     std::copy(adj_[v].begin(), adj_[v].end(), std::back_inserter(res));
     return res;
   }
 
 private:
-  int nnodes_;
-  int nedges_;
+  int nv_;
+  int ne_;
   adj_u adj_;
 
-  void add_edge_impl(int a, int b) { adj_[a].push_front(edge_u(a, b)); }
+  void add_edge_impl(int a, int b, int w) {
+    adj_[a].push_front(edge_u(a, b, w));
+  }
 
-  inline void validate_node(int v) const { assert(0 < v && v < nnodes_); }
+  inline void validate_vertex(int v) const { assert(0 < v && v < nv_); }
 };
 
 namespace details {
@@ -93,30 +96,6 @@ template <class Map> auto first(const Map &) {
 } // details
 
 template <class T> using edge_list_u = std::list<T>;
-
-template <class Node, directed_s directed = directed_s::undirected>
-class graph_s_s {
-public:
-  using node_u = typename Node;
-
-  void add_edge(const node_u &a, const node_u &b) {}
-
-  int index(const node_u &node) const {
-    auto i = map_.find(node);
-    if (i == map_.end()) {
-      return -1;
-    }
-    return i->second;
-  }
-
-  node_u node(int index) const { return nodes_[index]; }
-  std::shared_ptr<graph_i_s> g() const { return g_; }
-
-private:
-  std::map<node_u, int> map_;
-  std::vector<node_u> nodes_;
-  std::shared_ptr<graph_i_s<directed>> g_;
-};
 
 template <class Vertex, directed_s directed = directed_s::undirected,
           template <class> class EdgeList = edge_list_u>

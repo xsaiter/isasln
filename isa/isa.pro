@@ -27,7 +27,9 @@ HEADERS += \
     graphs/graph.hh \
     graphs/bfs_paths.hh \
     ranges.hh \
-    graphs/dijkstra_sp.hh
+    graphs/dijkstra_sp.hh \
+    common.hh \
+    graphs/dijkstra.hh
 
 unix {
     target.path = /usr/lib
