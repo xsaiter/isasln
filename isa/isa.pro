@@ -25,10 +25,10 @@ HEADERS += \
     merge_sort.hh \
     sort.hh \
     graphs/graph.hh \
-    graphs/bfs_paths.hh \
     ranges.hh \    
     common.hh \
-    graphs/dijkstra.hh
+    graphs/dijkstra.hh \
+    graphs/paths.hh
 
 unix {
     target.path = /usr/lib

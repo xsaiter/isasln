@@ -6,12 +6,12 @@
 
 namespace isa {
 
-template <class Graph> class bfs_paths_ss {
+template <class Graph> class graph_paths_s {
 public:
-  bfs_paths_ss(const Graph &g, int s)
+  graph_paths_s(const Graph &g, int s)
       : g_(g), s_(s), marked_(g.nv(), false), dist_(g.nv(), 0) {}
 
-  void build() {
+  void bfs() {
     std::queue<int> q;
     q.push(s_);
 
@@ -33,6 +33,8 @@ public:
     }
   }
 
+  void dfs() { dfs(s_); }
+
   bool has_path_to(int v) { return marked_[v]; }
   std::size_t get_dist_to(int v) { return dist_[v]; }
 
@@ -41,5 +43,18 @@ private:
   int s_;
   std::vector<bool> marked_;
   std::vector<std::size_t> dist_;
+
+  void dfs(int i) {
+    marked_[i] = true;
+
+    auto nbr = g_.neighbors(i);
+
+    for (auto x : nbr) {
+      if (!marked_[x]) {
+        dist_[x] = dist_[i] + 1;
+        dfs(x);
+      }
+    }
+  }
 };
 }

@@ -80,7 +80,7 @@ private:
     adj_[a].push_front(edge_u(a, b, w));
   }
 
-  inline void validate_vertex(int v) const { assert(0 < v && v < nv_); }
+  inline void validate_vertex(int v) const { assert(0 <= v && v < nv_); }
 };
 
 namespace details {
@@ -183,9 +183,25 @@ public:
     }
   }
 
+  using g_ptr_u = std::shared_ptr<graph_i_s<directed>>;
+
+  g_ptr_u g() {
+    if (g_ == nullptr) {
+      g_ = std::make_shared<graph_i_s<directed>>(adj_.size());
+      for (int i = 0; i < adj_.size(); ++i) {
+        edges_ptr_u edges_ptr = adj_.at(i);
+        for (const auto edge : *edges_ptr) {
+          // g_->add_edge(i, edge.b);
+        }
+      }
+    }
+    return g_;
+  }
+
 private:
   std::size_t e_ = 0;
   adj_u adj_;
+  g_ptr_u g_;
 
   inline bool not_exists_edge(const edges_ptr_u edges,
                               const vertex_u &v) const {

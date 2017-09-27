@@ -17,7 +17,7 @@
 #include "ranges.hh"
 
 #include "graphs/graph.hh"
-#include "graphs/bfs_paths.hh"
+#include "graphs/paths.hh"
 #include "graphs/dijkstra.hh"
 
 using namespace std;
@@ -164,9 +164,33 @@ TEST(test_graph, bfs_paths) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  isa::bfs_paths_ss<GT> bf(g, 1);
-  bf.build();
-  std::size_t dist = bf.get_dist_to(4);
+  isa::graph_paths_s<GT> paths(g, 1);
+  paths.bfs();
+  std::size_t dist = paths.get_dist_to(4);
+
+  EXPECT_EQ(dist, 2);
+}
+
+TEST(test_graph, dfs_paths) {
+  using GT = isa::graph_i_s<isa::directed_s::undirected>;
+
+  GT g(16);
+  g.add_edge(1, 2, 7);
+  g.add_edge(1, 3, 9);
+  g.add_edge(2, 3, 10);
+
+  g.add_edge(1, 6, 14);
+  g.add_edge(3, 6, 2);
+
+  g.add_edge(2, 4, 15);
+  g.add_edge(3, 4, 11);
+
+  g.add_edge(5, 6, 9);
+  g.add_edge(4, 5, 6);
+
+  isa::graph_paths_s<GT> paths(g, 1);
+  paths.dfs();
+  std::size_t dist = paths.get_dist_to(4);
 
   EXPECT_EQ(dist, 2);
 }
@@ -182,13 +206,6 @@ TEST(test_str, find_longest_repeated_substr) {
 }
 
 int main(int argc, char *argv[]) {
-  isa::graph_i_s<isa::directed_s::undirected> g(10);
-  g.add_edge(1, 2);
-  g.add_edge(2, 4);
-
-  auto nbr = g.neighbors(4);
-  auto edges = g.incident_edges(2);
-
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
