@@ -188,20 +188,38 @@ public:
   g_ptr_u g() {
     if (g_ == nullptr) {
       g_ = std::make_shared<graph_i_s<directed>>(adj_.size());
-      for (int i = 0; i < adj_.size(); ++i) {
-        edges_ptr_u edges_ptr = adj_.at(i);
-        for (const auto edge : *edges_ptr) {
-          // g_->add_edge(i, edge.b);
+
+      create_map(map_);
+
+      auto vertices = get_all_vertices();
+
+      idx_ = std::vector<vertex_u>(vertices.size());
+
+      for (auto v : vertices) {
+        idx_[map_[v]] = v;
+        auto it = adj_.find(v);
+        if (it != adj_.end()) {
+          for (auto e : *(it->second)) {
+            int a = map_.at(v);
+            int b = map_.at(e.b);
+            g_->add_edge(a, b);
+          }
         }
       }
     }
     return g_;
   }
 
+  int index(const vertex_u &v) const { return map_.at(v); }
+
+  vertex_u find_by_index(int i) const { return idx_.at(i); }
+
 private:
   std::size_t e_ = 0;
   adj_u adj_;
   g_ptr_u g_;
+  std::map<vertex_u, std::size_t> map_;
+  std::vector<vertex_u> idx_;
 
   inline bool not_exists_edge(const edges_ptr_u edges,
                               const vertex_u &v) const {

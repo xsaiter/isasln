@@ -19,15 +19,13 @@ public:
       auto p = q.front();
       q.pop();
 
-      auto nbr = g_.neighbors(p);
-      const std::size_t nn = nbr.size();
+      auto nbrs = g_.neighbors(p);
 
-      for (std::size_t j = 0; j < nn; ++j) {
-        auto x = nbr[j];
-        if (!marked_[x]) {
-          dist_[x] = dist_[p] + 1;
-          marked_[x] = true;
-          q.push(nbr[j]);
+      for (auto nbr : nbrs) {
+        if (!marked_[nbr]) {
+          dist_[nbr] = dist_[p] + 1;
+          marked_[nbr] = true;
+          q.push(nbr);
         }
       }
     }
@@ -47,12 +45,12 @@ private:
   void dfs(int i) {
     marked_[i] = true;
 
-    auto nbr = g_.neighbors(i);
+    auto nbrs = g_.neighbors(i);
 
-    for (auto x : nbr) {
-      if (!marked_[x]) {
-        dist_[x] = dist_[i] + 1;
-        dfs(x);
+    for (auto nbr : nbrs) {
+      if (!marked_[nbr]) {
+        dist_[nbr] = dist_[i] + 1;
+        dfs(nbr);
       }
     }
   }
