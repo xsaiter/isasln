@@ -5,6 +5,11 @@ struct point_s {
   int x, y;
 };
 
+struct segment_s {
+  point_s a;
+  point_s b;
+};
+
 /*
   > 0 if a, b, c - clockwise
   < 0 - counterclockwise
