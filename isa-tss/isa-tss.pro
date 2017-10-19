@@ -8,13 +8,15 @@ HEADERS += \
     dynp/dynp.hh \
     common.hh \
     common.hh \
-    msh/t_02.hh
+    msh/t_02.hh \
+    msh/t_06.hh
 
 SOURCES += main.cc \
     msh/t_01.cc \
     dynp/dynp.cc \
     common.cc \
-    msh/t_02.cc
+    msh/t_02.cc \
+    msh/t_06.cc
 
 
 LIBS += /usr/lib/libgtest.so

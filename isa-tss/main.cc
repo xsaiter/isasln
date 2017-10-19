@@ -3,7 +3,10 @@
 #include <gtest/gtest/gtest.h>
 
 #include "dynp/dynp.hh"
+
 #include "msh/t_01.hh"
+#include "msh/t_02.hh"
+#include "msh/t_06.hh"
 
 using namespace tss;
 
@@ -99,6 +102,22 @@ TEST(largest_square_test, test) {
   EXPECT_EQ(res.side, 3);
   EXPECT_EQ(res.bottomRightRow, 3);
   EXPECT_EQ(res.bottomRightCol, 4);
+}
+
+/*TEST(msh_t_06_a_test, test) {
+  std::vector<range_s> ranges = {{10, 20}, {30, 40}};
+
+  int res = tss::msh::t_06_a_cover(ranges);
+
+  EXPECT_EQ(res, 20);
+}*/
+
+TEST(msh_t_06_a_test, test_over) {
+  std::vector<range_s> ranges = {{10, 20}, {15, 22}};
+
+  int res = tss::msh::t_06_a_cover(ranges);
+
+  EXPECT_EQ(res, 12);
 }
 
 int main(int argc, char *argv[]) {
