@@ -1,11 +1,15 @@
 #include <iostream>
+#include <math.h>
 
 #include <gtest/gtest/gtest.h>
 
 #include "dynp/dynp.hh"
 
+#include "numeric.hh"
+
 #include "msh/t_01.hh"
 #include "msh/t_02.hh"
+#include "msh/t_04.hh"
 #include "msh/t_06.hh"
 
 using namespace tss;
@@ -138,7 +142,22 @@ TEST(msh_t_02_d_segments, test) {
   EXPECT_EQ(res3, true);
 }
 
+TEST(t_04_a_perfect, test) {
+  std::vector<int> res;
+
+  tss::msh::t_04_a_perfect(1, 40, res);
+
+  EXPECT_EQ(res.size(), 2);
+}
+
+TEST(is_perfec_test, test) {
+  bool yes = isa::is_perfect_num(28);
+
+  EXPECT_TRUE(yes);
+}
+
 int main(int argc, char *argv[]) {
+  auto y = static_cast<int>(std::ceil(std::sqrt(6)));
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

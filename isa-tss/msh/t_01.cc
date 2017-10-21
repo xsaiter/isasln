@@ -14,7 +14,7 @@ void t_01_a_primes(int m, int n, std::vector<int> &res) {
   assert(m <= n);
 
   for (int i = m; i <= n; ++i) {
-    if (isa::numeric::is_prime(i)) {
+    if (isa::is_prime(i)) {
       res.push_back(i);
     }
   }

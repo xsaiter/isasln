@@ -46,4 +46,5 @@ SOURCES += \
     parsing/brackets.cc \
     strings/str_search.cc \
     parsing/calculator.cc \
-    strings/aho_corasick.cc
+    strings/aho_corasick.cc \
+    numeric.cc
