@@ -105,7 +105,7 @@ TEST(largest_square_test, test) {
 }
 
 TEST(msh_t_06_a_test, test) {
-  std::vector<range_s> ranges = {{10, 20}, {30, 40}};
+  std::vector<isa::range_i_s> ranges = {{10, 20}, {30, 40}};
 
   int res = tss::msh::t_06_a_cover(ranges);
 
@@ -113,7 +113,7 @@ TEST(msh_t_06_a_test, test) {
 }
 
 TEST(msh_t_06_a_test, test_over) {
-  std::vector<range_s> ranges = {{10, 20}, {15, 22}};
+  std::vector<isa::range_i_s> ranges = {{10, 20}, {15, 22}};
 
   int res = tss::msh::t_06_a_cover(ranges);
 

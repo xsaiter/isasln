@@ -16,8 +16,4 @@ struct segment_s {
   = 0 - collinear
 */
 int cross_product(const point_s &a, const point_s &b, const point_s &c);
-
-struct range_s {
-  int l, r;
-};
 }
