@@ -120,6 +120,24 @@ TEST(msh_t_06_a_test, test_over) {
   EXPECT_EQ(res, 12);
 }
 
+TEST(msh_t_02_d_segments, test) {
+  tss::segment_s seg1{tss::point_s{1, 1}, tss::point_s{4, 4}};
+  tss::segment_s seg2{tss::point_s{3, 2}, tss::point_s{5, 2}};
+
+  auto res = tss::msh::t_02_d_segments(seg1, seg2);
+  EXPECT_EQ(res, false);
+
+  tss::segment_s seg3{tss::point_s{3, 2}, tss::point_s{1, 3}};
+
+  auto res2 = tss::msh::t_02_d_segments(seg1, seg3);
+  EXPECT_EQ(res2, true);
+
+  tss::segment_s seg4{tss::point_s{4, 4}, tss::point_s{5, 2}};
+
+  auto res3 = tss::msh::t_02_d_segments(seg1, seg4);
+  EXPECT_EQ(res3, true);
+}
+
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

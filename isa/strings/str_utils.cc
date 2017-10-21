@@ -160,6 +160,7 @@ void find_longest_repeated_substr(const std::string &str,
   for (auto i = 1; i < n; ++i) {
     auto len = std::min(v[i].s.size(), v[i - 1].s.size());
     auto j = 0;
+
     while (j < len && v[i].s[j] == v[i - 1].s[j]) {
       ++j;
     }

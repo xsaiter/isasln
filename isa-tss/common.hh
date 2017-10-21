@@ -6,8 +6,8 @@ struct point_s {
 };
 
 struct segment_s {
-  point_s a;
-  point_s b;
+  point_s p1;
+  point_s p2;
 };
 
 /*
