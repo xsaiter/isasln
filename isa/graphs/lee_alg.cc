@@ -2,12 +2,12 @@
 
 #include "lee_alg.hh"
 
-#define DIRECTIONS 4
-
 namespace isa {
 bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result) {
-  int dx[DIRECTIONS] = {1, 0, -1, 0};
-  int dy[DIRECTIONS] = {0, -1, 0, 1};
+  const int dirs = 4;
+
+  int dx[dirs] = {1, 0, -1, 0};
+  int dy[dirs] = {0, -1, 0, 1};
 
   int rows = opts.rows;
   int cols = opts.cols;
@@ -49,7 +49,7 @@ bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result) {
     y = c.y;
     num = c.n + 1;
 
-    for (int i = 0; i < DIRECTIONS; ++i) {
+    for (int i = 0; i < dirs; ++i) {
       nx = x + dx[i];
       ny = y + dy[i];
 
@@ -79,7 +79,7 @@ bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result) {
   num = cc[x][y].n;
 
   while (x != bx || y != by) {
-    for (int i = 0; i < DIRECTIONS; ++i) {
+    for (int i = 0; i < dirs; ++i) {
       nx = x + dx[i];
       ny = y + dy[i];
 

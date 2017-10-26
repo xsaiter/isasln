@@ -11,6 +11,7 @@
 #include "msh/t_02.hh"
 #include "msh/t_04.hh"
 #include "msh/t_06.hh"
+#include "msh/t_10.hh"
 
 using namespace tss;
 
@@ -156,8 +157,13 @@ TEST(is_perfec_test, test) {
   EXPECT_TRUE(yes);
 }
 
+/*TEST(t_10_b_fibostr, test) {
+  int res = tss::msh::t_10_b_fibostr(8, "bbabab");
+
+  EXPECT_EQ(res, 3);
+}*/
+
 int main(int argc, char *argv[]) {
-  auto y = static_cast<int>(std::ceil(std::sqrt(6)));
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

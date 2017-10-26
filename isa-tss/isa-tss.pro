@@ -10,7 +10,8 @@ HEADERS += \
     common.hh \
     msh/t_02.hh \
     msh/t_06.hh \
-    msh/t_04.hh
+    msh/t_04.hh \
+    msh/t_10.hh
 
 SOURCES += main.cc \
     msh/t_01.cc \
@@ -18,7 +19,8 @@ SOURCES += main.cc \
     common.cc \
     msh/t_02.cc \
     msh/t_06.cc \
-    msh/t_04.cc
+    msh/t_04.cc \
+    msh/t_10.cc
 
 
 LIBS += /usr/lib/libgtest.so
