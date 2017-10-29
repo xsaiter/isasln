@@ -10,6 +10,10 @@ struct segment_s {
   point_s p2;
 };
 
+struct circle_s {
+  double x, y, r;
+};
+
 /*
   > 0 if a, b, c - clockwise
   < 0 - counterclockwise

@@ -6,53 +6,63 @@
 
 namespace isa {
 
-template <class Graph> class graph_paths_s {
-public:
-  graph_paths_s(const Graph &g, int s)
-      : g_(g), s_(s), marked_(g.nv(), false), dist_(g.nv(), 0) {}
+struct graph_paths_s {
+  graph_paths_s(int nv_, int s_)
+      : nv(nv_), s(s_), marked(nv, false), dist(nv, 0) {}
 
-  void bfs() {
-    std::queue<int> q;
-    q.push(s_);
+  bool has_path_to(int v) { return marked[v]; }
+  std::size_t distance_to(int v) { return dist[v]; }
 
-    while (!q.empty()) {
-      auto p = q.front();
-      q.pop();
+  int nv;
+  int s;
+  std::vector<bool> marked;
+  std::vector<std::size_t> dist;
+};
 
-      auto nbrs = g_.neighbors(p);
+template <class Graph> graph_paths_s graph_paths_bfs(const Graph &g, int s) {
+  graph_paths_s res(g.nv(), s);
 
-      for (auto nbr : nbrs) {
-        if (!marked_[nbr]) {
-          dist_[nbr] = dist_[p] + 1;
-          marked_[nbr] = true;
-          q.push(nbr);
-        }
-      }
-    }
-  }
+  std::queue<int> q;
+  q.push(s);
 
-  void dfs() { dfs(s_); }
+  while (!q.empty()) {
+    auto p = q.front();
+    q.pop();
 
-  bool has_path_to(int v) { return marked_[v]; }
-  std::size_t get_dist_to(int v) { return dist_[v]; }
-
-private:
-  const Graph &g_;
-  int s_;
-  std::vector<bool> marked_;
-  std::vector<std::size_t> dist_;
-
-  void dfs(int i) {
-    marked_[i] = true;
-
-    auto nbrs = g_.neighbors(i);
+    auto nbrs = g.neighbors(p);
 
     for (auto nbr : nbrs) {
-      if (!marked_[nbr]) {
-        dist_[nbr] = dist_[i] + 1;
-        dfs(nbr);
+      if (!res.marked[nbr]) {
+        res.dist[nbr] = res.dist[p] + 1;
+        res.marked[nbr] = true;
+        q.push(nbr);
       }
     }
   }
-};
+
+  return res;
+}
+
+namespace details {
+
+template <class Graph> void dfs(const Graph &g, graph_paths_s &res, int i) {
+  res.marked[i] = true;
+
+  auto nbrs = g.neighbors(i);
+
+  for (auto nbr : nbrs) {
+    if (!res.marked[nbr]) {
+      res.dist[nbr] = res.dist[i] + 1;
+      dfs(g, res, nbr);
+    }
+  }
+}
+
+} // details
+
+template <class Graph> graph_paths_s graph_paths_dfs(const Graph &g, int s) {
+  graph_paths_s res(g.nv(), s);
+  details::dfs(g, res, s);
+  return res;
+}
 }

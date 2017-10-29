@@ -106,9 +106,9 @@ TEST(test_ranges, insert_range) {
 }
 
 TEST(test_graph, dijkstra) {
-  using GT = isa::graph_i_s<isa::directed_s::undirected>;
+  using g_u = isa::graph_i_s<isa::directed_s::undirected>;
 
-  GT g(15);
+  g_u g(15);
   g.add_edge(1, 2, 7);
   g.add_edge(1, 3, 9);
   g.add_edge(2, 3, 10);
@@ -122,15 +122,15 @@ TEST(test_graph, dijkstra) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  isa::dijkstra_s<GT> sp(g, 6);
+  isa::dijkstra_s<g_u> sp(g, 6);
   sp.search();
 
   auto res = sp.get_path_to(2);
 
-  GT::edge_u e1(3, 2);
-  GT::edge_u e2(6, 3);
+  g_u::edge_u e1(3, 2);
+  g_u::edge_u e2(6, 3);
 
-  std::stack<GT::edge_u> expected;
+  std::stack<g_u::edge_u> expected;
   expected.push(e1);
   expected.push(e2);
 
@@ -148,9 +148,9 @@ TEST(test_graph, dijkstra) {
 }
 
 TEST(test_graph, bfs_paths) {
-  using GT = isa::graph_i_s<isa::directed_s::undirected>;
+  using g_u = isa::graph_i_s<isa::directed_s::undirected>;
 
-  GT g(16);
+  g_u g(16);
   g.add_edge(1, 2, 7);
   g.add_edge(1, 3, 9);
   g.add_edge(2, 3, 10);
@@ -164,17 +164,16 @@ TEST(test_graph, bfs_paths) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  isa::graph_paths_s<GT> paths(g, 1);
-  paths.bfs();
-  std::size_t dist = paths.get_dist_to(4);
+  auto paths = isa::graph_paths_bfs(g, 1);
+  auto dist = paths.distance_to(4);
 
   EXPECT_EQ(dist, 2);
 }
 
 TEST(test_graph, dfs_paths) {
-  using GT = isa::graph_i_s<isa::directed_s::undirected>;
+  using g_u = isa::graph_i_s<isa::directed_s::undirected>;
 
-  GT g(16);
+  g_u g(16);
   g.add_edge(1, 2, 7);
   g.add_edge(1, 3, 9);
   g.add_edge(2, 3, 10);
@@ -188,9 +187,8 @@ TEST(test_graph, dfs_paths) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  isa::graph_paths_s<GT> paths(g, 1);
-  paths.dfs();
-  std::size_t dist = paths.get_dist_to(4);
+  auto paths = isa::graph_paths_dfs(g, 1);
+  auto dist = paths.distance_to(4);
 
   EXPECT_EQ(dist, 2);
 }
