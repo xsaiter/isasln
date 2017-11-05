@@ -10,6 +10,7 @@
 #include "msh/t_01.hh"
 #include "msh/t_02.hh"
 #include "msh/t_04.hh"
+#include "msh/t_05.hh"
 #include "msh/t_06.hh"
 #include "msh/t_10.hh"
 #include "msh/t_11.hh"
@@ -164,7 +165,7 @@ TEST(is_perfec_test, test) {
   EXPECT_EQ(res, 3);
 }*/
 
-TEST(t_11_a_perfect, test) {
+TEST(t_11_a_circarea, test) {
   tss::circle_s c1 = {20, 30, 15};
   tss::circle_s c2 = {40, 30, 30};
 
@@ -175,8 +176,15 @@ TEST(t_11_a_perfect, test) {
   EXPECT_TRUE(cmp);
 }
 
+TEST(t_05_a_friendly, test) {
+  auto res = tss::msh::t_05_a_friendly(200, 300);
+
+  tss::msh::divs_s exp = {220, 284};
+
+  EXPECT_EQ(*(res.begin()), exp);
+}
+
 int main(int argc, char *argv[]) {
-  auto xx = std::floor(10.93);
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
