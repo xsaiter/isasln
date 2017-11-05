@@ -190,7 +190,7 @@ TEST(test_graph, dfs_paths) {
   auto paths = isa::graph_paths_dfs(g, 1);
   auto dist = paths.distance_to(4);
 
-  EXPECT_EQ(dist, 2);
+  EXPECT_EQ(dist, 3);
 }
 
 TEST(test_str, find_longest_repeated_substr) {

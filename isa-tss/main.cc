@@ -1,5 +1,5 @@
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 #include <gtest/gtest/gtest.h>
 
@@ -12,6 +12,7 @@
 #include "msh/t_04.hh"
 #include "msh/t_06.hh"
 #include "msh/t_10.hh"
+#include "msh/t_11.hh"
 
 using namespace tss;
 
@@ -163,7 +164,19 @@ TEST(is_perfec_test, test) {
   EXPECT_EQ(res, 3);
 }*/
 
+TEST(t_11_a_perfect, test) {
+  tss::circle_s c1 = {20, 30, 15};
+  tss::circle_s c2 = {40, 30, 30};
+
+  auto res = tss::msh::t_11_d_circarea(c1, c2);
+
+  auto cmp = std::abs(608.37 - res) <= 0.1;
+
+  EXPECT_TRUE(cmp);
+}
+
 int main(int argc, char *argv[]) {
+  auto xx = std::floor(10.93);
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
