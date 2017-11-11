@@ -31,7 +31,9 @@ HEADERS += \
     graphs/dijkstra.hh \
     graphs/paths.hh \
     geo/convex_hull.hh \
-    parsing/fsm.hh
+    parsing/fsm.hh \
+    disjoint_sets.hh \
+    graphs/mst.hh
 
 unix {
     target.path = /usr/lib

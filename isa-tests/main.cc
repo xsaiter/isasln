@@ -19,6 +19,9 @@
 #include "graphs/graph.hh"
 #include "graphs/paths.hh"
 #include "graphs/dijkstra.hh"
+#include "graphs/mst.hh"
+
+#include "disjoint_sets.hh"
 
 using namespace std;
 
@@ -201,6 +204,28 @@ TEST(test_str, find_longest_repeated_substr) {
 
   EXPECT_EQ(res.all_pos.size(), 2);
   EXPECT_EQ(res.s, "to be");
+}
+
+TEST(test_graph, mst_kruskal) {
+  using g_u = isa::graph_i_s<isa::directed_s::undirected>;
+
+  g_u g(16);
+  g.add_edge(1, 2, 7);
+  g.add_edge(1, 3, 9);
+  g.add_edge(2, 3, 10);
+
+  g.add_edge(1, 6, 14);
+  g.add_edge(3, 6, 2);
+
+  g.add_edge(2, 4, 15);
+  g.add_edge(3, 4, 11);
+
+  g.add_edge(5, 6, 9);
+  g.add_edge(4, 5, 6);
+
+  auto res = isa::graphs::mst_kruskal(g);
+
+  EXPECT_EQ(res.size(), 5);
 }
 
 int main(int argc, char *argv[]) {

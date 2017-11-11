@@ -71,6 +71,19 @@ public:
     return res;
   }
 
+  std::vector<edge_u> all_edges() const {
+    std::vector<edge_u> res;
+
+    std::for_each(adj_.begin(), adj_.end(), [&](const auto &p) {
+      std::copy_if(p.begin(), p.end(), std::back_inserter(res),
+                   [&](const auto &e) {
+                     return std::find(res.begin(), res.end(), e) == res.end();
+                   });
+    });
+
+    return res;
+  }
+
 private:
   int nv_;
   int ne_;
