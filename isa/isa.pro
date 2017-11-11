@@ -29,7 +29,8 @@ HEADERS += \
     ranges.hh \    
     common.hh \
     graphs/dijkstra.hh \
-    graphs/paths.hh
+    graphs/paths.hh \
+    geo/convex_hull.hh
 
 unix {
     target.path = /usr/lib
@@ -49,4 +50,5 @@ SOURCES += \
     parsing/calculator.cc \
     strings/aho_corasick.cc \
     numeric.cc \
-    geo/geo.cc
+    geo/geo.cc \
+    geo/convex_hull.cc
