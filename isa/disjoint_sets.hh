@@ -17,7 +17,7 @@ public:
       parent = std::make_shared<item_s>(data);
     }
 
-    void inc_rank() const { rank++; }
+    void inc_rank() const { ++rank; }
 
     friend bool operator<(const item_s &lhs, const item_s &rhs) {
       return lhs.data < rhs.data;
