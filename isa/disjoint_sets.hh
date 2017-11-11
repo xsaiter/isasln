@@ -7,78 +7,74 @@ namespace isa {
 template <typename T> class disjoint_sets_s {
 public:
   struct item_s {
-    item_s(const T &d) : data(d) {}
-    std::shared_ptr<item_s> parent;
+    explicit item_s(const T &data_) : data(data_) {}
+
     T data;
-    int rank;
-    void set_parent(const T &arg) {
-      parent = std::shared_ptr<item_s>(new item_s(arg));
+    mutable std::shared_ptr<item_s> parent;
+    mutable int rank;
+
+    void set_parent(const T &data) const {
+      parent = std::make_shared<item_s>(data);
     }
 
-    friend bool operator<(const item_s &a, const item_s &b) {
-      return a.data < b.data;
+    void inc_rank() const { rank++; }
+
+    friend bool operator<(const item_s &lhs, const item_s &rhs) {
+      return lhs.data < rhs.data;
     }
 
-    friend bool operator==(const item_s &a, const item_s &b) {
-      return a.data == b.data;
+    friend bool operator==(const item_s &lhs, const item_s &rhs) {
+      return lhs.data == rhs.data;
     }
 
-    friend bool operator!=(const item_s &a, const item_s &b) {
-      return !(a == b);
+    friend bool operator!=(const item_s &lhs, const item_s &rhs) {
+      return !(lhs == rhs);
     }
   };
 
-  void add(const T &t) { sets_.insert(item_s(t)); }
+  void add(const T &data) { items_.insert(item_s(data)); }
 
-  T find(const T &t) {
-    item_s that(t);
+  T find(const T &data) {
+    auto i = items_.find(item_s(data));
 
-    typename std::set<item_s>::iterator i = sets_.find(that);
-
-    if (i != sets_.end()) {
-      if (!((*i).parent)) {
-        return (*i).data;
+    if (i != items_.end()) {
+      if (!(i->parent)) {
+        return i->data;
       }
 
-      T parent_data = ((*i).parent)->data;
-      T x = find(parent_data);
-      item_s ii = (*i);
-      ii.set_parent(x);
+      auto x = find(i->parent->data);
+
+      i->set_parent(x);
 
       return x;
     }
 
-    throw std::logic_error("");
+    throw std::logic_error("not found");
   }
 
   void union_for(const T &a, const T &b) {
-    T ax = find(a);
-    T bx = find(b);
+    auto ax = find(a);
+    auto bx = find(b);
 
     if (ax == bx) {
       return;
     }
 
-    typename std::set<item_s>::iterator iax = sets_.find(item_s(ax));
-    typename std::set<item_s>::iterator ibx = sets_.find(item_s(bx));
+    auto axi = items_.find(item_s(ax));
+    auto bxi = items_.find(item_s(bx));
 
-    item_s &a_item = const_cast<item_s &>(*iax);
-    item_s &b_item = const_cast<item_s &>(*ibx);
-
-    if (a_item == b_item) {
-      return;
-    }
-
-    if (a_item.rank > b_item.rank) {
-      b_item.set_parent(a);
-      a_item.rank++;
-    } else {
-      a_item.set_parent(b);
-      b_item.rank++;
+    if (*axi != *bxi) {
+      if (axi->rank > bxi->rank) {
+        bxi->set_parent(a);
+        axi->inc_rank();
+      } else {
+        axi->set_parent(b);
+        bxi->inc_rank();
+      }
     }
   }
 
 private:
-  std::set<item_s> sets_;
+  std::set<item_s> items_;
 };
 }

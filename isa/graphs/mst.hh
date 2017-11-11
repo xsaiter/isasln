@@ -18,24 +18,24 @@ std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
   std::sort(edges.begin(), edges.end(),
             [](const edge_u &x, const edge_u &y) { return x.w < y.w; });
 
-  disjoint_sets_s<int> ss;
+  disjoint_sets_s<int> sets;
 
   auto end = edges.end();
 
   for (auto i = edges.begin(); i != end; ++i) {
-    ss.add(i->a);
-    ss.add(i->b);
+    sets.add(i->a);
+    sets.add(i->b);
   }
 
   edges_u res;
 
   for (auto i = edges.begin(); i != end; ++i) {
-    auto root_a = ss.find(i->a);
-    auto root_b = ss.find(i->b);
+    auto root_a = sets.find(i->a);
+    auto root_b = sets.find(i->b);
 
     if (root_a != root_b) {
       res.push_back(*i);
-      ss.union_for(root_a, root_b);
+      sets.union_for(root_a, root_b);
     }
   }
 
