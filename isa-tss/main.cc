@@ -17,6 +17,8 @@
 
 using namespace tss;
 
+using namespace isa::geo;
+
 TEST(msh_t_01_a_test, test) {
   std::vector<int> res;
   msh::t_01_a_primes(2, 5, res);
@@ -128,18 +130,18 @@ TEST(msh_t_06_a_test, test_over) {
 }
 
 TEST(msh_t_02_d_segments, test) {
-  tss::segment_s seg1{tss::point_s{1, 1}, tss::point_s{4, 4}};
-  tss::segment_s seg2{tss::point_s{3, 2}, tss::point_s{5, 2}};
+  isa::geo::segment_s seg1{isa::geo::point_s{1, 1}, isa::geo::point_s{4, 4}};
+  isa::geo::segment_s seg2{isa::geo::point_s{3, 2}, isa::geo::point_s{5, 2}};
 
   auto res = tss::msh::t_02_d_segments(seg1, seg2);
   EXPECT_EQ(res, false);
 
-  tss::segment_s seg3{tss::point_s{3, 2}, tss::point_s{1, 3}};
+  isa::geo::segment_s seg3{isa::geo::point_s{3, 2}, isa::geo::point_s{1, 3}};
 
   auto res2 = tss::msh::t_02_d_segments(seg1, seg3);
   EXPECT_EQ(res2, true);
 
-  tss::segment_s seg4{tss::point_s{4, 4}, tss::point_s{5, 2}};
+  isa::geo::segment_s seg4{isa::geo::point_s{4, 4}, isa::geo::point_s{5, 2}};
 
   auto res3 = tss::msh::t_02_d_segments(seg1, seg4);
   EXPECT_EQ(res3, true);
@@ -166,8 +168,8 @@ TEST(is_perfec_test, test) {
 }*/
 
 TEST(t_11_a_circarea, test) {
-  tss::circle_s c1 = {20, 30, 15};
-  tss::circle_s c2 = {40, 30, 30};
+  isa::geo::circle_s c1 = {20, 30, 15};
+  isa::geo::circle_s c2 = {40, 30, 30};
 
   auto res = tss::msh::t_11_d_circarea(c1, c2);
 

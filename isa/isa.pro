@@ -10,6 +10,7 @@ HEADERS += \
     catalan_numbers.hh \
     numeric.hh \
     strings/str_utils.hh \
+    geo/geo.hh \
     parsing/postfix_to_infix.hh \
     parsing/infix_to_postfix.hh \
     parsing/brackets.hh \        
@@ -47,4 +48,5 @@ SOURCES += \
     strings/str_search.cc \
     parsing/calculator.cc \
     strings/aho_corasick.cc \
-    numeric.cc
+    numeric.cc \
+    geo/geo.cc

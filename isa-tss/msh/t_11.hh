@@ -2,10 +2,11 @@
 
 #include <string>
 
-#include "common.hh"
+#include "geo/geo.hh"
 
 namespace tss {
 namespace msh {
-double t_11_d_circarea(const tss::circle_s &c1, const tss::circle_s &c2);
+double t_11_d_circarea(const isa::geo::circle_s &c1,
+                       const isa::geo::circle_s &c2);
 }
 }

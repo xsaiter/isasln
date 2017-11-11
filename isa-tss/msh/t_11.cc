@@ -1,12 +1,11 @@
-#pragma once
-
 #include <cmath>
 
 #include "t_11.hh"
 
 namespace tss {
 namespace msh {
-double t_11_d_circarea(const tss::circle_s &c1, const tss::circle_s &c2) {
+double t_11_d_circarea(const isa::geo::circle_s &c1,
+                       const isa::geo::circle_s &c2) {
   const auto r = c1.r + c2.r;
   const auto l = std::sqrt(std::pow(c2.x - c1.x, 2) + std::pow(c2.y - c2.y, 2));
 

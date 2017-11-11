@@ -6,8 +6,7 @@ CONFIG -= qt
 HEADERS += \
     msh/t_01.hh \
     dynp/dynp.hh \
-    common.hh \
-    common.hh \
+    common.hh \    
     msh/t_02.hh \
     msh/t_06.hh \
     msh/t_04.hh \
