@@ -30,7 +30,8 @@ HEADERS += \
     common.hh \
     graphs/dijkstra.hh \
     graphs/paths.hh \
-    geo/convex_hull.hh
+    geo/convex_hull.hh \
+    parsing/fsm.hh
 
 unix {
     target.path = /usr/lib
