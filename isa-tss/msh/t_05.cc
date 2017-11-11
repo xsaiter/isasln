@@ -66,5 +66,11 @@ std::set<divs_s> t_05_a_friendly(int m, int n) {
 
   return res;
 }
+
+std::vector<std::string> t_05_b_bracket2(int n) {
+  std::vector<std::string> res;
+
+  return res;
+}
 }
 }
