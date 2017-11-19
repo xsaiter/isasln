@@ -247,6 +247,12 @@ TEST(test_dfa, dfa) {
   EXPECT_TRUE(is_final_state);
 }
 
+TEST(test_nfa_regex, nfa_regex) {
+  auto nfa = isa::make_nfa_regex("(ab*a)");
+  bool accept = nfa.accept("abbba");
+  EXPECT_TRUE(accept);
+}
+
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
