@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <queue>
 #include <memory>
 #include <list>
 #include <map>
@@ -84,6 +85,35 @@ public:
     return res;
   }
 
+  using visit_fn = std::function<void(int)>;
+
+  void traversal_bfs(int s, visit_fn &visit) {
+    std::vector<bool> marked(nv_, false);
+
+    std::queue<int> q;
+    q.push(s);
+
+    while (!q.empty()) {
+      auto p = q.front();
+      q.pop();
+
+      auto nbrs = neighbors(p);
+
+      for (auto nbr : nbrs) {
+        if (!marked[nbr]) {
+          visit(nbr);
+          marked[nbr] = true;
+          q.push(nbr);
+        }
+      }
+    }
+  }
+
+  void traversal_dfs(int s, visit_fn &visit) {
+    std::vector<bool> marked(nv_, false);
+    dfs(s, marked, visit);
+  }
+
 private:
   int nv_;
   int ne_;
@@ -94,6 +124,19 @@ private:
   }
 
   inline void validate_vertex(int v) const { assert(0 <= v && v < nv_); }
+
+  void dfs(int i, std::vector<bool> &marked, visit_fn &visit) {
+    marked[i] = true;
+
+    auto nbrs = neighbors(i);
+
+    for (auto nbr : nbrs) {
+      if (!marked[nbr]) {
+        visit(nbr);
+        dfs(nbr, marked, visit);
+      }
+    }
+  }
 };
 
 namespace details {

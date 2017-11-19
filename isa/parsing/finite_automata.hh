@@ -38,7 +38,7 @@ public:
 
   bool is_accept() const {
     return std::any_of(final_states_.begin(), final_states_.end(),
-                       [&](const auto &x) { return x == state_; });
+                       [&](const auto &s) { return s == state_; });
   }
 
 private:
