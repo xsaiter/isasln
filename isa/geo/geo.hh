@@ -2,8 +2,9 @@
 
 namespace isa {
 namespace geo {
+
 struct point_s {
-  int x, y;
+  double x, y;
 };
 
 struct segment_s {
@@ -20,7 +21,7 @@ struct circle_s {
   < 0 - counterclockwise
   = 0 - collinear
 */
-int cross_product(const point_s &a, const point_s &b, const point_s &c);
+double cross_product(const point_s &a, const point_s &b, const point_s &c);
 
 int distance2(const point_s &a, const point_s &b);
 }

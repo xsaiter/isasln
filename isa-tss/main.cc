@@ -186,6 +186,13 @@ TEST(t_05_a_friendly, test) {
   EXPECT_EQ(*(res.begin()), exp);
 }
 
+TEST(t_04_d_area, test) {
+  std::vector<isa::geo::point_s> points = {{0, 4}, {0, 0}, {3, 0}, {1, 1}};
+  auto res = tss::msh::t_04_d_area(points);
+
+  EXPECT_EQ(3.5, res);
+}
+
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
