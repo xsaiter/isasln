@@ -125,8 +125,7 @@ TEST(test_graph, dijkstra) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  isa::dijkstra_s<g_u> sp(g, 6);
-  sp.search();
+  auto sp = isa::dijkstra(g, 6);
 
   auto res = sp.get_path_to(2);
 

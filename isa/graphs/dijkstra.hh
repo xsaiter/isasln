@@ -4,67 +4,38 @@
 #include <stack>
 #include <cassert>
 
-#include "graph.hh"
+#include "paths.hh"
 
 namespace isa {
 
-template <class Graph> class dijkstra_s {
-public:
+template <class Graph>
+shortest_paths_s<typename Graph::edge_u> dijkstra(const Graph &g, int s) {
   using edge_u = typename Graph::edge_u;
   using pq_u = std::priority_queue<int, std::vector<int>, std::greater<int>>;
 
-  dijkstra_s(const Graph &g, int s)
-      : g_(g), s_(s), dist_(g.nv(), -1), edges_(g.nv()) {
-    dist_[s_] = 0;
-  }
+  shortest_paths_s<edge_u> paths(s, g.nv());
 
-  void search() {
-    pq_u q;
-    q.push(s_);
+  pq_u q;
+  q.push(s);
 
-    while (!q.empty()) {
-      auto t = q.top();
-      q.pop();
+  while (!q.empty()) {
+    auto t = q.top();
+    q.pop();
 
-      auto edges = g_.incident_edges(t);
+    auto edges = g.incident_edges(t);
 
-      for (const auto &e : edges) {
-        int d = dist_[t] + e.w;
-        int i = e.b;
+    for (const auto &e : edges) {
+      int d = paths.dist[t] + e.w;
+      int i = e.b;
 
-        if (dist_[i] == -1 || d < dist_[i]) {
-          q.push(e.b);
-          dist_[i] = d;
-          edges_[i] = e;
-        }
+      if (paths.dist[i] == -1 || d < paths.dist[i]) {
+        q.push(e.b);
+        paths.dist[i] = d;
+        paths.edges[i] = e;
       }
     }
   }
 
-  bool has_path_to(int v) { return dist_[v] != -1; }
-
-  int dist_to(int v) { return dist_[v]; }
-
-  std::stack<edge_u> get_path_to(int v) {
-    assert(has_path_to(v));
-
-    std::stack<edge_u> res;
-
-    auto i = std::next(edges_.begin(), v);
-    res.push(*i);
-
-    while (i->a != s_) {
-      i = std::next(edges_.begin(), i->a);
-      res.push(*i);
-    }
-
-    return res;
-  }
-
-private:
-  const Graph &g_;
-  int s_;
-  std::vector<int> dist_;
-  std::vector<edge_u> edges_;
-};
+  return paths;
+}
 }
