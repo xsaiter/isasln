@@ -23,6 +23,8 @@
 
 #include "disjoint_sets.hh"
 
+#include "parsing/finite_automata.hh"
+
 using namespace std;
 
 template <class T, class Cmp = less<int>>
@@ -225,6 +227,24 @@ TEST(test_graph, mst_kruskal) {
   auto res = isa::graphs::mst_kruskal(g);
 
   EXPECT_EQ(res.size(), 5);
+}
+
+TEST(test_dfa, dfa) {
+  isa::dfa_s<char> dfa(0);
+
+  dfa.add_state(0, false);
+  dfa.add_state(1, false);
+  dfa.add_state(2, true);
+
+  dfa.add_transition(0, 1, 'a');
+  dfa.add_transition(1, 2, 'b');
+
+  dfa.next('a');
+  dfa.next('b');
+
+  auto is_final_state = dfa.is_accept();
+
+  EXPECT_TRUE(is_final_state);
 }
 
 int main(int argc, char *argv[]) {

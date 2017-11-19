@@ -29,10 +29,11 @@ HEADERS += \
     common.hh \
     graphs/dijkstra.hh \
     graphs/paths.hh \
-    geo/convex_hull.hh \
-    parsing/fsm.hh \
+    geo/convex_hull.hh \    
     disjoint_sets.hh \
-    graphs/mst.hh
+    graphs/mst.hh \
+    vlong.hh \     
+    parsing/finite_automata.hh
 
 unix {
     target.path = /usr/lib
@@ -54,4 +55,5 @@ SOURCES += \
     numeric.cc \
     geo/geo.cc \
     geo/convex_hull.cc \
-    common.cc
+    common.cc \
+    vlong.cc
