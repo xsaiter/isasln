@@ -5,7 +5,7 @@
 #include <string>
 #include <memory>
 
-#include "hash_funcs.hh"
+#include "common.hh"
 
 namespace isa {
 template <typename T> class bloom_filter_s {
@@ -48,10 +48,6 @@ private:
 };
 
 using bloom_filter_str_u = bloom_filter_s<std::string>;
-
-inline static int fnv_hash(const std::string &s) {
-  return isa::FNV1aHash((char *)s.c_str());
-}
 
 std::unique_ptr<bloom_filter_str_u>
 make_bloom_filter_str(std::size_t capacity) {

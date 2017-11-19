@@ -20,8 +20,7 @@ HEADERS += \
     strings/str_search.hh \
     parsing/calculator.hh \
     strings/aho_corasick.hh \
-    bloom_filter.hh \
-    hash_funcs.hh \
+    bloom_filter.hh \    
     heap_sort.hh \
     merge_sort.hh \
     sort.hh \
@@ -54,4 +53,5 @@ SOURCES += \
     strings/aho_corasick.cc \
     numeric.cc \
     geo/geo.cc \
-    geo/convex_hull.cc
+    geo/convex_hull.cc \
+    common.cc
