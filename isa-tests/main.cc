@@ -239,8 +239,8 @@ TEST(test_dfa, dfa) {
   dfa.add_transition(0, 1, 'a');
   dfa.add_transition(1, 2, 'b');
 
-  dfa.next('a');
-  dfa.next('b');
+  dfa.input('a');
+  dfa.input('b');
 
   auto is_final_state = dfa.is_accept();
 

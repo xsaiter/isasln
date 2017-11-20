@@ -10,18 +10,18 @@
 #include "graphs/paths.hh"
 
 namespace isa {
-template <class T> class dfa_s {
+template <class Input, class State = int> class dfa_s {
 public:
-  dfa_s(int start_state) : start_state_(start_state), state_(start_state_) {}
+  dfa_s(State start_state) : start_state_(start_state), state_(start_state_) {}
 
-  void add_state(int state, bool is_final) {
+  void add_state(const State &state, bool is_final) {
     states_.insert(state);
     if (is_final) {
       final_states_.insert(state);
     }
   }
 
-  void add_transition(int src, int dest, T c) {
+  void add_transition(const State &src, const State &dest, const Input &c) {
     auto pair = std::make_pair(src, c);
     auto i = transitions_.find(pair);
     if (i == transitions_.end()) {
@@ -29,7 +29,7 @@ public:
     }
   }
 
-  void next(T c) {
+  void input(Input c) {
     auto pair = std::make_pair(state_, c);
     auto i = transitions_.find(pair);
     if (i != transitions_.end()) {
@@ -37,7 +37,7 @@ public:
     }
   }
 
-  int state() const { return state_; }
+  State state() const { return state_; }
 
   bool is_accept() const {
     return std::any_of(final_states_.begin(), final_states_.end(),
@@ -45,11 +45,11 @@ public:
   }
 
 private:
-  int start_state_;
-  int state_;
-  std::set<int> states_;
-  std::set<int> final_states_;
-  std::map<std::pair<int, T>, int> transitions_;
+  State start_state_;
+  State state_;
+  std::set<State> states_;
+  std::set<State> final_states_;
+  std::map<std::pair<State, Input>, State> transitions_;
 };
 
 class nfa_regex_s {
