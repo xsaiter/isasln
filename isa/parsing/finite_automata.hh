@@ -117,25 +117,33 @@ nfa_regex_s make_nfa_regex(const std::string &re) {
 
     if (c == '(') {
       pos.push(i);
-    } else if (c == '*') {
-      if (re[i - 1] != ')') {
-        g.add_edge(i - 1, i);
-        g.add_edge(i, i - 1);
-      } else {
-        while (!pos.empty()) {
-          auto t = pos.top();
-          pos.pop();
-          if (re[t] == '(') {
-            g.add_edge(i, t);
-            g.add_edge(t, i);
-            break;
+    } else if (c == ')') {
+      int orpos = -1;
+      while (!pos.empty()) {
+        auto tpos = pos.top();
+        pos.pop();
+        char t = re[tpos];
+        if (t == '|') {
+          orpos = tpos;
+          g.add_edge(orpos, i);
+        } else if (t == '(') {
+          if (orpos != -1) {
+            g.add_edge(tpos, orpos + 1);
           }
+          break;
         }
       }
+    } else if (c == '*') {
+      g.add_edge(i - 1, i);
+      g.add_edge(i, i - 1);
+    } else if (c == '|') {
+      pos.push(i);
     }
 
     if (i > 0) {
-      g.add_edge(i - 1, i);
+      if (re[i - 1] != '|') {
+        g.add_edge(i - 1, i);
+      }
     }
   }
 

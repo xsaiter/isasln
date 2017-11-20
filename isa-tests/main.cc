@@ -248,7 +248,7 @@ TEST(test_dfa, dfa) {
 }
 
 TEST(test_nfa_regex, nfa_regex) {
-  auto nfa = isa::make_nfa_regex("(ab*a)");
+  auto nfa = isa::make_nfa_regex("((a*b|ac)d)");
   bool accept = nfa.accept("abbba");
   EXPECT_TRUE(accept);
 }
