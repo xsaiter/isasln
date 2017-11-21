@@ -13,7 +13,7 @@
 namespace isa {
 enum class directed_s { directed, undirected, bidirected };
 
-template <class Vertex, directed_s directed> struct edge_s {
+template <typename Vertex, directed_s directed> struct edge_s {
   edge_s() {}
   edge_s(const Vertex &a_, const Vertex &b_, int w_ = 0)
       : a(a_), b(b_), w(w_) {}
