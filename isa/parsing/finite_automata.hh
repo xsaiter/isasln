@@ -70,7 +70,7 @@ public:
       }
     }
 
-    const auto n = str.size();
+    const int n = str.size();
 
     for (auto i = 0; i < n; ++i) {
       std::set<int> next_states;

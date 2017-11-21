@@ -1,6 +1,13 @@
+/*
+ * minimum spanning tree
+ */
+
 #pragma once
 
 #include <vector>
+#include <queue>
+
+#include <float.h>
 
 #include "graph.hh"
 #include "../disjoint_sets.hh"
@@ -11,7 +18,6 @@ namespace graphs {
 template <class Graph>
 std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
   using edge_u = typename Graph::edge_u;
-  using edges_u = std::vector<edge_u>;
 
   auto edges = g.all_edges();
 
@@ -27,17 +33,28 @@ std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
     sets.add(i->b);
   }
 
-  edges_u res;
+  std::vector<edge_u> res;
 
   for (auto i = edges.begin(); i != end; ++i) {
-    auto root_a = sets.find(i->a);
-    auto root_b = sets.find(i->b);
+    auto ra = sets.find(i->a);
+    auto rb = sets.find(i->b);
 
-    if (root_a != root_b) {
+    if (ra != rb) {
       res.push_back(*i);
-      sets.union_for(root_a, root_b);
+      sets.union_for(ra, rb);
     }
   }
+
+  return res;
+}
+
+template <class Graph>
+std::vector<typename Graph::edge_u> mst_prim(const Graph &g) {
+  using edge_u = typename Graph::edge_u;
+
+  std::vector<edge_u> res;
+
+  std::priority_queue<int> q;
 
   return res;
 }

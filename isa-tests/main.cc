@@ -5,6 +5,8 @@
 
 #include <gtest/gtest/gtest.h>
 
+#include "common.hh"
+
 #include "sort.hh"
 #include "heap_sort.hh"
 #include "merge_sort.hh"
@@ -251,6 +253,16 @@ TEST(test_nfa_regex, nfa_regex) {
   auto nfa = isa::make_nfa_regex("((a*b|ac)d)");
   bool accept = nfa.accept("abbba");
   EXPECT_TRUE(accept);
+}
+
+TEST(test_min_of, test) {
+  auto res = isa::min_of(10, 2, 3);
+  EXPECT_EQ(res, 2);
+}
+
+TEST(test_max_of, test) {
+  auto res = isa::max_of(10, 2, 3);
+  EXPECT_EQ(res, 10);
 }
 
 int main(int argc, char *argv[]) {
