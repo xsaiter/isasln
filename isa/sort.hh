@@ -6,8 +6,8 @@
 namespace isa {
 namespace sorting {
 
-template <class Iterator,
-          class Compare =
+template <typename Iterator,
+          typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
 void bubble_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   for (Iterator i = beg; i != end; ++i) {
@@ -25,8 +25,8 @@ void bubble_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   }
 }
 
-template <class Iterator,
-          class Compare =
+template <typename Iterator,
+          typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
 void insertion_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   for (Iterator i = beg; i != end; ++i) {
@@ -38,8 +38,8 @@ void insertion_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   }
 }
 
-template <class Iterator,
-          class Compare =
+template <typename Iterator,
+          typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
 void shell_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   int n = std::distance(beg, end);
@@ -61,8 +61,8 @@ void shell_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   }
 }
 
-template <class Iterator,
-          class Compare =
+template <typename Iterator,
+          typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
 void selection_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   for (Iterator i = beg; i != end; ++i) {
@@ -79,8 +79,8 @@ void selection_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   }
 }
 
-template <class Iterator,
-          class Compare =
+template <typename Iterator,
+          typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
 void gnome_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   Iterator i = std::next(beg, 1);
@@ -94,8 +94,8 @@ void gnome_sort(Iterator beg, Iterator end, Compare cmp = Compare()) {
   }
 }
 
-template <class Iterator,
-          class Compare =
+template <typename Iterator,
+          typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
 class heap_sort_s {
 public:
@@ -173,8 +173,8 @@ private:
   }
 };
 
-template <class Iterator,
-          class Compare =
+template <typename Iterator,
+          typename Compare =
               std::less<typename std::iterator_traits<Iterator>::value_type>>
 class merge_sort_s {
 public:

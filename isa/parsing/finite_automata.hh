@@ -10,7 +10,7 @@
 #include "graphs/paths.hh"
 
 namespace isa {
-template <class Input, class State = int> class dfa_s {
+template <typename Input, typename State = int> class dfa_s {
 public:
   explicit dfa_s(const State &start_state)
       : start_state_(start_state), state_(start_state_) {}
@@ -53,7 +53,7 @@ private:
   std::map<std::pair<State, Input>, State> transitions_;
 };
 
-template <class Input, class State = int> class nfa_s {
+template <typename Input, typename State = int> class nfa_s {
 public:
   void add_state(const State &state, bool is_final) {
     states_.insert(state);

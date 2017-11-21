@@ -141,20 +141,20 @@ private:
 
 namespace details {
 
-template <class Pair> struct first_s {
+template <typename Pair> struct first_s {
   typename Pair::first_type operator()(const Pair &p) const { return p.first; }
 };
 
-template <class Map> auto first(const Map &) {
+template <typename Map> auto first(const Map &) {
   return first_s<typename Map::value_type>();
 }
 
 } // details
 
-template <class T> using edge_list_u = std::list<T>;
+template <typename T> using edge_list_u = std::list<T>;
 
-template <class Vertex, directed_s directed = directed_s::undirected,
-          template <class> class EdgeList = edge_list_u>
+template <typename Vertex, directed_s directed = directed_s::undirected,
+          template <typename> class EdgeList = edge_list_u>
 class graph_s {
 public:
   using vertex_u = Vertex;

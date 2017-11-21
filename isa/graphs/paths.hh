@@ -20,7 +20,7 @@ struct paths_s {
   std::size_t distance_to(int v) const { return dist[v]; }
 };
 
-template <class Edge> struct shortest_paths_s {
+template <typename Edge> struct shortest_paths_s {
   int s;
   std::vector<int> dist;
   std::vector<Edge> edges;
@@ -48,7 +48,7 @@ template <class Edge> struct shortest_paths_s {
   }
 };
 
-template <class Graph> paths_s graph_paths_bfs(const Graph &g, int s) {
+template <typename Graph> paths_s graph_paths_bfs(const Graph &g, int s) {
   paths_s res(g.nv(), s);
 
   std::queue<int> q;
@@ -74,7 +74,7 @@ template <class Graph> paths_s graph_paths_bfs(const Graph &g, int s) {
 
 namespace details {
 
-template <class Graph> void dfs(const Graph &g, paths_s &res, int i) {
+template <typename Graph> void dfs(const Graph &g, paths_s &res, int i) {
   res.marked[i] = true;
 
   auto nbrs = g.neighbors(i);
@@ -89,7 +89,7 @@ template <class Graph> void dfs(const Graph &g, paths_s &res, int i) {
 
 } // details
 
-template <class Graph> paths_s graph_paths_dfs(const Graph &g, int s) {
+template <typename Graph> paths_s graph_paths_dfs(const Graph &g, int s) {
   paths_s res(g.nv(), s);
   details::dfs(g, res, s);
   return res;

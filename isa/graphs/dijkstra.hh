@@ -8,7 +8,7 @@
 
 namespace isa {
 
-template <class Graph>
+template <typename Graph>
 shortest_paths_s<typename Graph::edge_u> dijkstra(const Graph &g, int s) {
   using edge_u = typename Graph::edge_u;
   using pq_u = std::priority_queue<int, std::vector<int>, std::greater<int>>;

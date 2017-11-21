@@ -15,7 +15,7 @@
 namespace isa {
 namespace graphs {
 
-template <class Graph>
+template <typename Graph>
 std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
   using edge_u = typename Graph::edge_u;
 
@@ -48,7 +48,7 @@ std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
   return res;
 }
 
-template <class Graph>
+template <typename Graph>
 std::vector<typename Graph::edge_u> mst_prim(const Graph &g) {
   using edge_u = typename Graph::edge_u;
 

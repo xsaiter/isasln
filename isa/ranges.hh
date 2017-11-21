@@ -3,7 +3,7 @@
 #include <vector>
 
 namespace isa {
-template <class T> struct range_s {
+template <typename T> struct range_s {
   T l, r;
   range_s(const T &l_, const T &r_) : l(l_), r(r_) {}
 
@@ -18,7 +18,7 @@ template <class T> struct range_s {
 
 using range_i_s = range_s<int>;
 
-template <class T>
+template <typename T>
 range_s<T> merge_intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
   if (a.l < b.l) {
     if (a.r < b.r) {
@@ -33,12 +33,12 @@ range_s<T> merge_intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
   return range_s<T>(b.l, a.r);
 }
 
-template <class T>
+template <typename T>
 bool intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
   return (a.l >= b.l && a.l <= b.r) || (b.l >= a.l && b.l <= a.r);
 }
 
-template <class T>
+template <typename T>
 std::vector<range_s<T>> insert_range(const std::vector<range_s<T>> &ranges,
                                      const range_s<T> &range) {
   std::vector<range_s<T>> res;
