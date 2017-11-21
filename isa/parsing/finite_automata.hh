@@ -12,7 +12,8 @@
 namespace isa {
 template <class Input, class State = int> class dfa_s {
 public:
-  dfa_s(State start_state) : start_state_(start_state), state_(start_state_) {}
+  explicit dfa_s(const State &start_state)
+      : start_state_(start_state), state_(start_state_) {}
 
   void add_state(const State &state, bool is_final) {
     states_.insert(state);
@@ -50,6 +51,31 @@ private:
   std::set<State> states_;
   std::set<State> final_states_;
   std::map<std::pair<State, Input>, State> transitions_;
+};
+
+template <class Input, class State = int> class nfa_s {
+public:
+  void add_state(const State &state, bool is_final) {
+    states_.insert(state);
+    if (is_final) {
+      final_states_.insert(state);
+    }
+  }
+
+  void add_transition(const State &src, const State &dest, const Input &c) {
+    auto pair = std::make_pair(src, c);
+    auto i = transitions_.find(pair);
+    if (i == transitions_.end()) {
+      transitions_.insert(std::make_pair(pair, dest));
+    }
+  }
+
+private:
+  State start_state_;
+  std::set<State> currents_;
+  std::set<State> states_;
+  std::set<State> final_states_;
+  std::map<std::pair<State, Input>, std::set<State>> transitions_;
 };
 
 class nfa_regex_s {

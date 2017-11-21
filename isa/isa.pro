@@ -20,9 +20,7 @@ HEADERS += \
     strings/str_search.hh \
     parsing/calculator.hh \
     strings/aho_corasick.hh \
-    bloom_filter.hh \    
-    heap_sort.hh \
-    merge_sort.hh \
+    bloom_filter.hh \            
     sort.hh \
     graphs/graph.hh \
     ranges.hh \    

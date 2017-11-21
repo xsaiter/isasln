@@ -8,7 +8,7 @@
 #include "common.hh"
 
 namespace isa {
-template <typename T> class bloom_filter_s {
+template <class T> class bloom_filter_s {
 public:
   using func_u = std::function<int(const T &)>;
 
