@@ -8,8 +8,6 @@
 #include "common.hh"
 
 #include "sort.hh"
-#include "heap_sort.hh"
-#include "merge_sort.hh"
 
 #include "strings/str_utils.hh"
 #include "strings/str_search.hh"
