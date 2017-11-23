@@ -13,7 +13,14 @@ HEADERS += \
     msh/t_10.hh \
     msh/t_11.hh \
     msh/t_05.hh \
-    msh/t_03.hh
+    msh/t_03.hh \
+    msh/t_07.hh \
+    msh/t_08.hh \
+    msh/t_09.hh \
+    msh/t_12.hh \
+    msh/t_13.hh \
+    msh/t_14.hh \
+    msh/t_15.hh
 
 SOURCES += main.cc \
     msh/t_01.cc \
@@ -25,7 +32,14 @@ SOURCES += main.cc \
     msh/t_10.cc \
     msh/t_11.cc \
     msh/t_05.cc \
-    msh/t_03.cc
+    msh/t_03.cc \
+    msh/t_07.cc \
+    msh/t_08.cc \
+    msh/t_09.cc \
+    msh/t_12.cc \
+    msh/t_13.cc \
+    msh/t_14.cc \
+    msh/t_15.cc
 
 
 LIBS += /usr/lib/libgtest.so
