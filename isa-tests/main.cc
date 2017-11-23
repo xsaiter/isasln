@@ -246,12 +246,12 @@ TEST(test_dfa, dfa) {
 
   EXPECT_TRUE(is_final_state);
 }
-
+/*
 TEST(test_nfa_regex, nfa_regex) {
   auto nfa = isa::make_nfa_regex("((a*b|ac)d)");
   bool accept = nfa.accept("abbba");
   EXPECT_TRUE(accept);
-}
+}*/
 
 TEST(test_min_of, test) {
   auto res = isa::min_of(10, 2, 3);
@@ -261,6 +261,11 @@ TEST(test_min_of, test) {
 TEST(test_max_of, test) {
   auto res = isa::max_of(10, 2, 3);
   EXPECT_EQ(res, 10);
+}
+
+TEST(test_all_eq, test) {
+  auto res = isa::all_eq(10, 10, 10);
+  EXPECT_TRUE(res);
 }
 
 int main(int argc, char *argv[]) {

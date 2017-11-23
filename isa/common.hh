@@ -27,5 +27,12 @@ T max_of(const T &a, const T &b, const R &... c) {
   return std::max(a, max_of(b, c...));
 }
 
+template <typename T> bool all_eq(const T &a, const T &b) { return a == b; }
+
+template <typename T, typename... R>
+bool all_eq(const T &a, const T &b, const R &... c) {
+  return a == b && all_eq(b, c...);
+}
+
 int fnv_hash(const std::string &s);
 }

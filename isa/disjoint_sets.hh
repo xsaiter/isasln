@@ -37,19 +37,19 @@ public:
   T find(const T &data) {
     auto i = items_.find(item_s(data));
 
-    if (i != items_.end()) {
-      if (!(i->parent)) {
-        return i->data;
-      }
-
-      auto x = find(i->parent->data);
-
-      i->set_parent(x);
-
-      return x;
+    if (i == items_.end()) {
+      throw std::logic_error("not found");
     }
 
-    throw std::logic_error("not found");
+    if (!(i->parent)) {
+      return i->data;
+    }
+
+    auto x = find(i->parent->data);
+
+    i->set_parent(x);
+
+    return x;
   }
 
   void union_for(const T &a, const T &b) {

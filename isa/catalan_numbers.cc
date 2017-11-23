@@ -13,14 +13,14 @@ unsigned long catalan_numbers_s::get_number(unsigned int n) const {
   for (unsigned int i = 0; i < n; ++i) {
     unsigned long ni = get_number(i);
     if (!contains_key(i)) {
-      nums_.insert(std::pair<unsigned int, unsigned long>(i, ni));
+      nums_.insert(std::make_pair(i, ni));
     }
 
     unsigned int x = n - 1 - i;
     unsigned long nx = get_number(x);
 
     if (!contains_key(x)) {
-      nums_.insert(std::pair<unsigned int, unsigned long>(i, nx));
+      nums_.insert(std::make_pair(i, nx));
     }
 
     res += ni * nx;

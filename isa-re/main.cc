@@ -10,11 +10,11 @@ using key_u = std::pair<int, char>;
 using set_u = std::set<int>;
 using set_ptr_u = std::shared_ptr<set_u>;
 
-inline set_ptr_u make_set_ptr() { return std::make_shared<set_u>(); }
-
 inline set_ptr_u make_set_ptr(std::initializer_list<int> args) {
   return std::make_shared<set_u>(args);
 }
+
+inline set_ptr_u make_set_ptr() { return make_set_ptr({}); }
 
 struct nfa_s {
   int init_state_;
@@ -27,7 +27,7 @@ struct nfa_s {
     set_ptr_u states = eps_closure(init_state_);
 
     for (char c : text) {
-      auto move_states = move(states, c);
+      auto move_states = move_c(states, c);
       states = eps_closure(move_states);
     }
 
@@ -35,7 +35,7 @@ struct nfa_s {
                          fin_states_.end());
   }
 
-  set_ptr_u move(const set_ptr_u &states, char c) const {
+  set_ptr_u move_c(const set_ptr_u &states, char c) const {
     auto res = make_set_ptr();
 
     for (auto state : *states) {
@@ -50,20 +50,47 @@ struct nfa_s {
     return res;
   }
 
-  set_ptr_u eps_closure(const set_ptr_u &states) const {
-    set_ptr_u res;
-
+  set_ptr_u eps_closure(int state) const {
+    set_ptr_u res = make_set_ptr();
+    res->insert(state);
+    std::vector<bool> bits(states_.size(), false);
+    eps_closure(state, res, bits);
     return res;
   }
 
-  set_ptr_u eps_closure(int state) const {
-    set_ptr_u res;
+  void eps_closure(int state, set_ptr_u &res, std::vector<bool> &bits) const {
+    if (bits[state] == true) {
+      return;
+    }
+
+    auto it = eps_trans_.find(state);
+    if (it != eps_trans_.end()) {
+      bits[state] = true;
+      res->insert(state);
+
+      for (const int i : *(it->second)) {
+        res->insert(i);
+        eps_closure(i, res, bits);
+        bits[i] = true;
+      }
+    }
+  }
+
+  set_ptr_u eps_closure(const set_ptr_u &states) const {
+    set_ptr_u res = make_set_ptr();
+
+    for (int i : *states) {
+      set_ptr_u x = eps_closure(i);
+      for (auto j : *x) {
+        res->insert(j);
+      }
+    }
 
     return res;
   }
 };
 
-int main(int argc, char *argv[]) {
+void test_dfa() {
   nfa_s nfa;
 
   nfa.init_state_ = 0;
@@ -78,11 +105,19 @@ int main(int argc, char *argv[]) {
                     {5, make_set_ptr({6})},
                     {6, make_set_ptr({1, 7})}};
 
-  nfa.trans_ = {{std::make_pair<int, char>(2, 'a'), make_set_ptr({3})},
-                {std::make_pair<int, char>(4, 'b'), make_set_ptr({5})},
-                {std::make_pair<int, char>(7, 'a'), make_set_ptr({8})},
-                {std::make_pair<int, char>(8, 'b'), make_set_ptr({9})},
-                {std::make_pair<int, char>(9, 'b'), make_set_ptr({10})}};
+  nfa.trans_ = {{std::make_pair(2, 'a'), make_set_ptr({3})},
+                {std::make_pair(4, 'b'), make_set_ptr({5})},
+                {std::make_pair(7, 'a'), make_set_ptr({8})},
+                {std::make_pair(8, 'b'), make_set_ptr({9})},
+                {std::make_pair(9, 'b'), make_set_ptr({10})}};
+
+  bool ok = nfa.recognize("aaaabb");
+
+  std::cout << ok << std::endl;
+}
+
+int main(int argc, char *argv[]) {
+  test_dfa();
 
   return 0;
 }
