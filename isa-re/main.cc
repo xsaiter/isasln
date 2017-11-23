@@ -10,7 +10,11 @@ using key_u = std::pair<int, char>;
 using set_u = std::set<int>;
 using set_ptr_u = std::shared_ptr<set_u>;
 
-inline set_ptr_u new_set_ptr() { return set_ptr_u(new set_u); }
+inline set_ptr_u make_set_ptr() { return std::make_shared<set_u>(); }
+
+inline set_ptr_u make_set_ptr(std::initializer_list<int> args) {
+  return std::make_shared<set_u>(args);
+}
 
 struct nfa_s {
   int init_state_;
@@ -32,7 +36,7 @@ struct nfa_s {
   }
 
   set_ptr_u move(const set_ptr_u &states, char c) const {
-    auto res = new_set_ptr();
+    auto res = make_set_ptr();
 
     for (auto state : *states) {
       auto key = std::make_pair(state, c);
@@ -61,12 +65,24 @@ struct nfa_s {
 
 int main(int argc, char *argv[]) {
   nfa_s nfa;
-  nfa.init_state_ = 0;
-  nfa.states_ = {0, 1, 2, 3, 4};
-  nfa.fin_states_ = {3, 4};
 
-  nfa.eps_trans_.insert(
-      std::make_pair(0, std::make_shared<set_u>(set_u{1, 3})));
+  nfa.init_state_ = 0;
+
+  nfa.states_ = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  nfa.fin_states_ = {10};
+
+  nfa.eps_trans_ = {{0, make_set_ptr({1, 7})},
+                    {1, make_set_ptr({2, 4})},
+                    {3, make_set_ptr({6})},
+                    {5, make_set_ptr({6})},
+                    {6, make_set_ptr({1, 7})}};
+
+  nfa.trans_ = {{std::make_pair<int, char>(2, 'a'), make_set_ptr({3})},
+                {std::make_pair<int, char>(4, 'b'), make_set_ptr({5})},
+                {std::make_pair<int, char>(7, 'a'), make_set_ptr({8})},
+                {std::make_pair<int, char>(8, 'b'), make_set_ptr({9})},
+                {std::make_pair<int, char>(9, 'b'), make_set_ptr({10})}};
 
   return 0;
 }
