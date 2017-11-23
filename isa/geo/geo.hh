@@ -24,5 +24,9 @@ struct circle_s {
 double cross_product(const point_s &a, const point_s &b, const point_s &c);
 
 int distance2(const point_s &a, const point_s &b);
+
+bool is_point_on_segment(const segment_s &s, const point_s &p);
+
+bool segments_intersect(const segment_s &s1, const segment_s &s2);
 }
 }
