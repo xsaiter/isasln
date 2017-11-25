@@ -72,5 +72,12 @@ std::vector<std::string> t_05_b_bracket2(int n) {
 
   return res;
 }
+
+bool is_leap_year(int year) {
+  return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
+}
+
+int t_05_birthday(int day, int month, int cur_day, int cur_month,
+                  int cur_year) {}
 }
 }

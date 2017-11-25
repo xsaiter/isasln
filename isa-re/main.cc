@@ -116,6 +116,8 @@ void test_dfa() {
   std::cout << ok << std::endl;
 }
 
+nfa_s build_nfa_from_regex(const std::string &re) {}
+
 int main(int argc, char *argv[]) {
   test_dfa();
 
