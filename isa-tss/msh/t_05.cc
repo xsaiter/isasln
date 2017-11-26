@@ -166,5 +166,7 @@ int t_05_birthday(int birth_day, int birth_month, int cur_day, int cur_month,
 
   return days;
 }
+
+std::string t_05_e_scale(int src_val, int src, int dest) {}
 }
 }

@@ -5,6 +5,7 @@
 #include <map>
 #include <algorithm>
 #include <memory>
+#include <stack>
 
 using key_u = std::pair<int, char>;
 using set_u = std::set<int>;
@@ -22,6 +23,27 @@ struct nfa_s {
   set_u fin_states_;
   std::map<int, set_ptr_u> eps_trans_;
   std::map<key_u, set_ptr_u> trans_;
+
+  void add_eps_tran(int src, int dest) {
+    auto i = eps_trans_.find(src);
+    if (i != eps_trans_.end()) {
+      i->second->insert(dest);
+    } else {
+      auto e = make_set_ptr({dest});
+      eps_trans_.insert(std::make_pair(src, e));
+    }
+  }
+
+  void add_trans(int src, int dest, char c) {
+    auto key = std::make_pair(src, c);
+    auto i = trans_.find(key);
+    if (i != trans_.end()) {
+      i->second->insert(dest);
+    } else {
+      auto e = make_set_ptr({dest});
+      trans_.insert(std::make_pair(key, e));
+    }
+  }
 
   bool recognize(const std::string &text) {
     set_ptr_u states = eps_closure(init_state_);
@@ -90,6 +112,10 @@ struct nfa_s {
   }
 };
 
+using nfa_ptr_u = std::shared_ptr<nfa_s>;
+
+inline nfa_ptr_u make_nfa_ptr() { return std::make_shared<nfa_s>(); }
+
 void test_dfa() {
   nfa_s nfa;
 
@@ -116,9 +142,83 @@ void test_dfa() {
   std::cout << ok << std::endl;
 }
 
-nfa_s build_nfa_from_regex(const std::string &re) {}
+void process_alt(std::stack<nfa_ptr_u> &fas) {
+  auto b = fas.top();
+  fas.pop();
+
+  auto a = fas.top();
+  fas.pop();
+
+  nfa_ptr_u res = make_nfa_ptr();
+
+  fas.push(res);
+}
+
+void process_char(std::stack<nfa_ptr_u> &fas, char c) {
+  nfa_ptr_u res = make_nfa_ptr();
+
+  res->init_state_ = 0;
+  res->fin_states_ = {1};
+
+  res->trans_ = {{std::make_pair(0, c), make_set_ptr({1})}};
+
+  fas.push(res);
+}
+
+void process_concat(std::stack<nfa_ptr_u> &fas) {
+  if (!fas.empty()) {
+    nfa_ptr_u b = fas.top();
+    fas.pop();
+
+    nfa_ptr_u a = nullptr;
+
+    if (!fas.empty()) {
+      a = fas.top();
+      fas.pop();
+    }
+
+    nfa_ptr_u res = make_nfa_ptr();
+
+    fas.push(res);
+  }
+}
+
+nfa_ptr_u build_nfa_from_regex(const std::string &re) {
+  nfa_ptr_u nfa = make_nfa_ptr();
+
+  std::stack<nfa_ptr_u> fas;
+
+  std::stack<char> ops;
+
+  std::stack<char> cs;
+
+  for (char c : re) {
+    if (c == '(') {
+      ops.push(c);
+    } else if (c == '|') {
+      ops.push(c);
+    } else if (c == ')') {
+      while (!ops.empty()) {
+        char t = ops.top();
+        ops.pop();
+        if (t == '|') {
+          process_alt(fas);
+        } else if (t == '(') {
+          break;
+        }
+      }
+    } else {
+      process_char(fas, c);
+      process_concat(fas);
+    }
+  }
+
+  return nfa;
+}
 
 int main(int argc, char *argv[]) {
+  nfa_ptr_u nfa_ptr = build_nfa_from_regex("(a|b)");
+
   test_dfa();
 
   return 0;
