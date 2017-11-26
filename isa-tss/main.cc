@@ -193,6 +193,20 @@ TEST(t_04_d_area, test) {
   EXPECT_EQ(3.5, res);
 }
 
+TEST(t_05_birthday, test) {
+  auto days = tss::msh::t_05_birthday(29, 2, 28, 2, 2001);
+  EXPECT_EQ(1096, days);
+
+  days = tss::msh::t_05_birthday(5, 5, 19, 4, 2002);
+  EXPECT_EQ(16, days);
+
+  days = tss::msh::t_05_birthday(19, 4, 19, 4, 2002);
+  EXPECT_EQ(0, days);
+
+  days = tss::msh::t_05_birthday(29, 2, 28, 2, 1992);
+  EXPECT_EQ(1, days);
+}
+
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
