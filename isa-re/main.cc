@@ -7,6 +7,10 @@
 #include <memory>
 #include <stack>
 
+/*
+ * nfa
+*/
+
 using key_u = std::pair<int, char>;
 using set_u = std::set<int>;
 using set_ptr_u = std::shared_ptr<set_u>;
@@ -19,18 +23,20 @@ inline set_ptr_u make_set_ptr() { return make_set_ptr({}); }
 
 class nfa_s {
 public:
-  nfa_s(int size, int init_state, int final_state)
-      : size_(size), init_state_(init_state), final_state_(final_state) {}
+  nfa_s(int size, int init_state)
+      : size_(size), init_state_(init_state), final_state_(size - 1) {}
 
-  int _size_;
+  int size_;
   int init_state_;
   int final_state_;
   std::map<int, set_ptr_u> eps_trans_;
   std::map<key_u, set_ptr_u> trans_;
 
+  int size() const { return size_; }
+
   int init_state() const { return init_state_; }
 
-  int size() const { return size_; }
+  int final_state() const { return final_state_; }
 
   void add_eps_tran(int src, int dest) {
     auto i = eps_trans_.find(src);
@@ -53,20 +59,19 @@ public:
     }
   }
 
-  bool recognize(const std::string &text) {
+  bool recognize(const std::string &s) {
     set_ptr_u states = eps_closure(init_state_);
 
-    for (char c : text) {
-      auto move_states = move_c(states, c);
+    for (char c : s) {
+      auto move_states = move(states, c);
       states = eps_closure(move_states);
     }
 
-    return std::includes(states->begin(), states->end(), fin_states_.begin(),
-                         fin_states_.end());
+    return states->find(final_state_) != states->end();
   }
 
-  set_ptr_u move_c(const set_ptr_u &states, char c) const {
-    auto res = make_set_ptr();
+  set_ptr_u move(const set_ptr_u &states, char c) const {
+    set_ptr_u res = make_set_ptr();
 
     for (auto state : *states) {
       auto key = std::make_pair(state, c);
@@ -83,7 +88,7 @@ public:
   set_ptr_u eps_closure(int state) const {
     set_ptr_u res = make_set_ptr();
     res->insert(state);
-    std::vector<bool> bits(states_.size(), false);
+    std::vector<bool> bits(size_, false);
     eps_closure(state, res, bits);
     return res;
   }
@@ -122,33 +127,13 @@ public:
 
 using nfa_ptr_u = std::shared_ptr<nfa_s>;
 
-inline nfa_ptr_u make_nfa_ptr() { return std::make_shared<nfa_s>(); }
-
-void test_dfa() {
-  nfa_s nfa;
-
-  nfa.init_state_ = 0;
-
-  nfa.states_ = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-  nfa.fin_states_ = {10};
-
-  nfa.eps_trans_ = {{0, make_set_ptr({1, 7})},
-                    {1, make_set_ptr({2, 4})},
-                    {3, make_set_ptr({6})},
-                    {5, make_set_ptr({6})},
-                    {6, make_set_ptr({1, 7})}};
-
-  nfa.trans_ = {{std::make_pair(2, 'a'), make_set_ptr({3})},
-                {std::make_pair(4, 'b'), make_set_ptr({5})},
-                {std::make_pair(7, 'a'), make_set_ptr({8})},
-                {std::make_pair(8, 'b'), make_set_ptr({9})},
-                {std::make_pair(9, 'b'), make_set_ptr({10})}};
-
-  bool ok = nfa.recognize("aaaabb");
-
-  std::cout << ok << std::endl;
+nfa_ptr_u make_nfa_ptr(int size, int init_state) {
+  return std::make_shared<nfa_s>(size, init_state);
 }
+
+/*
+ * building nfa
+*/
 
 void process_alt(std::stack<nfa_ptr_u> &fas) {
   nfa_ptr_u b = fas.top();
@@ -157,22 +142,16 @@ void process_alt(std::stack<nfa_ptr_u> &fas) {
   nfa_ptr_u a = fas.top();
   fas.pop();
 
-  nfa_ptr_u res = make_nfa_ptr();
+  int nums = a->size() + b->size() + 2;
 
-  res->init_state_ = 0;
-  res->fin_states_ = {a->size() + b->size() + 2};
+  nfa_ptr_u res = make_nfa_ptr(nums, 0);
 
   fas.push(res);
 }
 
 void process_char(std::stack<nfa_ptr_u> &fas, char c) {
-  nfa_ptr_u res = make_nfa_ptr();
-
-  res->init_state_ = 0;
-  res->fin_states_ = {1};
+  nfa_ptr_u res = make_nfa_ptr(2, 0);
   res->add_trans(0, 1, 'c');
-  res->trans_ = {{std::make_pair(0, c), make_set_ptr({1})}};
-
   fas.push(res);
 }
 
@@ -187,7 +166,7 @@ void process_concat(std::stack<nfa_ptr_u> &fas) {
       a = fas.top();
       fas.pop();
 
-      nfa_ptr_u res = make_nfa_ptr();
+      nfa_ptr_u res = make_nfa_ptr(1, 2);
 
       fas.push(res);
 
@@ -200,7 +179,7 @@ void process_concat(std::stack<nfa_ptr_u> &fas) {
 void process_kleene_star(std::stack<nfa_ptr_u> &fas) {}
 
 nfa_ptr_u build_nfa_from_regex(const std::string &re) {
-  nfa_ptr_u nfa = make_nfa_ptr();
+  nfa_ptr_u nfa = make_nfa_ptr(2, 1);
 
   std::stack<nfa_ptr_u> fas;
 
@@ -233,8 +212,34 @@ nfa_ptr_u build_nfa_from_regex(const std::string &re) {
   return nfa;
 }
 
+/*
+ * tests
+*/
+
+void test_dfa() {
+  nfa_s nfa(11, 0);
+
+  nfa.eps_trans_ = {{0, make_set_ptr({1, 7})},
+                    {1, make_set_ptr({2, 4})},
+                    {3, make_set_ptr({6})},
+                    {5, make_set_ptr({6})},
+                    {6, make_set_ptr({1, 7})}};
+
+  nfa.trans_ = {{std::make_pair(2, 'a'), make_set_ptr({3})},
+                {std::make_pair(4, 'b'), make_set_ptr({5})},
+                {std::make_pair(7, 'a'), make_set_ptr({8})},
+                {std::make_pair(8, 'b'), make_set_ptr({9})},
+                {std::make_pair(9, 'b'), make_set_ptr({10})}};
+
+  bool ok = nfa.recognize("aaaabb");
+
+  std::cout << ok << std::endl;
+}
+
 int main(int argc, char *argv[]) {
-  nfa_ptr_u nfa_ptr = build_nfa_from_regex("(a|b)");
+  // test_dfa();
+
+  auto nfa = build_nfa_from_regex("(a|b)");
 
   return 0;
 }
