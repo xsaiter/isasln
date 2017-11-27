@@ -17,12 +17,20 @@ inline set_ptr_u make_set_ptr(std::initializer_list<int> args) {
 
 inline set_ptr_u make_set_ptr() { return make_set_ptr({}); }
 
-struct nfa_s {
+class nfa_s {
+public:
+  nfa_s(int size, int init_state, int final_state)
+      : size_(size), init_state_(init_state), final_state_(final_state) {}
+
+  int _size_;
   int init_state_;
-  set_u states_;
-  set_u fin_states_;
+  int final_state_;
   std::map<int, set_ptr_u> eps_trans_;
   std::map<key_u, set_ptr_u> trans_;
+
+  int init_state() const { return init_state_; }
+
+  int size() const { return size_; }
 
   void add_eps_tran(int src, int dest) {
     auto i = eps_trans_.find(src);
@@ -143,13 +151,16 @@ void test_dfa() {
 }
 
 void process_alt(std::stack<nfa_ptr_u> &fas) {
-  auto b = fas.top();
+  nfa_ptr_u b = fas.top();
   fas.pop();
 
-  auto a = fas.top();
+  nfa_ptr_u a = fas.top();
   fas.pop();
 
   nfa_ptr_u res = make_nfa_ptr();
+
+  res->init_state_ = 0;
+  res->fin_states_ = {a->size() + b->size() + 2};
 
   fas.push(res);
 }
@@ -159,7 +170,7 @@ void process_char(std::stack<nfa_ptr_u> &fas, char c) {
 
   res->init_state_ = 0;
   res->fin_states_ = {1};
-
+  res->add_trans(0, 1, 'c');
   res->trans_ = {{std::make_pair(0, c), make_set_ptr({1})}};
 
   fas.push(res);
@@ -175,13 +186,18 @@ void process_concat(std::stack<nfa_ptr_u> &fas) {
     if (!fas.empty()) {
       a = fas.top();
       fas.pop();
+
+      nfa_ptr_u res = make_nfa_ptr();
+
+      fas.push(res);
+
+    } else {
+      fas.push(b);
     }
-
-    nfa_ptr_u res = make_nfa_ptr();
-
-    fas.push(res);
   }
 }
+
+void process_kleene_star(std::stack<nfa_ptr_u> &fas) {}
 
 nfa_ptr_u build_nfa_from_regex(const std::string &re) {
   nfa_ptr_u nfa = make_nfa_ptr();
@@ -207,9 +223,10 @@ nfa_ptr_u build_nfa_from_regex(const std::string &re) {
           break;
         }
       }
+    } else if (c == '*') {
+      process_kleene_star(fas);
     } else {
       process_char(fas, c);
-      process_concat(fas);
     }
   }
 
@@ -218,8 +235,6 @@ nfa_ptr_u build_nfa_from_regex(const std::string &re) {
 
 int main(int argc, char *argv[]) {
   nfa_ptr_u nfa_ptr = build_nfa_from_regex("(a|b)");
-
-  test_dfa();
 
   return 0;
 }
