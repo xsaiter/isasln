@@ -42,7 +42,7 @@ inline set_ptr_u make_set_ptr() { return make_set_ptr({}); }
 
 class nfa_s {
 public:
-  nfa_s(int size) : size_(size), init_state_(0), final_state_(1) {}
+  nfa_s(int size) : size_(size), init_state_(0), final_state_(size - 1) {}
 
   int size_;
   int init_state_;
@@ -59,8 +59,7 @@ public:
     if (i != eps_trans_.end()) {
       i->second->insert(b);
     } else {
-      auto e = make_set_ptr({b});
-      eps_trans_.insert(std::make_pair(a, e));
+      eps_trans_.insert({a, make_set_ptr({b})});
     }
   }
 
@@ -70,13 +69,12 @@ public:
     if (i != trans_.end()) {
       i->second->insert(b);
     } else {
-      auto e = make_set_ptr({b});
-      trans_.insert(std::make_pair(key, e));
+      trans_.insert({key, make_set_ptr({b})});
     }
   }
 
   bool recognize(const std::string &s) {
-    set_ptr_u states = eps_closure(init_state_);
+    auto states = eps_closure(init_state_);
 
     for (char c : s) {
       auto move_states = move(states, c);
@@ -87,7 +85,7 @@ public:
   }
 
   set_ptr_u move(const set_ptr_u &states, char c) const {
-    set_ptr_u res = make_set_ptr();
+    auto res = make_set_ptr();
 
     for (auto state : *states) {
       key_s key{state, c};
@@ -102,7 +100,7 @@ public:
   }
 
   set_ptr_u eps_closure(int state) const {
-    set_ptr_u res = make_set_ptr({state});
+    auto res = make_set_ptr({state});
     std::vector<bool> bits(size_, false);
     eps_closure(state, res, bits);
     return res;
@@ -127,11 +125,11 @@ public:
   }
 
   set_ptr_u eps_closure(const set_ptr_u &states) const {
-    set_ptr_u res = make_set_ptr();
+    auto res = make_set_ptr();
 
     for (int i : *states) {
-      set_ptr_u x = eps_closure(i);
-      for (auto j : *x) {
+      auto set = eps_closure(i);
+      for (auto j : *set) {
         res->insert(j);
       }
     }
@@ -170,12 +168,11 @@ void alt(const nfa_ptr_u &a, nfa_ptr_u &res, int offset) {
 }
 
 nfa_ptr_u build_alt(const nfa_ptr_u &a, const nfa_ptr_u &b) {
-  int offset = 2;
-
-  int size = a->size() + b->size() + offset;
+  int size = a->size() + b->size() + 2;
 
   nfa_ptr_u res = make_nfa_ptr(size);
 
+  int offset = 1;
   alt(a, res, offset);
   offset += a->size();
   alt(b, res, offset);
