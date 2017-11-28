@@ -262,17 +262,20 @@ nfa_ptr_u build_nfa_from_regex(const std::string &re) {
 void test_dfa() {
   nfa_s nfa(11);
 
-  nfa.eps_trans_ = {{0, make_set_ptr({1, 7})},
-                    {1, make_set_ptr({2, 4})},
-                    {3, make_set_ptr({6})},
-                    {5, make_set_ptr({6})},
-                    {6, make_set_ptr({1, 7})}};
+  nfa.add_trans(2, 3, 'a');
+  nfa.add_trans(4, 5, 'b');
+  nfa.add_trans(7, 8, 'a');
+  nfa.add_trans(8, 9, 'b');
+  nfa.add_trans(9, 10, 'b');
 
-  nfa.trans_ = {{{2, 'a'}, make_set_ptr({3})},
-                {{4, 'b'}, make_set_ptr({5})},
-                {{7, 'a'}, make_set_ptr({8})},
-                {{8, 'b'}, make_set_ptr({9})},
-                {{9, 'b'}, make_set_ptr({10})}};
+  nfa.add_eps_tran(0, 1);
+  nfa.add_eps_tran(0, 7);
+  nfa.add_eps_tran(1, 2);
+  nfa.add_eps_tran(1, 4);
+  nfa.add_eps_tran(3, 6);
+  nfa.add_eps_tran(5, 6);
+  nfa.add_eps_tran(6, 1);
+  nfa.add_eps_tran(6, 7);
 
   bool ok = nfa.recognize("aaaabb");
 
