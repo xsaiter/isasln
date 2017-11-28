@@ -198,6 +198,14 @@ void proc_char(std::stack<nfa_ptr_u> &fas, char c) {
   fas.push(res);
 }
 
+nfa_ptr_u build_concat(const nfa_ptr_u &a, const nfa_ptr_u &b) {
+  int size = a->size() + b->size() + 1;
+
+  auto res = make_nfa_ptr(size);
+
+  return res;
+}
+
 void proc_concat(std::stack<nfa_ptr_u> &fas) {
   if (!fas.empty()) {
     nfa_ptr_u b = fas.top();
@@ -219,7 +227,46 @@ void proc_concat(std::stack<nfa_ptr_u> &fas) {
   }
 }
 
-void proc_kleene_star(std::stack<nfa_ptr_u> &fas) {}
+nfa_ptr_u build_kleene_star(const nfa_ptr_u &a) {
+  int size = a->size() + 2;
+
+  int offset = 1;
+
+  auto res = make_nfa_ptr(size);
+
+  for (auto i = a->trans_.begin(); i != a->trans_.end(); ++i) {
+    for (auto j = i->second->begin(); j != i->second->end(); ++j) {
+      auto a = i->first.a + offset;
+      auto b = (*j) + offset;
+      res->add_trans(a, b, i->first.c);
+    }
+  }
+
+  for (auto i = a->eps_trans_.begin(); i != a->eps_trans_.end(); ++i) {
+    for (auto j = i->second->begin(); j != i->second->end(); ++j) {
+      auto a = i->first + offset;
+      auto b = (*j) + offset;
+      res->add_eps_tran(a, b);
+    }
+  }
+
+  res->add_eps_tran(0, res->final_state());
+  res->add_eps_tran(0, a->init_state() + offset);
+
+  res->add_eps_tran(a->final_state() + offset, 0);
+  res->add_eps_tran(a->final_state() + offset, res->final_state());
+
+  return res;
+}
+
+void proc_kleene_star(std::stack<nfa_ptr_u> &fas) {
+  if (!fas.empty()) {
+    auto a = fas.top();
+    fas.pop();
+    auto res = build_kleene_star(a);
+    fas.push(res);
+  }
+}
 
 nfa_ptr_u build_nfa_from_regex(const std::string &re) {
   nfa_ptr_u nfa = make_nfa_ptr(2);
@@ -290,11 +337,11 @@ int main(int argc, char *argv[]) {
   auto b = make_nfa_ptr(2);
   b->add_trans(0, 1, 'b');
 
-  auto a_or_b = build_alt(a, b);
+  auto ab = build_alt(a, b);
+
+  auto ab_star = build_kleene_star(ab);
 
   test_dfa();
-
-  // auto nfa = build_nfa_from_regex("(a|b)");
 
   return 0;
 }
