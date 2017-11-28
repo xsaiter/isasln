@@ -194,7 +194,7 @@ void proc_alt(std::stack<nfa_ptr_u> &fas) {
 
 void proc_char(std::stack<nfa_ptr_u> &fas, char c) {
   nfa_ptr_u res = make_nfa_ptr(2);
-  res->add_trans(0, 1, 'c');
+  res->add_trans(0, 1, c);
   fas.push(res);
 }
 
