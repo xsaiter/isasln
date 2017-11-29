@@ -50,19 +50,19 @@ public:
   int size;
   int init;
   int fin;
-  std::map<int, set_u> eps_trans;
+  std::map<int, set_u> etrans;
   std::map<key_s, set_u, key_cmp_s> trans;
 
-  void add_eps_tran(int a, int b) {
-    auto i = eps_trans.find(a);
-    if (i != eps_trans.end()) {
+  void add_etran(int a, int b) {
+    auto i = etrans.find(a);
+    if (i != etrans.end()) {
       i->second->insert(b);
     } else {
-      eps_trans.insert({a, new_set({b})});
+      etrans.insert({a, new_set({b})});
     }
   }
 
-  void add_trans(int a, int b, char c) {
+  void add_tran(int a, int b, char c) {
     key_s key{a, c};
     auto i = trans.find(key);
     if (i != trans.end()) {
@@ -76,8 +76,8 @@ public:
     auto states = eps_closure(init);
 
     for (char c : str) {
-      auto move_states = move(states, c);
-      states = eps_closure(move_states);
+      auto next = move(states, c);
+      states = eps_closure(next);
     }
 
     return states->find(fin) != states->end();
@@ -102,10 +102,8 @@ private:
     auto res = new_set();
 
     for (const auto &i : *states) {
-      auto set = eps_closure(i);
-      for (const auto &j : *set) {
-        res->insert(j);
-      }
+      const auto set = eps_closure(i);
+      res->insert(set->begin(), set->end());
     }
 
     return res;
@@ -115,6 +113,7 @@ private:
     auto res = new_set({state});
 
     std::vector<bool> bits(size, false);
+
     eps_closure(state, res, bits);
 
     return res;
@@ -125,8 +124,8 @@ private:
       return;
     }
 
-    auto i = eps_trans.find(state);
-    if (i != eps_trans.end()) {
+    auto i = etrans.find(state);
+    if (i != etrans.end()) {
       bits[state] = true;
       res->insert(state);
 
@@ -150,13 +149,13 @@ nfa_u new_nfa(int size) { return std::make_shared<nfa_s>(size); }
 void map_nfa(const nfa_u &x, nfa_u &res, int offset) {
   for (const auto &i : x->trans) {
     for (const auto &j : *i.second) {
-      res->add_trans(i.first.a + offset, j + offset, i.first.c);
+      res->add_tran(i.first.a + offset, j + offset, i.first.c);
     }
   }
 
-  for (const auto &i : x->eps_trans) {
+  for (const auto &i : x->etrans) {
     for (const auto &j : *i.second) {
-      res->add_eps_tran(i.first + offset, j + offset);
+      res->add_etran(i.first + offset, j + offset);
     }
   }
 }
@@ -164,8 +163,8 @@ void map_nfa(const nfa_u &x, nfa_u &res, int offset) {
 void alt(const nfa_u &x, nfa_u &res, int offset) {
   map_nfa(x, res, offset);
 
-  res->add_eps_tran(0, x->init + offset);
-  res->add_eps_tran(x->fin + offset, res->fin);
+  res->add_etran(0, x->init + offset);
+  res->add_etran(x->fin + offset, res->fin);
 }
 
 nfa_u build_alt(const nfa_u &x, const nfa_u &y) {
@@ -196,7 +195,7 @@ void proc_alt(std::stack<nfa_u> &fas) {
 
 void proc_char(std::stack<nfa_u> &fas, char c) {
   nfa_u res = new_nfa(2);
-  res->add_trans(0, 1, c);
+  res->add_tran(0, 1, c);
   fas.push(res);
 }
 
@@ -238,11 +237,11 @@ nfa_u build_kleene_star(const nfa_u &x) {
 
   map_nfa(x, res, offset);
 
-  res->add_eps_tran(0, res->fin);
-  res->add_eps_tran(0, x->init + offset);
+  res->add_etran(0, res->fin);
+  res->add_etran(0, x->init + offset);
 
-  res->add_eps_tran(x->fin + offset, 0);
-  res->add_eps_tran(x->fin + offset, res->fin);
+  res->add_etran(x->fin + offset, 0);
+  res->add_etran(x->fin + offset, res->fin);
 
   return res;
 }
@@ -297,20 +296,20 @@ nfa_u build_nfa_from_regex(const std::string &re) {
 void test_dfa() {
   nfa_s nfa(11);
 
-  nfa.add_trans(2, 3, 'a');
-  nfa.add_trans(4, 5, 'b');
-  nfa.add_trans(7, 8, 'a');
-  nfa.add_trans(8, 9, 'b');
-  nfa.add_trans(9, 10, 'b');
+  nfa.add_tran(2, 3, 'a');
+  nfa.add_tran(4, 5, 'b');
+  nfa.add_tran(7, 8, 'a');
+  nfa.add_tran(8, 9, 'b');
+  nfa.add_tran(9, 10, 'b');
 
-  nfa.add_eps_tran(0, 1);
-  nfa.add_eps_tran(0, 7);
-  nfa.add_eps_tran(1, 2);
-  nfa.add_eps_tran(1, 4);
-  nfa.add_eps_tran(3, 6);
-  nfa.add_eps_tran(5, 6);
-  nfa.add_eps_tran(6, 1);
-  nfa.add_eps_tran(6, 7);
+  nfa.add_etran(0, 1);
+  nfa.add_etran(0, 7);
+  nfa.add_etran(1, 2);
+  nfa.add_etran(1, 4);
+  nfa.add_etran(3, 6);
+  nfa.add_etran(5, 6);
+  nfa.add_etran(6, 1);
+  nfa.add_etran(6, 7);
 
   bool ok = nfa.recognize("aaaabb");
 
@@ -318,15 +317,12 @@ void test_dfa() {
 }
 
 int main(int argc, char *argv[]) {
-  std::set<int> utt{1, 2, 3, 4};
-  auto tt = new_set({5, 6, 7});
-
   auto a = new_nfa(2);
 
-  a->add_trans(0, 1, 'a');
+  a->add_tran(0, 1, 'a');
 
   auto b = new_nfa(2);
-  b->add_trans(0, 1, 'b');
+  b->add_tran(0, 1, 'b');
 
   auto ab = build_alt(a, b);
 
