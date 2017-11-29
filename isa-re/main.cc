@@ -37,7 +37,7 @@ inline set_u new_set(std::initializer_list<int> &&args) {
   return std::make_shared<std::set<int>>(args);
 }
 
-template <typename... R> inline set_u new_set(R... args) {
+template <typename... R> inline set_u new_set(R &&... args) {
   return std::make_shared<std::set<int>>(args...);
 }
 
