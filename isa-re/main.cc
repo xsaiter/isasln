@@ -16,81 +16,81 @@ struct key_s {
   char c;
 };
 
-bool operator==(const key_s &lhs, const key_s &rhs) {
-  return lhs.a == rhs.a && lhs.c == rhs.c;
+bool operator==(const key_s &x, const key_s &y) {
+  return x.a == y.a && x.c == y.c;
 }
 
 struct key_cmp_s {
-  bool operator()(const key_s &lhs, const key_s &rhs) const {
-    if (lhs.a < rhs.a) {
+  bool operator()(const key_s &x, const key_s &y) const {
+    if (x.a < y.a) {
       return true;
-    } else if (lhs.a > rhs.a) {
+    } else if (x.a > y.a) {
       return false;
     }
-    return lhs.c < rhs.c;
+    return x.c < y.c;
   }
 };
 
-using set_u = std::set<int>;
-using set_ptr_u = std::shared_ptr<set_u>;
+using set_u = std::shared_ptr<std::set<int>>;
 
-inline set_ptr_u make_set_ptr(std::initializer_list<int> args) {
-  return std::make_shared<set_u>(args);
+inline set_u new_set(std::initializer_list<int> &&args) {
+  return std::make_shared<std::set<int>>(args);
 }
 
-inline set_ptr_u make_set_ptr() { return make_set_ptr({}); }
+template <typename... R> inline set_u new_set(R... args) {
+  return std::make_shared<std::set<int>>(args...);
+}
+
+inline set_u new_set() { return new_set({}); }
 
 class nfa_s {
 public:
-  nfa_s(int size) : size_(size), init_state_(0), final_state_(size - 1) {}
+  nfa_s(int size_) : size(size_), init(0), fin(size - 1) {}
 
-  int size_;
-  int init_state_;
-  int final_state_;
-  std::map<int, set_ptr_u> eps_trans_;
-  std::map<key_s, set_ptr_u, key_cmp_s> trans_;
-
-  int size() const { return size_; }
-  int init_state() const { return init_state_; }
-  int final_state() const { return final_state_; }
+  int size;
+  int init;
+  int fin;
+  std::map<int, set_u> eps_trans;
+  std::map<key_s, set_u, key_cmp_s> trans;
 
   void add_eps_tran(int a, int b) {
-    auto i = eps_trans_.find(a);
-    if (i != eps_trans_.end()) {
+    auto i = eps_trans.find(a);
+    if (i != eps_trans.end()) {
       i->second->insert(b);
     } else {
-      eps_trans_.insert({a, make_set_ptr({b})});
+      eps_trans.insert({a, new_set({b})});
     }
   }
 
   void add_trans(int a, int b, char c) {
     key_s key{a, c};
-    auto i = trans_.find(key);
-    if (i != trans_.end()) {
+    auto i = trans.find(key);
+    if (i != trans.end()) {
       i->second->insert(b);
     } else {
-      trans_.insert({key, make_set_ptr({b})});
+      trans.insert({key, new_set({b})});
     }
   }
 
-  bool recognize(const std::string &s) {
-    auto states = eps_closure(init_state_);
+  bool recognize(const std::string &str) {
+    auto states = eps_closure(init);
 
-    for (char c : s) {
+    for (char c : str) {
       auto move_states = move(states, c);
       states = eps_closure(move_states);
     }
 
-    return states->find(final_state_) != states->end();
+    return states->find(fin) != states->end();
   }
 
-  set_ptr_u move(const set_ptr_u &states, char c) const {
-    auto res = make_set_ptr();
+private:
+  set_u move(const set_u &states, char c) const {
+    auto res = new_set();
 
     for (auto state : *states) {
       key_s key{state, c};
-      auto i = trans_.find(key);
-      if (i != trans_.end()) {
+      auto i = trans.find(key);
+      if (i != trans.end()) {
         std::copy(i->second->begin(), i->second->end(),
                   std::inserter(*res, res->begin()));
       }
@@ -99,33 +99,8 @@ public:
     return res;
   }
 
-  set_ptr_u eps_closure(int state) const {
-    auto res = make_set_ptr({state});
-    std::vector<bool> bits(size_, false);
-    eps_closure(state, res, bits);
-    return res;
-  }
-
-  void eps_closure(int state, set_ptr_u &res, std::vector<bool> &bits) const {
-    if (bits[state] == true) {
-      return;
-    }
-
-    auto i = eps_trans_.find(state);
-    if (i != eps_trans_.end()) {
-      bits[state] = true;
-      res->insert(state);
-
-      for (const int j : *(i->second)) {
-        res->insert(j);
-        eps_closure(j, res, bits);
-        bits[j] = true;
-      }
-    }
-  }
-
-  set_ptr_u eps_closure(const set_ptr_u &states) const {
-    auto res = make_set_ptr();
+  set_u eps_closure(const set_u &states) const {
+    auto res = new_set();
 
     for (int i : *states) {
       auto set = eps_closure(i);
@@ -136,18 +111,43 @@ public:
 
     return res;
   }
+
+  set_u eps_closure(int state) const {
+    auto res = new_set({state});
+    std::vector<bool> bits(size, false);
+    eps_closure(state, res, bits);
+    return res;
+  }
+
+  void eps_closure(int state, set_u &res, std::vector<bool> &bits) const {
+    if (bits[state] == true) {
+      return;
+    }
+
+    auto i = eps_trans.find(state);
+    if (i != eps_trans.end()) {
+      bits[state] = true;
+      res->insert(state);
+
+      for (const int j : *(i->second)) {
+        res->insert(j);
+        eps_closure(j, res, bits);
+        bits[j] = true;
+      }
+    }
+  }
 };
 
-using nfa_ptr_u = std::shared_ptr<nfa_s>;
+using nfa_u = std::shared_ptr<nfa_s>;
 
-nfa_ptr_u make_nfa_ptr(int size) { return std::make_shared<nfa_s>(size); }
+nfa_u new_nfa(int size) { return std::make_shared<nfa_s>(size); }
 
 /*
  * building nfa
 */
 
-void alt(const nfa_ptr_u &a, nfa_ptr_u &res, int offset) {
-  for (auto i = a->trans_.begin(); i != a->trans_.end(); ++i) {
+void alt(const nfa_u &x, nfa_u &res, int offset) {
+  for (auto i = x->trans.begin(); i != x->trans.end(); ++i) {
     for (auto j = i->second->begin(); j != i->second->end(); ++j) {
       auto a = i->first.a + offset;
       auto b = (*j) + offset;
@@ -155,7 +155,7 @@ void alt(const nfa_ptr_u &a, nfa_ptr_u &res, int offset) {
     }
   }
 
-  for (auto i = a->eps_trans_.begin(); i != a->eps_trans_.end(); ++i) {
+  for (auto i = x->eps_trans.begin(); i != x->eps_trans.end(); ++i) {
     for (auto j = i->second->begin(); j != i->second->end(); ++j) {
       auto a = i->first + offset;
       auto b = (*j) + offset;
@@ -163,28 +163,29 @@ void alt(const nfa_ptr_u &a, nfa_ptr_u &res, int offset) {
     }
   }
 
-  res->add_eps_tran(0, a->init_state() + offset);
-  res->add_eps_tran(a->final_state() + offset, res->final_state());
+  res->add_eps_tran(0, x->init + offset);
+  res->add_eps_tran(x->fin + offset, res->fin);
 }
 
-nfa_ptr_u build_alt(const nfa_ptr_u &a, const nfa_ptr_u &b) {
-  int size = a->size() + b->size() + 2;
+nfa_u build_alt(const nfa_u &x, const nfa_u &y) {
+  int size = x->size + y->size + 2;
 
-  nfa_ptr_u res = make_nfa_ptr(size);
+  nfa_u res = new_nfa(size);
 
   int offset = 1;
-  alt(a, res, offset);
-  offset += a->size();
-  alt(b, res, offset);
+  alt(x, res, offset);
+
+  offset += x->size;
+  alt(y, res, offset);
 
   return res;
 }
 
-void proc_alt(std::stack<nfa_ptr_u> &fas) {
-  nfa_ptr_u b = fas.top();
+void proc_alt(std::stack<nfa_u> &fas) {
+  nfa_u b = fas.top();
   fas.pop();
 
-  nfa_ptr_u a = fas.top();
+  nfa_u a = fas.top();
   fas.pop();
 
   auto res = build_alt(a, b);
@@ -192,32 +193,32 @@ void proc_alt(std::stack<nfa_ptr_u> &fas) {
   fas.push(res);
 }
 
-void proc_char(std::stack<nfa_ptr_u> &fas, char c) {
-  nfa_ptr_u res = make_nfa_ptr(2);
+void proc_char(std::stack<nfa_u> &fas, char c) {
+  nfa_u res = new_nfa(2);
   res->add_trans(0, 1, c);
   fas.push(res);
 }
 
-nfa_ptr_u build_concat(const nfa_ptr_u &a, const nfa_ptr_u &b) {
-  int size = a->size() + b->size() + 1;
+nfa_u build_concat(const nfa_u &a, const nfa_u &b) {
+  int size = a->size + b->size + 1;
 
-  auto res = make_nfa_ptr(size);
+  auto res = new_nfa(size);
 
   return res;
 }
 
-void proc_concat(std::stack<nfa_ptr_u> &fas) {
+void proc_concat(std::stack<nfa_u> &fas) {
   if (!fas.empty()) {
-    nfa_ptr_u b = fas.top();
+    nfa_u b = fas.top();
     fas.pop();
 
-    nfa_ptr_u a = nullptr;
+    nfa_u a = nullptr;
 
     if (!fas.empty()) {
       a = fas.top();
       fas.pop();
 
-      nfa_ptr_u res = make_nfa_ptr(1);
+      nfa_u res = new_nfa(1);
 
       fas.push(res);
 
@@ -227,14 +228,14 @@ void proc_concat(std::stack<nfa_ptr_u> &fas) {
   }
 }
 
-nfa_ptr_u build_kleene_star(const nfa_ptr_u &a) {
-  int size = a->size() + 2;
+nfa_u build_kleene_star(const nfa_u &a) {
+  int size = a->size + 2;
 
   int offset = 1;
 
-  auto res = make_nfa_ptr(size);
+  auto res = new_nfa(size);
 
-  for (auto i = a->trans_.begin(); i != a->trans_.end(); ++i) {
+  for (auto i = a->trans.begin(); i != a->trans.end(); ++i) {
     for (auto j = i->second->begin(); j != i->second->end(); ++j) {
       auto a = i->first.a + offset;
       auto b = (*j) + offset;
@@ -242,7 +243,7 @@ nfa_ptr_u build_kleene_star(const nfa_ptr_u &a) {
     }
   }
 
-  for (auto i = a->eps_trans_.begin(); i != a->eps_trans_.end(); ++i) {
+  for (auto i = a->eps_trans.begin(); i != a->eps_trans.end(); ++i) {
     for (auto j = i->second->begin(); j != i->second->end(); ++j) {
       auto a = i->first + offset;
       auto b = (*j) + offset;
@@ -250,16 +251,16 @@ nfa_ptr_u build_kleene_star(const nfa_ptr_u &a) {
     }
   }
 
-  res->add_eps_tran(0, res->final_state());
-  res->add_eps_tran(0, a->init_state() + offset);
+  res->add_eps_tran(0, res->fin);
+  res->add_eps_tran(0, a->init + offset);
 
-  res->add_eps_tran(a->final_state() + offset, 0);
-  res->add_eps_tran(a->final_state() + offset, res->final_state());
+  res->add_eps_tran(a->fin + offset, 0);
+  res->add_eps_tran(a->fin + offset, res->fin);
 
   return res;
 }
 
-void proc_kleene_star(std::stack<nfa_ptr_u> &fas) {
+void proc_kleene_star(std::stack<nfa_u> &fas) {
   if (!fas.empty()) {
     auto a = fas.top();
     fas.pop();
@@ -268,10 +269,10 @@ void proc_kleene_star(std::stack<nfa_ptr_u> &fas) {
   }
 }
 
-nfa_ptr_u build_nfa_from_regex(const std::string &re) {
-  nfa_ptr_u nfa = make_nfa_ptr(2);
+nfa_u build_nfa_from_regex(const std::string &re) {
+  nfa_u nfa = new_nfa(2);
 
-  std::stack<nfa_ptr_u> fas;
+  std::stack<nfa_u> fas;
 
   std::stack<char> ops;
 
@@ -330,11 +331,11 @@ void test_dfa() {
 }
 
 int main(int argc, char *argv[]) {
-  auto a = make_nfa_ptr(2);
+  auto a = new_nfa(2);
 
   a->add_trans(0, 1, 'a');
 
-  auto b = make_nfa_ptr(2);
+  auto b = new_nfa(2);
   b->add_trans(0, 1, 'b');
 
   auto ab = build_alt(a, b);
