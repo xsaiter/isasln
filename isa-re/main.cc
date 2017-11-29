@@ -168,7 +168,7 @@ void alt(const nfa_u &x, nfa_u &res, int offset) {
 }
 
 nfa_u build_alt(const nfa_u &x, const nfa_u &y) {
-  const int size = x->size + y->size + 2;
+  const auto size = x->size + y->size + 2;
 
   nfa_u res = new_nfa(size);
 
@@ -199,10 +199,18 @@ void proc_char(std::stack<nfa_u> &fas, char c) {
   fas.push(res);
 }
 
-nfa_u build_concat(const nfa_u &a, const nfa_u &b) {
-  int size = a->size + b->size + 1;
+nfa_u build_concat(const nfa_u &x, const nfa_u &y) {
+  const auto size = x->size + y->size - 1;
 
   auto res = new_nfa(size);
+
+  int offset = 0;
+
+  map_nfa(x, res, offset);
+
+  offset += x->size - 1;
+
+  map_nfa(y, res, offset);
 
   return res;
 }
@@ -293,7 +301,11 @@ nfa_u build_nfa_from_regex(const std::string &re) {
  * tests
 */
 
-void test_dfa() {
+inline void print_ok(bool ok, const std::string &&test_case) {
+  std::cout << test_case << ":" << (ok == true ? "OK" : "ERROR") << std::endl;
+}
+
+void test_1() {
   nfa_s nfa(11);
 
   nfa.add_tran(2, 3, 'a');
@@ -311,24 +323,38 @@ void test_dfa() {
   nfa.add_etran(6, 1);
   nfa.add_etran(6, 7);
 
-  bool ok = nfa.recognize("aaaabb");
+  bool res = nfa.recognize("aaaabb");
 
-  std::cout << ok << std::endl;
+  print_ok(res, "test1");
 }
 
-int main(int argc, char *argv[]) {
+void test_2() {
   auto a = new_nfa(2);
-
   a->add_tran(0, 1, 'a');
 
   auto b = new_nfa(2);
   b->add_tran(0, 1, 'b');
 
-  auto ab = build_alt(a, b);
+  auto ab = build_concat(a, b);
+  auto abb = build_concat(ab, b);
 
-  auto ab_star = build_kleene_star(ab);
+  auto ba = build_concat(b, a);
 
-  test_dfa();
+  auto or_ = build_alt(abb, ba);
 
+  auto nfa = build_kleene_star(or_);
+
+  auto res = nfa->recognize("abbabbabbbaba");
+
+  print_ok(res, "test2");
+}
+
+void run_all_tests() {
+  test_1();
+  test_2();
+}
+
+int main(int argc, char *argv[]) {
+  run_all_tests();
   return 0;
 }
