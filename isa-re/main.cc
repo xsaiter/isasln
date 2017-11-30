@@ -263,27 +263,32 @@ void proc_kleene_star(std::stack<nfa_u> &fas) {
   }
 }
 
+// (ab|a)*
 nfa_u build_nfa_from_regex(const std::string &re) {
-  nfa_u nfa = new_nfa(2);
-
   std::stack<nfa_u> fas;
 
-  std::stack<char> ops;
+  std::stack<int> ops;
 
-  std::stack<char> cs;
+  const int n = re.size();
 
-  for (char c : re) {
+  for (int i = 0; i < n; ++i) {
+    char c = re[i];
+
     if (c == '(') {
-      ops.push(c);
+      ops.push(i);
     } else if (c == '|') {
-      ops.push(c);
+
+      ops.push(i);
     } else if (c == ')') {
       while (!ops.empty()) {
-        char t = ops.top();
+        char pos = ops.top();
         ops.pop();
-        if (t == '|') {
+
+        char x = re[pos];
+
+        if (x == '|') {
           proc_alt(fas);
-        } else if (t == '(') {
+        } else if (x == '(') {
           break;
         }
       }
@@ -294,7 +299,7 @@ nfa_u build_nfa_from_regex(const std::string &re) {
     }
   }
 
-  return nfa;
+  return fas.top();
 }
 
 /*
@@ -329,6 +334,8 @@ void test_1() {
 }
 
 void test_2() {
+  // (abb|ba)*
+
   auto a = new_nfa(2);
   a->add_tran(0, 1, 'a');
 
@@ -349,9 +356,18 @@ void test_2() {
   print_ok(res, "test2");
 }
 
+void test_3() {
+  auto nfa = build_nfa_from_regex("(ab|a)*");
+
+  auto res = nfa->recognize("abbabbabbbaba");
+
+  print_ok(res, "test3");
+}
+
 void run_all_tests() {
   test_1();
   test_2();
+  test_3();
 }
 
 int main(int argc, char *argv[]) {
