@@ -1,5 +1,5 @@
 /*
- * regexp implemenation
+ * regexp implementation
 */
 
 #include <iostream>
