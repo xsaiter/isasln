@@ -1,3 +1,7 @@
+/*
+ * regexp implemenation
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -263,16 +267,18 @@ void proc_kleene_star(std::stack<nfa_u> &fas) {
   }
 }
 
-// (ab|a)*
-nfa_u build_nfa_from_regex(const std::string &re) {
+/*
+ * convert to postfix regexp to nfa
+*/
+nfa_u postfix_to_nfa(const std::string &s) {
   std::stack<nfa_u> fas;
 
   std::stack<int> ops;
 
-  const int n = re.size();
+  const int n = s.size();
 
   for (int i = 0; i < n; ++i) {
-    char c = re[i];
+    char c = s[i];
 
     if (c == '(') {
       ops.push(i);
@@ -284,7 +290,7 @@ nfa_u build_nfa_from_regex(const std::string &re) {
         char pos = ops.top();
         ops.pop();
 
-        char x = re[pos];
+        char x = s[pos];
 
         if (x == '|') {
           proc_alt(fas);
@@ -300,6 +306,15 @@ nfa_u build_nfa_from_regex(const std::string &re) {
   }
 
   return fas.top();
+}
+
+/*
+ * convert infix regexp to postfix
+*/
+std::string re_to_postfix(const std::string &re) {
+  std::string res;
+
+  return res;
 }
 
 /*
@@ -333,9 +348,10 @@ void test_1() {
   print_ok(res, "test1");
 }
 
+/*
+ * (abb|ba)*
+*/
 void test_2() {
-  // (abb|ba)*
-
   auto a = new_nfa(2);
   a->add_tran(0, 1, 'a');
 
@@ -357,7 +373,7 @@ void test_2() {
 }
 
 void test_3() {
-  auto nfa = build_nfa_from_regex("(ab|a)*");
+  auto nfa = postfix_to_nfa("(ab|a)*");
 
   auto res = nfa->recognize("abbabbabbbaba");
 
