@@ -234,12 +234,10 @@ int priority(char c) {
   default:
     return 100;
   }
-
-  return 0;
 }
 
 /*
- * convert infix regexp to postfix
+ * convert regexp from infix to postfix
 */
 std::string regexp_infix_to_postfix(const std::string &infix) {
   std::string res;
@@ -289,7 +287,7 @@ std::string regexp_infix_to_postfix(const std::string &infix) {
 }
 
 /*
- * convert postfix regexp to nfa
+ * convert regexp from postfix to nfa
 */
 nfa_u regexp_postfix_to_nfa(const std::string &postfix) {
   std::stack<nfa_u> fas;
