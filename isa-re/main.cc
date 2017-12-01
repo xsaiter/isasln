@@ -3,6 +3,7 @@
 */
 
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <string>
 #include <set>
@@ -10,6 +11,7 @@
 #include <algorithm>
 #include <memory>
 #include <stack>
+#include <queue>
 
 /*
  * nfa
@@ -144,7 +146,7 @@ private:
 
 using nfa_u = std::shared_ptr<nfa_s>;
 
-nfa_u new_nfa(int size) { return std::make_shared<nfa_s>(size); }
+inline nfa_u new_nfa(int size) { return std::make_shared<nfa_s>(size); }
 
 /*
  * building nfa
@@ -270,38 +272,42 @@ void proc_kleene_star(std::stack<nfa_u> &fas) {
 /*
  * convert to postfix regexp to nfa
 */
-nfa_u postfix_to_nfa(const std::string &s) {
+nfa_u postfix_to_nfa(const std::string &postfix) {
   std::stack<nfa_u> fas;
 
-  std::stack<int> ops;
-
-  const int n = s.size();
+  const int n = postfix.size();
 
   for (int i = 0; i < n; ++i) {
-    char c = s[i];
+    char c = postfix[i];
 
-    if (c == '(') {
-      ops.push(i);
-    } else if (c == '|') {
+    if (c == '|' || c == '*' || c == ' ') {
+      if (c == ' ' || c == '|') {
+        auto b = fas.top();
+        fas.pop();
 
-      ops.push(i);
-    } else if (c == ')') {
-      while (!ops.empty()) {
-        char pos = ops.top();
-        ops.pop();
+        auto a = fas.top();
+        fas.pop();
 
-        char x = s[pos];
+        nfa_u rn = nullptr;
 
-        if (x == '|') {
-          proc_alt(fas);
-        } else if (x == '(') {
-          break;
+        if (c == ' ') {
+          rn = build_concat(a, b);
+        } else {
+          rn = build_alt(a, b);
         }
+
+        fas.push(rn);
+      } else if (c == '*') {
+        auto b = fas.top();
+        fas.pop();
+
+        nfa_u rn = build_kleene_star(b);
+        fas.push(rn);
       }
-    } else if (c == '*') {
-      proc_kleene_star(fas);
     } else {
-      proc_char(fas, c);
+      nfa_u cn = new_nfa(2);
+      cn->add_tran(0, 1, c);
+      fas.push(cn);
     }
   }
 
@@ -372,8 +378,11 @@ void test_2() {
   print_ok(res, "test2");
 }
 
+/*
+ * postfix to nfa
+*/
 void test_3() {
-  auto nfa = postfix_to_nfa("(ab|a)*");
+  auto nfa = postfix_to_nfa("ab b ba |*");
 
   auto res = nfa->recognize("abbabbabbbaba");
 
