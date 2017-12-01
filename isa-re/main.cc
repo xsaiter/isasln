@@ -187,24 +187,6 @@ nfa_u build_alt(const nfa_u &x, const nfa_u &y) {
   return res;
 }
 
-void proc_alt(std::stack<nfa_u> &fas) {
-  nfa_u b = fas.top();
-  fas.pop();
-
-  nfa_u a = fas.top();
-  fas.pop();
-
-  auto res = build_alt(a, b);
-
-  fas.push(res);
-}
-
-void proc_char(std::stack<nfa_u> &fas, char c) {
-  nfa_u res = new_nfa(2);
-  res->add_tran(0, 1, c);
-  fas.push(res);
-}
-
 nfa_u build_concat(const nfa_u &x, const nfa_u &y) {
   const auto size = x->size + y->size - 1;
 
@@ -219,27 +201,6 @@ nfa_u build_concat(const nfa_u &x, const nfa_u &y) {
   map_nfa(y, res, offset);
 
   return res;
-}
-
-void proc_concat(std::stack<nfa_u> &fas) {
-  if (!fas.empty()) {
-    nfa_u b = fas.top();
-    fas.pop();
-
-    nfa_u a = nullptr;
-
-    if (!fas.empty()) {
-      a = fas.top();
-      fas.pop();
-
-      nfa_u res = new_nfa(1);
-
-      fas.push(res);
-
-    } else {
-      fas.push(b);
-    }
-  }
 }
 
 nfa_u build_kleene_star(const nfa_u &x) {
@@ -260,17 +221,8 @@ nfa_u build_kleene_star(const nfa_u &x) {
   return res;
 }
 
-void proc_kleene_star(std::stack<nfa_u> &fas) {
-  if (!fas.empty()) {
-    auto a = fas.top();
-    fas.pop();
-    auto res = build_kleene_star(a);
-    fas.push(res);
-  }
-}
-
 /*
- * convert to postfix regexp to nfa
+ * convert postfix regexp to nfa
 */
 nfa_u postfix_to_nfa(const std::string &postfix) {
   std::stack<nfa_u> fas;
@@ -282,32 +234,32 @@ nfa_u postfix_to_nfa(const std::string &postfix) {
 
     if (c == '|' || c == '*' || c == ' ') {
       if (c == ' ' || c == '|') {
-        auto b = fas.top();
+        auto y = fas.top();
         fas.pop();
 
-        auto a = fas.top();
+        auto x = fas.top();
         fas.pop();
 
-        nfa_u rn = nullptr;
+        nfa_u r = nullptr;
 
         if (c == ' ') {
-          rn = build_concat(a, b);
+          r = build_concat(x, y);
         } else {
-          rn = build_alt(a, b);
+          r = build_alt(x, y);
         }
 
-        fas.push(rn);
+        fas.push(r);
       } else if (c == '*') {
-        auto b = fas.top();
+        auto x = fas.top();
         fas.pop();
 
-        nfa_u rn = build_kleene_star(b);
-        fas.push(rn);
+        nfa_u r = build_kleene_star(x);
+        fas.push(r);
       }
     } else {
-      nfa_u cn = new_nfa(2);
-      cn->add_tran(0, 1, c);
-      fas.push(cn);
+      nfa_u x = new_nfa(2);
+      x->add_tran(0, 1, c);
+      fas.push(x);
     }
   }
 
@@ -331,6 +283,9 @@ inline void print_ok(bool ok, const std::string &&test_case) {
   std::cout << test_case << ":" << (ok == true ? "OK" : "ERROR") << std::endl;
 }
 
+/*
+ * test: (a|b)*abb
+*/
 void test_1() {
   nfa_s nfa(11);
 
@@ -355,7 +310,7 @@ void test_1() {
 }
 
 /*
- * (abb|ba)*
+ * test: (abb|ba)*
 */
 void test_2() {
   auto a = new_nfa(2);
@@ -379,7 +334,7 @@ void test_2() {
 }
 
 /*
- * postfix to nfa
+ * test: postfix to nfa
 */
 void test_3() {
   auto nfa = postfix_to_nfa("ab b ba |*");
