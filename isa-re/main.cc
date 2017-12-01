@@ -221,10 +221,77 @@ nfa_u build_kleene_star(const nfa_u &x) {
   return res;
 }
 
+int priority(char c) {
+  switch (c) {
+  case '(':
+    return 1;
+  case '|':
+    return 2;
+  case ' ':
+    return 3;
+  case '*':
+    return 4;
+  default:
+    return 100;
+  }
+
+  return 0;
+}
+
+/*
+ * convert infix regexp to postfix
+*/
+std::string regexp_infix_to_postfix(const std::string &infix) {
+  std::string res;
+
+  std::stack<char> ops;
+
+  std::string prepared = infix;
+
+  for (char c : prepared) {
+    if (c == '(') {
+      ops.push(c);
+    } else if (c == ')') {
+      while (!ops.empty()) {
+        char t = ops.top();
+        ops.pop();
+        if (t == '(') {
+          break;
+        } else {
+          res += t;
+        }
+      }
+    } else {
+      while (!ops.empty()) {
+        char t = ops.top();
+
+        int t_prio = priority(t);
+        int c_prio = priority(c);
+
+        if (t_prio >= c_prio) {
+          res += t;
+          ops.pop();
+        } else {
+          break;
+        }
+      }
+      ops.push(c);
+    }
+  }
+
+  while (!ops.empty()) {
+    char t = ops.top();
+    ops.pop();
+    res += t;
+  }
+
+  return res;
+}
+
 /*
  * convert postfix regexp to nfa
 */
-nfa_u postfix_to_nfa(const std::string &postfix) {
+nfa_u regexp_postfix_to_nfa(const std::string &postfix) {
   std::stack<nfa_u> fas;
 
   const int n = postfix.size();
@@ -264,15 +331,6 @@ nfa_u postfix_to_nfa(const std::string &postfix) {
   }
 
   return fas.top();
-}
-
-/*
- * convert infix regexp to postfix
-*/
-std::string re_to_postfix(const std::string &re) {
-  std::string res;
-
-  return res;
 }
 
 /*
@@ -337,17 +395,29 @@ void test_2() {
  * test: postfix to nfa
 */
 void test_3() {
-  auto nfa = postfix_to_nfa("ab b ba |*");
+  auto nfa = regexp_postfix_to_nfa("ab b ba |*");
 
   auto res = nfa->recognize("abbabbabbbaba");
 
   print_ok(res, "test3");
 }
 
+/*
+ * test: convert regexp infix to postfix
+*/
+void test_4() {
+  auto postfix = regexp_infix_to_postfix("(a b b|b a)*");
+
+  auto res = postfix == "ab b ba |*";
+
+  print_ok(res, "test4");
+}
+
 void run_all_tests() {
   test_1();
   test_2();
   test_3();
+  test_4();
 }
 
 int main(int argc, char *argv[]) {
