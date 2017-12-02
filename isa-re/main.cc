@@ -236,6 +236,40 @@ int priority(char c) {
   }
 }
 
+inline bool is_op(char c) {
+  return c == '(' || c == ')' || c == '*' || c == '|';
+}
+
+/*
+ * prepare infix regexp
+*/
+std::string prepare_infix(const std::string &s) {
+  std::string res;
+
+  const int n = s.size();
+
+  int i = 0;
+
+  while (i < n) {
+    char c = s[i];
+
+    res += c;
+
+    if (!is_op(c)) {
+      if (i + 1 < n) {
+        char t = s[i + 1];
+        if (!is_op(t)) {
+          res += ' ';
+        }
+      }
+    }
+
+    ++i;
+  }
+
+  return res;
+}
+
 /*
  * convert regexp from infix to postfix
 */
@@ -244,7 +278,7 @@ std::string regexp_infix_to_postfix(const std::string &infix) {
 
   std::stack<char> ops;
 
-  std::string prepared = infix;
+  std::string prepared = prepare_infix(infix);
 
   for (char c : prepared) {
     if (c == '(') {
@@ -292,11 +326,7 @@ std::string regexp_infix_to_postfix(const std::string &infix) {
 nfa_u regexp_postfix_to_nfa(const std::string &postfix) {
   std::stack<nfa_u> fas;
 
-  const int n = postfix.size();
-
-  for (int i = 0; i < n; ++i) {
-    char c = postfix[i];
-
+  for (char c : postfix) {
     if (c == '|' || c == '*' || c == ' ') {
       if (c == ' ' || c == '|') {
         auto y = fas.top();
@@ -404,11 +434,22 @@ void test_3() {
  * test: convert regexp infix to postfix
 */
 void test_4() {
-  auto postfix = regexp_infix_to_postfix("(a b b|b a)*");
+  auto postfix = regexp_infix_to_postfix("(abb|ba)*");
 
   auto res = postfix == "ab b ba |*";
 
   print_ok(res, "test4");
+}
+
+/*
+ * test: prepare infix regexp
+*/
+void test_5() {
+  auto prepared = prepare_infix("(abb|ba)*");
+
+  auto res = prepared == "(a b b|b a)*";
+
+  print_ok(res, "test_5");
 }
 
 void run_all_tests() {
@@ -416,6 +457,7 @@ void run_all_tests() {
   test_2();
   test_3();
   test_4();
+  test_5();
 }
 
 int main(int argc, char *argv[]) {
