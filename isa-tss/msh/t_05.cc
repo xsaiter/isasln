@@ -124,8 +124,8 @@ static int days_29_02(int cur_day, int cur_month, int cur_year) {
   return days;
 }
 
-int t_05_birthday(int birth_day, int birth_month, int cur_day, int cur_month,
-                  int cur_year) {
+int t_05_f_birthday(int birth_day, int birth_month, int cur_day, int cur_month,
+                    int cur_year) {
   if (birth_month == cur_month && birth_day == cur_day) {
     return 0;
   }
@@ -167,6 +167,6 @@ int t_05_birthday(int birth_day, int birth_month, int cur_day, int cur_month,
   return days;
 }
 
-std::string t_05_e_scale(int src_val, int src, int dest) {}
+std::string t_05_e_scale(int x, int src, int dest) {}
 }
 }

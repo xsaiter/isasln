@@ -33,7 +33,7 @@ TEST(msh_t_01_a_test, test) {
 }
 
 TEST(msh_t_01_b_test, test) {
-  std::vector<int> a = {40, 20, 10, 10, 10, 5};
+  std::vector<int> a{40, 20, 10, 10, 10, 5};
 
   std::string res;
   msh::t_01_b_expr(a, 55, res);
@@ -45,10 +45,10 @@ TEST(msh_t_01_b_test, test) {
 }
 
 TEST(msh_t_01_d_test, test) {
-  point_s a = {0, 0};
-  point_s b = {100, 0};
-  point_s c = {0, 100};
-  point_s p = {50, 49};
+  point_s a{0, 0};
+  point_s b{100, 0};
+  point_s c{0, 100};
+  point_s p{50, 49};
 
   bool res = tss::msh::t_01_d_tria_pt(a, b, c, p);
   EXPECT_TRUE(res);
@@ -60,7 +60,7 @@ TEST(add_least_to_palindrome_test, test) {
 }
 
 TEST(house_robber_test, test) {
-  std::vector<int> houses = {10, 2, 3, 22};
+  std::vector<int> houses{10, 2, 3, 22};
   int res = dynp::house_robber(houses);
   EXPECT_EQ(res, 32);
 }
@@ -76,7 +76,7 @@ TEST(max_common_sequence_test, test) {
 }
 
 TEST(subarray_with_max_sum_test, test) {
-  std::vector<int> a = {-9, 3, 14, -10};
+  std::vector<int> a{-9, 3, 14, -10};
 
   dynp::subarray_with_max_sum_res_s res;
   dynp::subarray_with_max_sum(a, res);
@@ -87,7 +87,7 @@ TEST(subarray_with_max_sum_test, test) {
 }
 
 TEST(turtle_travel_test, test) {
-  std::vector<std::vector<int>> a = {{8, 20, 40}, {5, 11, 27}};
+  std::vector<std::vector<int>> a{{8, 20, 40}, {5, 11, 27}};
   dynp::turtle_travel_res_s res;
   dynp::turtle_travel(a, 2, 3, res);
 
@@ -96,7 +96,7 @@ TEST(turtle_travel_test, test) {
 }
 
 TEST(largest_square_test, test) {
-  std::vector<std::vector<int>> a = {
+  std::vector<std::vector<int>> a{
       {0, 1, 0, 1, 1, 1, 1},
       {0, 1, 1, 1, 1, 0, 0},
       {1, 0, 1, 1, 1, 1, 1},
@@ -114,7 +114,7 @@ TEST(largest_square_test, test) {
 }
 
 TEST(msh_t_06_a_test, test) {
-  std::vector<isa::range_i_s> ranges = {{10, 20}, {30, 40}};
+  std::vector<isa::range_i_s> ranges{{10, 20}, {30, 40}};
 
   int res = tss::msh::t_06_a_cover(ranges);
 
@@ -122,7 +122,7 @@ TEST(msh_t_06_a_test, test) {
 }
 
 TEST(msh_t_06_a_test, test_over) {
-  std::vector<isa::range_i_s> ranges = {{10, 20}, {15, 22}};
+  std::vector<isa::range_i_s> ranges{{10, 20}, {15, 22}};
 
   int res = tss::msh::t_06_a_cover(ranges);
 
@@ -130,18 +130,18 @@ TEST(msh_t_06_a_test, test_over) {
 }
 
 TEST(msh_t_02_d_segments, test) {
-  isa::geo::segment_s seg1{isa::geo::point_s{1, 1}, isa::geo::point_s{4, 4}};
-  isa::geo::segment_s seg2{isa::geo::point_s{3, 2}, isa::geo::point_s{5, 2}};
+  isa::geo::segment_s seg1{{1, 1}, {4, 4}};
+  isa::geo::segment_s seg2{{3, 2}, {5, 2}};
 
   auto res = tss::msh::t_02_d_segments(seg1, seg2);
   EXPECT_EQ(res, false);
 
-  isa::geo::segment_s seg3{isa::geo::point_s{3, 2}, isa::geo::point_s{1, 3}};
+  isa::geo::segment_s seg3{{3, 2}, {1, 3}};
 
   auto res2 = tss::msh::t_02_d_segments(seg1, seg3);
   EXPECT_EQ(res2, true);
 
-  isa::geo::segment_s seg4{isa::geo::point_s{4, 4}, isa::geo::point_s{5, 2}};
+  isa::geo::segment_s seg4{{4, 4}, {5, 2}};
 
   auto res3 = tss::msh::t_02_d_segments(seg1, seg4);
   EXPECT_EQ(res3, true);
@@ -168,8 +168,8 @@ TEST(is_perfec_test, test) {
 }*/
 
 TEST(t_11_a_circarea, test) {
-  isa::geo::circle_s c1 = {20, 30, 15};
-  isa::geo::circle_s c2 = {40, 30, 30};
+  isa::geo::circle_s c1{20, 30, 15};
+  isa::geo::circle_s c2{40, 30, 30};
 
   auto res = tss::msh::t_11_d_circarea(c1, c2);
 
@@ -181,33 +181,89 @@ TEST(t_11_a_circarea, test) {
 TEST(t_05_a_friendly, test) {
   auto res = tss::msh::t_05_a_friendly(200, 300);
 
-  tss::msh::divs_s exp = {220, 284};
+  tss::msh::divs_s exp{220, 284};
 
   EXPECT_EQ(*(res.begin()), exp);
 }
 
 TEST(t_04_d_area, test) {
-  std::vector<isa::geo::point_s> points = {{0, 4}, {0, 0}, {3, 0}, {1, 1}};
+  std::vector<isa::geo::point_s> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
   auto res = tss::msh::t_04_d_area(points);
 
   EXPECT_EQ(3.5, res);
 }
 
-TEST(t_05_birthday, test) {
-  auto days = tss::msh::t_05_birthday(29, 2, 28, 2, 2001);
+TEST(t_05_f_birthday, test) {
+  auto days = tss::msh::t_05_f_birthday(29, 2, 28, 2, 2001);
   EXPECT_EQ(1096, days);
 
-  days = tss::msh::t_05_birthday(5, 5, 19, 4, 2002);
+  days = tss::msh::t_05_f_birthday(5, 5, 19, 4, 2002);
   EXPECT_EQ(16, days);
 
-  days = tss::msh::t_05_birthday(19, 4, 19, 4, 2002);
+  days = tss::msh::t_05_f_birthday(19, 4, 19, 4, 2002);
   EXPECT_EQ(0, days);
 
-  days = tss::msh::t_05_birthday(29, 2, 28, 2, 1992);
+  days = tss::msh::t_05_f_birthday(29, 2, 28, 2, 1992);
   EXPECT_EQ(1, days);
 }
 
+struct mod_s {
+  std::string div;
+  int rem; // remainder
+};
+
+inline static int to_int(const std::string &s) { return std::atoi(s.c_str()); }
+
+inline static std::string to_str(int val) { return std::to_string(val); }
+
+/*
+ * a/b
+*/
+mod_s div10(const std::string &a, int b) {
+  mod_s res;
+
+  const int n = a.size();
+
+  int i = 0;
+
+  int rem, div;
+
+  std::string srem;
+
+  while (i < n) {
+    std::string sub;
+
+    while (i < n) {
+      sub = a.substr(i, 1);
+
+      srem += sub;
+
+      ++i;
+
+      rem = to_int(srem);
+
+      if (rem > b) {
+        break;
+      }
+    }
+
+    auto new_rem = rem % b;
+    div = (rem - new_rem) / b;
+
+    srem = to_str(new_rem);
+    rem = new_rem;
+
+    res.div += to_str(div);
+  }
+
+  res.rem = rem;
+
+  return res;
+}
+
 int main(int argc, char *argv[]) {
+  auto res = div10("1901", 20);
+
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
