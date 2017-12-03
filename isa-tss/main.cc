@@ -207,63 +207,18 @@ TEST(t_05_f_birthday, test) {
   EXPECT_EQ(1, days);
 }
 
-struct mod_s {
-  std::string div;
-  int rem; // remainder
-};
+TEST(t_05_e_scale, test) {
+  auto res = tss::msh::t_05_e_scale("29234652", 10, 36);
+  EXPECT_EQ("HELLO", res);
 
-inline static int to_int(const std::string &s) { return std::atoi(s.c_str()); }
+  res = tss::msh::t_05_e_scale("78887", 20, 36);
+  EXPECT_EQ("PG6F", res);
 
-inline static std::string to_str(int val) { return std::to_string(val); }
-
-/*
- * a/b
-*/
-mod_s div10(const std::string &a, int b) {
-  mod_s res;
-
-  const int n = a.size();
-
-  int i = 0;
-
-  int rem, div;
-
-  std::string srem;
-
-  while (i < n) {
-    std::string sub;
-
-    while (i < n) {
-      sub = a.substr(i, 1);
-
-      srem += sub;
-
-      ++i;
-
-      rem = to_int(srem);
-
-      if (rem > b) {
-        break;
-      }
-    }
-
-    auto new_rem = rem % b;
-    div = (rem - new_rem) / b;
-
-    srem = to_str(new_rem);
-    rem = new_rem;
-
-    res.div += to_str(div);
-  }
-
-  res.rem = rem;
-
-  return res;
+  res = tss::msh::t_05_e_scale("78887", 14, 25);
+  EXPECT_EQ("II21", res);
 }
 
 int main(int argc, char *argv[]) {
-  auto res = div10("1901", 20);
-
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
