@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "../common.hh"
+#include "../core.hh"
 #include "geo/geo.hh"
 
 namespace tss {

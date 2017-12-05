@@ -1,5 +1,7 @@
 #include <array>
 
+#include <common.hh>
+
 #include "dynp.hh"
 
 namespace dynp {
@@ -47,7 +49,7 @@ int levenshtein_distance(const std::string &from, const std::string &to) {
   const int n = from.size();
   const int m = to.size();
 
-  int d[n][m] = {0};
+  int d[n][m]{0};
 
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
@@ -215,8 +217,6 @@ void turtle_travel(const std::vector<std::vector<int>> &a, int rows, int cols,
   }
 }
 
-static int min(int a, int b, int c) { return std::min(std::min(a, b), c); }
-
 void largest_square(const std::vector<std::vector<int>> &a, int rows, int cols,
                     largest_square_res_s &res) {
   int b[rows][cols];
@@ -229,7 +229,7 @@ void largest_square(const std::vector<std::vector<int>> &a, int rows, int cols,
         if (a[i][j] == 0) {
           b[i][j] = 0;
         } else {
-          b[i][j] = min(b[i - 1][j], b[i][j - 1], b[i - 1][j - 1]) + 1;
+          b[i][j] = isa::min_of(b[i - 1][j], b[i][j - 1], b[i - 1][j - 1]) + 1;
         }
       }
     }
@@ -249,8 +249,8 @@ void largest_square(const std::vector<std::vector<int>> &a, int rows, int cols,
     }
   }
 
-  res.bottomRightRow = r;
-  res.bottomRightCol = c;
+  res.bottom_right_row = r;
+  res.bottom_right_col = c;
   res.side = side;
 }
 }

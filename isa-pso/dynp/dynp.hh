@@ -32,8 +32,8 @@ void turtle_travel(const std::vector<std::vector<int>> &a, int rows, int cols,
                    turtle_travel_res_s &res);
 
 struct largest_square_res_s {
-  int bottomRightRow;
-  int bottomRightCol;
+  int bottom_right_row;
+  int bottom_right_col;
   int side;
 };
 

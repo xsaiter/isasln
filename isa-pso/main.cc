@@ -109,8 +109,8 @@ TEST(largest_square_test, test) {
   dynp::largest_square(a, 6, 7, res);
 
   EXPECT_EQ(res.side, 3);
-  EXPECT_EQ(res.bottomRightRow, 3);
-  EXPECT_EQ(res.bottomRightCol, 4);
+  EXPECT_EQ(res.bottom_right_row, 3);
+  EXPECT_EQ(res.bottom_right_col, 4);
 }
 
 TEST(msh_t_06_a_test, test) {

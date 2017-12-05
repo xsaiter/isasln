@@ -6,7 +6,6 @@ CONFIG -= qt
 HEADERS += \
     msh/t_01.hh \
     dynp/dynp.hh \
-    common.hh \    
     msh/t_02.hh \
     msh/t_06.hh \
     msh/t_04.hh \
@@ -20,12 +19,12 @@ HEADERS += \
     msh/t_12.hh \
     msh/t_13.hh \
     msh/t_14.hh \
-    msh/t_15.hh
+    msh/t_15.hh \
+    core.hh
 
 SOURCES += main.cc \
     msh/t_01.cc \
     dynp/dynp.cc \
-    common.cc \
     msh/t_02.cc \
     msh/t_06.cc \
     msh/t_04.cc \
@@ -39,7 +38,8 @@ SOURCES += main.cc \
     msh/t_12.cc \
     msh/t_13.cc \
     msh/t_14.cc \
-    msh/t_15.cc
+    msh/t_15.cc \
+    core.cc
 
 
 LIBS += /usr/lib/libgtest.so
