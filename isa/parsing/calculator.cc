@@ -55,5 +55,48 @@ double calculate_infix(const std::string &infix) {
   std::string postfix = infix_to_postfix(infix);
   return calculate_postfix(postfix);
 }
+
+int calculate_prefix(const std::string &prefix) {
+  std::stack<std::string> ss;
+
+  for (char c : prefix) {
+    if (c == '(' || c == ' ') {
+    } else if (c == '+' || c == '-' || c == '*') {
+      ss.push(std::string(1, c));
+    } else if (c == ')') {
+      std::stack<std::string> rev;
+      while (!ss.empty()) {
+        std::string t = ss.top();
+        ss.pop();
+        if (t == "+" || t == "-" || t == "*") {
+          auto q = rev.top();
+          rev.pop();
+          int r = std::atoi(q.c_str());
+          while (!rev.empty()) {
+            q = rev.top();
+            rev.pop();
+            int num = std::atoi(q.c_str());
+            if (t == "+") {
+              r += num;
+            } else if (t == "-") {
+              r -= num;
+            } else if (t == "*") {
+              r *= num;
+            }
+          }
+          ss.push(std::to_string(r));
+          break;
+        } else {
+          rev.push(t);
+        }
+      }
+    } else {
+      ss.push(std::string(1, c));
+    }
+  }
+
+  auto top = ss.top();
+  return std::atoi(top.c_str());
+}
 }
 }

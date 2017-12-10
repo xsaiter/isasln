@@ -7,5 +7,6 @@ namespace parsing {
 
 double calculate_postfix(const std::string &postfix);
 double calculate_infix(const std::string &infix);
+int calculate_prefix(const std::string &prefix);
 }
 }

@@ -6,7 +6,7 @@
 namespace isa {
 class vlong_s {
 public:
-  vlong_s(const std::string s, unsigned int sys);
+  vlong_s(const std::string &s, unsigned int sys);
 
 private:
   std::string s_;
@@ -14,6 +14,6 @@ private:
   std::vector<unsigned int> vec_;
 };
 
-vlong_s operator+(const vlong_s &x, const vlong_s &y);
-vlong_s operator-(const vlong_s &x, const vlong_s &y);
+vlong_s operator+(const vlong_s &lhs, const vlong_s &rhs);
+vlong_s operator-(const vlong_s &lhs, const vlong_s &rhs);
 }

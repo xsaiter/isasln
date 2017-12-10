@@ -13,6 +13,8 @@
 #include "strings/str_search.hh"
 #include "strings/aho_corasick.hh"
 
+#include "parsing/calculator.hh"
+
 #include "bloom_filter.hh"
 #include "ranges.hh"
 
@@ -266,6 +268,11 @@ TEST(test_max_of, test) {
 TEST(test_all_eq, test) {
   auto res = isa::all_eq(10, 10, 10);
   EXPECT_TRUE(res);
+}
+
+TEST(test_calc_prefix, test) {
+  int res = isa::parsing::calculate_prefix("(+ 1 2 (- 3 4 5))");
+  EXPECT_EQ(res, -3);
 }
 
 int main(int argc, char *argv[]) {

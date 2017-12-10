@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 
+#include <stack>
+
 #include <gtest/gtest/gtest.h>
 
 #include "dynp/dynp.hh"
@@ -219,7 +221,6 @@ TEST(t_05_e_scale, test) {
 }
 
 int main(int argc, char *argv[]) {
-  tss::msh::t_02_f_spiral(3);
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

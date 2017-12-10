@@ -30,6 +30,7 @@ range_s<T> merge_intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
   if (a.r < b.r) {
     return range_s<T>(b.l, b.r);
   }
+
   return range_s<T>(b.l, a.r);
 }
 
