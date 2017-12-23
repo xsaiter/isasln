@@ -7,8 +7,6 @@
 
 namespace isa {
 
-#define print_set_pos(x, y) printf("\033[%d;%dH", (x), (y))
-
 template <typename T> using arr2_u = std::vector<std::vector<T>>;
 
 template <typename T> T min_of(const T &a, const T &b) {

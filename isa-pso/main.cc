@@ -222,5 +222,6 @@ TEST(t_05_e_scale, test) {
 
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
+  msh::t_02_f_spiral(6);
   return RUN_ALL_TESTS();
 }
