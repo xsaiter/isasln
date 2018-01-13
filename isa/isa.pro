@@ -32,7 +32,8 @@ HEADERS += \
     graphs/mst.hh \
     vlong.hh \     
     parsing/finite_automata.hh \
-    crypto/vigenere_cipher.hh
+    crypto/vigenere_cipher.hh \
+    lia/matrix.hh
 
 unix {
     target.path = /usr/lib

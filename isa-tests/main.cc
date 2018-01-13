@@ -29,6 +29,8 @@
 
 #include "crypto/vigenere_cipher.hh"
 
+#include "lia/matrix.hh"
+
 using namespace std;
 
 template <class T, class Cmp = less<int>>
@@ -289,6 +291,9 @@ TEST(test_vigenere_cipher, test) {
 }
 
 int main(int argc, char *argv[]) {
+  isa::lia::matrix_s<int> a(5);
+  isa::lia::matrix_s<int> b(5, 3);
+  auto c = a * b;
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
