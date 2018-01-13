@@ -278,12 +278,14 @@ TEST(test_calc_prefix, test) {
 }
 
 TEST(test_vigenere_cipher, test) {
-  std::string text = "ATTACKATDAWN";
+  std::string text = "ATTACKATDAWNZZ";
   std::string key = "LEMON";
 
   std::string encrypted = isa::crypto::vigenere_encrypt(text, key);
+  EXPECT_EQ(encrypted, "LXFOPVEFRNHRLN");
 
-  EXPECT_EQ(encrypted, "LXFOPVEFRNHR");
+  std::string decrypted = isa::crypto::vigenere_decrypt(encrypted, key);
+  EXPECT_EQ(decrypted, text);
 }
 
 int main(int argc, char *argv[]) {
