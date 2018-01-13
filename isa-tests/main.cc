@@ -27,6 +27,8 @@
 
 #include "parsing/finite_automata.hh"
 
+#include "crypto/vigenere_cipher.hh"
+
 using namespace std;
 
 template <class T, class Cmp = less<int>>
@@ -273,6 +275,15 @@ TEST(test_all_eq, test) {
 TEST(test_calc_prefix, test) {
   int res = isa::parsing::calculate_prefix("(+ 1 2 (- 3 4 5))");
   EXPECT_EQ(res, -3);
+}
+
+TEST(test_vigenere_cipher, test) {
+  std::string text = "ATTACKATDAWN";
+  std::string key = "LEMON";
+
+  std::string encrypted = isa::crypto::vigenere_encrypt(text, key);
+
+  EXPECT_EQ(encrypted, "LXFOPVEFRNHR");
 }
 
 int main(int argc, char *argv[]) {

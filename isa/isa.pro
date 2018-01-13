@@ -31,7 +31,8 @@ HEADERS += \
     disjoint_sets.hh \
     graphs/mst.hh \
     vlong.hh \     
-    parsing/finite_automata.hh
+    parsing/finite_automata.hh \
+    crypto/vigenere_cipher.hh
 
 unix {
     target.path = /usr/lib
@@ -54,4 +55,5 @@ SOURCES += \
     geo/geo.cc \
     geo/convex_hull.cc \
     common.cc \
-    vlong.cc
+    vlong.cc \
+    crypto/vigenere_cipher.cc
