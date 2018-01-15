@@ -18,6 +18,8 @@ template <typename T> struct range_s {
 
 using range_i_s = range_s<int>;
 
+template <typename T> using ranges_s = std::vector<range_s<T>>;
+
 template <typename T>
 range_s<T> merge_intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
   if (a.l < b.l) {
@@ -40,9 +42,8 @@ bool intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
 }
 
 template <typename T>
-std::vector<range_s<T>> insert_range(const std::vector<range_s<T>> &ranges,
-                                     const range_s<T> &range) {
-  std::vector<range_s<T>> res;
+ranges_s<T> insert_range(const ranges_s<T> &ranges, const range_s<T> &range) {
+  ranges_s<T> res;
 
   range_s<T> r = range;
 

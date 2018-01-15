@@ -228,7 +228,7 @@ mod_s div10(const std::string &a, int b) {
 
   std::string x;
 
-  for (int i = 0; i < res.div.size(); ++i) {
+  for (std::size_t i = 0; i < res.div.size(); ++i) {
     if (state) {
       x += res.div[i];
     } else {
