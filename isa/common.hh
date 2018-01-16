@@ -4,10 +4,12 @@
 #include <string>
 #include <algorithm>
 #include <functional>
+#include <array>
 
 namespace isa {
 
-template <typename T> using arr2_u = std::vector<std::vector<T>>;
+template <typename T, int ROWS, int COLS>
+using arr2_u = std::array<std::array<int, COLS>, ROWS>;
 
 template <typename T> T min_of(const T &a, const T &b) {
   return std::min(a, b);

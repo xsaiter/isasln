@@ -299,9 +299,27 @@ TEST(test_matrix_add, test) {
   EXPECT_TRUE(res == expected);
 }
 
+TEST(test_matrix_add_self, test) {
+  isa::lia::matrix_s<int> m(2, 3, 5);
+  m += 10;
+
+  isa::lia::matrix_s<> expected(2, 3, 15);
+
+  EXPECT_TRUE(m == expected);
+}
+
+TEST(test_matrix_create, test) {
+  constexpr int n = 2;
+  constexpr int m = 2;
+  int a[n][m] = {{1, 1}, {1, 1}};
+  auto res = isa::lia::matrix_s<int>::create<n, m>(a);
+
+  isa::lia::matrix_s<> expected(n, m, 1);
+
+  EXPECT_TRUE(res == expected);
+}
+
 int main(int argc, char *argv[]) {
-  /// int arr[2][5] = {{1, 8, 12, 20, 25}, {5, 9, 13, 24, 26}};
-  // isa::lia::matrix_s<int> m(2, 3, arr, 0);
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
