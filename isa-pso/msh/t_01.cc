@@ -7,7 +7,6 @@
 
 #include "t_01.hh"
 
-namespace tss {
 namespace msh {
 
 void t_01_a_primes(int m, int n, std::vector<int> &res) {
@@ -73,6 +72,5 @@ bool t_01_d_tria_pt(const isa::geo::point_s &a, const isa::geo::point_s &b,
   int x3 = isa::geo::cross_product(c, a, p);
 
   return (x1 > 0 && x2 > 0 && x3 > 0) || (x1 < 0 && x2 < 0 && x3 < 0);
-}
 }
 }

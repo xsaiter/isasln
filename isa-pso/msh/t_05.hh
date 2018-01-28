@@ -5,7 +5,6 @@
 
 #include "ranges.hh"
 
-namespace tss {
 namespace msh {
 struct divs_s {
   int x, y;
@@ -25,5 +24,4 @@ std::string t_05_e_scale(const std::string &val, int val_sys, int sys);
 
 int t_05_f_birthday(int birth_day, int birth_month, int cur_day, int cur_month,
                     int cur_year);
-}
 }

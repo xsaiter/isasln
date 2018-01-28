@@ -4,9 +4,7 @@
 
 #include "geo/geo.hh"
 
-namespace tss {
 namespace msh {
 double t_11_d_circarea(const isa::geo::circle_s &c1,
                        const isa::geo::circle_s &c2);
-}
 }

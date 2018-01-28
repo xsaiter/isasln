@@ -17,8 +17,6 @@
 #include "msh/t_10.hh"
 #include "msh/t_11.hh"
 
-using namespace tss;
-
 using namespace isa::geo;
 
 TEST(msh_t_01_a_test, test) {
@@ -52,7 +50,7 @@ TEST(msh_t_01_d_test, test) {
   point_s c{0, 100};
   point_s p{50, 49};
 
-  bool res = tss::msh::t_01_d_tria_pt(a, b, c, p);
+  bool res = msh::t_01_d_tria_pt(a, b, c, p);
   EXPECT_TRUE(res);
 }
 
@@ -118,7 +116,7 @@ TEST(largest_square_test, test) {
 TEST(msh_t_06_a_test, test) {
   std::vector<isa::range_i_s> ranges{{10, 20}, {30, 40}};
 
-  int res = tss::msh::t_06_a_cover(ranges);
+  int res = msh::t_06_a_cover(ranges);
 
   EXPECT_EQ(res, 20);
 }
@@ -126,7 +124,7 @@ TEST(msh_t_06_a_test, test) {
 TEST(msh_t_06_a_test, test_over) {
   std::vector<isa::range_i_s> ranges{{10, 20}, {15, 22}};
 
-  int res = tss::msh::t_06_a_cover(ranges);
+  int res = msh::t_06_a_cover(ranges);
 
   EXPECT_EQ(res, 12);
 }
@@ -135,24 +133,24 @@ TEST(msh_t_02_d_segments, test) {
   isa::geo::segment_s seg1{{1, 1}, {4, 4}};
   isa::geo::segment_s seg2{{3, 2}, {5, 2}};
 
-  auto res = tss::msh::t_02_d_segments(seg1, seg2);
+  auto res = msh::t_02_d_segments(seg1, seg2);
   EXPECT_EQ(res, false);
 
   isa::geo::segment_s seg3{{3, 2}, {1, 3}};
 
-  auto res2 = tss::msh::t_02_d_segments(seg1, seg3);
+  auto res2 = msh::t_02_d_segments(seg1, seg3);
   EXPECT_EQ(res2, true);
 
   isa::geo::segment_s seg4{{4, 4}, {5, 2}};
 
-  auto res3 = tss::msh::t_02_d_segments(seg1, seg4);
+  auto res3 = msh::t_02_d_segments(seg1, seg4);
   EXPECT_EQ(res3, true);
 }
 
 TEST(t_04_a_perfect, test) {
   std::vector<int> res;
 
-  tss::msh::t_04_a_perfect(1, 40, res);
+  msh::t_04_a_perfect(1, 40, res);
 
   EXPECT_EQ(res.size(), 2);
 }
@@ -173,7 +171,7 @@ TEST(t_11_a_circarea, test) {
   isa::geo::circle_s c1{20, 30, 15};
   isa::geo::circle_s c2{40, 30, 30};
 
-  auto res = tss::msh::t_11_d_circarea(c1, c2);
+  auto res = msh::t_11_d_circarea(c1, c2);
 
   auto cmp = std::abs(608.37 - res) <= 0.1;
 
@@ -181,42 +179,42 @@ TEST(t_11_a_circarea, test) {
 }
 
 TEST(t_05_a_friendly, test) {
-  auto res = tss::msh::t_05_a_friendly(200, 300);
+  auto res = msh::t_05_a_friendly(200, 300);
 
-  tss::msh::divs_s exp{220, 284};
+  msh::divs_s exp{220, 284};
 
   EXPECT_EQ(*(res.begin()), exp);
 }
 
 TEST(t_04_d_area, test) {
   std::vector<isa::geo::point_s> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
-  auto res = tss::msh::t_04_d_area(points);
+  auto res = msh::t_04_d_area(points);
 
   EXPECT_EQ(3.5, res);
 }
 
 TEST(t_05_f_birthday, test) {
-  auto days = tss::msh::t_05_f_birthday(29, 2, 28, 2, 2001);
+  auto days = msh::t_05_f_birthday(29, 2, 28, 2, 2001);
   EXPECT_EQ(1096, days);
 
-  days = tss::msh::t_05_f_birthday(5, 5, 19, 4, 2002);
+  days = msh::t_05_f_birthday(5, 5, 19, 4, 2002);
   EXPECT_EQ(16, days);
 
-  days = tss::msh::t_05_f_birthday(19, 4, 19, 4, 2002);
+  days = msh::t_05_f_birthday(19, 4, 19, 4, 2002);
   EXPECT_EQ(0, days);
 
-  days = tss::msh::t_05_f_birthday(29, 2, 28, 2, 1992);
+  days = msh::t_05_f_birthday(29, 2, 28, 2, 1992);
   EXPECT_EQ(1, days);
 }
 
 TEST(t_05_e_scale, test) {
-  auto res = tss::msh::t_05_e_scale("29234652", 10, 36);
+  auto res = msh::t_05_e_scale("29234652", 10, 36);
   EXPECT_EQ("HELLO", res);
 
-  res = tss::msh::t_05_e_scale("78887", 20, 36);
+  res = msh::t_05_e_scale("78887", 20, 36);
   EXPECT_EQ("PG6F", res);
 
-  res = tss::msh::t_05_e_scale("78887", 14, 25);
+  res = msh::t_05_e_scale("78887", 14, 25);
   EXPECT_EQ("II21", res);
 }
 

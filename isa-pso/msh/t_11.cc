@@ -2,7 +2,6 @@
 
 #include "t_11.hh"
 
-namespace tss {
 namespace msh {
 double t_11_d_circarea(const isa::geo::circle_s &c1,
                        const isa::geo::circle_s &c2) {
@@ -29,6 +28,5 @@ double t_11_d_circarea(const isa::geo::circle_s &c1,
   const auto s2 = c2.r * c2.r * std::sin(a2) * cosa2;
 
   return st1 + st2 - s1 - s2;
-}
 }
 }

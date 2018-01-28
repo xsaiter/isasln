@@ -1,6 +1,5 @@
 #include "t_10.hh"
 
-namespace tss {
 namespace msh {
 
 std::string fibs(int n) {
@@ -77,6 +76,5 @@ int t_10_b_fibostr(int n, const std::string &s) {
   }
 
   return rx;
-}
 }
 }

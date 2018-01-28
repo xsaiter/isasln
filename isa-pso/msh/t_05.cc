@@ -4,7 +4,6 @@
 
 #include "t_05.hh"
 
-namespace tss {
 namespace msh {
 static std::vector<int> get_divisors(int n) {
   std::vector<int> res;
@@ -317,6 +316,5 @@ std::string to_10_from(const std::string &s, int sys) {
 std::string t_05_e_scale(const std::string &val, int val_sys, int sys) {
   std::string s = to_10_from(val, val_sys);
   return from_10_to(s, sys);
-}
 }
 }
