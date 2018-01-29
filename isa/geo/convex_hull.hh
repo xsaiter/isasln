@@ -7,6 +7,6 @@
 
 namespace isa {
 namespace geo {
-std::stack<point_s> graham_scan(std::vector<point_s> points);
+std::stack<point_u> graham_scan(std::vector<point_u> points);
 }
 }

@@ -4,10 +4,10 @@
 
 namespace isa {
 namespace geo {
-std::stack<point_s> graham_scan(std::vector<point_s> points) {
+std::stack<point_u> graham_scan(std::vector<point_u> points) {
   const unsigned n = points.size();
 
-  std::stack<point_s> hull;
+  std::stack<point_u> hull;
 
   if (n < 4) {
     for (auto &i : points) {
@@ -34,7 +34,7 @@ std::stack<point_s> graham_scan(std::vector<point_s> points) {
 
   std::advance(beg, 1);
 
-  std::sort(beg, points.end(), [&](const point_s &p1, const point_s &p2) {
+  std::sort(beg, points.end(), [&](const point_u &p1, const point_u &p2) {
     int r = cross_product(pivot, p1, p2);
     if (r == 0) {
       auto d1 = distance2(pivot, p1);

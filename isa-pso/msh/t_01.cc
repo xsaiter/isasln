@@ -65,8 +65,8 @@ void t_01_b_expr(const std::vector<int> &a, int s, std::string &res) {
 
 void t_01_c_incseq(const std::vector<int> &a, std::vector<int> &res) {}
 
-bool t_01_d_tria_pt(const isa::geo::point_s &a, const isa::geo::point_s &b,
-                    const isa::geo::point_s &c, const isa::geo::point_s &p) {
+bool t_01_d_tria_pt(const isa::geo::point_u &a, const isa::geo::point_u &b,
+                    const isa::geo::point_u &c, const isa::geo::point_u &p) {
   int x1 = isa::geo::cross_product(a, b, p);
   int x2 = isa::geo::cross_product(b, c, p);
   int x3 = isa::geo::cross_product(c, a, p);

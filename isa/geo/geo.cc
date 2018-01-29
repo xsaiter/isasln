@@ -5,17 +5,17 @@
 namespace isa {
 namespace geo {
 
-int distance2(const point_s &a, const point_s &b) {
+int distance2(const point_u &a, const point_u &b) {
   int dx = a.x - b.x;
   int dy = a.y - b.y;
   return dx * dx + dy * dy;
 }
 
-double cross_product(const point_s &a, const point_s &b, const point_s &c) {
+double cross_product(const point_u &a, const point_u &b, const point_u &c) {
   return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
 }
 
-bool is_point_on_segment(const segment_s &s, const point_s &p) {
+bool is_point_on_segment(const segment_s &s, const point_u &p) {
   return std::max(s.p1.x, s.p2.x) >= p.x && p.x >= std::min(s.p1.x, s.p2.x) &&
          std::max(s.p1.y, s.p2.y) >= p.y && p.y >= std::min(s.p1.y, s.p2.y);
 }

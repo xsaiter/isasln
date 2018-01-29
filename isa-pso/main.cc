@@ -45,10 +45,10 @@ TEST(msh_t_01_b_test, test) {
 }
 
 TEST(msh_t_01_d_test, test) {
-  point_s a{0, 0};
-  point_s b{100, 0};
-  point_s c{0, 100};
-  point_s p{50, 49};
+  point_u a{0, 0};
+  point_u b{100, 0};
+  point_u c{0, 100};
+  point_u p{50, 49};
 
   bool res = msh::t_01_d_tria_pt(a, b, c, p);
   EXPECT_TRUE(res);
@@ -187,7 +187,7 @@ TEST(t_05_a_friendly, test) {
 }
 
 TEST(t_04_d_area, test) {
-  std::vector<isa::geo::point_s> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
+  std::vector<isa::geo::point_u> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
   auto res = msh::t_04_d_area(points);
 
   EXPECT_EQ(3.5, res);
