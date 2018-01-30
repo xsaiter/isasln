@@ -17,6 +17,8 @@
 #include "msh/t_10.hh"
 #include "msh/t_11.hh"
 
+#include "iom/iom_01.hh"
+
 using namespace isa::geo;
 
 TEST(msh_t_01_a_test, test) {
@@ -219,7 +221,8 @@ TEST(t_05_e_scale, test) {
 }
 
 int main(int argc, char *argv[]) {
+  auto ss = iom::iom_01_a_timer("10:20:50", "15:50:20");
+
   ::testing::InitGoogleTest(&argc, argv);
-  msh::t_02_f_spiral(6);
   return RUN_ALL_TESTS();
 }
