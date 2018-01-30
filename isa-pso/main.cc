@@ -47,10 +47,10 @@ TEST(msh_t_01_b_test, test) {
 }
 
 TEST(msh_t_01_d_test, test) {
-  point_u a{0, 0};
-  point_u b{100, 0};
-  point_u c{0, 100};
-  point_u p{50, 49};
+  point_s a{0, 0};
+  point_s b{100, 0};
+  point_s c{0, 100};
+  point_s p{50, 49};
 
   bool res = msh::t_01_d_tria_pt(a, b, c, p);
   EXPECT_TRUE(res);
@@ -189,7 +189,7 @@ TEST(t_05_a_friendly, test) {
 }
 
 TEST(t_04_d_area, test) {
-  std::vector<isa::geo::point_u> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
+  std::vector<isa::geo::point_s> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
   auto res = msh::t_04_d_area(points);
 
   EXPECT_EQ(3.5, res);
@@ -220,9 +220,22 @@ TEST(t_05_e_scale, test) {
   EXPECT_EQ("II21", res);
 }
 
-int main(int argc, char *argv[]) {
-  auto ss = iom::iom_01_a_timer("10:20:50", "15:50:20");
+TEST(iom_01_a_timer, test) {
+  auto res = iom::iom_01_a_timer("10:20:50", "15:50:20");
 
+  EXPECT_EQ("2:11:10+1 days", res);
+}
+
+TEST(iom_01_c_treasure, test) {
+  std::vector<iom::step_s> steps{
+      {1, 3}, {3, 1}, {1, 1}, {3, 3}, {5, 2}, {7, 1}};
+  auto res = iom::iom_01_c_treasure(steps);
+
+  EXPECT_EQ(res.x, 3);
+  EXPECT_EQ(res.y, 2);
+}
+
+int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

@@ -10,6 +10,10 @@ std::string iom_01_a_timer(const std::string &time,
 
 void iom_01_b_go_at_home();
 
-isa::geo::point_u
-iom_01_c_treasure(const std::vector<isa::geo::point_s<int>> &points);
+struct step_s {
+  int dir;
+  int size;
+};
+
+isa::geo::point_s iom_01_c_treasure(const std::vector<step_s> &steps);
 }

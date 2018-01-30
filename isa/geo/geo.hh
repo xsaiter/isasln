@@ -3,13 +3,13 @@
 namespace isa {
 namespace geo {
 
-template <typename T = double> struct point_s { T x, y; };
-
-using point_u = point_s<>;
+struct point_s {
+  double x, y;
+};
 
 struct segment_s {
-  point_u p1;
-  point_u p2;
+  point_s p1;
+  point_s p2;
 };
 
 struct circle_s {
@@ -21,11 +21,11 @@ struct circle_s {
   < 0 - counterclockwise
   = 0 - collinear
 */
-double cross_product(const point_u &a, const point_u &b, const point_u &c);
+double cross_product(const point_s &a, const point_s &b, const point_s &c);
 
-int distance2(const point_u &a, const point_u &b);
+int distance2(const point_s &a, const point_s &b);
 
-bool is_point_on_segment(const segment_s &s, const point_u &p);
+bool is_point_on_segment(const segment_s &s, const point_s &p);
 
 bool segments_intersect(const segment_s &s1, const segment_s &s2);
 }

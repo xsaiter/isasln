@@ -52,8 +52,8 @@ std::string iom_01_a_timer(const std::string &time,
   int r_h = (total_secs - m_h) / tm_s::SECS_IN_HOUR;
   int m_m = m_h % tm_s::SECS_IN_MIN;
 
-  int mins = (m_h - m_m) / tm_s::SECS_IN_MIN;
   int secs = m_m;
+  int mins = (m_h - m_m) / tm_s::SECS_IN_MIN;
   int hours = r_h % tm_s::HOURS_IN_DAY;
   int days = (r_h - hours) / tm_s::HOURS_IN_DAY;
 
@@ -67,5 +67,35 @@ std::string iom_01_a_timer(const std::string &time,
   return ss.str();
 }
 
-void iom_01_c_treasure() {}
+isa::geo::point_s iom_01_c_treasure(const std::vector<step_s> &steps) {
+  const auto a = std::cos(45 * M_PI / 180);
+
+  isa::geo::point_s r{0.0, 0.0};
+
+  for (const step_s &step : steps) {
+    if (step.dir == 1) {
+      r.y += step.size;
+    } else if (step.dir == 2) {
+      r.x += step.size * a;
+      r.y += step.size * a;
+    } else if (step.dir == 3) {
+      r.x += step.size;
+    } else if (step.dir == 4) {
+      r.x += step.size * a;
+      r.y -= step.size * a;
+    } else if (step.dir == 5) {
+      r.y -= step.size;
+    } else if (step.dir == 6) {
+      r.x -= step.size * a;
+      r.y -= step.size * a;
+    } else if (step.dir == 7) {
+      r.x -= step.size;
+    } else if (step.dir == 8) {
+      r.x -= step.size * a;
+      r.y += step.size * a;
+    }
+  }
+
+  return r;
+}
 }
