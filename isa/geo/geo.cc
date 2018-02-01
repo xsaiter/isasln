@@ -50,5 +50,7 @@ bool segments_intersect(const segment_s &s1, const segment_s &s2) {
 
   return false;
 }
+
+bool circles_intersect(const circle_s &c1, const circle_s &c2) {}
 }
 }

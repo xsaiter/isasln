@@ -30,6 +30,7 @@
 #include "crypto/vigenere_cipher.hh"
 
 #include "lia/matrix.hh"
+#include "lia/vec.hh"
 
 using namespace std;
 
@@ -320,6 +321,16 @@ TEST(test_matrix_create, test) {
 }
 
 int main(int argc, char *argv[]) {
+  isa::lia::vec_s<int> a(2);
+  a[0] = 1;
+  a[1] = 2;
+
+  isa::lia::vec_s<int> b(2);
+  b[0] = 10;
+  b[1] = 20;
+
+  // isa::lia::vec_s<int> r = a + b + a;
+
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

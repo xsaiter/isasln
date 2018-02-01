@@ -33,7 +33,8 @@ HEADERS += \
     vlong.hh \     
     parsing/finite_automata.hh \
     crypto/vigenere_cipher.hh \
-    lia/matrix.hh
+    lia/matrix.hh \
+    lia/vec.hh
 
 unix {
     target.path = /usr/lib
