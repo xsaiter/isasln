@@ -5,40 +5,36 @@
 namespace isa {
 namespace lia {
 
-template <typename T, typename E> class vec_expr_s {
-  T operator[](std::size_t i) const { return static_cast<const E &>(*this)[i]; }
-  std::size_t size() const { return static_cast<const E &>(*this).size(); }
-  operator E &() { return static_cast<E &>(*this); }
-  operator const E &() const { return static_cast<const E &>(*this); }
-};
-
-template <typename T> class vec_s : public vec_expr_s<T, vec_s<T>> {
+template <typename T, typename Container = std::vector<T>> class vec_s {
 public:
-  explicit vec_s(std::size_t n) : elts_(n) {}
-  T &operator[](std::size_t i) { return elts_[i]; }
-  T operator[](std::size_t i) const { return elts_[i]; }
-  std::size_t size() const { return elts_.size(); }
+  explicit vec_s(std::size_t n) : elems_(n) {}
+  explicit vec_s(const Container &other) : elems_(other) {}
+
+  T &operator[](std::size_t i) { return elems_[i]; }
+  T operator[](std::size_t i) const { return elems_[i]; }
+  std::size_t size() const { return elems_.size(); }
+  Container &elems() { return elems_; }
 
 private:
-  std::vector<T> elts_;
+  Container elems_;
 };
 
-template <typename T, typename E1, typename E2>
-class vec_sum_s : public vec_expr_s<T, vec_sum_s<T, E1, E2>> {
+template <typename T, typename A, typename B> class vec_add_s {
 public:
-  vec_sum_s(const E1 &e1, const E2 &e2) : e1_(e1), e2_(e2) {}
+  vec_add_s(const A &a, const B &b) : a_(a), b_(b) {}
 
-  T operator[](std::size_t i) const { return e1_[i] + e2_[i]; }
-  std::size_t size() const { return e1_.size(); }
+  T operator[](std::size_t i) const { return a_[i] + b_[i]; }
+  std::size_t size() const { return a_.size(); }
 
 private:
-  const E1 &e1_;
-  const E2 &e2_;
+  const A &a_;
+  const B &b_;
 };
 
-template <typename T, typename E1, typename E2>
-vec_sum_s<T, E1, E2> const operator+(E1 const &lhs, E2 const &rhs) {
-  return vec_sum_s<T, E1, E2>(lhs, rhs);
+template <typename T, typename A, typename B>
+vec_s<T, vec_add_s<T, A, B>> operator+(const vec_s<T, A> &a,
+                                       const vec_s<T, B> &b) {
+  return vec_s<T, vec_add_s<T, A, B>>(vec_add_s<T, A, B>(a.elems(), b.elems()));
 }
 }
 }

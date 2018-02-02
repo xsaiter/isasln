@@ -7,14 +7,14 @@ namespace lia {
 template <typename T = int> class matrix_s {
 public:
   matrix_s(int n, int m, const T &initial = 0) : n_(n), m_(m) {
-    arr_.resize(n, std::vector<T>(m, initial));
+    elems_.resize(n, std::vector<T>(m, initial));
   }
 
   template <int N, int M> static matrix_s<T> create(const T array[N][M]) {
     matrix_s<T> res(N, M);
     for (int i = 0; i < N; ++i) {
       for (int j = 0; j < M; ++j) {
-        res.arr_[i][j] = array[i][j];
+        res.elems_[i][j] = array[i][j];
       }
     }
     return res;
@@ -24,10 +24,10 @@ public:
       : matrix_s(n, n, initial) {}
 
   matrix_s(const matrix_s<T> &other)
-      : n_(other.n_), m_(other.m_), arr_(other.arr_) {}
+      : n_(other.n_), m_(other.m_), elems_(other.elems_) {}
 
-  inline T &operator()(int i, int j) { return arr_[i][j]; }
-  inline const T &operator()(int i, int j) const { return arr_[i][j]; }
+  inline T &operator()(int i, int j) { return elems_[i][j]; }
+  inline const T &operator()(int i, int j) const { return elems_[i][j]; }
 
   matrix_s<T> &operator+=(const T &value);
   matrix_s<T> &operator*=(const T &value);
@@ -43,13 +43,13 @@ public:
 
 private:
   int n_, m_;
-  std::vector<std::vector<T>> arr_;
+  std::vector<std::vector<T>> elems_;
 };
 
 template <typename T> matrix_s<T> &matrix_s<T>::operator+=(const T &value) {
   for (int i = 0; i < n_; ++i) {
     for (int j = 0; j < m_; ++j) {
-      arr_[i][j] += value;
+      elems_[i][j] += value;
     }
   }
   return *this;
@@ -58,7 +58,7 @@ template <typename T> matrix_s<T> &matrix_s<T>::operator+=(const T &value) {
 template <typename T> matrix_s<T> &matrix_s<T>::operator*=(const T &value) {
   for (int i = 0; i < n_; ++i) {
     for (int j = 0; j < m_; ++j) {
-      arr_[i][j] *= value;
+      elems_[i][j] *= value;
     }
   }
   return *this;
@@ -81,7 +81,7 @@ matrix_s<U> operator*(const matrix_s<U> &a, const matrix_s<U> &b) {
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
       for (int k = 0; k < a.m_; ++k) {
-        res.arr_[i][j] += a.arr_[i][k] * b.arr_[k][j];
+        res.elems_[i][j] += a.elems_[i][k] * b.elems_[k][j];
       }
     }
   }
@@ -103,7 +103,7 @@ bool operator==(const matrix_s<U> &a, const matrix_s<U> &b) {
 
   for (int i = 0; i < na; ++i) {
     for (int j = 0; j < ma; ++j) {
-      if (a.arr_[i][j] != b.arr_[i][j]) {
+      if (a.elems_[i][j] != b.elems_[i][j]) {
         return false;
       }
     }
