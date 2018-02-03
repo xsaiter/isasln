@@ -329,7 +329,7 @@ int main(int argc, char *argv[]) {
   b[0] = 10;
   b[1] = 20;
 
-  isa::lia::vec_s<int> r = a + b + a;
+  isa::lia::vec_s<int> r = a + b;
 
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
