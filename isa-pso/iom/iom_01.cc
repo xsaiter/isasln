@@ -67,10 +67,10 @@ std::string iom_01_a_timer(const std::string &time,
   return ss.str();
 }
 
-isa::geo::point_s iom_01_c_treasure(const std::vector<step_s> &steps) {
+isa::geo::point_s<double> iom_01_c_treasure(const std::vector<step_s> &steps) {
   const auto a = std::cos(45 * M_PI / 180);
 
-  isa::geo::point_s r{0.0, 0.0};
+  auto r = isa::geo::make_point(0.0, 0.0);
 
   for (const step_s &step : steps) {
     if (step.dir == 1) {

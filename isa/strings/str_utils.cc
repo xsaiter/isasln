@@ -141,11 +141,11 @@ void find_longest_repeated_substr(const std::string &str,
     int pos;
   };
 
-  const auto n = str.size();
+  const std::size_t n = str.size();
   std::vector<pos_s> v;
   v.reserve(n);
 
-  for (auto i = 0; i < n; ++i) {
+  for (std::size_t i = 0; i < n; ++i) {
     v.emplace_back(str.substr(i, n - 1), i);
   }
 
@@ -154,12 +154,12 @@ void find_longest_repeated_substr(const std::string &str,
 
   std::set<int> ids;
 
-  int ri = 0;
-  int rj = 0;
+  std::size_t ri = 0;
+  std::size_t rj = 0;
 
-  for (auto i = 1; i < n; ++i) {
-    auto len = std::min(v[i].s.size(), v[i - 1].s.size());
-    auto j = 0;
+  for (std::size_t i = 1; i < n; ++i) {
+    std::size_t len = std::min(v[i].s.size(), v[i - 1].s.size());
+    std::size_t j = 0;
 
     while (j < len && v[i].s[j] == v[i - 1].s[j]) {
       ++j;
@@ -182,6 +182,19 @@ void find_longest_repeated_substr(const std::string &str,
 
   for (auto id : ids) {
     res.all_pos.push_back(v[id].pos);
+  }
+}
+
+void str_trim(std::string &s) {
+  std::string::size_type pos = s.find_last_not_of(' ');
+  if (pos == std::string::npos) {
+    s.erase(s.begin(), s.end());
+    return;
+  }
+  s.erase(pos + 1);
+  pos = s.find_first_not_of(' ');
+  if (pos != std::string::npos) {
+    s.erase(0, pos);
   }
 }
 }

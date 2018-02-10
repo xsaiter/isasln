@@ -47,10 +47,10 @@ TEST(msh_t_01_b_test, test) {
 }
 
 TEST(msh_t_01_d_test, test) {
-  point_s a{0, 0};
-  point_s b{100, 0};
-  point_s c{0, 100};
-  point_s p{50, 49};
+  auto a = isa::geo::make_point(0, 0);
+  auto b = isa::geo::make_point(100, 0);
+  auto c = isa::geo::make_point(0, 100);
+  auto p = isa::geo::make_point(50, 49);
 
   bool res = msh::t_01_d_tria_pt(a, b, c, p);
   EXPECT_TRUE(res);
@@ -132,18 +132,18 @@ TEST(msh_t_06_a_test, test_over) {
 }
 
 TEST(msh_t_02_d_segments, test) {
-  isa::geo::segment_s seg1{{1, 1}, {4, 4}};
-  isa::geo::segment_s seg2{{3, 2}, {5, 2}};
+  isa::geo::segment_s<int> seg1{{1, 1}, {4, 4}};
+  isa::geo::segment_s<int> seg2{{3, 2}, {5, 2}};
 
   auto res = msh::t_02_d_segments(seg1, seg2);
   EXPECT_EQ(res, false);
 
-  isa::geo::segment_s seg3{{3, 2}, {1, 3}};
+  isa::geo::segment_s<int> seg3{{3, 2}, {1, 3}};
 
   auto res2 = msh::t_02_d_segments(seg1, seg3);
   EXPECT_EQ(res2, true);
 
-  isa::geo::segment_s seg4{{4, 4}, {5, 2}};
+  isa::geo::segment_s<int> seg4{{4, 4}, {5, 2}};
 
   auto res3 = msh::t_02_d_segments(seg1, seg4);
   EXPECT_EQ(res3, true);
@@ -170,8 +170,8 @@ TEST(is_perfec_test, test) {
 }*/
 
 TEST(t_11_a_circarea, test) {
-  isa::geo::circle_s c1{20, 30, 15};
-  isa::geo::circle_s c2{40, 30, 30};
+  auto c1 = isa::geo::make_circle(20.0, 30.0, 15.0);
+  auto c2 = isa::geo::make_circle(40.0, 30.0, 30.0);
 
   auto res = msh::t_11_d_circarea(c1, c2);
 
@@ -189,7 +189,7 @@ TEST(t_05_a_friendly, test) {
 }
 
 TEST(t_04_d_area, test) {
-  std::vector<isa::geo::point_s> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
+  std::vector<isa::geo::point_s<int>> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
   auto res = msh::t_04_d_area(points);
 
   EXPECT_EQ(3.5, res);

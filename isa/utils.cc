@@ -1,4 +1,4 @@
-#include "common.hh"
+#include "utils.hh"
 
 namespace isa {
 static unsigned int FNV1aHash(char *buf) {

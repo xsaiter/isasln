@@ -15,5 +15,5 @@ struct step_s {
   int size;
 };
 
-isa::geo::point_s iom_01_c_treasure(const std::vector<step_s> &steps);
+isa::geo::point_s<double> iom_01_c_treasure(const std::vector<step_s> &steps);
 }

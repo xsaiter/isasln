@@ -31,5 +31,7 @@ struct longest_repeated_substr_s {
 
 void find_longest_repeated_substr(const std::string &str,
                                   longest_repeated_substr_s &res);
+
+void str_trim(std::string &s);
 }
 }

@@ -23,6 +23,7 @@ HEADERS += \
     bloom_filter.hh \            
     sort.hh \
     graphs/graph.hh \
+    safe/safe_queue.hh \
     ranges.hh \    
     common.hh \
     graphs/dijkstra.hh \
@@ -34,7 +35,10 @@ HEADERS += \
     parsing/finite_automata.hh \
     crypto/vigenere_cipher.hh \
     lia/matrix.hh \
-    lia/vec.hh
+    lia/vec.hh \
+    utils.hh \
+    event_aggregator.hh \
+    safe/safe_stack.hh
 
 unix {
     target.path = /usr/lib
@@ -53,9 +57,7 @@ SOURCES += \
     strings/str_search.cc \
     parsing/calculator.cc \
     strings/aho_corasick.cc \
-    numeric.cc \
-    geo/geo.cc \
-    geo/convex_hull.cc \
-    common.cc \
+    numeric.cc \    
     vlong.cc \
-    crypto/vigenere_cipher.cc
+    crypto/vigenere_cipher.cc \
+    utils.cc

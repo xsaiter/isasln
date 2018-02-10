@@ -6,6 +6,8 @@
 #include <functional>
 #include <array>
 
+#define ISA_UNUSED(x) ((void)(x))
+
 namespace isa {
 
 template <typename T, int ROWS, int COLS>
@@ -36,5 +38,32 @@ bool all_eq(const T &a, const T &b, const R &... c) {
   return a == b && all_eq(b, c...);
 }
 
-int fnv_hash(const std::string &s);
+template <typename T> struct acc_trait_s;
+
+template <> struct acc_trait_s<int> { using R = long; };
+
+template <> struct acc_trait_s<float> { using R = double; };
+
+struct add_policy_s {
+  template <typename T, typename R> static void calc(R &res, const T &value) {
+    res += value;
+  }
+};
+
+struct mul_policy_s {
+  template <typename T, typename R> static void calc(R &res, const T &value) {
+    res *= value;
+  }
+};
+
+template <typename T, typename Policy = add_policy_s,
+          typename Trait = acc_trait_s<T>>
+auto acc(T *beg, T *end, const typename Trait::R &initial) {
+  auto res = initial;
+  while (beg != end) {
+    Policy::calc(res, *beg);
+    ++beg;
+  }
+  return res;
+}
 }

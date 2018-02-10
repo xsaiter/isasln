@@ -9,8 +9,8 @@
 
 namespace msh {
 
-bool t_02_d_segments(const isa::geo::segment_s &s1,
-                     const isa::geo::segment_s &s2) {
+bool t_02_d_segments(const isa::geo::segment_s<int> &s1,
+                     const isa::geo::segment_s<int> &s2) {
   return isa::geo::segments_intersect(s1, s2);
 }
 

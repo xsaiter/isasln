@@ -18,6 +18,8 @@
 #include "bloom_filter.hh"
 #include "ranges.hh"
 
+#include "geo/geo.hh"
+
 #include "graphs/graph.hh"
 #include "graphs/paths.hh"
 #include "graphs/dijkstra.hh"
@@ -31,6 +33,8 @@
 
 #include "lia/matrix.hh"
 #include "lia/vec.hh"
+
+#include "safe/safe_queue.hh"
 
 using namespace std;
 
@@ -320,17 +324,54 @@ TEST(test_matrix_create, test) {
   EXPECT_TRUE(res == expected);
 }
 
+TEST(test_vec_add, test) {
+  isa::lia::vec_s<int> a(2, 2);
+
+  isa::lia::vec_s<int> b(2, 3);
+
+  isa::lia::vec_s<int> r = a + b + a;
+
+  EXPECT_EQ(r.size(), 2);
+
+  for (std::size_t i = 0; i < r.size(); ++i) {
+    EXPECT_EQ(r[i], 7);
+  }
+}
+
+TEST(test_vec_mul, test) {
+  isa::lia::vec_s<int> a(2, 2);
+
+  isa::lia::vec_s<int> b(2, 3);
+
+  isa::lia::vec_s<int> r = a * b;
+
+  EXPECT_EQ(r.size(), 2);
+
+  for (std::size_t i = 0; i < r.size(); ++i) {
+    EXPECT_EQ(r[i], 6);
+  }
+}
+
+TEST(test_acc_add, test) {
+  int a[] = {1, 2, 3, 4, 5};
+  auto res = isa::acc(&(a[0]), &a[5], 0);
+
+  EXPECT_EQ(res, 15);
+}
+
+TEST(test_vec_mul_scalar, test) {
+  isa::lia::vec_s<int> a(2, 2);
+  isa::lia::vec_s<int> r(2, 0);
+  r = 10 * a;
+
+  EXPECT_EQ(r.size(), 2);
+
+  for (std::size_t i = 0; i < r.size(); ++i) {
+    EXPECT_EQ(r[i], 20);
+  }
+}
+
 int main(int argc, char *argv[]) {
-  isa::lia::vec_s<int> a(2);
-  a[0] = 1;
-  a[1] = 2;
-
-  isa::lia::vec_s<int> b(2);
-  b[0] = 10;
-  b[1] = 20;
-
-  isa::lia::vec_s<int> r = a + b;
-
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

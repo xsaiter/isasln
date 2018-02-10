@@ -5,7 +5,7 @@
 #include <string>
 #include <memory>
 
-#include "common.hh"
+#include "utils.hh"
 
 namespace isa {
 template <typename T> class bloom_filter_s {

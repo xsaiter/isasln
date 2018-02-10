@@ -28,13 +28,12 @@ int repeats_bound(const std::string &s, std::size_t bound,
                   const std::string &p) {
   int res = 0;
 
-  const std::size_t n = s.size();
   const std::size_t m = p.size();
 
   std::size_t beg = bound >= m ? bound - m : 0;
 
   for (std::size_t i = beg; i < bound; ++i) {
-    int j = 0;
+    std::size_t j = 0;
     while (j < m && s[i + j] == p[j]) {
       ++j;
     }
