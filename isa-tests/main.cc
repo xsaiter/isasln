@@ -36,6 +36,8 @@
 
 #include "safe/safe_queue.hh"
 
+#include "vect.hh"
+
 using namespace std;
 
 template <class T, class Cmp = less<int>>

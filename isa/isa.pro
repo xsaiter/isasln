@@ -38,7 +38,8 @@ HEADERS += \
     lia/vec.hh \
     utils.hh \
     event_aggregator.hh \
-    safe/safe_stack.hh
+    safe/safe_stack.hh \
+    vect.hh
 
 unix {
     target.path = /usr/lib
