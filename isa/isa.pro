@@ -22,8 +22,7 @@ HEADERS += \
     strings/aho_corasick.hh \
     bloom_filter.hh \            
     sort.hh \
-    graphs/graph.hh \
-    safe/safe_queue.hh \
+    graphs/graph.hh \    
     ranges.hh \    
     common.hh \
     graphs/dijkstra.hh \
@@ -38,7 +37,8 @@ HEADERS += \
     lia/vec.hh \
     utils.hh \
     event_aggregator.hh \
-    safe/safe_stack.hh \
+    safe_queue.hh \
+    safe_stack.hh \
     vect.hh
 
 unix {

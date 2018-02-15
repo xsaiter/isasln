@@ -34,7 +34,7 @@
 #include "lia/matrix.hh"
 #include "lia/vec.hh"
 
-#include "safe/safe_queue.hh"
+#include "safe_queue.hh"
 
 #include "vect.hh"
 
