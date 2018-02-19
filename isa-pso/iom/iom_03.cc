@@ -8,7 +8,7 @@
 #include "iom_03.hh"
 
 namespace iom {
-max_mult_res_s iom_04_a_max_mult(const std::vector<int> &v) {
+max_mult_res_s iom_03_a_max_mult(const std::vector<int> &v) {
   const int l = 30000;
 
   int mx1, mx2, mx3;
@@ -59,5 +59,30 @@ max_mult_res_s iom_04_a_max_mult(const std::vector<int> &v) {
   }
 
   return max_mult_res_s(mx1, mn2, mn1);
+}
+
+isa::lia::matrix_s<int> iom_03_square(int n, int k, int s) {
+  isa::lia::matrix_s<int> res(n, n, 0);
+
+  isa::lia::matrix_s<int> sub(k, k, 0);
+
+  int ones = 0;
+
+  for (int i = 0; i < k; ++i) {
+    for (int j = 0; j < k; ++j) {
+      if (ones < s) {
+        sub(i, j) = 1;
+        ++ones;
+      }
+    }
+  }
+
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      res(i, j) = sub(i % k, j % k);
+    }
+  }
+
+  return res;
 }
 }

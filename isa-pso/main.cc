@@ -237,17 +237,28 @@ TEST(iom_01_c_treasure, test) {
 }
 
 TEST(iom_03_a_max_mult, test_pos_and_neg) {
-  auto res = iom::iom_04_a_max_mult({3, 5, 1, 7, 9, 0, 9, -3, 10});
+  auto res = iom::iom_03_a_max_mult({3, 5, 1, 7, 9, 0, 9, -3, 10});
   EXPECT_EQ(res.x1, 10);
   EXPECT_EQ(res.x2, 9);
   EXPECT_EQ(res.x3, 9);
 }
 
 TEST(iom_03_a_max_mult, test_all_neg) {
-  auto res = iom::iom_04_a_max_mult({-8, -3, -5, -1, -7});
+  auto res = iom::iom_03_a_max_mult({-8, -3, -5, -1, -7});
   EXPECT_EQ(res.x1, -1);
   EXPECT_EQ(res.x2, -3);
   EXPECT_EQ(res.x3, -5);
+}
+
+TEST(iom_03_d_square, test) {
+  constexpr int n = 4;
+
+  auto res = iom::iom_03_square(n, 2, 2);
+
+  int arr[n][n] = {{1, 1, 1, 1}, {0, 0, 0, 0}, {1, 1, 1, 1}, {0, 0, 0, 0}};
+  auto exp = isa::lia::matrix_s<int>::create<n, n>(arr);
+
+  EXPECT_EQ(res, exp);
 }
 
 int main(int argc, char *argv[]) {

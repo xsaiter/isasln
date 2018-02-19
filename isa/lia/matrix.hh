@@ -20,6 +20,10 @@ public:
     return res;
   }
 
+  static matrix_s<T> square(int n, const T &initial) {
+    return matrix_s<T>(n, n, initial);
+  }
+
   explicit matrix_s(std::size_t n, const T &initial = 0)
       : matrix_s(n, n, initial) {}
 
