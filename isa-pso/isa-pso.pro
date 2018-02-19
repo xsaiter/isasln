@@ -22,7 +22,8 @@ HEADERS += \
     msh/t_15.hh \
     iom/iom_01.hh \
     core.hh \
-    iom/iom_02.hh
+    iom/iom_02.hh \
+    iom/iom_03.hh
 
 SOURCES += main.cc \
     msh/t_01.cc \
@@ -43,7 +44,8 @@ SOURCES += main.cc \
     msh/t_15.cc \
     core.cc \
     iom/iom_01.cc \
-    iom/iom_02.cc
+    iom/iom_02.cc \
+    iom/iom_03.cc
 
 
 LIBS += /usr/lib/libgtest.so
