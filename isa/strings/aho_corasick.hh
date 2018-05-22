@@ -37,10 +37,15 @@ private:
   node_ptr_u root_;
 
   void build_machine();
+
   void build_go();
+
   void build_failure();
+
   node_ptr_u next_state(node_ptr_u node, char c) const;
+
   node_ptr_u make_node(char c, unsigned int n, node_ptr_u parent) const;
+
   void append(std::vector<result_s> &result, node_ptr_u node,
               std::size_t end) const;
 };

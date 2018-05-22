@@ -13,5 +13,7 @@ struct max_mult_res_s {
 };
 max_mult_res_s iom_03_a_max_mult(const std::vector<int> &v);
 
-isa::lia::matrix_s<int> iom_03_square(int n, int k, int s);
+isa::lia::matrix_s<int> iom_03_d_square(int n, int k, int s);
+
+int iom_03_e_wheel_of_fortune(std::vector<int> nums);
 }

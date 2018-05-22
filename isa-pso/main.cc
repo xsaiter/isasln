@@ -253,7 +253,7 @@ TEST(iom_03_a_max_mult, test_all_neg) {
 TEST(iom_03_d_square, test) {
   constexpr int n = 4;
 
-  auto res = iom::iom_03_square(n, 2, 2);
+  auto res = iom::iom_03_d_square(n, 2, 2);
 
   int arr[n][n] = {{1, 1, 1, 1}, {0, 0, 0, 0}, {1, 1, 1, 1}, {0, 0, 0, 0}};
   auto exp = isa::lia::matrix_s<int>::create<n, n>(arr);

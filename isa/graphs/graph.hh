@@ -17,6 +17,7 @@ template <typename Vertex, directed_s directed> struct edge_s {
   edge_s() {}
   edge_s(const Vertex &a_, const Vertex &b_, int w_ = 0)
       : a(a_), b(b_), w(w_) {}
+
   Vertex a, b;
   int w;
   directed_s is_directed = directed;

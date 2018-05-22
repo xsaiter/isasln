@@ -23,7 +23,9 @@ HEADERS += \
     iom/iom_01.hh \
     core.hh \
     iom/iom_02.hh \
-    iom/iom_03.hh
+    iom/iom_03.hh \
+    shen/shen_0_1_1.hh \
+    shen/shen_0_1_2.hh
 
 SOURCES += main.cc \
     msh/t_01.cc \

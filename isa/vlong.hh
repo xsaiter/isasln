@@ -15,5 +15,6 @@ private:
 };
 
 vlong_s operator+(const vlong_s &lhs, const vlong_s &rhs);
+
 vlong_s operator-(const vlong_s &lhs, const vlong_s &rhs);
 }

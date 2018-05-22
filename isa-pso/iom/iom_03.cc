@@ -61,7 +61,7 @@ max_mult_res_s iom_03_a_max_mult(const std::vector<int> &v) {
   return max_mult_res_s(mx1, mn2, mn1);
 }
 
-isa::lia::matrix_s<int> iom_03_square(int n, int k, int s) {
+isa::lia::matrix_s<int> iom_03_d_square(int n, int k, int s) {
   isa::lia::matrix_s<int> res(n, n, 0);
 
   isa::lia::matrix_s<int> sub(k, k, 0);
@@ -85,4 +85,6 @@ isa::lia::matrix_s<int> iom_03_square(int n, int k, int s) {
 
   return res;
 }
+
+int iom_03_e_wheel_of_fortune(std::vector<int> nums) { return 0; }
 }

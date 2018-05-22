@@ -21,7 +21,7 @@ public:
 
   iter_ref_u operator[](std::size_t i) { return elems_[i]; }
 
-  const_iter_ref_u &operator[](std::size_t i) const { return elems[i]; }
+  const_iter_ref_u &operator[](std::size_t i) const { return elems_[i]; }
 
   void push_back(const T &elem) {
     if (capacity_ == len_) {
