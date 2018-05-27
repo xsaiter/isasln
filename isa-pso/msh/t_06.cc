@@ -1,4 +1,5 @@
 #include <algorithm>
+
 #include "t_06.hh"
 
 namespace msh {
@@ -40,4 +41,6 @@ int t_06_a_cover(const std::vector<isa::range_i_s> &ranges) {
 
   return res;
 }
+
+int t_06_b_sums(std::vector<int> nums) { return 0; }
 }

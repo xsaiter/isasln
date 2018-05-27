@@ -35,8 +35,7 @@ HEADERS += \
     crypto/vigenere_cipher.hh \
     lia/matrix.hh \
     lia/vec.hh \
-    utils.hh \
-    event_aggregator.hh \
+    utils.hh \    
     safe_queue.hh \
     safe_stack.hh \
     vect.hh

@@ -4,6 +4,8 @@
 
 #include <gtest/gtest/gtest.h>
 
+#include <boost/shared_ptr.hpp>
+
 #include "dynp/dynp.hh"
 
 #include "numeric.hh"
@@ -263,5 +265,6 @@ TEST(iom_03_d_square, test) {
 
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
+  boost::shared_ptr<int> x;
   return RUN_ALL_TESTS();
 }
