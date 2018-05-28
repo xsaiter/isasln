@@ -13,6 +13,16 @@ template <typename T> point_s<T> make_point(const T &x, const T &y) {
 
 template <typename T> struct segment_s { point_s<T> p1, p2; };
 
+template <typename T> struct rect_s {
+  point_s<T> lhs_bottom;
+  point_s<T> rhs_top;
+};
+
+template <typename T>
+T area_union_of_rects(const std::vector<rect_s<T>> rects) {
+  return 0;
+}
+
 template <typename T>
 segment_s<T> make_segment(const point_s<T> &p1, const point_s<T> &p2) {
   return segment_s<T>{p1, p2};

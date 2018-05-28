@@ -42,5 +42,9 @@ int t_06_a_cover(const std::vector<isa::range_i_s> &ranges) {
   return res;
 }
 
-int t_06_b_sums(std::vector<int> nums) { return 0; }
+int t_06_b_sums(const std::vector<int> &nums) { return 0; }
+
+int t_06_d_rectarea(const std::vector<isa::geo::rect_s<int>> &rects) {
+  return isa::geo::area_union_of_rects(rects);
+}
 }
