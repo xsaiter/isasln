@@ -6,9 +6,13 @@
 #include <vector>
 
 namespace dynp {
+
 int add_least_to_palindrome(const std::string &s);
+
 int house_robber(const std::vector<int> &a);
+
 int levenshtein_distance(const std::string &from, const std::string &to);
+
 int max_common_sequence(const std::string &s1, const std::string &s2);
 
 struct subarray_with_max_sum_res_s {

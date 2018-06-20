@@ -7,7 +7,7 @@
 #include "geo/geo.hh"
 
 namespace msh {
-int t_06_a_cover(const std::vector<isa::range_i_s> &ranges);
+int t_06_a_cover(const std::vector<isa::range_i_u> &ranges);
 
 int t_06_b_sums(const std::vector<int> &nums);
 

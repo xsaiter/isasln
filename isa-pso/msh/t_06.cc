@@ -3,7 +3,7 @@
 #include "t_06.hh"
 
 namespace msh {
-int t_06_a_cover(const std::vector<isa::range_i_s> &ranges) {
+int t_06_a_cover(const std::vector<isa::range_i_u> &ranges) {
   struct wrap_s {
     int v, t;
   };

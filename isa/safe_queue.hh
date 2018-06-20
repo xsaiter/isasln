@@ -10,6 +10,7 @@ namespace safe {
 template <typename T> class safe_queue_s {
 public:
   safe_queue_s() {}
+
   safe_queue_s(const safe_queue_s<T> &other) { q_ = other.q_; }
 
   void push(const T &elem) {

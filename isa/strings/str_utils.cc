@@ -110,7 +110,9 @@ int str_levenshtein_distance(const std::string &from, const std::string &to) {
         int p = d[i][j - 1] + 1;
         int q = d[i - 1][j] + 1;
         int r = d[i - 1][j - 1] + ((from[i - 1] == to[j - 1]) ? 0 : 1);
+
         int smallest = p;
+
         if (q < smallest) {
           smallest = q;
         }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 
 namespace isa {
 template <typename T> struct range_s {
@@ -16,9 +17,54 @@ template <typename T> struct range_s {
   }
 };
 
-using range_i_s = range_s<int>;
+using range_i_u = range_s<int>;
 
-template <typename T> using ranges_s = std::vector<range_s<T>>;
+template <typename T> using ranges_u = std::vector<range_s<T>>;
+
+using ranges_i_u = ranges_u<int>;
+
+template <typename T> ranges_u<T> recude_ranges(const ranges_u<T> &ranges) {
+  struct entry_s {
+    T x;
+    bool is_left;
+  };
+
+  std::vector<entry_s> v;
+
+  for (const auto &r : ranges) {
+    v.push_back({r.l, true});
+    v.push_back({r.r, false});
+  }
+
+  std::sort(v.begin(), v.end(),
+            [](const auto &e1, const auto &e2) { return e1.x < e2.x; });
+
+  ranges_u<T> res;
+
+  int n = 0;
+
+  T l;
+
+  for (const auto &e : v) {
+    if (e.is_left) {
+      if (n == 0) {
+        l = e.x;
+      }
+      ++n;
+    } else {
+      --n;
+    }
+
+    if (n > 0) {
+    }
+
+    if (n == 0) {
+      res.push_back({l, e.x});
+    }
+  }
+
+  return res;
+}
 
 template <typename T>
 range_s<T> merge_intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
@@ -42,10 +88,10 @@ bool intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
 }
 
 template <typename T>
-ranges_s<T> insert_range(const ranges_s<T> &ranges, const range_s<T> &range) {
-  ranges_s<T> res;
+ranges_u<T> insert_range(const ranges_u<T> &ranges, const range_s<T> &x) {
+  ranges_u<T> res;
 
-  range_s<T> r = range;
+  range_s<T> r = x;
 
   bool merged = false;
 

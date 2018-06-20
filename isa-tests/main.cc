@@ -375,5 +375,10 @@ TEST(test_vec_mul_scalar, test) {
 
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
+
+  isa::ranges_i_u ranges{{1, 5}, {3, 9}, {10, 30}};
+
+  auto res = isa::recude_ranges(ranges);
+
   return RUN_ALL_TESTS();
 }
