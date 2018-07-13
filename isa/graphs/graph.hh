@@ -51,6 +51,7 @@ public:
     validate_vertex(b);
 
     add_edge_impl(a, b, w);
+
     if (directed == directed_s::undirected) {
       add_edge_impl(b, a, w);
     }
@@ -232,7 +233,7 @@ public:
     return res;
   }
 
-  void create_map(std::map<vertex_u, std::size_t> &map) const {
+  void fill_map(std::map<vertex_u, std::size_t> &map) const {
     auto vertices = get_all_vertices();
     const std::size_t n = vertices.size();
     for (std::size_t i = 0; i < n; ++i) {
@@ -246,7 +247,7 @@ public:
     if (g_ == nullptr) {
       g_ = std::make_shared<graph_i_s<directed>>(adj_.size());
 
-      create_map(map_);
+      fill_map(map_);
 
       auto vertices = get_all_vertices();
 

@@ -66,4 +66,17 @@ auto acc(T *beg, T *end, const typename Trait::R &initial) {
   }
   return res;
 }
+
+template <typename From, typename To> class maybe_cast {
+  struct t_1 {};
+  struct t_2 {
+    t_1 t[2];
+  };
+  static t_1 as_t(To);
+  static t_2 as_t(...);
+  static From type_from();
+
+public:
+  enum { yes = sizeof(as_t(type_from())) == sizeof(t_1) };
+};
 }
