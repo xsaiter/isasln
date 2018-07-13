@@ -24,8 +24,10 @@ HEADERS += \
     core.hh \
     iom/iom_02.hh \
     iom/iom_03.hh \
-    shen/shen_0_1_1.hh \
-    shen/shen_0_1_2.hh
+    misc/misc_01.hh \
+    shen/shen_01.hh \
+    shen/shen_02.hh \
+    prb/prb_01.hh
 
 SOURCES += main.cc \
     msh/t_01.cc \

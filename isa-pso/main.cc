@@ -22,6 +22,8 @@
 #include "iom/iom_02.hh"
 #include "iom/iom_03.hh"
 
+#include "misc/misc_01.hh"
+
 using namespace isa::geo;
 
 TEST(msh_t_01_a_test, test) {
@@ -264,6 +266,9 @@ TEST(iom_03_d_square, test) {
 }
 
 int main(int argc, char *argv[]) {
+  int tt = misc::details::first_digit(7456);
+  auto res = misc::compose_max({1, 5, 3, 4, 10, 0, 7});
+
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
