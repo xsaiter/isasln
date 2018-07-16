@@ -5,6 +5,9 @@
 #include <iterator>
 #include <sstream>
 #include <algorithm>
+#include <set>
+
+#include "core.hh"
 
 namespace misc {
 namespace details {
@@ -36,5 +39,31 @@ std::string compose_max(const std::vector<int> &v) {
   std::copy(r.begin(), r.end(), std::ostream_iterator<int>(oss, ""));
 
   return oss.str();
+}
+
+void remove_dups_from_unsorted_linked_list(
+    std::shared_ptr<pso::linked_list_node_s> node) {
+  std::set<int> set;
+  auto x = node;
+  std::shared_ptr<pso::linked_list_node_s> prev = nullptr;
+  while (x != nullptr) {
+    if (set.find(x->data) != set.end()) { // contains
+      prev->next = x->next;
+    } else {
+      set.insert(x->data);
+      prev = x;
+    }
+    x = x->next;
+  }
+}
+
+bool str_is_rotaton(const std::string &s1, const std::string &s2) {
+  auto n1 = s1.length();
+  auto n2 = s2.length();
+  if (n1 == n2) {
+    auto s3 = s1 + s2;
+    return s3.find(s2) != std::string::npos;
+  }
+  return false;
 }
 }
