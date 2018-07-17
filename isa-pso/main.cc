@@ -265,9 +265,21 @@ TEST(iom_03_d_square, test) {
   EXPECT_EQ(res, exp);
 }
 
+TEST(misc_is_uniq_chars, test) {
+  auto r1 = misc::is_uniq_chars("abcdecx");
+  EXPECT_EQ(r1, false);
+
+  auto r2 = misc::is_uniq_chars("abcdex");
+  EXPECT_EQ(r2, true);
+}
+
 int main(int argc, char *argv[]) {
-  int tt = misc::details::first_digit(7456);
-  auto res = misc::compose_max({1, 5, 3, 4, 10, 0, 7});
+  /*int tt = misc::details::first_digit(7456);
+  auto res = misc::compose_max({1, 5, 3, 4, 10, 0, 7});*/
+
+  /// auto x = std::make_shared<pso::sln_u>()
+
+  auto xx = pso::make_sln(1, pso::make_sln(2, nullptr));
 
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

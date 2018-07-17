@@ -4,7 +4,8 @@
 
 namespace isa {
 namespace lia {
-template <typename T = int> class matrix_s {
+template <typename T = int, typename R = std::vector<std::vector<T>>>
+class matrix_s {
 public:
   matrix_s(int n, int m, const T &initial = 0) : n_(n), m_(m) {
     elems_.resize(n, std::vector<T>(m, initial));
@@ -33,24 +34,26 @@ public:
   inline T &operator()(int i, int j) { return elems_[i][j]; }
   inline const T &operator()(int i, int j) const { return elems_[i][j]; }
 
-  matrix_s<T> &operator+=(const T &value);
-  matrix_s<T> &operator*=(const T &value);
+  matrix_s<T, R> &operator+=(const T &value);
+  matrix_s<T, R> &operator*=(const T &value);
 
-  template <typename U>
-  friend matrix_s<U> operator*(const matrix_s<U> &a, const matrix_s<U> &b);
+  template <typename U, typename X>
+  friend matrix_s<U, X> operator*(const matrix_s<U, X> &a,
+                                  const matrix_s<U, X> &b);
 
-  template <typename U>
-  friend matrix_s<U> operator+(const matrix_s<U> &a, const U &value);
+  template <typename U, typename X>
+  friend matrix_s<U, X> operator+(const matrix_s<U, X> &a, const U &value);
 
-  template <typename U>
-  friend bool operator==(const matrix_s<U> &a, const matrix_s<U> &b);
+  template <typename U, typename X>
+  friend bool operator==(const matrix_s<U, X> &a, const matrix_s<U, X> &b);
 
 private:
   int n_, m_;
-  std::vector<std::vector<T>> elems_;
+  R elems_;
 };
 
-template <typename T> matrix_s<T> &matrix_s<T>::operator+=(const T &value) {
+template <typename T, typename R>
+matrix_s<T, R> &matrix_s<T, R>::operator+=(const T &value) {
   for (int i = 0; i < n_; ++i) {
     for (int j = 0; j < m_; ++j) {
       elems_[i][j] += value;
@@ -59,7 +62,8 @@ template <typename T> matrix_s<T> &matrix_s<T>::operator+=(const T &value) {
   return *this;
 }
 
-template <typename T> matrix_s<T> &matrix_s<T>::operator*=(const T &value) {
+template <typename T, typename R>
+matrix_s<T, R> &matrix_s<T, R>::operator*=(const T &value) {
   for (int i = 0; i < n_; ++i) {
     for (int j = 0; j < m_; ++j) {
       elems_[i][j] *= value;
@@ -68,19 +72,19 @@ template <typename T> matrix_s<T> &matrix_s<T>::operator*=(const T &value) {
   return *this;
 }
 
-template <typename U>
-matrix_s<U> operator+(const matrix_s<U> &a, const U &value) {
-  matrix_s<U> res(a);
+template <typename U, typename X>
+matrix_s<U, X> operator+(const matrix_s<U, X> &a, const U &value) {
+  matrix_s<U, X> res(a);
   res += value;
   return res;
 }
 
-template <typename U>
-matrix_s<U> operator*(const matrix_s<U> &a, const matrix_s<U> &b) {
+template <typename U, typename X>
+matrix_s<U, X> operator*(const matrix_s<U, X> &a, const matrix_s<U, X> &b) {
   int n = a.n_;
   int m = b.m_;
 
-  matrix_s<U> res(n, m);
+  matrix_s<U, X> res(n, m);
 
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
@@ -93,8 +97,8 @@ matrix_s<U> operator*(const matrix_s<U> &a, const matrix_s<U> &b) {
   return res;
 }
 
-template <typename U>
-bool operator==(const matrix_s<U> &a, const matrix_s<U> &b) {
+template <typename U, typename X>
+bool operator==(const matrix_s<U, X> &a, const matrix_s<U, X> &b) {
   int na = a.n_;
   int ma = a.m_;
 

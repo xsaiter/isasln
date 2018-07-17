@@ -29,7 +29,6 @@ template <typename T> struct vec_traits_s<vec_scalar_s<T>> {
 template <typename T, typename R = std::vector<T>> class vec_s {
 public:
   vec_s(std::size_t n, const T &initial) : elems_(n, initial) {}
-
   vec_s(const R &elems) : elems_(elems) {}
 
   template <typename T2, typename R2>
@@ -45,14 +44,12 @@ public:
   }
 
   T &operator[](const std::size_t i) { return elems_[i]; }
-
   T operator[](const std::size_t i) const { return elems_[i]; }
 
-  std::size_t size() const { return elems_.size(); }
-
   R &elems() { return elems_; }
-
   const R &elems() const { return elems_; }
+
+  std::size_t size() const { return elems_.size(); }
 
 private:
   R elems_;
