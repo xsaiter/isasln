@@ -374,11 +374,9 @@ TEST(test_vec_mul_scalar, test) {
 }
 
 int main(int argc, char *argv[]) {
+  auto area = isa::geo::area_intersection_of_rects<int>(
+      {{{0, 0}, {5, 3}}, {{3, 1}, {8, 4}}});
+
   ::testing::InitGoogleTest(&argc, argv);
-
-  isa::ranges_i_u ranges{{1, 5}, {3, 9}, {10, 30}};
-
-  auto res = isa::recude_ranges(ranges);
-
   return RUN_ALL_TESTS();
 }

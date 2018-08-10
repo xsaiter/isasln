@@ -7,6 +7,7 @@ namespace isa {
 template <typename T> struct range_s {
   T l, r;
   range_s(const T &l_, const T &r_) : l(l_), r(r_) {}
+  range_s() : l(0), r(0) {}
 
   friend bool operator==(const range_s<T> &lhs, const range_s<T> &rhs) {
     return lhs.l == rhs.l && lhs.r == rhs.r;
@@ -85,6 +86,20 @@ range_s<T> merge_intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
 template <typename T>
 bool intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
   return (a.l >= b.l && a.l <= b.r) || (b.l >= a.l && b.l <= a.r);
+}
+
+template <typename T>
+bool intersect_ranges(const range_s<T> &s1, const range_s<T> &s2,
+                      range_s<T> &res) {
+  if ((s1.l <= s2.l && s1.r >= s2.l)) {
+    res = {s2.l, std::min(s1.r, s2.r)};
+    return true;
+  }
+  if ((s1.l >= s2.l && s1.l <= s2.r)) {
+    res = {s1.l, std::min(s1.r, s2.r)};
+    return true;
+  }
+  return false;
 }
 
 template <typename T>

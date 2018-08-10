@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include "../ranges.hh"
 
 namespace isa {
 namespace geo {
@@ -19,7 +20,35 @@ template <typename T> struct rect_s {
 };
 
 template <typename T>
-T area_union_of_rects(const std::vector<rect_s<T>> rects) {
+T area_intersection_of_rects(const std::vector<rect_s<T>> &rects) {
+  auto n = rects.size();
+  if (n == 0) {
+    return 0;
+  }
+  if (n == 1) {
+    return (rects[0].lhs_bottom.x - rects[0].rhs_top.x) *
+           (rects[0].lhs_bottom.y - rects[0].rhs_top.y);
+  }
+  auto curx = range_s<T>{rects[0].lhs_bottom.x, rects[0].rhs_top.x};
+  for (auto i = 1; i < n; ++i) {
+    if (!intersect_ranges(curx, {rects[i].lhs_bottom.x, rects[i].rhs_top.x},
+                          curx)) {
+      return 0;
+    }
+  }
+  auto cury = range_s<T>{rects[0].lhs_bottom.y, rects[0].rhs_top.y};
+  for (auto i = 1; i < n; ++i) {
+    if (!intersect_ranges(cury, {rects[i].lhs_bottom.y, rects[i].rhs_top.y},
+                          cury)) {
+      return 0;
+    }
+  }
+  return (curx.r - curx.l) * (cury.r - cury.l);
+}
+
+template <typename T>
+T area_union_of_rects(const std::vector<rect_s<T>> &rects) {
+
   return 0;
 }
 

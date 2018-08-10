@@ -100,4 +100,6 @@ bool is_permutation(const std::string &s1, const std::string &s2) {
 }
 
 void replace_spaces(std::string &s) {}
+
+bool is_palindrome(pso::slnp_u head) {}
 }
