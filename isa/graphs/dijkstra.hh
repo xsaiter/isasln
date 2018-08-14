@@ -7,7 +7,6 @@
 #include "paths.hh"
 
 namespace isa {
-
 template <typename Graph>
 shortest_paths_s<typename Graph::edge_u> dijkstra(const Graph &g, int s) {
   using edge_u = typename Graph::edge_u;

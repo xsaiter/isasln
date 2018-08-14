@@ -274,12 +274,14 @@ TEST(misc_is_uniq_chars, test) {
 }
 
 int main(int argc, char *argv[]) {
-  /*int tt = misc::details::first_digit(7456);
-  auto res = misc::compose_max({1, 5, 3, 4, 10, 0, 7});*/
+  std::vector<std::vector<char>> a = {{'.', '.', '.', '.', 'X'},
+                                      {'.', 'O', 'O', 'O', 'O'},
+                                      {'.', '.', '.', '.', '.'},
+                                      {'O', 'O', 'O', 'O', '.'},
+                                      {'@', '.', '.', '.', '.'}};
+  msh::route_s r;
 
-  /// auto x = std::make_shared<pso::sln_u>()
-
-  auto xx = pso::make_sln(1, pso::make_sln(2, nullptr));
+  bool exists = msh::t_06_e_lines(a, 5, r);
 
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

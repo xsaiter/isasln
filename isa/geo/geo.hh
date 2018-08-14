@@ -17,6 +17,10 @@ template <typename T> struct segment_s { point_s<T> p1, p2; };
 template <typename T> struct rect_s {
   point_s<T> lhs_bottom;
   point_s<T> rhs_top;
+
+  T area() const {
+    return (lhs_bottom.x - rhs_top.x) * (lhs_bottom.y - rhs_top.y);
+  }
 };
 
 template <typename T>
@@ -26,8 +30,7 @@ T area_intersection_of_rects(const std::vector<rect_s<T>> &rects) {
     return 0;
   }
   if (n == 1) {
-    return (rects[0].lhs_bottom.x - rects[0].rhs_top.x) *
-           (rects[0].lhs_bottom.y - rects[0].rhs_top.y);
+    return rects[0].area();
   }
   auto curx = range_s<T>{rects[0].lhs_bottom.x, rects[0].rhs_top.x};
   for (auto i = 1; i < n; ++i) {

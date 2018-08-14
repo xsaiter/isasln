@@ -1,5 +1,7 @@
 #include <algorithm>
 
+#include "graphs/lee_alg.hh"
+
 #include "t_06.hh"
 
 namespace msh {
@@ -46,5 +48,52 @@ int t_06_b_sums(const std::vector<int> &nums) { return 0; }
 
 int t_06_d_rectarea(const std::vector<isa::geo::rect_s<int>> &rects) {
   return isa::geo::area_union_of_rects(rects);
+}
+
+bool t_06_e_lines(const std::vector<std::vector<char>> &a, int n,
+                  route_s &res) {
+  isa::lee_opts_s opts;
+  opts.rows = opts.cols = n;
+  opts.a.resize(n, std::vector<int>(n));
+
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      char c = a[i][j];
+      if (c == 'O') {
+        opts.a[i][j] = 1;
+      } else {
+        opts.a[i][j] = 0;
+        if (c == '@') {
+          opts.beg_x = j;
+          opts.beg_y = i;
+        } else if (c == 'X') {
+          opts.end_x = j;
+          opts.end_y = i;
+        }
+      }
+    }
+  }
+
+  std::vector<isa::lee_cell_s> cells;
+  auto exists = isa::lee_alg(opts, cells);
+  if (!exists) {
+    return false;
+  }
+
+  res.a.resize(n, std::vector<char>(n));
+
+  for (auto i = 0; i < n; ++i) {
+    for (auto j = 0; j < n; ++j) {
+      res.a[i][j] = a[i][j];
+    }
+  }
+
+  for (const isa::lee_cell_s &ce : cells) {
+    auto x = ce.x;
+    auto y = ce.y;
+    res.a[x][y] = '+';
+  }
+
+  return true;
 }
 }

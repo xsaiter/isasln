@@ -373,10 +373,13 @@ TEST(test_vec_mul_scalar, test) {
   }
 }
 
-int main(int argc, char *argv[]) {
+TEST(test_area_intersection_of_rects, test) {
   auto area = isa::geo::area_intersection_of_rects<int>(
       {{{0, 0}, {5, 3}}, {{3, 1}, {8, 4}}});
+  EXPECT_EQ(area, 4);
+}
 
+int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
