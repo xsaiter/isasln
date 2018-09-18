@@ -283,6 +283,10 @@ int main(int argc, char *argv[]) {
 
   bool exists = msh::t_06_e_lines(a, 5, r);
 
+  char z = 'z';
+  int x = z - 'a';
+  int x2 = 'b' - 'a';
+
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

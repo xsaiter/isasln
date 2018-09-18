@@ -6,17 +6,20 @@
 #include <gtest/gtest/gtest.h>
 
 #include "common.hh"
-
 #include "sort.hh"
+#include "safe_queue.hh"
+#include "vect.hh"
+#include "disjoint_sets.hh"
+#include "bloom_filter.hh"
+#include "ranges.hh"
 
 #include "strings/str_utils.hh"
 #include "strings/str_search.hh"
 #include "strings/aho_corasick.hh"
 
 #include "parsing/calculator.hh"
-
-#include "bloom_filter.hh"
-#include "ranges.hh"
+#include "parsing/brackets.hh"
+#include "parsing/finite_automata.hh"
 
 #include "geo/geo.hh"
 
@@ -25,18 +28,10 @@
 #include "graphs/dijkstra.hh"
 #include "graphs/mst.hh"
 
-#include "disjoint_sets.hh"
-
-#include "parsing/finite_automata.hh"
-
-#include "crypto/vigenere_cipher.hh"
-
 #include "lia/matrix.hh"
 #include "lia/vec.hh"
 
-#include "safe_queue.hh"
-
-#include "vect.hh"
+#include "crypto/vigenere_cipher.hh"
 
 using namespace std;
 
@@ -380,6 +375,8 @@ TEST(test_area_intersection_of_rects, test) {
 }
 
 int main(int argc, char *argv[]) {
+  isa::parsing::balanced_brackets_parser parser("()()()");
+  bool ok = parser.parse();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
