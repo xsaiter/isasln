@@ -49,13 +49,10 @@ public:
   void add_edge(int a, int b, int w = 0) {
     validate_vertex(a);
     validate_vertex(b);
-
     add_edge_impl(a, b, w);
-
     if (directed == directed_s::undirected) {
       add_edge_impl(b, a, w);
     }
-
     ++ne_;
   }
 
@@ -76,14 +73,12 @@ public:
 
   std::vector<edge_u> all_edges() const {
     std::vector<edge_u> res;
-
     std::for_each(adj_.begin(), adj_.end(), [&](const auto &p) {
       std::copy_if(p.begin(), p.end(), std::back_inserter(res),
                    [&](const auto &e) {
                      return std::find(res.begin(), res.end(), e) == res.end();
                    });
     });
-
     return res;
   }
 
@@ -91,16 +86,12 @@ public:
 
   void traversal_bfs(int s, visit_fn &visit) {
     std::vector<bool> marked(nv_, false);
-
     std::queue<int> q;
     q.push(s);
-
     while (!q.empty()) {
       auto p = q.front();
       q.pop();
-
       auto nbrs = neighbors(p);
-
       for (auto nbr : nbrs) {
         if (!marked[nbr]) {
           visit(nbr);
@@ -129,9 +120,7 @@ private:
 
   void dfs(int i, std::vector<bool> &marked, visit_fn &visit) {
     marked[i] = true;
-
     auto nbrs = neighbors(i);
-
     for (auto nbr : nbrs) {
       if (!marked[nbr]) {
         visit(nbr);

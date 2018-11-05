@@ -17,7 +17,6 @@ void bubble_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
         swapped = true;
       }
     }
-
     if (!swapped) {
       break;
     }
@@ -48,11 +47,9 @@ void shell_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
         std::iter_swap(j, j - 1);
         j = std::prev(j, d);
       }
-
       if (std::distance(beg, i) + d > n) {
         break;
       }
-
       i = std::next(i, d);
     }
   }
@@ -68,7 +65,6 @@ void selection_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
         pos = j;
       }
     }
-
     if (pos != i) {
       std::iter_swap(pos, i);
     }
@@ -111,9 +107,7 @@ private:
 
   void sort() {
     build_heap();
-
     Iter cur = end_;
-
     for (auto i = std::prev(end_); i != beg_; --i) {
       std::swap(*beg_, *i);
       cur = std::prev(cur);
