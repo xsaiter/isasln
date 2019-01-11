@@ -274,6 +274,8 @@ TEST(misc_is_uniq_chars, test) {
 }
 
 int main(int argc, char *argv[]) {
+  auto re_gcd = isa::gcd(10, 20);
+
   std::vector<std::vector<char>> a = {{'.', '.', '.', '.', 'X'},
                                       {'.', 'O', 'O', 'O', 'O'},
                                       {'.', '.', '.', '.', '.'},

@@ -7,6 +7,7 @@
 
 namespace isa {
 namespace safe {
+
 template <typename T> class safe_queue_s {
 public:
   safe_queue_s() {}

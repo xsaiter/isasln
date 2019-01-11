@@ -8,16 +8,15 @@
 #include "utils.hh"
 
 namespace isa {
-template <typename T> class bloom_filter_s {
+template <typename T> class bloom_filter {
 public:
   using func_u = std::function<int(const T &)>;
 
-  bloom_filter_s(std::size_t capacity, std::initializer_list<func_u> funcs)
+  bloom_filter(std::size_t capacity, std::initializer_list<func_u> funcs)
       : capacity_(capacity), bits_(capacity), funcs_(funcs) {}
 
   void add(const T &item) {
     const std::size_t n = funcs_.size();
-
     for (std::size_t i = 0; i < n; ++i) {
       const std::size_t pos = get_pos(i, item);
       bits_[pos] = true;
@@ -26,14 +25,12 @@ public:
 
   bool contains(const T &item) const {
     const std::size_t n = funcs_.size();
-
     for (std::size_t i = 0; i < n; ++i) {
       const std::size_t pos = get_pos(i, item);
       if (!bits_[pos]) {
         return false;
       }
     }
-
     return true;
   }
 
@@ -47,11 +44,10 @@ private:
   }
 };
 
-using bloom_filter_str_u = bloom_filter_s<std::string>;
-
-std::unique_ptr<bloom_filter_str_u>
+std::unique_ptr<bloom_filter<std::string>>
 make_bloom_filter_str(std::size_t capacity) {
-  return std::make_unique<bloom_filter_str_u>(
-      capacity, std::initializer_list<bloom_filter_str_u::func_u>{&fnv_hash});
+  return std::make_unique<bloom_filter<std::string>>(
+      capacity,
+      std::initializer_list<bloom_filter<std::string>::func_u>{&fnv_hash});
 }
 }

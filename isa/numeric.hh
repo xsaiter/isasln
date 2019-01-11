@@ -36,7 +36,7 @@ template <typename T> bool is_prime(T n) {
 
 template <typename T> T gcd(T a, T b) {
   while (b != 0) {
-    int c = a % b;
+    T c = a % b;
     a = b;
     b = c;
   }

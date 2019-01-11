@@ -35,9 +35,7 @@ std::string compose_max(const std::vector<int> &v) {
                          });
 
   std::ostringstream oss;
-
   std::copy(r.begin(), r.end(), std::ostream_iterator<int>(oss, ""));
-
   return oss.str();
 }
 
