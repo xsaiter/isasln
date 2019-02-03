@@ -31,8 +31,14 @@ public:
   matrix_s(const matrix_s<T> &other)
       : n_(other.n_), m_(other.m_), elems_(other.elems_) {}
 
-  inline T &operator()(int i, int j) { return elems_[i][j]; }
-  inline const T &operator()(int i, int j) const { return elems_[i][j]; }
+  inline T &operator()(int i, int j) noexcept { return elems_[i][j]; }
+
+  inline const T &operator()(int i, int j) const noexcept {
+    return elems_[i][j];
+  }
+
+  int n() const noexcept { return n_; }
+  int m() const noexcept { return m_; }
 
   matrix_s<T, R> &operator+=(const T &value);
   matrix_s<T, R> &operator*=(const T &value);

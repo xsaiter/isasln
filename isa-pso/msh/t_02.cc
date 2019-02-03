@@ -2,12 +2,33 @@
 #include <cstdio>
 
 #include "common.hh"
-
 #include "t_02.hh"
-
 #include "geo/geo.hh"
+#include "numeric.hh"
 
 namespace msh {
+
+std::vector<int> t_02_a_primes2(int m, int n) {
+  std::vector<int> res;
+  for (int i = m; i <= n; ++i) {
+    if (isa::is_prime(i)) {
+      res.push_back(i);
+    }
+  }
+  return res;
+}
+
+std::vector<std::string> t_02_b_permut(const std::string &s) {
+  std::vector<std::string> res;
+
+  return res;
+}
+
+isa::lia::matrix_s<char> t_02_c_route(isa::lia::matrix_s<int> &nums) {
+  isa::lia::matrix_s<char> res(nums.n(), nums.m());
+
+  return res;
+}
 
 bool t_02_d_segments(const isa::geo::segment_s<int> &s1,
                      const isa::geo::segment_s<int> &s2) {

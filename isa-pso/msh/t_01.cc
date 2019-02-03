@@ -19,36 +19,36 @@ void t_01_a_primes(int m, int n, std::vector<int> &res) {
   }
 }
 
-static int calc(const std::vector<int> &a, int v) {
-  int r = a[0];
+static int calc(const std::vector<int> &nums, int v) {
+  int r = nums[0];
 
-  const int n = a.size();
+  const int n = nums.size();
 
   for (int i = 1; i < n; ++i) {
     if ((v & (1 << (i - 1))) > 0) {
-      r += a[i];
+      r += nums[i];
     } else {
-      r += a[i] * (-1);
+      r += nums[i] * (-1);
     }
   }
 
   return r;
 }
 
-void t_01_b_expr(const std::vector<int> &a, int s, std::string &res) {
-  const int n = a.size();
+void t_01_b_expr(const std::vector<int> &nums, int s, std::string &res) {
+  const int n = nums.size();
   const int nn = (n - 1) * (n - 1);
 
   int i = 0;
 
-  while (i < nn && s != calc(a, i)) {
+  while (i < nn && s != calc(nums, i)) {
     i++;
   }
 
   std::ostringstream ss;
 
   if (i < nn) {
-    ss << a[0];
+    ss << nums[0];
 
     for (int j = 1; j < n; ++j) {
       if ((i & (1 << (j - 1))) > 0) {
@@ -56,7 +56,7 @@ void t_01_b_expr(const std::vector<int> &a, int s, std::string &res) {
       } else {
         ss << '-';
       }
-      ss << a[j];
+      ss << nums[j];
     }
   }
 

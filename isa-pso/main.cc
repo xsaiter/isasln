@@ -273,8 +273,15 @@ TEST(misc_is_uniq_chars, test) {
   EXPECT_EQ(r2, true);
 }
 
+std::string *_g;
+
 int main(int argc, char *argv[]) {
-  auto re_gcd = isa::gcd(10, 20);
+
+  std::string tra = "asdsd";
+
+  _g = &tra;
+
+  std::vector<std::string> ss;
 
   std::vector<std::vector<char>> a = {{'.', '.', '.', '.', 'X'},
                                       {'.', 'O', 'O', 'O', 'O'},
