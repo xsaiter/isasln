@@ -1,4 +1,5 @@
 #include "numeric.hh"
+#include <cmath>
 
 namespace isa {
 std::vector<int> sieve_of_erat(int n) {
@@ -64,5 +65,15 @@ bool is_perfect_num(int n) {
   }
 
   return s == n;
+}
+
+int fact(int n) {
+  int res = 1;
+  if (n > 1) {
+    for (auto i = 2; i <= n; ++i) {
+      res *= i;
+    }
+  }
+  return res;
 }
 }

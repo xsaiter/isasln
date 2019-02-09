@@ -1,7 +1,8 @@
 TEMPLATE = app
-CONFIG += console c++14
 CONFIG -= app_bundle
 CONFIG -= qt
+
+CONFIG += c++1z
 
 HEADERS += \
     msh/t_01.hh \

@@ -273,9 +273,20 @@ TEST(misc_is_uniq_chars, test) {
   EXPECT_EQ(r2, true);
 }
 
-std::string *_g;
+std::string *_g = nullptr;
+
+namespace klop::zzz {
+  void foo() { std::string s; }
+}
 
 int main(int argc, char *argv[]) {
+  klop::zzz::foo();
+  std::string src = "12345";
+  std::string sub_rev;
+  sub_rev.reserve(2);
+  std::reverse_copy(std::begin(src) + 3, std::end(src), std::begin(sub_rev));
+
+  auto rr = msh::t_02_b_permut("1234");
 
   std::string tra = "asdsd";
 

@@ -1,7 +1,8 @@
 TEMPLATE = app
-CONFIG += console c++14
 CONFIG -= app_bundle
 CONFIG -= qt
+
+CONFIG += c++1z
 
 SOURCES += \
     main.cc
@@ -9,6 +10,7 @@ SOURCES += \
 LIBS += /usr/lib/libgtest.so
 
 INCLUDEPATH += /usr/include/gtest
+
 
 
 unix:!macx: LIBS += -L$$OUT_PWD/../isa/ -lisa

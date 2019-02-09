@@ -18,8 +18,20 @@ std::vector<int> t_02_a_primes2(int m, int n) {
   return res;
 }
 
+void permut(const std::string &s, int pos, std::vector<std::string> &res) {
+  const int n = static_cast<int>(s.size());
+  int diff = n - pos;
+  if (diff == 2) {
+    res.push_back(s);
+    // std::string ns(s.begin(), s.end() - diff)
+    // res.push_back();
+  }
+}
+
 std::vector<std::string> t_02_b_permut(const std::string &s) {
-  std::vector<std::string> res;
+  const int n = static_cast<int>(s.size());
+  auto len = isa::fact(n);
+  std::vector<std::string> res(len);
 
   return res;
 }

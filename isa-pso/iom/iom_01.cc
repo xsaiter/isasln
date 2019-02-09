@@ -2,6 +2,8 @@
 #include <cassert>
 #include <sstream>
 
+#include <cmath>
+
 #include "iom_01.hh"
 
 #include "strings/str_utils.hh"

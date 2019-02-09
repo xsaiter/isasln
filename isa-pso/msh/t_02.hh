@@ -6,7 +6,7 @@
 #include <lia/matrix.hh>
 
 namespace msh {
-std::vector<int> t_02_a_primes2(int n, int m);
+std::vector<int> t_02_a_primes2(int m, int n);
 
 std::vector<std::string> t_02_b_permut(const std::string &s);
 

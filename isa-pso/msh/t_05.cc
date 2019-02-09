@@ -1,6 +1,7 @@
 #include <algorithm>
-
+#include <cmath>
 #include <vector>
+#include <numeric>
 
 #include "t_05.hh"
 

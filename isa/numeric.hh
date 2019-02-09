@@ -61,5 +61,7 @@ std::vector<int> sieve_of_erat(int n);
 
 int num_digits(int n);
 
+int fact(int n);
+
 bool is_perfect_num(int n);
 }
