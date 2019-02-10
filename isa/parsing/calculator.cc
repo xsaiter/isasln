@@ -1,12 +1,12 @@
 #include <stack>
 
-#include <math.h>
 #include <algorithm>
 #include <iterator>
+#include <math.h>
 #include <sstream>
 
-#include "infix_to_postfix.hh"
 #include "calculator.hh"
+#include "infix_to_postfix.hh"
 #include "strings/str_utils.hh"
 
 namespace isa {
@@ -16,7 +16,7 @@ static std::vector<std::string> get_tokens(const std::string &postfix) {
   return isa::strings::str_split(postfix, ' ');
 }
 
-static bool is_op(std::string c) {
+static bool is_op(const std::string &c) {
   return c == "+" || c == "-" || c == "*" || c == "/" || c == "^";
 }
 

@@ -30,27 +30,7 @@ HEADERS += \
     shen/shen_02.hh \
     prb/prb_01.hh
 
-SOURCES += main.cc \
-    msh/t_01.cc \
-    dynp/dynp.cc \
-    msh/t_02.cc \
-    msh/t_06.cc \
-    msh/t_04.cc \
-    msh/t_10.cc \
-    msh/t_11.cc \
-    msh/t_05.cc \
-    msh/t_03.cc \
-    msh/t_07.cc \
-    msh/t_08.cc \
-    msh/t_09.cc \
-    msh/t_12.cc \
-    msh/t_13.cc \
-    msh/t_14.cc \
-    msh/t_15.cc \
-    core.cc \
-    iom/iom_01.cc \
-    iom/iom_02.cc \
-    iom/iom_03.cc
+SOURCES += main.cc
 
 
 LIBS += /usr/lib/libgtest.so

@@ -1,5 +1,5 @@
-#include <iostream>
 #include <cmath>
+#include <iostream>
 #include <stack>
 
 #include <gtest/gtest/gtest.h>
@@ -24,18 +24,20 @@
 
 #include "misc/misc_01.hh"
 
+#include "prb/prb_01.hh"
+
 using namespace isa::geo;
 
 TEST(msh_t_01_a_test, test) {
   std::vector<int> res;
-  msh::t_01_a_primes(2, 5, res);
+  pso::msh::t_01::a_primes(2, 5, res);
   EXPECT_EQ(res.size(), 3);
   EXPECT_EQ(res[0], 2);
   EXPECT_EQ(res[1], 3);
   EXPECT_EQ(res[2], 5);
 
   std::vector<int> res2;
-  msh::t_01_a_primes(4, 4, res2);
+  pso::msh::t_01::a_primes(4, 4, res2);
   EXPECT_EQ(res2.size(), 0);
 }
 
@@ -43,11 +45,11 @@ TEST(msh_t_01_b_test, test) {
   std::vector<int> a{40, 20, 10, 10, 10, 5};
 
   std::string res;
-  msh::t_01_b_expr(a, 55, res);
+  pso::msh::t_01::b_expr(a, 55, res);
   EXPECT_EQ(res, "40+20+10-10-10+5");
 
   std::string res2;
-  msh::t_01_b_expr(a, 54, res2);
+  pso::msh::t_01::b_expr(a, 54, res2);
   EXPECT_EQ(res2, "");
 }
 
@@ -57,36 +59,36 @@ TEST(msh_t_01_d_test, test) {
   auto c = isa::geo::make_point(0, 100);
   auto p = isa::geo::make_point(50, 49);
 
-  bool res = msh::t_01_d_tria_pt(a, b, c, p);
+  bool res = pso::msh::t_01::d_tria_pt(a, b, c, p);
   EXPECT_TRUE(res);
 }
 
 TEST(add_least_to_palindrome_test, test) {
-  int res = dynp::add_least_to_palindrome("tttyy");
+  int res = pso::dynp::add_least_to_palindrome("tttyy");
   EXPECT_EQ(res, 2);
 }
 
 TEST(house_robber_test, test) {
   std::vector<int> houses{10, 2, 3, 22};
-  int res = dynp::house_robber(houses);
+  int res = pso::dynp::house_robber(houses);
   EXPECT_EQ(res, 32);
 }
 
 TEST(levenshtein_distance_test, test_levenshtein_distance) {
-  int res = dynp::levenshtein_distance("qwe", "qwert");
+  int res = pso::dynp::levenshtein_distance("qwe", "qwert");
   EXPECT_EQ(res, 2);
 }
 
 TEST(max_common_sequence_test, test) {
-  int res = dynp::max_common_sequence("gcataggtc", "agcaatggt");
+  int res = pso::dynp::max_common_sequence("gcataggtc", "agcaatggt");
   EXPECT_EQ(res, 7);
 }
 
 TEST(subarray_with_max_sum_test, test) {
   std::vector<int> a{-9, 3, 14, -10};
 
-  dynp::subarray_with_max_sum_res_s res;
-  dynp::subarray_with_max_sum(a, res);
+  pso::dynp::subarray_with_max_sum_res_s res;
+  pso::dynp::subarray_with_max_sum(a, res);
 
   EXPECT_EQ(res.beg, 1);
   EXPECT_EQ(res.end, 2);
@@ -95,8 +97,8 @@ TEST(subarray_with_max_sum_test, test) {
 
 TEST(turtle_travel_test, test) {
   std::vector<std::vector<int>> a{{8, 20, 40}, {5, 11, 27}};
-  dynp::turtle_travel_res_s res;
-  dynp::turtle_travel(a, 2, 3, res);
+  pso::dynp::turtle_travel_res_s res;
+  pso::dynp::turtle_travel(a, 2, 3, res);
 
   EXPECT_EQ(res.sum, 83);
   EXPECT_EQ(res.path.size(), 4);
@@ -104,16 +106,12 @@ TEST(turtle_travel_test, test) {
 
 TEST(largest_square_test, test) {
   std::vector<std::vector<int>> a{
-      {0, 1, 0, 1, 1, 1, 1},
-      {0, 1, 1, 1, 1, 0, 0},
-      {1, 0, 1, 1, 1, 1, 1},
-      {1, 1, 1, 1, 1, 1, 1},
-      {1, 0, 1, 1, 1, 1, 1},
-      {1, 1, 0, 0, 1, 1, 0},
+      {0, 1, 0, 1, 1, 1, 1}, {0, 1, 1, 1, 1, 0, 0}, {1, 0, 1, 1, 1, 1, 1},
+      {1, 1, 1, 1, 1, 1, 1}, {1, 0, 1, 1, 1, 1, 1}, {1, 1, 0, 0, 1, 1, 0},
   };
 
-  dynp::largest_square_res_s res;
-  dynp::largest_square(a, 6, 7, res);
+  pso::dynp::largest_square_res_s res;
+  pso::dynp::largest_square(a, 6, 7, res);
 
   EXPECT_EQ(res.side, 3);
   EXPECT_EQ(res.bottom_right_row, 3);
@@ -123,7 +121,7 @@ TEST(largest_square_test, test) {
 TEST(msh_t_06_a_test, test) {
   std::vector<isa::range_i_u> ranges{{10, 20}, {30, 40}};
 
-  int res = msh::t_06_a_cover(ranges);
+  int res = pso::msh::t_06::t_06_a_cover(ranges);
 
   EXPECT_EQ(res, 20);
 }
@@ -131,7 +129,7 @@ TEST(msh_t_06_a_test, test) {
 TEST(msh_t_06_a_test, test_over) {
   std::vector<isa::range_i_u> ranges{{10, 20}, {15, 22}};
 
-  int res = msh::t_06_a_cover(ranges);
+  int res = pso::msh::t_06::t_06_a_cover(ranges);
 
   EXPECT_EQ(res, 12);
 }
@@ -140,24 +138,24 @@ TEST(msh_t_02_d_segments, test) {
   isa::geo::segment_s<int> seg1{{1, 1}, {4, 4}};
   isa::geo::segment_s<int> seg2{{3, 2}, {5, 2}};
 
-  auto res = msh::t_02_d_segments(seg1, seg2);
+  auto res = pso::msh::t_02::t_02_d_segments(seg1, seg2);
   EXPECT_EQ(res, false);
 
   isa::geo::segment_s<int> seg3{{3, 2}, {1, 3}};
 
-  auto res2 = msh::t_02_d_segments(seg1, seg3);
+  auto res2 = pso::msh::t_02::t_02_d_segments(seg1, seg3);
   EXPECT_EQ(res2, true);
 
   isa::geo::segment_s<int> seg4{{4, 4}, {5, 2}};
 
-  auto res3 = msh::t_02_d_segments(seg1, seg4);
+  auto res3 = pso::msh::t_02::t_02_d_segments(seg1, seg4);
   EXPECT_EQ(res3, true);
 }
 
 TEST(t_04_a_perfect, test) {
   std::vector<int> res;
 
-  msh::t_04_a_perfect(1, 40, res);
+  pso::msh::t_04::t_04_a_perfect(1, 40, res);
 
   EXPECT_EQ(res.size(), 2);
 }
@@ -178,7 +176,7 @@ TEST(t_11_a_circarea, test) {
   auto c1 = isa::geo::make_circle(20.0, 30.0, 15.0);
   auto c2 = isa::geo::make_circle(40.0, 30.0, 30.0);
 
-  auto res = msh::t_11_d_circarea(c1, c2);
+  auto res = pso::msh::t_11::t_11_d_circarea(c1, c2);
 
   auto cmp = std::abs(608.37 - res) <= 0.1;
 
@@ -186,42 +184,42 @@ TEST(t_11_a_circarea, test) {
 }
 
 TEST(t_05_a_friendly, test) {
-  auto res = msh::t_05_a_friendly(200, 300);
+  auto res = pso::msh::t_05::t_05_a_friendly(200, 300);
 
-  msh::divs_s exp{220, 284};
+  pso::msh::t_05::divs_s exp{220, 284};
 
   EXPECT_EQ(*(res.begin()), exp);
 }
 
 TEST(t_04_d_area, test) {
   std::vector<isa::geo::point_s<int>> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
-  auto res = msh::t_04_d_area(points);
+  auto res = pso::msh::t_04::t_04_d_area(points);
 
   EXPECT_EQ(3.5, res);
 }
 
 TEST(t_05_f_birthday, test) {
-  auto days = msh::t_05_f_birthday(29, 2, 28, 2, 2001);
+  auto days = pso::msh::t_05::t_05_f_birthday(29, 2, 28, 2, 2001);
   EXPECT_EQ(1096, days);
 
-  days = msh::t_05_f_birthday(5, 5, 19, 4, 2002);
+  days = pso::msh::t_05::t_05_f_birthday(5, 5, 19, 4, 2002);
   EXPECT_EQ(16, days);
 
-  days = msh::t_05_f_birthday(19, 4, 19, 4, 2002);
+  days = pso::msh::t_05::t_05_f_birthday(19, 4, 19, 4, 2002);
   EXPECT_EQ(0, days);
 
-  days = msh::t_05_f_birthday(29, 2, 28, 2, 1992);
+  days = pso::msh::t_05::t_05_f_birthday(29, 2, 28, 2, 1992);
   EXPECT_EQ(1, days);
 }
 
 TEST(t_05_e_scale, test) {
-  auto res = msh::t_05_e_scale("29234652", 10, 36);
+  auto res = pso::msh::t_05::t_05_e_scale("29234652", 10, 36);
   EXPECT_EQ("HELLO", res);
 
-  res = msh::t_05_e_scale("78887", 20, 36);
+  res = pso::msh::t_05::t_05_e_scale("78887", 20, 36);
   EXPECT_EQ("PG6F", res);
 
-  res = msh::t_05_e_scale("78887", 14, 25);
+  res = pso::msh::t_05::t_05_e_scale("78887", 14, 25);
   EXPECT_EQ("II21", res);
 }
 
@@ -232,8 +230,8 @@ TEST(iom_01_a_timer, test) {
 }
 
 TEST(iom_01_c_treasure, test) {
-  std::vector<iom::step_s> steps{
-      {1, 3}, {3, 1}, {1, 1}, {3, 3}, {5, 2}, {7, 1}};
+  std::vector<iom::step_s> steps{{1, 3}, {3, 1}, {1, 1},
+                                 {3, 3}, {5, 2}, {7, 1}};
   auto res = iom::iom_01_c_treasure(steps);
 
   EXPECT_EQ(res.x, 3);
@@ -266,47 +264,22 @@ TEST(iom_03_d_square, test) {
 }
 
 TEST(misc_is_uniq_chars, test) {
-  auto r1 = misc::is_uniq_chars("abcdecx");
+  auto r1 = pso::misc::is_uniq_chars("abcdecx");
   EXPECT_EQ(r1, false);
 
-  auto r2 = misc::is_uniq_chars("abcdex");
+  auto r2 = pso::misc::is_uniq_chars("abcdex");
   EXPECT_EQ(r2, true);
 }
 
-std::string *_g = nullptr;
-
-namespace klop::zzz {
-  void foo() { std::string s; }
-}
-
 int main(int argc, char *argv[]) {
-  klop::zzz::foo();
-  std::string src = "12345";
-  std::string sub_rev;
-  sub_rev.reserve(2);
-  std::reverse_copy(std::begin(src) + 3, std::end(src), std::begin(sub_rev));
-
-  auto rr = msh::t_02_b_permut("1234");
-
-  std::string tra = "asdsd";
-
-  _g = &tra;
-
-  std::vector<std::string> ss;
-
-  std::vector<std::vector<char>> a = {{'.', '.', '.', '.', 'X'},
-                                      {'.', 'O', 'O', 'O', 'O'},
-                                      {'.', '.', '.', '.', '.'},
-                                      {'O', 'O', 'O', 'O', '.'},
-                                      {'@', '.', '.', '.', '.'}};
-  msh::route_s r;
-
-  bool exists = msh::t_06_e_lines(a, 5, r);
-
-  char z = 'z';
-  int x = z - 'a';
-  int x2 = 'b' - 'a';
-
+  auto is_pri = isa::is_prime(11);
+  auto primes = pso::msh::t_02::a_primes2(10, 200);
+  std::string ss = "1234";
+  auto permm = pso::msh::t_02::b_permut(ss);
+  auto mins = pos::prb::get_minutes_to_meeting(10, 20);
+  unsigned long x = 10;
+  std::vector<int> v;
+  v.resize(x);
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

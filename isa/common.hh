@@ -1,15 +1,14 @@
 #pragma once
 
-#include <vector>
-#include <string>
 #include <algorithm>
-#include <functional>
 #include <array>
+#include <functional>
+#include <string>
+#include <vector>
 
 #define ISA_UNUSED(x) ((void)(x))
 
 namespace isa {
-
 template <typename T, int ROWS, int COLS>
 using arr2_u = std::array<std::array<int, COLS>, ROWS>;
 
@@ -79,4 +78,8 @@ template <typename From, typename To> class maybe_cast {
 public:
   enum { yes = sizeof(as_t(type_from())) == sizeof(t_1) };
 };
+
+template <typename FwdIter> void shift(FwdIter beg, FwdIter end, int pos = 1) {
+  std::rotate(beg, beg + pos, end);
+}
 }

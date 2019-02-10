@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <locale>
-#include <sstream>
 #include <regex>
 #include <set>
+#include <sstream>
 
 #include "str_utils.hh"
 
@@ -198,6 +198,17 @@ void str_trim(std::string &s) {
   if (pos != std::string::npos) {
     s.erase(0, pos);
   }
+}
+
+std::string str_mirror(const std::string &s) {
+  return std::string(std::rbegin(s), std::rend(s));
+}
+
+std::string str_mirror(const std::string &s, int start) {
+  std::string r(std::cbegin(s), std::next(std::cbegin(s), start));
+  std::copy(std::crbegin(s), std::next(std::crend(s), -start),
+            std::back_inserter(r));
+  return r;
 }
 }
 }

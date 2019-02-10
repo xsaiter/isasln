@@ -1,11 +1,9 @@
 #pragma once
 
-#include <algorithm>
 #include "../ranges.hh"
+#include <algorithm>
 
-namespace isa {
-namespace geo {
-
+namespace isa::geo {
 template <typename T> struct point_s { T x, y; };
 
 template <typename T> point_s<T> make_point(const T &x, const T &y) {
@@ -33,14 +31,14 @@ T area_intersection_of_rects(const std::vector<rect_s<T>> &rects) {
     return rects[0].area();
   }
   auto curx = range_s<T>{rects[0].lhs_bottom.x, rects[0].rhs_top.x};
-  for (auto i = 1; i < n; ++i) {
+  for (unsigned long i = 1; i < n; ++i) {
     if (!intersect_ranges(curx, {rects[i].lhs_bottom.x, rects[i].rhs_top.x},
                           curx)) {
       return 0;
     }
   }
   auto cury = range_s<T>{rects[0].lhs_bottom.y, rects[0].rhs_top.y};
-  for (auto i = 1; i < n; ++i) {
+  for (unsigned long i = 1; i < n; ++i) {
     if (!intersect_ranges(cury, {rects[i].lhs_bottom.y, rects[i].rhs_top.y},
                           cury)) {
       return 0;
@@ -124,6 +122,5 @@ bool segments_intersect(const segment_s<T> &s1, const segment_s<T> &s2) {
 template <typename T>
 bool circles_intersect(const circle_s<T> &c1, const circle_s<T> &c2) {
   return false;
-}
 }
 }

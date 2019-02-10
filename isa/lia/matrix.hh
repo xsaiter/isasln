@@ -2,8 +2,7 @@
 
 #include <vector>
 
-namespace isa {
-namespace lia {
+namespace isa::lia {
 template <typename T = int, typename R = std::vector<std::vector<T>>>
 class matrix_s {
 public:
@@ -124,6 +123,5 @@ bool operator==(const matrix_s<U, X> &a, const matrix_s<U, X> &b) {
   }
 
   return true;
-}
 }
 }

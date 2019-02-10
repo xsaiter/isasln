@@ -1,5 +1,5 @@
-#include <sstream>
 #include <functional>
+#include <sstream>
 
 #include "vigenere_cipher.hh"
 
@@ -9,7 +9,7 @@ static const char A = 'A';
 static const int N = 26;
 
 static inline int idx(char c) { return c - A; }
-static inline char sym(int i) { return (char)(A + i); }
+static inline char sym(int i) { return static_cast<char>(A + i); }
 
 static char char_to_encrypt(char x, char y) {
   return sym((idx(x) + idx(y)) % N);
@@ -24,11 +24,11 @@ static char char_to_decrypt(char x, char y) {
 }
 
 static std::string prepare_key(const std::string &key, int should_size) {
-  const int size = key.size();
-  const int mod = should_size % size;
-  const int n = should_size / size;
+  const auto size = key.size();
+  const auto mod = should_size % size;
+  const auto n = should_size / size;
   std::ostringstream ss;
-  for (int i = 0; i < n; ++i) {
+  for (auto i = 0; i < n; ++i) {
     ss << key;
   }
   ss << key.substr(0, mod);

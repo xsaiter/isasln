@@ -1,13 +1,11 @@
 #pragma once
 
-#include <vector>
 #include <memory>
+#include <vector>
 
-namespace isa {
-namespace misc {
-
+namespace isa::misc {
 class all_queens_s {
-public:
+ public:
   struct cell_s {
     std::size_t x_;
     std::size_t y_;
@@ -18,12 +16,12 @@ public:
   };
 
   class position_s {
-  public:
+   public:
     position_s();
     std::shared_ptr<std::vector<cell_s>> cells() const { return cells_; }
     bool is_success() const { return success_; }
 
-  private:
+   private:
     friend class all_queens_s;
     std::shared_ptr<std::vector<cell_s>> cells_;
     bool success_;
@@ -35,11 +33,10 @@ public:
   all_queens_s(std::size_t n);
   position_s find_position();
 
-private:
+ private:
   std::size_t n_;
   bool try_find(position_s &pos);
   std::shared_ptr<std::vector<cell_s>> next_moves(position_s &pos) const;
   bool check_position(position_s &pos) const;
 };
-}
 }

@@ -1,14 +1,15 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <queue>
-#include <memory>
-#include <list>
-#include <map>
-#include <set>
 #include <algorithm>
 #include <cassert>
+#include <functional>
+#include <list>
+#include <map>
+#include <memory>
+#include <queue>
+#include <set>
+#include <string>
+#include <vector>
 
 namespace isa {
 enum class directed_s { directed, undirected, bidirected };
@@ -271,8 +272,8 @@ private:
   inline bool not_exists_edge(const edges_ptr_u edges,
                               const vertex_u &v) const {
     return std::find_if(edges->begin(), edges->end(), [&](const edge_u &e) {
-      return e.b == v;
-    }) == edges->end();
+             return e.b == v;
+           }) == edges->end();
   }
 
   inline edges_ptr_u add_vertex_impl(const vertex_u &v) {

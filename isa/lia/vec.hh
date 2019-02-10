@@ -1,15 +1,13 @@
 #pragma once
 
-#include <vector>
-#include <iostream>
-#include <cassert>
 #include <algorithm>
+#include <cassert>
+#include <iostream>
+#include <vector>
 
 #include "../common.hh"
 
-namespace isa {
-namespace lia {
-
+namespace isa::lia {
 template <typename T> struct vec_scalar_s {
   const T &v_;
   vec_scalar_s(const T &v) : v_(v) {}
@@ -32,8 +30,7 @@ public:
   vec_s(const R &elems) : elems_(elems) {}
 
   template <typename T2, typename R2>
-  vec_s(const vec_s<T2, R2> &other)
-      : elems_(other.size()) {
+  vec_s(const vec_s<T2, R2> &other) : elems_(other.size()) {
     copy_elems(other);
   }
 
@@ -127,6 +124,5 @@ template <typename T, typename R>
 auto operator*(const T &s, const vec_s<T, R> &v) {
   return vec_s<T, vec_mul_s<T, vec_scalar_s<T>, R>>(
       vec_mul_s<T, vec_scalar_s<T>, R>(vec_scalar_s<T>(s), v.elems()));
-}
 }
 }

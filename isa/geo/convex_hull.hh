@@ -1,13 +1,12 @@
 #pragma once
 
+#include <algorithm>
 #include <stack>
 #include <vector>
-#include <algorithm>
 
 #include "geo.hh"
 
-namespace isa {
-namespace geo {
+namespace isa::geo {
 template <typename T>
 std::stack<point_s<T>> graham_scan(std::vector<point_s<T>> points) {
   const unsigned n = points.size();
@@ -70,6 +69,5 @@ std::stack<point_s<T>> graham_scan(std::vector<point_s<T>> points) {
   }
 
   return hull;
-}
 }
 }

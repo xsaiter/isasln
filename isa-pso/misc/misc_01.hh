@@ -1,15 +1,15 @@
 #pragma once
 
+#include <algorithm>
+#include <iterator>
+#include <set>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <iterator>
-#include <sstream>
-#include <algorithm>
-#include <set>
 
 #include "core.hh"
 
-namespace misc {
+namespace pso::misc {
 namespace details {
 int sum_rec_imp(const std::vector<int> &v, std::size_t i) {
   return i < v.size() ? v[i] + sum_rec_imp(v, i + 1) : 0;
@@ -22,6 +22,7 @@ int first_digit(int x) {
   return x;
 }
 }
+
 int sum_rec(const std::vector<int> &v) { return details::sum_rec_imp(v, 0); }
 
 std::string compose_max(const std::vector<int> &v) {

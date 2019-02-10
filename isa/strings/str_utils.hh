@@ -1,11 +1,10 @@
 #pragma once
 
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream>
 
-namespace isa {
-namespace strings {
+namespace isa::strings {
 
 void str_remove_spaces(std::string &s);
 
@@ -33,5 +32,8 @@ void find_longest_repeated_substr(const std::string &str,
                                   longest_repeated_substr_s &res);
 
 void str_trim(std::string &s);
-}
+
+std::string str_mirror(const std::string &s);
+
+std::string str_mirror(const std::string &s, int start);
 }
