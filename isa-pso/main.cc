@@ -278,6 +278,8 @@ TEST(misc_is_uniq_chars, test) {
 }
 
 int main(int argc, char *argv[]) {
+  std::string s;
+  s.assign("helpasda");
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

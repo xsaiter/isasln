@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../ranges.hh"
 #include <algorithm>
+#include <cmath>
+
+#include "../ranges.hh"
 
 namespace isa::geo {
 template <typename T> struct point_s { T x, y; };
@@ -119,8 +121,10 @@ bool segments_intersect(const segment_s<T> &s1, const segment_s<T> &s2) {
   return false;
 }
 
-template <typename T>
-bool circles_intersect(const circle_s<T> &c1, const circle_s<T> &c2) {
-  return false;
+bool circles_intersect(const circle_s<double> &c1, const circle_s<double> &c2) {
+  auto p = c1.x - c2.x;
+  auto q = c1.y - c2.y;
+  auto dist = std::sqrt(p * p + q * q);
+  return dist < c1.r + c2.r;
 }
 }
