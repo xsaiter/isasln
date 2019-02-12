@@ -4,19 +4,25 @@
 
 #include <gtest/gtest/gtest.h>
 
-#include <boost/shared_ptr.hpp>
-
 #include "dynp/dynp.hh"
 
 #include "numeric.hh"
 
 #include "msh/t_01.hh"
 #include "msh/t_02.hh"
+#include "msh/t_03.hh"
 #include "msh/t_04.hh"
 #include "msh/t_05.hh"
 #include "msh/t_06.hh"
+#include "msh/t_07.hh"
+#include "msh/t_08.hh"
+#include "msh/t_09.hh"
 #include "msh/t_10.hh"
 #include "msh/t_11.hh"
+#include "msh/t_12.hh"
+#include "msh/t_13.hh"
+#include "msh/t_14.hh"
+#include "msh/t_15.hh"
 
 #include "iom/iom_01.hh"
 #include "iom/iom_02.hh"
@@ -272,14 +278,6 @@ TEST(misc_is_uniq_chars, test) {
 }
 
 int main(int argc, char *argv[]) {
-  auto is_pri = isa::is_prime(11);
-  auto primes = pso::msh::t_02::a_primes2(10, 200);
-  std::string ss = "1234";
-  auto permm = pso::msh::t_02::b_permut(ss);
-  auto mins = pos::prb::get_minutes_to_meeting(10, 20);
-  unsigned long x = 10;
-  std::vector<int> v;
-  v.resize(x);
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

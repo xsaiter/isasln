@@ -1,9 +1,7 @@
-#include <algorithm>
 #include "all_queens.hh"
+#include <algorithm>
 
-namespace isa {
-namespace misc {
-
+namespace isa::misc {
 using cells_u = std::vector<all_queens_s::cell_s>;
 using cells_ptr_u = std::shared_ptr<cells_u>;
 
@@ -91,6 +89,5 @@ bool all_queens_s::check_position(position_s &pos) const {
     }
   }
   return true;
-}
 }
 }

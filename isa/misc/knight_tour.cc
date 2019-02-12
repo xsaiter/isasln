@@ -1,8 +1,6 @@
 #include "knight_tour.hh"
 
-namespace isa {
-namespace misc {
-
+namespace isa::misc {
 using cells_u = std::vector<knight_tour_s::cell_s>;
 using cells_ptr_u = std::shared_ptr<cells_u>;
 
@@ -60,6 +58,5 @@ cells_ptr_u knight_tour_s::next_moves(route_s &route,
 
 bool knight_tour_s::valid_cell(const cell_s &c) const {
   return c.x_ >= 1 && c.x_ <= width_ && c.y_ >= 1 && c.y_ <= height_;
-}
 }
 }

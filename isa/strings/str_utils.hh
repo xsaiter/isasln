@@ -5,7 +5,6 @@
 #include <vector>
 
 namespace isa::strings {
-
 void str_remove_spaces(std::string &s);
 
 void str_to_upper(std::basic_string<char> &s);

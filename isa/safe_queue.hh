@@ -1,13 +1,11 @@
 #pragma once
 
-#include <queue>
-#include <mutex>
-#include <memory>
 #include <condition_variable>
+#include <memory>
+#include <mutex>
+#include <queue>
 
-namespace isa {
-namespace safe {
-
+namespace isa::safe {
 template <typename T> class safe_queue_s {
 public:
   safe_queue_s() {}
@@ -47,5 +45,4 @@ private:
   std::mutex mutex_;
   std::condition_variable var_;
 };
-}
 }

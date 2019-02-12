@@ -3,7 +3,6 @@
 #include <algorithm>
 
 namespace isa {
-
 template <typename T> class vect_s {
 public:
   using iter_u = T *;
@@ -25,7 +24,7 @@ public:
 
   void push_back(const T &elem) {
     if (capacity_ == len_) {
-      std::size_t new_capacity = 2 * capacity_;
+      auto new_capacity = 2 * capacity_;
       T *new_elems = new_copy(elems_, capacity_, new_capacity);
       delete[] elems_;
       elems_ = new_elems;
@@ -37,7 +36,7 @@ public:
 
   const_iter_u begin() const { return elems_; }
 
-  const_iter_u end() const { return elems_ + len; }
+  const_iter_u end() const { return elems_ + len_; }
 
   iter_u end() { return elems_ + len_; }
 

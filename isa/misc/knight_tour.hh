@@ -4,9 +4,7 @@
 #include <memory>
 #include <vector>
 
-namespace isa {
-namespace misc {
-
+namespace isa::misc {
 class knight_tour_s {
 public:
   struct cell_s {
@@ -52,5 +50,4 @@ private:
                                                   const cell_s &current) const;
   bool valid_cell(const cell_s &c) const;
 };
-}
 }

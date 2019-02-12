@@ -14,8 +14,8 @@ HEADERS += \
     parsing/postfix_to_infix.hh \
     parsing/infix_to_postfix.hh \
     parsing/brackets.hh \        
-    all_queens.hh \
-    knight_tour.hh \
+    misc/all_queens.hh \
+    misc/knight_tour.hh \
     graphs/lee_alg.hh \
     strings/str_search.hh \
     parsing/calculator.hh \
@@ -47,8 +47,8 @@ unix {
 
 SOURCES += \    
     catalan_numbers.cc \
-    all_queens.cc \
-    knight_tour.cc \
+    misc/all_queens.cc \
+    misc/knight_tour.cc \
     graphs/lee_alg.cc  \
     strings/str_utils.cc \
     parsing/infix_to_postfix.cc \

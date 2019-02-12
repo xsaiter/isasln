@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#define NOMINMAX
 #define ISA_UNUSED(x) ((void)(x))
 
 namespace isa {
