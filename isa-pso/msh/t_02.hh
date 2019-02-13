@@ -14,7 +14,7 @@
 #include <vector>
 
 namespace pso::msh::t_02 {
-
+////////////////
 std::vector<int> a_primes2(int m, int n) {
   std::vector<int> res;
   for (int i = m; i <= n; ++i) {
@@ -37,8 +37,9 @@ void permut(std::string &s, int n, int m, std::vector<std::string> &res) {
     }
   }
 }
-} // namespace details
+}
 
+////////////////
 std::vector<std::string> b_permut(std::string &s) {
   std::vector<std::string> res;
   const int n = static_cast<int>(s.size());
@@ -52,24 +53,33 @@ std::vector<std::string> b_permut(std::string &s) {
   return res;
 }
 
-isa::lia::matrix_s<char> t_02_c_route(isa::lia::matrix_s<int> &nums) {
+////////////////
+isa::lia::matrix_s<char> c_route(isa::lia::matrix_s<int> &nums) {
   isa::lia::matrix_s<char> res(nums.n(), nums.m());
 
   return res;
 }
 
-bool t_02_d_segments(const isa::geo::segment_s<int> &s1,
-                     const isa::geo::segment_s<int> &s2) {
+////////////////
+bool d_segments(const isa::geo::segment_s<int> &s1,
+                const isa::geo::segment_s<int> &s2) {
   return isa::geo::segments_intersect(s1, s2);
 }
 
-static int get_coil(int i, int j, int n) {
+////////////////
+std::string e_longsum(const std::string &n, std::string &m) {
+  std::string res;
+  return res;
+}
+
+namespace details {
+int get_coil(int i, int j, int n) {
   return isa::min_of(n - i - 1, n - j - 1, i, j);
 }
 
-static int get_side_len(int coil, int n) { return n - 2 * coil; }
+int get_side_len(int coil, int n) { return n - 2 * coil; }
 
-static int get_side_num(int i, int j, int side_len, int coil) {
+int get_side_num(int i, int j, int side_len, int coil) {
   int ii = i - coil;
   int jj = j - coil;
 
@@ -92,7 +102,7 @@ static int get_side_num(int i, int j, int side_len, int coil) {
   throw std::logic_error("no side");
 }
 
-static int get_num(int i, int j, int n) {
+int get_num(int i, int j, int n) {
   int coil = get_coil(i, j, n);
   int side_len = get_side_len(coil, n);
 
@@ -123,12 +133,14 @@ static int get_num(int i, int j, int n) {
 
   return r;
 }
+}
 
-void t_02_f_spiral(int n) {
+////////////////
+void f_spiral(int n) {
   for (int i = 0; i < n; ++i) {
     std::printf("\n");
     for (int j = 0; j < n; ++j) {
-      int num = get_num(i, j, n);
+      int num = details::get_num(i, j, n);
       std::printf("%5d", num);
     }
   }

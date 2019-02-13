@@ -141,17 +141,17 @@ TEST(msh_t_02_d_segments, test) {
   isa::geo::segment_s<int> seg1{{1, 1}, {4, 4}};
   isa::geo::segment_s<int> seg2{{3, 2}, {5, 2}};
 
-  auto res = pso::msh::t_02::t_02_d_segments(seg1, seg2);
+  auto res = pso::msh::t_02::d_segments(seg1, seg2);
   EXPECT_EQ(res, false);
 
   isa::geo::segment_s<int> seg3{{3, 2}, {1, 3}};
 
-  auto res2 = pso::msh::t_02::t_02_d_segments(seg1, seg3);
+  auto res2 = pso::msh::t_02::d_segments(seg1, seg3);
   EXPECT_EQ(res2, true);
 
   isa::geo::segment_s<int> seg4{{4, 4}, {5, 2}};
 
-  auto res3 = pso::msh::t_02::t_02_d_segments(seg1, seg4);
+  auto res3 = pso::msh::t_02::d_segments(seg1, seg4);
   EXPECT_EQ(res3, true);
 }
 
