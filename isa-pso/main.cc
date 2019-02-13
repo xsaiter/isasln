@@ -5,7 +5,6 @@
 #include <gtest/gtest/gtest.h>
 
 #include "dynp/dynp.hh"
-
 #include "numeric.hh"
 
 #include "msh/t_01.hh"
@@ -31,8 +30,6 @@
 #include "misc/misc_01.hh"
 
 #include "prb/prb_01.hh"
-
-using namespace isa::geo;
 
 TEST(msh_t_01_a_test, test) {
   std::vector<int> res;
@@ -277,9 +274,36 @@ TEST(misc_is_uniq_chars, test) {
   EXPECT_EQ(r2, true);
 }
 
+TEST(msh_01_f_poker, test) {
+  auto s_impossible = pso::msh::t_01::f_poker(5, 5, 5, 5, 5);
+  auto s_four_of_kind = pso::msh::t_01::f_poker(4, 4, 4, 4, 1);
+  auto s_full_house = pso::msh::t_01::f_poker(5, 7, 5, 7, 7);
+  auto s_straight = pso::msh::t_01::f_poker(5, 7, 8, 6, 4);
+  auto s_three_of_kind = pso::msh::t_01::f_poker(8, 8, 8, 2, 1);
+  auto s_two_pair = pso::msh::t_01::f_poker(5, 8, 5, 8, 1);
+  auto s_one_pair = pso::msh::t_01::f_poker(5, 7, 5, 8, 1);
+  auto s_nothing = pso::msh::t_01::f_poker(1, 3, 5, 7, 9);
+
+  EXPECT_EQ(s_impossible, "impossible");
+  EXPECT_EQ(s_four_of_kind, "four of a kind");
+  EXPECT_EQ(s_full_house, "full house");
+  EXPECT_EQ(s_straight, "straight");
+  EXPECT_EQ(s_three_of_kind, "three of kind");
+
+  EXPECT_EQ(s_two_pair, "two pairs");
+  EXPECT_EQ(s_one_pair, "one pair");
+  EXPECT_EQ(s_nothing, "nothing");
+}
+
 int main(int argc, char *argv[]) {
-  std::string s;
-  s.assign("helpasda");
+  /*auto s_impossible = pso::msh::t_01::f_poker(5, 5, 5, 5, 5);
+  auto s_four_of_kind = pso::msh::t_01::f_poker(4, 4, 4, 4, 1);
+  auto s_full_house = pso::msh::t_01::f_poker(5, 7, 5, 7, 7);
+  auto s_straight = pso::msh::t_01::f_poker(5, 7, 8, 6, 4);
+  auto s_three_of_kind = pso::msh::t_01::f_poker(8, 8, 8, 2, 1);
+  auto s_two_pair = pso::msh::t_01::f_poker(5, 8, 5, 8, 1);
+  auto s_one_pair = pso::msh::t_01::f_poker(5, 7, 5, 8, 1);
+  auto s_nothing = pso::msh::t_01::f_poker(1, 3, 5, 7, 9);*/
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

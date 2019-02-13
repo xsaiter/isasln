@@ -5,7 +5,7 @@
 namespace pso {
 struct single_linked_list_node_s {
   int data;
-  std::shared_ptr<single_linked_list_node_s> next;
+  std::shared_ptr<single_linked_list_node_s> next = nullptr;
 };
 
 using sln_u = single_linked_list_node_s;

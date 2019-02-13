@@ -16,7 +16,6 @@ namespace pso::msh::t_01 {
 ////////////////
 void a_primes(int m, int n, std::vector<int> &res) {
   assert(m <= n);
-
   for (int i = m; i <= n; ++i) {
     if (isa::is_prime(i)) {
       res.push_back(i);
@@ -83,16 +82,58 @@ bool d_tria_pt(const isa::geo::point_s<int> &a, const isa::geo::point_s<int> &b,
 
 ////////////////
 std::string f_poker(int x1, int x2, int x3, int x4, int x5) {
-  std::string res;
-  std::set<int> v{x1, x2, x3, x4, x5};
-  auto n = v.size();
-  if (n == 1) {
-    res.assign("impossible");
+  constexpr unsigned int n = 14;
+  int a[n]{0};
+  ++a[x1];
+  ++a[x2];
+  ++a[x3];
+  ++a[x4];
+  ++a[x5];
+  int f23 = 0;
+  int f2 = 0;
+  int chain = 0;
+  for (unsigned int i = 0; i < n; ++i) {
+    if (a[i] == 5) {
+      return "impossible";
+    }
+    if (a[i] == 4) {
+      return "four of a kind";
+    }
+    if (a[i] == 2) {
+      if (f23 == 3) {
+        f23 = -1;
+      } else {
+        f23 = 2;
+      }
+      f2++;
+    } else if (a[i] == 3) {
+      if (f23 == 2) {
+        f23 = -1;
+      } else {
+        f23 = 3;
+      }
+    }
+    if (f23 == -1) {
+      return "full house";
+    }
+    if (a[i] == 0) {
+      chain = 0;
+    } else {
+      ++chain;
+      if (chain == 5) {
+        return "straight";
+      }
+    }
   }
-  if (n == 2) {
-    return "four of a kind";
+  if (f23 == 3) {
+    return "three of kind";
   }
-
+  if (f2 == 1) {
+    return "one pair";
+  }
+  if (f2 == 2) {
+    return "two pairs";
+  }
   return "nothing";
 }
 }
