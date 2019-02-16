@@ -39,7 +39,7 @@ private:
   std::vector<bool> bits_;
   std::vector<func_u> funcs_;
 
-  inline std::size_t get_pos(std::size_t i, const T &item) const {
+  std::size_t get_pos(std::size_t i, const T &item) const {
     return funcs_[i](item) % capacity_;
   }
 };

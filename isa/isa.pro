@@ -57,7 +57,6 @@ SOURCES += \
     strings/str_search.cc \
     parsing/calculator.cc \
     strings/aho_corasick.cc \
-    numeric.cc \    
-    vlong.cc \
+    numeric.cc \        
     crypto/vigenere_cipher.cc \
     utils.cc

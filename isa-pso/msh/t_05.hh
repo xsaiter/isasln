@@ -162,7 +162,7 @@ int t_05_f_birthday(int birth_day, int birth_month, int cur_day, int cur_month,
 
   // after
   if (birth_month < cur_month ||
-      birth_month == cur_month && birth_day < cur_day) {
+      (birth_month == cur_month && birth_day < cur_day)) {
     days = days_in_month(cur_month, cur_year) - cur_day;
 
     for (int i = cur_month + 1; i <= 12; ++i) {
@@ -210,9 +210,9 @@ inline static std::string to_str(int val) { return std::to_string(val); }
 mod_s div10(const std::string &a, int b) {
   mod_s res;
 
-  const int n = a.size();
+  const std::size_t n = a.size();
 
-  int i = 0;
+  std::size_t i = 0;
 
   int rem, div;
 
@@ -297,16 +297,12 @@ int from_char_sys(char c) {
 
 std::string from_10_to(const std::string &val, int sys) {
   std::string res;
-
   std::string s = val;
-
   while (true) {
     mod_s m = div10(s, sys);
-
     res += to_char_sys(m.rem);
     s = m.div;
-
-    int len = s.size();
+    const std::size_t len = s.size();
     if (len < 3) {
       int k = to_int(s);
       if (k < sys) {
@@ -315,26 +311,19 @@ std::string from_10_to(const std::string &val, int sys) {
       }
     }
   }
-
   std::reverse(res.begin(), res.end());
-
   return res;
 }
 
 std::string to_10_from(const std::string &s, int sys) {
   std::string res;
-
-  const int n = s.size();
-
+  const std::size_t n = s.size();
   int t = 0;
-
-  for (int i = 0; i < n; ++i) {
+  for (std::size_t i = 0; i < n; ++i) {
     int v = from_char_sys(s[i]);
     t += v * std::pow(sys, n - i - 1);
   }
-
   res = to_str(t);
-
   return res;
 }
 
