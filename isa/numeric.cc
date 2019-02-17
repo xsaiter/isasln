@@ -39,15 +39,14 @@ std::vector<int> sieve_of_erat(int n) {
   return res;
 }
 
-int num_digits(int n) {
-  int digits = 0;
-
+std::size_t num_digits(std::size_t n) {
+  std::size_t res = 0;
   do {
     n = n / 10;
-    ++digits;
+    ++res;
   } while (n != 0);
 
-  return digits;
+  return res;
 }
 
 bool is_perfect_num(int n) {

@@ -6,6 +6,7 @@
 
 #include "dynp/dynp.hh"
 #include "numeric.hh"
+#include "vlong.hh"
 
 #include "msh/t_01.hh"
 #include "msh/t_02.hh"
@@ -296,14 +297,10 @@ TEST(msh_01_f_poker, test) {
 }
 
 int main(int argc, char *argv[]) {
-  /*auto s_impossible = pso::msh::t_01::f_poker(5, 5, 5, 5, 5);
-  auto s_four_of_kind = pso::msh::t_01::f_poker(4, 4, 4, 4, 1);
-  auto s_full_house = pso::msh::t_01::f_poker(5, 7, 5, 7, 7);
-  auto s_straight = pso::msh::t_01::f_poker(5, 7, 8, 6, 4);
-  auto s_three_of_kind = pso::msh::t_01::f_poker(8, 8, 8, 2, 1);
-  auto s_two_pair = pso::msh::t_01::f_poker(5, 8, 5, 8, 1);
-  auto s_one_pair = pso::msh::t_01::f_poker(5, 7, 5, 8, 1);
-  auto s_nothing = pso::msh::t_01::f_poker(1, 3, 5, 7, 9);*/
+  auto l = isa::vlong_s<100>::from("548210789");
+  auto l2 = isa::vlong_s<100>::from("548210789");
+  auto res = l * l2;
+  auto back = l.to();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

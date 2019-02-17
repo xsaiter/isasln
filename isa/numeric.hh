@@ -1,10 +1,10 @@
 #pragma once
 
 #include <algorithm>
-#include <iostream>
-#include <vector>
-#include <memory>
 #include <bitset>
+#include <iostream>
+#include <memory>
+#include <vector>
 
 namespace isa {
 
@@ -59,7 +59,7 @@ template <std::size_t N> void inc(std::bitset<N> &b) {
 
 std::vector<int> sieve_of_erat(int n);
 
-int num_digits(int n);
+std::size_t num_digits(std::size_t n);
 
 int fact(int n);
 
