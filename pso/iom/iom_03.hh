@@ -8,7 +8,7 @@
 #include <vector>
 #include <vector>
 
-#include "lia/matrix.hh"
+#include "isa/lia/matrix.hh"
 
 namespace iom {
 struct max_mult_res_s {

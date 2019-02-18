@@ -2,9 +2,7 @@
 
 #include <string>
 
-namespace isa {
-namespace parsing {
-
+namespace isa::parsing {
 bool check_balanced_brackets(const std::string &s);
 
 /*
@@ -38,5 +36,4 @@ private:
     return true;
   }
 };
-}
 }

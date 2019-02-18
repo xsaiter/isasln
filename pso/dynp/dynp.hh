@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "common.hh"
+#include "isa/common.hh"
 
 namespace pso::dynp {
 

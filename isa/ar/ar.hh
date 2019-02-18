@@ -6,8 +6,7 @@
 #include <memory>
 #include <vector>
 
-namespace isa {
-
+namespace isa::ar {
 template <typename A, typename B> A fast_pow(A a, B b) {
   if (b == 2) {
     return a * a;
@@ -57,11 +56,11 @@ template <std::size_t N> void inc(std::bitset<N> &b) {
   }
 }
 
-std::vector<int> sieve_of_erat(int n);
+std::vector<std::size_t> sieve_of_erat(std::size_t n);
 
 std::size_t num_digits(std::size_t n);
 
-int fact(int n);
+std::size_t fact(std::size_t n);
 
-bool is_perfect_num(int n);
+bool is_perfect_num(std::size_t n);
 }

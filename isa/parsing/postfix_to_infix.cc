@@ -1,11 +1,9 @@
-#include <vector>
 #include <queue>
+#include <vector>
 
 #include "postfix_to_infix.hh"
 
-namespace isa {
-namespace parsing {
-
+namespace isa::parsing {
 static bool is_op(char c) {
   return c == '+' || c == '-' || c == '*' || c == '/';
 }
@@ -115,6 +113,5 @@ std::string postfix_to_infix(const std::string &postfix) {
   }
 
   return reverse_stack_to_string(stack);
-}
 }
 }

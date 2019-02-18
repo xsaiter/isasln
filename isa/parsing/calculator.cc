@@ -5,15 +5,13 @@
 #include <math.h>
 #include <sstream>
 
+#include "../str/str_utils.hh"
 #include "calculator.hh"
 #include "infix_to_postfix.hh"
-#include "strings/str_utils.hh"
 
-namespace isa {
-namespace parsing {
-
+namespace isa::parsing {
 static std::vector<std::string> get_tokens(const std::string &postfix) {
-  return isa::strings::str_split(postfix, ' ');
+  return isa::str::str_split(postfix, ' ');
 }
 
 static bool is_op(const std::string &c) {
@@ -97,6 +95,5 @@ int calculate_prefix(const std::string &prefix) {
 
   auto top = ss.top();
   return std::atoi(top.c_str());
-}
 }
 }

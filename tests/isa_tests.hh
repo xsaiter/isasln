@@ -1,37 +1,37 @@
 #include <iostream>
-#include <vector>
-#include <time.h>
 #include <string>
+#include <time.h>
+#include <vector>
 
 #include <gtest/gtest/gtest.h>
 
-#include "common.hh"
-#include "sort.hh"
-#include "safe_queue.hh"
-#include "vect.hh"
-#include "disjoint_sets.hh"
-#include "bloom_filter.hh"
-#include "ranges.hh"
+#include "isa/bloom_filter.hh"
+#include "isa/common.hh"
+#include "isa/disjoint_sets.hh"
+#include "isa/ranges.hh"
+#include "isa/safe_queue.hh"
+#include "isa/sort.hh"
+#include "isa/vect.hh"
 
-#include "strings/str_utils.hh"
-#include "strings/str_search.hh"
-#include "strings/aho_corasick.hh"
+#include "isa/str/aho_corasick.hh"
+#include "isa/str/str_search.hh"
+#include "isa/str/str_utils.hh"
 
-#include "parsing/calculator.hh"
-#include "parsing/brackets.hh"
-#include "parsing/finite_automata.hh"
+#include "isa/parsing/brackets.hh"
+#include "isa/parsing/calculator.hh"
+#include "isa/parsing/finite_automata.hh"
 
-#include "geo/geo.hh"
+#include "isa/geo/geo.hh"
 
-#include "graphs/graph.hh"
-#include "graphs/paths.hh"
-#include "graphs/dijkstra.hh"
-#include "graphs/mst.hh"
+#include "isa/graphs/dijkstra.hh"
+#include "isa/graphs/graph.hh"
+#include "isa/graphs/mst.hh"
+#include "isa/graphs/paths.hh"
 
-#include "lia/matrix.hh"
-#include "lia/vec.hh"
+#include "isa/lia/matrix.hh"
+#include "isa/lia/vec.hh"
 
-#include "crypto/vigenere_cipher.hh"
+#include "isa/crypto/vigenere_cipher.hh"
 
 using namespace std;
 
@@ -89,7 +89,7 @@ TEST(test_bloom_filter, bloom_filter) {
 TEST(test_aho_corasick, aho_corasick) {
   std::string s = "sheshe";
   std::vector<std::string> patterns = {"he", "she", "hello"};
-  isa::strings::aho_corasick_s ac(patterns);
+  isa::str::aho_corasick_s ac(patterns);
   auto result = ac.search(s);
 
   EXPECT_EQ(result.size(), 4);
@@ -97,8 +97,7 @@ TEST(test_aho_corasick, aho_corasick) {
 
 TEST(test_str, remove_words_with_consecutive_repeated_letters) {
   std::string res =
-      isa::strings::remove_words_with_consecutive_repeated_letters(
-          "word wword");
+      isa::str::remove_words_with_consecutive_repeated_letters("word wword");
 
   EXPECT_EQ(res, "word");
 }
@@ -208,8 +207,8 @@ TEST(test_graph, dfs_paths) {
 TEST(test_str, find_longest_repeated_substr) {
   std::string s = "to be or not to be";
 
-  isa::strings::longest_repeated_substr_s res;
-  isa::strings::find_longest_repeated_substr(s, res);
+  isa::str::longest_repeated_substr_s res;
+  isa::str::find_longest_repeated_substr(s, res);
 
   EXPECT_EQ(res.all_pos.size(), 2);
   EXPECT_EQ(res.s, "to be");
@@ -236,30 +235,6 @@ TEST(test_graph, mst_kruskal) {
 
   EXPECT_EQ(res.size(), 5);
 }
-
-TEST(test_dfa, dfa) {
-  isa::dfa_s<char> dfa(0);
-
-  dfa.add_state(0, false);
-  dfa.add_state(1, false);
-  dfa.add_state(2, true);
-
-  dfa.add_transition(0, 1, 'a');
-  dfa.add_transition(1, 2, 'b');
-
-  dfa.input('a');
-  dfa.input('b');
-
-  auto is_final_state = dfa.is_accept();
-
-  EXPECT_TRUE(is_final_state);
-}
-/*
-TEST(test_nfa_regex, nfa_regex) {
-  auto nfa = isa::make_nfa_regex("((a*b|ac)d)");
-  bool accept = nfa.accept("abbba");
-  EXPECT_TRUE(accept);
-}*/
 
 TEST(test_min_of, test) {
   auto res = isa::min_of(10, 2, 3);
@@ -372,9 +347,4 @@ TEST(test_area_intersection_of_rects, test) {
   auto area = isa::geo::area_intersection_of_rects<int>(
       {{{0, 0}, {5, 3}}, {{3, 1}, {8, 4}}});
   EXPECT_EQ(area, 4);
-}
-
-int main(int argc, char *argv[]) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
 }

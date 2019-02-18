@@ -1,14 +1,12 @@
-#include <vector>
-#include <queue>
-#include <stack>
-#include <sstream>
 #include <iostream>
+#include <queue>
+#include <sstream>
+#include <stack>
+#include <vector>
 
 #include "infix_to_postfix.hh"
 
-namespace isa {
-namespace parsing {
-
+namespace isa::parsing {
 struct token_s {
   token_s(const std::string &s_, bool is_num_) : s(s_), is_num(is_num_) {}
   std::string s;
@@ -120,6 +118,5 @@ std::string infix_to_postfix(const std::string &infix) {
   }
 
   return ss.str();
-}
 }
 }

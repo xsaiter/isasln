@@ -1,15 +1,16 @@
 #pragma once
 
-#include "geo/geo.hh"
-#include "numeric.hh"
 #include <cassert>
 #include <vector>
+
+#include "isa/ar/ar.hh"
+#include "isa/geo/geo.hh"
 
 namespace pso::msh::t_04 {
 void t_04_a_perfect(int m, int n, std::vector<int> &res) {
   assert(m < n);
   for (int i = m; i <= n; ++i) {
-    if (isa::is_perfect_num(i)) {
+    if (isa::ar::is_perfect_num(i)) {
       res.push_back(i);
     }
   }

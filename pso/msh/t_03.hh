@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core.hh"
-#include "geo/geo.hh"
+#include "isa/geo/geo.hh"
+#include "pso/core.hh"
 
 namespace pso::msh::t_03 {
 std::vector<std::string> t_03_b_permutation(const std::string &s) {

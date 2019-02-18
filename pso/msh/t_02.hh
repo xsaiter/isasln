@@ -2,23 +2,23 @@
 
 #include <cstdio>
 #include <iostream>
-
-#include "common.hh"
-#include "geo/geo.hh"
-#include "numeric.hh"
-#include "strings/str_utils.hh"
-#include "t_02.hh"
-
-#include <lia/matrix.hh>
 #include <string>
 #include <vector>
+
+#include "isa/ar/ar.hh"
+#include "isa/common.hh"
+#include "isa/geo/geo.hh"
+#include "isa/lia/matrix.hh"
+#include "isa/str/str_utils.hh"
+
+#include "t_02.hh"
 
 namespace pso::msh::t_02 {
 ////////////////
 std::vector<int> a_primes2(int m, int n) {
   std::vector<int> res;
   for (int i = m; i <= n; ++i) {
-    if (isa::is_prime(i)) {
+    if (isa::ar::is_prime(i)) {
       res.push_back(i);
     }
   }
@@ -29,7 +29,7 @@ namespace details {
 void permut(std::string &s, int n, int m, std::vector<std::string> &res) {
   if (m == 2) {
     res.push_back(s);
-    res.push_back(isa::strings::str_mirror(s, n - m));
+    res.push_back(isa::str::str_mirror(s, n - m));
   } else {
     for (auto i = 0; i < m; ++i) {
       permut(s, n, m - 1, res);

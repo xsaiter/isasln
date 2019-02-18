@@ -6,9 +6,7 @@
 
 #include "str_utils.hh"
 
-namespace isa {
-namespace strings {
-
+namespace isa::str {
 void str_remove_spaces(std::string &s) {
   s.erase(std::remove_if(s.begin(), s.end(), [](char x) { return isspace(x); }),
           s.end());
@@ -209,6 +207,5 @@ std::string str_mirror(const std::string &s, int start) {
   std::copy(std::crbegin(s), std::next(std::crend(s), -start),
             std::back_inserter(r));
   return r;
-}
 }
 }

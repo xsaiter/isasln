@@ -1,4 +1,4 @@
-#include "catalan_numbers.hh"
+#include "catalan.hh"
 
 namespace isa {
 namespace numeric {

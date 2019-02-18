@@ -1,11 +1,10 @@
 #pragma once
 
-#include <vector>
-#include <string>
 #include <memory>
+#include <string>
+#include <vector>
 
-namespace isa {
-namespace strings {
+namespace isa::str {
 class aho_corasick_s {
 public:
   explicit aho_corasick_s(const std::vector<std::string> &patterns);
@@ -49,5 +48,4 @@ private:
   void append(std::vector<result_s> &result, node_ptr_u node,
               std::size_t end) const;
 };
-}
 }

@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "core.hh"
+#include "pso/core.hh"
 
 namespace pso::misc {
 namespace details {

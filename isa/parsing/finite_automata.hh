@@ -1,15 +1,15 @@
 #pragma once
 
+#include <algorithm>
 #include <map>
+#include <memory>
 #include <set>
 #include <vector>
-#include <algorithm>
-#include <memory>
 
-#include "graphs/graph.hh"
-#include "graphs/paths.hh"
+#include "isa/graphs/graph.hh"
+#include "isa/graphs/paths.hh"
 
-namespace isa {
+namespace isa::parsing {
 template <typename Input, typename State = int> class dfa_s {
 public:
   explicit dfa_s(const State &start_state)

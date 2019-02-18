@@ -1,16 +1,14 @@
 #pragma once
 
-#include <geo/geo.hh>
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <sstream>
 #include <string>
 #include <vector>
 
-#include <algorithm>
-#include <cassert>
-#include <sstream>
-
-#include <cmath>
-
-#include "strings/str_utils.hh"
+#include "isa/geo/geo.hh"
+#include "isa/str/str_utils.hh"
 
 namespace iom {
 struct step_s {
@@ -27,7 +25,7 @@ struct tm_s {
   static const int HOURS_IN_DAY = 24;
 
   static tm_s parse(const std::string &s) {
-    std::vector<std::string> parts = isa::strings::str_split(s, ':');
+    std::vector<std::string> parts = isa::str::str_split(s, ':');
     const auto n = parts.size();
     if (n == 3) {
       return tm_s{idx(parts, 0), idx(parts, 1), idx(parts, 2)};

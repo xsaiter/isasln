@@ -3,8 +3,7 @@
 
 #include "aho_corasick.hh"
 
-namespace isa {
-namespace strings {
+namespace isa::str {
 aho_corasick_s::aho_corasick_s(const std::vector<std::string> &patterns)
     : patterns_(patterns), root_(std::make_shared<node_s>()) {
   build_machine();
@@ -147,6 +146,5 @@ void aho_corasick_s::append(std::vector<result_s> &result, node_ptr_u node,
   if (node->has_output) {
     result.emplace_back(node->output, end);
   }
-}
 }
 }

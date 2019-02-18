@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "numeric.hh"
+#include "ar/ar.hh"
 
 namespace isa {
 template <std::size_t SYS> class vlong_s {
@@ -32,7 +32,7 @@ public:
     std::ostringstream ss;
     auto i = vec_.rbegin();
     while (i != vec_.rend()) {
-      auto nums = isa::num_digits(*i);
+      auto nums = isa::ar::num_digits(*i);
       if (nums == d_) {
         ss << *i;
       } else {

@@ -1,13 +1,12 @@
 #pragma once
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
-#include "graphs/lee_alg.hh"
-#include <algorithm>
-
-#include "geo/geo.hh"
-#include "ranges.hh"
+#include "isa/geo/geo.hh"
+#include "isa/graphs/lee_alg.hh"
+#include "isa/ranges.hh"
 
 namespace pso::msh::t_06 {
 int t_06_a_cover(const std::vector<isa::range_i_u> &ranges);

@@ -7,17 +7,17 @@
 #include <string>
 #include <vector>
 
-#include "core.hh"
-#include "geo/geo.hh"
+#include "isa/geo/geo.hh"
+#include "pso/core.hh"
 
-#include "numeric.hh"
+#include "isa/ar/ar.hh"
 
 namespace pso::msh::t_01 {
 ////////////////
 void a_primes(int m, int n, std::vector<int> &res) {
   assert(m <= n);
   for (int i = m; i <= n; ++i) {
-    if (isa::is_prime(i)) {
+    if (isa::ar::is_prime(i)) {
       res.push_back(i);
     }
   }

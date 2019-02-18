@@ -8,7 +8,7 @@
 #include <numeric>
 #include <vector>
 
-#include "ranges.hh"
+#include "isa/ranges.hh"
 
 namespace pso::msh::t_05 {
 struct divs_s {
