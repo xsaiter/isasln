@@ -269,14 +269,13 @@ private:
   std::map<vertex_u, std::size_t> map_;
   std::vector<vertex_u> idx_;
 
-  inline bool not_exists_edge(const edges_ptr_u edges,
-                              const vertex_u &v) const {
+  bool not_exists_edge(const edges_ptr_u edges, const vertex_u &v) const {
     return std::find_if(edges->begin(), edges->end(), [&](const edge_u &e) {
              return e.b == v;
            }) == edges->end();
   }
 
-  inline edges_ptr_u add_vertex_impl(const vertex_u &v) {
+  edges_ptr_u add_vertex_impl(const vertex_u &v) {
     auto i = find(v);
     if (i != end()) {
       return i->second;

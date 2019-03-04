@@ -7,9 +7,10 @@
 #include "isa/geo/geo.hh"
 
 namespace pso::msh::t_04 {
-void t_04_a_perfect(int m, int n, std::vector<int> &res) {
+void t_04_a_perfect(std::size_t m, std::size_t n,
+                    std::vector<std::size_t> &res) {
   assert(m < n);
-  for (int i = m; i <= n; ++i) {
+  for (std::size_t i = m; i <= n; ++i) {
     if (isa::ar::is_perfect_num(i)) {
       res.push_back(i);
     }

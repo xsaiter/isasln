@@ -25,12 +25,12 @@ max_mult_res_s iom_03_a_max_mult(const std::vector<int> &v) {
   int mn1, mn2, mn3;
   mn1 = mn2 = mn3 = l;
 
-  const int n = v.size();
+  const std::size_t n = v.size();
 
   bool all_pos = true;
   bool all_neg = true;
 
-  for (int i = 0; i < n; ++i) {
+  for (std::size_t i = 0; i < n; ++i) {
     int e = v[i];
     if (e > mx1) {
       mx3 = mx2;

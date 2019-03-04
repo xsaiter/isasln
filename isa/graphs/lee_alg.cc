@@ -9,8 +9,8 @@ bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result) {
   int dx[dirs] = {1, 0, -1, 0};
   int dy[dirs] = {0, -1, 0, 1};
 
-  int rows = opts.rows;
-  int cols = opts.cols;
+  auto rows = opts.rows;
+  auto cols = opts.cols;
 
   lee_cell_s cc[rows][cols];
 

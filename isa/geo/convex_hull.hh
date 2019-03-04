@@ -9,7 +9,7 @@
 namespace isa::geo {
 template <typename T>
 std::stack<point_s<T>> graham_scan(std::vector<point_s<T>> points) {
-  const unsigned n = points.size();
+  const std::size_t n = points.size();
 
   std::stack<point_s<T>> hull;
 
