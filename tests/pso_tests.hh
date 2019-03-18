@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stack>
 
-#include <gtest/gtest/gtest.h>
+#include <gtest/gtest.h>
 
 #include "isa/ar/ar.hh"
 #include "isa/vlong.hh"
@@ -158,7 +158,7 @@ TEST(msh_t_02_d_segments, test) {
 }
 
 TEST(t_04_a_perfect, test) {
-  std::vector<int> res;
+  std::vector<std::size_t> res;
 
   pso::msh::t_04::t_04_a_perfect(1, 40, res);
 

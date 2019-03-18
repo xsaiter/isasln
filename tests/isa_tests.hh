@@ -3,7 +3,7 @@
 #include <time.h>
 #include <vector>
 
-#include <gtest/gtest/gtest.h>
+#include <gtest/gtest.h>
 
 #include "isa/bloom_filter.hh"
 #include "isa/common.hh"

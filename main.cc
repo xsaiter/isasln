@@ -1,4 +1,4 @@
-#include <gtest/gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <iostream>
 
 #include "tests/isa_tests.hh"
