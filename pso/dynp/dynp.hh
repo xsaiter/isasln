@@ -7,14 +7,13 @@
 #include <vector>
 
 #include "isa/common.hh"
+#include "isa/lia/matrix.hh"
 
 namespace pso::dynp {
 
 int add_least_to_palindrome(const std::string &s);
 
 int house_robber(const std::vector<int> &a);
-
-int levenshtein_distance(const std::string &from, const std::string &to);
 
 int max_common_sequence(const std::string &s1, const std::string &s2);
 
@@ -51,7 +50,6 @@ static int find(const std::string &s, int i, int j) {
   if (i >= j) {
     return 0;
   }
-
   if (s[i] == s[j]) {
     return find(s, i + 1, j - 1);
   } else {
@@ -86,39 +84,35 @@ int house_robber(const std::vector<int> &a) {
   return b[n - 1];
 }
 
-int levenshtein_distance(const std::string &from, const std::string &to) {
-  const int n = from.size();
-  const int m = to.size();
-
-  int d[n][m]{0};
-
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < m; ++j) {
+std::size_t levenshtein_distance(const std::string &from,
+                                 const std::string &to) {
+  std::size_t n = from.size();
+  std::size_t m = to.size();
+  isa::lia::matrix_s<std::size_t> d(n, m, 0);
+  for (std::size_t i = 0; i < n; ++i) {
+    for (std::size_t j = 0; j < m; ++j) {
       if (i == 0 && j == 0) {
-        d[i][j] = 0;
+        d(i, j) = 0;
       } else if (i == 0 && j > 0) {
-        d[i][j] = j;
+        d(i, j) = j;
       } else if (i > 0 && j == 0) {
-        d[i][j] = i;
+        d(i, j) = i;
       } else {
-        int p = d[i][j - 1] + 1;
-        int q = d[i - 1][j] + 1;
-        int r = d[i - 1][j - 1] + ((from[i - 1] == to[j - 1]) ? 0 : 1);
-        int smallest = p;
+        auto p = d(i, j - 1) + 1;
+        auto q = d(i - 1, j) + 1;
+        auto r = d(i - 1, j - 1) + ((from[i - 1] == to[j - 1]) ? 0 : 1);
+        auto smallest = p;
         if (q < smallest) {
           smallest = q;
         }
-
         if (r < smallest) {
           smallest = r;
         }
-
-        d[i][j] = smallest;
+        d(i, j) = smallest;
       }
     }
   }
-
-  return d[n - 1][m - 1];
+  return d(n - 1, m - 1);
 }
 
 int max_common_sequence(const std::string &s1, const std::string &s2) {
@@ -294,4 +288,4 @@ void largest_square(const std::vector<std::vector<int>> &a, int rows, int cols,
   res.bottom_right_col = c;
   res.side = side;
 }
-}
+} // namespace pso::dynp

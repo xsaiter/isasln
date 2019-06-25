@@ -6,7 +6,7 @@ namespace isa::lia {
 template <typename T = int, typename R = std::vector<std::vector<T>>>
 class matrix_s {
 public:
-  matrix_s(int n, int m, const T &initial = 0) : n_(n), m_(m) {
+  matrix_s(std::size_t n, std::size_t m, const T &initial = 0) : n_(n), m_(m) {
     elems_.resize(n, std::vector<T>(m, initial));
   }
 
@@ -20,7 +20,7 @@ public:
     return res;
   }
 
-  static matrix_s<T> square(int n, const T &initial) {
+  static matrix_s<T> square(std::size_t n, const T &initial) {
     return matrix_s<T>(n, n, initial);
   }
 
@@ -30,14 +30,16 @@ public:
   matrix_s(const matrix_s<T> &other)
       : n_(other.n_), m_(other.m_), elems_(other.elems_) {}
 
-  inline T &operator()(int i, int j) noexcept { return elems_[i][j]; }
-
-  inline const T &operator()(int i, int j) const noexcept {
+  inline T &operator()(std::size_t i, std::size_t j) noexcept {
     return elems_[i][j];
   }
 
-  int n() const noexcept { return n_; }
-  int m() const noexcept { return m_; }
+  inline const T &operator()(std::size_t i, std::size_t j) const noexcept {
+    return elems_[i][j];
+  }
+
+  std::size_t n() const noexcept { return n_; }
+  std::size_t m() const noexcept { return m_; }
 
   matrix_s<T, R> &operator+=(const T &value);
   matrix_s<T, R> &operator*=(const T &value);
@@ -53,7 +55,7 @@ public:
   friend bool operator==(const matrix_s<U, X> &a, const matrix_s<U, X> &b);
 
 private:
-  int n_, m_;
+  std::size_t n_, m_;
   R elems_;
 };
 
@@ -124,4 +126,4 @@ bool operator==(const matrix_s<U, X> &a, const matrix_s<U, X> &b) {
 
   return true;
 }
-}
+} // namespace isa::lia
