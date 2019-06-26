@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 namespace isa {
 template <typename T> struct range_s {
@@ -104,4 +104,4 @@ ranges_u<T> insert_range(const ranges_u<T> &ranges, const range_s<T> &x) {
   }
   return res;
 }
-}
+} // namespace isa

@@ -77,4 +77,4 @@ public:
 private:
   std::set<item_s> items_;
 };
-}
+} // namespace isa

@@ -45,4 +45,4 @@ private:
   std::mutex mutex_;
   std::condition_variable var_;
 };
-}
+} // namespace isa::safe

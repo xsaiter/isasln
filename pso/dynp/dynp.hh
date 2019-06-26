@@ -10,11 +10,8 @@
 #include "isa/lia/matrix.hh"
 
 namespace pso::dynp {
-
 int add_least_to_palindrome(const std::string &s);
-
 int house_robber(const std::vector<int> &a);
-
 int max_common_sequence(const std::string &s1, const std::string &s2);
 
 struct subarray_with_max_sum_res_s {

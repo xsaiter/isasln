@@ -2,10 +2,9 @@
 
 #include <algorithm>
 #include <memory>
+#include <vector>
 
-namespace isa {
-namespace sorting {
-
+namespace isa::sorting {
 template <typename Iter, typename Cmp = std::less<
                              typename std::iterator_traits<Iter>::value_type>>
 void bubble_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
@@ -117,21 +116,17 @@ private:
 
   void build_heap() {
     int n = std::distance(beg_, end_);
-    int ss;
-
+    int k;
     if (n % 2 == 0) {
-      ss = n / 2;
+      k = n / 2;
     } else {
-      ss = (n + 1) / 2;
+      k = (n + 1) / 2;
     }
-
-    Iter mid = std::next(beg_, ss);
+    auto mid = std::next(beg_, k);
     mid = std::prev(mid);
-
-    for (Iter i = mid; i != beg_; --i) {
+    for (auto i = mid; i != beg_; --i) {
       down_heap(end_, i);
     }
-
     down_heap(end_, beg_);
   }
 
@@ -250,5 +245,4 @@ private:
     }
   }
 };
-}
-}
+} // namespace isa::sorting

@@ -10,8 +10,8 @@
 #define ISA_UNUSED(x) ((void)(x))
 
 namespace isa {
-template <typename T, int ROWS, int COLS>
-using arr2_u = std::array<std::array<int, COLS>, ROWS>;
+template <typename T, int Rows, int Cols>
+using arr2_u = std::array<std::array<int, Cols>, Rows>;
 
 template <typename T> T min_of(const T &a, const T &b) {
   return std::min(a, b);
@@ -83,4 +83,4 @@ public:
 template <typename FwdIter> void shift(FwdIter beg, FwdIter end, int pos = 1) {
   std::rotate(beg, beg + pos, end);
 }
-}
+} // namespace isa

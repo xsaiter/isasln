@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 
 #include "isa/ar/ar.hh"
-#include "isa/vlong.hh"
+#include "isa/big_int.hh"
 
 #include "pso/msh/t_01.hh"
 #include "pso/msh/t_02.hh"

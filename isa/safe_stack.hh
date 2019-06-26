@@ -1,10 +1,9 @@
 #pragma once
 
-#include <stack>
 #include <memory>
+#include <stack>
 
-namespace isa {
-namespace safe {
+namespace isa::safe {
 template <typename T> class safe_stack_s {
 public:
   void push(const T &elem) {}
@@ -12,5 +11,4 @@ public:
 private:
   std::stack<T> s_;
 };
-}
-}
+} // namespace isa::safe
