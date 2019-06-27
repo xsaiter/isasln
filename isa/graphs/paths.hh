@@ -6,7 +6,6 @@
 #include "graph.hh"
 
 namespace isa {
-
 struct paths_s {
   int nv;
   int s;
@@ -87,11 +86,11 @@ template <typename Graph> void dfs(const Graph &g, paths_s &res, int i) {
   }
 }
 
-} // details
+} // namespace details
 
 template <typename Graph> paths_s graph_paths_dfs(const Graph &g, int s) {
   paths_s res(g.nv(), s);
   details::dfs(g, res, s);
   return res;
 }
-}
+} // namespace isa

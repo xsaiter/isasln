@@ -14,4 +14,4 @@ static unsigned int FNV1aHash(char *buf) {
 }
 
 int fnv_hash(const std::string &s) { return FNV1aHash((char *)s.c_str()); }
-}
+} // namespace isa
