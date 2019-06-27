@@ -50,4 +50,4 @@ make_bloom_filter_str(std::size_t capacity) {
       capacity,
       std::initializer_list<bloom_filter<std::string>::func_u>{&fnv_hash});
 }
-}
+} // namespace isa
