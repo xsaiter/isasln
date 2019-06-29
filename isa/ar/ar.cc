@@ -67,4 +67,4 @@ std::size_t fact(std::size_t n) {
   }
   return res;
 }
-}
+} // namespace isa::ar

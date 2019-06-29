@@ -26,7 +26,7 @@ HEADERS += \
     isa/geo/convex_hull.hh \
     isa/disjoint_sets.hh \
     isa/graphs/mst.hh \
-    isa/vlong.hh \
+    isa/big_int.hh \
     isa/parsing/finite_automata.hh \
     isa/crypto/vigenere_cipher.hh \
     isa/lia/matrix.hh \

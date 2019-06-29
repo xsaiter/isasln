@@ -15,7 +15,6 @@ struct paths_s {
   paths_s(int nv_, int s_) : nv(nv_), s(s_), marked(nv, false), dist(nv, 0) {}
 
   bool has_path_to(int v) const { return marked[v]; }
-
   std::size_t distance_to(int v) const { return dist[v]; }
 };
 
@@ -72,12 +71,9 @@ template <typename Graph> paths_s graph_paths_bfs(const Graph &g, int s) {
 }
 
 namespace details {
-
 template <typename Graph> void dfs(const Graph &g, paths_s &res, int i) {
   res.marked[i] = true;
-
   auto nbrs = g.neighbors(i);
-
   for (auto nbr : nbrs) {
     if (!res.marked[nbr]) {
       res.dist[nbr] = res.dist[i] + 1;
@@ -85,7 +81,6 @@ template <typename Graph> void dfs(const Graph &g, paths_s &res, int i) {
     }
   }
 }
-
 } // namespace details
 
 template <typename Graph> paths_s graph_paths_dfs(const Graph &g, int s) {

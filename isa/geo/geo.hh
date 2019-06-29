@@ -127,4 +127,4 @@ bool circles_intersect(const circle_s<double> &c1, const circle_s<double> &c2) {
   auto dist = std::sqrt(p * p + q * q);
   return dist < c1.r + c2.r;
 }
-}
+} // namespace isa::geo

@@ -70,4 +70,4 @@ std::stack<point_s<T>> graham_scan(std::vector<point_s<T>> points) {
 
   return hull;
 }
-}
+} // namespace isa::geo

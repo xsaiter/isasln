@@ -114,4 +114,4 @@ std::string postfix_to_infix(const std::string &postfix) {
 
   return reverse_stack_to_string(stack);
 }
-}
+} // namespace isa::parsing

@@ -92,8 +92,7 @@ int calculate_prefix(const std::string &prefix) {
       ss.push(std::string(1, c));
     }
   }
-
   auto top = ss.top();
   return std::atoi(top.c_str());
 }
-}
+} // namespace isa::parsing

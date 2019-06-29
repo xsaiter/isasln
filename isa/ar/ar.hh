@@ -11,7 +11,6 @@ template <typename A, typename B> A fast_pow(A a, B b) {
   if (b == 2) {
     return a * a;
   }
-
   A res;
   B r = b % 2;
   if (r == 0) {
@@ -20,7 +19,6 @@ template <typename A, typename B> A fast_pow(A a, B b) {
   } else {
     return a * fast_pow(a, b - 1);
   }
-
   return res;
 }
 
@@ -63,4 +61,4 @@ std::size_t num_digits(std::size_t n);
 std::size_t fact(std::size_t n);
 
 bool is_perfect_num(std::size_t n);
-}
+} // namespace isa::ar

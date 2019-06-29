@@ -208,4 +208,4 @@ std::string str_mirror(const std::string &s, int start) {
             std::back_inserter(r));
   return r;
 }
-}
+} // namespace isa::str

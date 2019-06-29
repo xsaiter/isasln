@@ -13,7 +13,7 @@
 #include "isa/ar/ar.hh"
 
 namespace pso::msh::t_01 {
-////////////////
+//-----------------------------
 void a_primes(int m, int n, std::vector<int> &res) {
   assert(m <= n);
   for (int i = m; i <= n; ++i) {
@@ -36,9 +36,9 @@ int calc(const std::vector<int> &nums, std::size_t v) {
   }
   return r;
 }
-}
+} // namespace details
 
-////////////////
+//-----------------------------
 void b_expr(const std::vector<int> &nums, int s, std::string &res) {
   const std::size_t n = nums.size();
   const std::size_t nn = (n - 1) * (n - 1);
@@ -67,10 +67,13 @@ void b_expr(const std::vector<int> &nums, int s, std::string &res) {
   res.assign(ss.str());
 }
 
-////////////////
-void c_incseq(const std::vector<int> &a, std::vector<int> &res) {}
+//-----------------------------
+std::vector<int> c_incseq(const std::vector<int> &a) {
+  std::vector<int> res;
+  return res;
+}
 
-////////////////
+//-----------------------------
 bool d_tria_pt(const isa::geo::point_s<int> &a, const isa::geo::point_s<int> &b,
                const isa::geo::point_s<int> &c,
                const isa::geo::point_s<int> &p) {
@@ -80,7 +83,13 @@ bool d_tria_pt(const isa::geo::point_s<int> &a, const isa::geo::point_s<int> &b,
   return (x1 > 0 && x2 > 0 && x3 > 0) || (x1 < 0 && x2 < 0 && x3 < 0);
 }
 
-////////////////
+//-----------------------------
+std::string e_power(int a, int n) {
+  std::string res;
+  return res;
+}
+
+//-----------------------------
 std::string f_poker(int x1, int x2, int x3, int x4, int x5) {
   constexpr unsigned int n = 14;
   int a[n]{0};
@@ -136,4 +145,4 @@ std::string f_poker(int x1, int x2, int x3, int x4, int x5) {
   }
   return "nothing";
 }
-}
+} // namespace pso::msh::t_01

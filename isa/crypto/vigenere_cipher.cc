@@ -53,4 +53,4 @@ std::string vigenere_encrypt(const std::string &s, const std::string &key) {
 std::string vigenere_decrypt(const std::string &s, const std::string &key) {
   return map(s, key, char_to_decrypt);
 }
-}
+} // namespace isa::crypto

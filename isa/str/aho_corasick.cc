@@ -147,4 +147,4 @@ void aho_corasick_s::append(std::vector<result_s> &result, node_ptr_u node,
     result.emplace_back(node->output, end);
   }
 }
-}
+} // namespace isa::str
