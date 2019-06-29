@@ -8,11 +8,11 @@
 #include "utils.hh"
 
 namespace isa {
-template <typename T> class bloom_filter {
+template <typename T> class bloom_filter_s {
 public:
   using func_u = std::function<int(const T &)>;
 
-  bloom_filter(std::size_t capacity, std::initializer_list<func_u> funcs)
+  bloom_filter_s(std::size_t capacity, std::initializer_list<func_u> funcs)
       : capacity_(capacity), bits_(capacity), funcs_(funcs) {}
 
   void add(const T &item) {
@@ -44,10 +44,10 @@ private:
   }
 };
 
-std::unique_ptr<bloom_filter<std::string>>
+std::unique_ptr<bloom_filter_s<std::string>>
 make_bloom_filter_str(std::size_t capacity) {
-  return std::make_unique<bloom_filter<std::string>>(
+  return std::make_unique<bloom_filter_s<std::string>>(
       capacity,
-      std::initializer_list<bloom_filter<std::string>::func_u>{&fnv_hash});
+      std::initializer_list<bloom_filter_s<std::string>::func_u>{&fnv_hash});
 }
 } // namespace isa

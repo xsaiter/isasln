@@ -68,7 +68,7 @@ int t_06_d_rectarea(const std::vector<isa::geo::rect_s<int>> &rects) {
 
 bool t_06_e_lines(const std::vector<std::vector<char>> &a, std::size_t n,
                   route_s &res) {
-  isa::lee_opts_s opts;
+  isa::graphs::lee_opts_s opts;
   opts.rows = opts.cols = n;
   opts.a.resize(n, std::vector<int>(n));
 
@@ -90,8 +90,8 @@ bool t_06_e_lines(const std::vector<std::vector<char>> &a, std::size_t n,
     }
   }
 
-  std::vector<isa::lee_cell_s> cells;
-  auto exists = isa::lee_alg(opts, cells);
+  std::vector<isa::graphs::lee_cell_s> cells;
+  auto exists = isa::graphs::lee_alg(opts, cells);
   if (!exists) {
     return false;
   }
@@ -104,7 +104,7 @@ bool t_06_e_lines(const std::vector<std::vector<char>> &a, std::size_t n,
     }
   }
 
-  for (const isa::lee_cell_s &ce : cells) {
+  for (const isa::graphs::lee_cell_s &ce : cells) {
     auto x = ce.x;
     auto y = ce.y;
     res.a[x][y] = '+';
@@ -112,4 +112,4 @@ bool t_06_e_lines(const std::vector<std::vector<char>> &a, std::size_t n,
 
   return true;
 }
-}
+} // namespace pso::msh::t_06

@@ -18,8 +18,8 @@ struct subarray_with_max_sum_res_s {
   int beg, end, sum;
 };
 
-void subarray_with_max_sum(const std::vector<int> &a,
-                           subarray_with_max_sum_res_s &res);
+void find_subarray_with_max_sum(const std::vector<int> &a,
+                                subarray_with_max_sum_res_s &res);
 
 struct turtle_travel_res_s {
   struct cell_s {
@@ -170,8 +170,8 @@ int max_common_sequence(const std::string &s1, const std::string &s2) {
   return b[n1 - 1][n2 - 1];
 }
 
-void subarray_with_max_sum(const std::vector<int> &a,
-                           subarray_with_max_sum_res_s &res) {
+void find_subarray_with_max_sum(const std::vector<int> &a,
+                                subarray_with_max_sum_res_s &res) {
   const int n = a.size();
 
   int beg = 0;

@@ -118,7 +118,7 @@ TEST(test_ranges, insert_range) {
 }
 
 TEST(test_graph, dijkstra) {
-  using g_u = isa::graph_i_s<isa::directed_s::undirected>;
+  using g_u = isa::graphs::graph_i_s<isa::graphs::directions_s::undirected>;
 
   g_u g(15);
   g.add_edge(1, 2, 7);
@@ -134,7 +134,7 @@ TEST(test_graph, dijkstra) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  auto sp = isa::dijkstra(g, 6);
+  auto sp = isa::graphs::dijkstra(g, 6);
 
   auto res = sp.get_path_to(2);
 
@@ -159,7 +159,7 @@ TEST(test_graph, dijkstra) {
 }
 
 TEST(test_graph, bfs_paths) {
-  using g_u = isa::graph_i_s<isa::directed_s::undirected>;
+  using g_u = isa::graphs::graph_i_s<isa::graphs::directions_s::undirected>;
 
   g_u g(16);
   g.add_edge(1, 2, 7);
@@ -175,14 +175,14 @@ TEST(test_graph, bfs_paths) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  auto paths = isa::graph_paths_bfs(g, 1);
+  auto paths = isa::graphs::graph_paths_bfs(g, 1);
   auto dist = paths.distance_to(4);
 
   EXPECT_EQ(dist, 2);
 }
 
 TEST(test_graph, dfs_paths) {
-  using g_u = isa::graph_i_s<isa::directed_s::undirected>;
+  using g_u = isa::graphs::graph_i_s<isa::graphs::directions_s::undirected>;
 
   g_u g(16);
   g.add_edge(1, 2, 7);
@@ -198,7 +198,7 @@ TEST(test_graph, dfs_paths) {
   g.add_edge(5, 6, 9);
   g.add_edge(4, 5, 6);
 
-  auto paths = isa::graph_paths_dfs(g, 1);
+  auto paths = isa::graphs::graph_paths_dfs(g, 1);
   auto dist = paths.distance_to(4);
 
   EXPECT_EQ(dist, 3);
@@ -215,7 +215,7 @@ TEST(test_str, find_longest_repeated_substr) {
 }
 
 TEST(test_graph, mst_kruskal) {
-  using g_u = isa::graph_i_s<isa::directed_s::undirected>;
+  using g_u = isa::graphs::graph_i_s<isa::graphs::directions_s::undirected>;
 
   g_u g(16);
   g.add_edge(1, 2, 7);

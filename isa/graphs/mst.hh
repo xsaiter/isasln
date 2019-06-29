@@ -4,17 +4,15 @@
 
 #pragma once
 
-#include <vector>
 #include <queue>
+#include <vector>
 
 #include <float.h>
 
-#include "graph.hh"
 #include "../disjoint_sets.hh"
+#include "graph.hh"
 
-namespace isa {
-namespace graphs {
-
+namespace isa::graphs {
 template <typename Graph>
 std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
   using edge_u = typename Graph::edge_u;
@@ -51,12 +49,8 @@ std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
 template <typename Graph>
 std::vector<typename Graph::edge_u> mst_prim(const Graph &g) {
   using edge_u = typename Graph::edge_u;
-
   std::vector<edge_u> res;
-
   std::priority_queue<int> q;
-
   return res;
 }
-}
-}
+} // namespace isa::graphs

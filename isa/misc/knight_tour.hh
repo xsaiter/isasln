@@ -50,4 +50,4 @@ private:
                                                   const cell_s &current) const;
   bool valid_cell(const cell_s &c) const;
 };
-}
+} // namespace isa::misc

@@ -2,7 +2,7 @@
 
 #include "lee_alg.hh"
 
-namespace isa {
+namespace isa::graphs {
 bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result) {
   const int dirs = 4;
 
@@ -98,4 +98,4 @@ bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result) {
 
   return true;
 }
-}
+} // namespace isa::graphs

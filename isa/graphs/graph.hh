@@ -11,34 +11,34 @@
 #include <string>
 #include <vector>
 
-namespace isa {
-enum class directed_s { directed, undirected, bidirected };
+namespace isa::graphs {
+enum class directions_s { directed, undirected, bidirected };
 
-template <typename Vertex, directed_s directed> struct edge_s {
+template <typename Vertex, directions_s dir> struct edge_s {
   edge_s() {}
   edge_s(const Vertex &a_, const Vertex &b_, int w_ = 0)
       : a(a_), b(b_), w(w_) {}
 
   Vertex a, b;
   int w;
-  directed_s is_directed = directed;
+  directions_s is_directed = dir;
 
-  friend bool operator==(const edge_s<Vertex, directed> &lhs,
-                         const edge_s<Vertex, directed> &rhs) {
+  friend bool operator==(const edge_s<Vertex, dir> &lhs,
+                         const edge_s<Vertex, dir> &rhs) {
     return (lhs.a == rhs.a && lhs.b == rhs.b) ||
-           (directed == directed_s::undirected && lhs.a == rhs.b &&
+           (dir == directions_s::undirected && lhs.a == rhs.b &&
             lhs.b == rhs.a);
   }
 
-  friend bool operator!=(const edge_s<Vertex, directed> &lhs,
-                         const edge_s<Vertex, directed> &rhs) {
+  friend bool operator!=(const edge_s<Vertex, dir> &lhs,
+                         const edge_s<Vertex, dir> &rhs) {
     return !(lhs == rhs);
   }
 };
 
-template <directed_s directed = directed_s::undirected> class graph_i_s {
+template <directions_s dir = directions_s::undirected> class graph_i_s {
 public:
-  using edge_u = edge_s<int, directed>;
+  using edge_u = edge_s<int, dir>;
   using edges_u = std::list<edge_u>;
   using adj_u = std::vector<edges_u>;
 
@@ -51,7 +51,7 @@ public:
     validate_vertex(a);
     validate_vertex(b);
     add_edge_impl(a, b, w);
-    if (directed == directed_s::undirected) {
+    if (dir == directions_s::undirected) {
       add_edge_impl(b, a, w);
     }
     ++ne_;
@@ -132,7 +132,6 @@ private:
 };
 
 namespace details {
-
 template <typename Pair> struct first_s {
   typename Pair::first_type operator()(const Pair &p) const { return p.first; }
 };
@@ -140,17 +139,16 @@ template <typename Pair> struct first_s {
 template <typename Map> auto first(const Map &) {
   return first_s<typename Map::value_type>();
 }
-
-} // details
+} // namespace details
 
 template <typename T> using edge_list_u = std::list<T>;
 
-template <typename Vertex, directed_s directed = directed_s::undirected,
+template <typename Vertex, directions_s dir = directions_s::undirected,
           template <typename> class EdgeList = edge_list_u>
 class graph_s {
 public:
   using vertex_u = Vertex;
-  using edge_u = edge_s<vertex_u, directed>;
+  using edge_u = edge_s<vertex_u, dir>;
   using edges_u = EdgeList<edge_u>;
   using edges_ptr_u = typename std::shared_ptr<edges_u>;
   using adj_u = typename std::map<vertex_u, edges_ptr_u>;
@@ -169,15 +167,15 @@ public:
   void add_vertex(const vertex_u &v) { add_vertex_impl(v); }
 
   void add_edge(const vertex_u &a, const vertex_u &b, int w = 0) {
-    edges_ptr_u a_ptr = add_vertex_impl(a);
-    edges_ptr_u b_ptr = add_vertex_impl(b);
+    auto a_ptr = add_vertex_impl(a);
+    auto b_ptr = add_vertex_impl(b);
 
-    if (directed == directed_s::directed) {
+    if (dir == directions_s::directed) {
       if (not_exists_edge(a_ptr, b)) {
         a_ptr->emplace_back(a, b, w);
         ++e_;
       }
-    } else if (directed == directed_s::undirected) {
+    } else if (dir == directions_s::undirected) {
       if (not_exists_edge(a_ptr, b) && not_exists_edge(b_ptr, a)) {
         a_ptr->emplace_back(a, b, w);
         b_ptr->emplace_back(b, a, w);
@@ -231,11 +229,11 @@ public:
     }
   }
 
-  using g_ptr_u = std::shared_ptr<graph_i_s<directed>>;
+  using g_ptr_u = std::shared_ptr<graph_i_s<dir>>;
 
   g_ptr_u g() {
     if (g_ == nullptr) {
-      g_ = std::make_shared<graph_i_s<directed>>(adj_.size());
+      g_ = std::make_shared<graph_i_s<dir>>(adj_.size());
 
       fill_map(map_);
 
@@ -285,4 +283,4 @@ private:
     return ptr;
   }
 };
-}
+} // namespace isa::graphs

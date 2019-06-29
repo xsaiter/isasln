@@ -1,12 +1,12 @@
 #pragma once
 
+#include <cassert>
 #include <queue>
 #include <stack>
-#include <cassert>
 
 #include "paths.hh"
 
-namespace isa {
+namespace isa::graphs {
 template <typename Graph>
 shortest_paths_s<typename Graph::edge_u> dijkstra(const Graph &g, int s) {
   using edge_u = typename Graph::edge_u;
@@ -37,4 +37,4 @@ shortest_paths_s<typename Graph::edge_u> dijkstra(const Graph &g, int s) {
 
   return paths;
 }
-}
+} // namespace isa::graphs

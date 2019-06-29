@@ -65,13 +65,10 @@ template <typename T, typename R1, typename R2> struct binop_s {
   const R2 &r2_;
 
   binop_s(const R1 &r1, const R2 &r2) : r1_(r1), r2_(r2) {}
-
   virtual std::size_t size() const {
     return this->r1_.size() != 0 ? this->r1_.size() : this->r2_.size();
   }
-
   virtual T operator[](const std::size_t i) const = 0;
-
   virtual ~binop_s() = default;
 };
 
@@ -96,7 +93,6 @@ struct vec_mul_s : binop_s<T, R1, R2> {
 template <typename T, typename R1, typename R2>
 struct vec_sub_s : binop_s<T, R1, R2> {
   vec_sub_s(const R1 &r1, const R2 &r2) : binop_s<T, R1, R2>(r1, r2) {}
-
   T operator[](const std::size_t i) const override {
     return this->r1_[i] - this->r2_[i];
   }
@@ -125,4 +121,4 @@ auto operator*(const T &s, const vec_s<T, R> &v) {
   return vec_s<T, vec_mul_s<T, vec_scalar_s<T>, R>>(
       vec_mul_s<T, vec_scalar_s<T>, R>(vec_scalar_s<T>(s), v.elems()));
 }
-}
+} // namespace isa::lia

@@ -52,4 +52,4 @@ private:
   std::set<State> final_states_;
   std::map<std::pair<State, Input>, State> transitions_;
 };
-}
+} // namespace isa::parsing

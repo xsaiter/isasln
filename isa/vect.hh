@@ -60,4 +60,4 @@ private:
     return r;
   }
 };
-}
+} // namespace isa

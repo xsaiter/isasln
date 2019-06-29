@@ -93,7 +93,7 @@ TEST(subarray_with_max_sum_test, test) {
   std::vector<int> a{-9, 3, 14, -10};
 
   pso::dynp::subarray_with_max_sum_res_s res;
-  pso::dynp::subarray_with_max_sum(a, res);
+  pso::dynp::find_subarray_with_max_sum(a, res);
 
   EXPECT_EQ(res.beg, 1);
   EXPECT_EQ(res.end, 2);
