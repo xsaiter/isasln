@@ -85,8 +85,30 @@ bool d_tria_pt(const isa::geo::point_s<int> &a, const isa::geo::point_s<int> &b,
 
 //-----------------------------
 std::string e_power(int a, int n) {
-  std::string res;
-  return res;
+  assert(1 <= a && a <= 9);
+  assert(1 <= n && n <= 7000);
+  std::vector<int> v(n, 0);
+  v[0] = 1;
+  auto len = 1;
+  for (int i = 0; i < n; ++i) {
+    int q = 0;
+    for (int j = 0; j < len; ++j) {
+      auto t = v[j] * a + q;
+      auto rem = t % 10;
+      v[j] = rem;
+      q = (t - rem) / 10;
+    }
+    if (q > 0) {
+      v[len] = q;
+      len++;
+    }
+  }
+  std::string s;
+  s.reserve(len);
+  for (auto i = len - 1; i >= 0; --i) {
+    s.append(std::to_string(v[i]));
+  }
+  return s;
 }
 
 //-----------------------------

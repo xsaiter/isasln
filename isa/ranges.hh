@@ -67,14 +67,14 @@ bool intersect_ranges(const range_s<T> &a, const range_s<T> &b) {
 }
 
 template <typename T>
-bool intersect_ranges(const range_s<T> &s1, const range_s<T> &s2,
+bool intersect_ranges(const range_s<T> &a, const range_s<T> &b,
                       range_s<T> &res) {
-  if (s1.l <= s2.l && s1.r >= s2.l) {
-    res = {s2.l, std::min(s1.r, s2.r)};
+  if (a.l <= b.l && a.r >= b.l) {
+    res = {b.l, std::min(a.r, b.r)};
     return true;
   }
-  if (s1.l >= s2.l && s1.l <= s2.r) {
-    res = {s1.l, std::min(s1.r, s2.r)};
+  if (a.l >= b.l && a.l <= b.r) {
+    res = {a.l, std::min(a.r, b.r)};
     return true;
   }
   return false;

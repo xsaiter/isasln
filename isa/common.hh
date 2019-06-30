@@ -39,9 +39,7 @@ bool all_eq(const T &a, const T &b, const R &... c) {
 }
 
 template <typename T> struct acc_trait_s;
-
 template <> struct acc_trait_s<int> { using R = long; };
-
 template <> struct acc_trait_s<float> { using R = double; };
 
 struct add_policy_s {
@@ -67,17 +65,17 @@ auto acc(T *beg, T *end, const typename Trait::R &initial) {
   return res;
 }
 
-template <typename From, typename To> class maybe_cast {
-  struct t_1 {};
-  struct t_2 {
-    t_1 t[2];
+template <typename From, typename To> class maybe_cast_s {
+  struct A {};
+  struct B {
+    A t[2];
   };
-  static t_1 as_t(To);
-  static t_2 as_t(...);
+  static A as_t(To);
+  static B as_t(...);
   static From type_from();
 
 public:
-  enum { yes = sizeof(as_t(type_from())) == sizeof(t_1) };
+  enum { yes = sizeof(as_t(type_from())) == sizeof(A) };
 };
 
 template <typename FwdIter> void shift(FwdIter beg, FwdIter end, int pos = 1) {

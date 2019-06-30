@@ -22,24 +22,24 @@ std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
   std::sort(edges.begin(), edges.end(),
             [](const edge_u &x, const edge_u &y) { return x.w < y.w; });
 
-  disjoint_sets_s<int> sets;
+  disjoint_sets_s<int> ds;
 
   auto end = edges.end();
 
   for (auto i = edges.begin(); i != end; ++i) {
-    sets.add(i->a);
-    sets.add(i->b);
+    ds.add(i->a);
+    ds.add(i->b);
   }
 
   std::vector<edge_u> res;
 
   for (auto i = edges.begin(); i != end; ++i) {
-    auto ra = sets.find(i->a);
-    auto rb = sets.find(i->b);
+    auto ra = ds.find(i->a);
+    auto rb = ds.find(i->b);
 
     if (ra != rb) {
       res.push_back(*i);
-      sets.union_for(ra, rb);
+      ds.union_for(ra, rb);
     }
   }
 

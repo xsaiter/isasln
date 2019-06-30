@@ -35,4 +35,4 @@ void str_trim(std::string &s);
 std::string str_mirror(const std::string &s);
 
 std::string str_mirror(const std::string &s, int start);
-}
+} // namespace isa::str
