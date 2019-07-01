@@ -50,12 +50,6 @@ T area_intersection_of_rects(const std::vector<rect_s<T>> &rects) {
 }
 
 template <typename T>
-T area_union_of_rects(const std::vector<rect_s<T>> &rects) {
-
-  return 0;
-}
-
-template <typename T>
 segment_s<T> make_segment(const point_s<T> &p1, const point_s<T> &p2) {
   return segment_s<T>{p1, p2};
 }

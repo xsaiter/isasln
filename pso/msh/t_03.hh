@@ -4,11 +4,14 @@
 #include "pso/core.hh"
 
 namespace pso::msh::t_03 {
-std::vector<std::string> b_permutation(const std::string &s) {
-  std::vector<std::string> res;
+struct b_permutation {
+  std::vector<std::string> run(const std::string &s) {
+    std::vector<std::string> res;
+    return res;
+  }
+};
 
-  return res;
-}
-
-bool d_postcard_and_envelope(int pw, int ph, int ew, int eh) { return false; }
-}
+struct d_postcard_and_envelope {
+  bool run(int pw, int ph, int ew, int eh) { return false; }
+};
+} // namespace pso::msh::t_03
