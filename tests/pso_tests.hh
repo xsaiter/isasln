@@ -35,7 +35,7 @@
 
 TEST(msh_t_01_a_test, test) {
   std::vector<int> res;
-  pso::msh::t_01::a_primes t;
+  pso::msh::t_01::A_primes t;
   t.run(2, 5, res);
   EXPECT_EQ(res.size(), 3);
   EXPECT_EQ(res[0], 2);
@@ -43,7 +43,7 @@ TEST(msh_t_01_a_test, test) {
   EXPECT_EQ(res[2], 5);
 
   std::vector<int> res2;
-  pso::msh::t_01::a_primes t2;
+  pso::msh::t_01::A_primes t2;
   t2.run(4, 4, res2);
   EXPECT_EQ(res2.size(), 0);
 }
@@ -52,11 +52,11 @@ TEST(msh_t_01_b_test, test) {
   std::vector<int> a{40, 20, 10, 10, 10, 5};
 
   std::string res;
-  pso::msh::t_01::b_expr().run(a, 55, res);
+  pso::msh::t_01::B_expr().run(a, 55, res);
   EXPECT_EQ(res, "40+20+10-10-10+5");
 
   std::string res2;
-  pso::msh::t_01::b_expr().run(a, 54, res2);
+  pso::msh::t_01::B_expr().run(a, 54, res2);
   EXPECT_EQ(res2, "");
 }
 
@@ -65,7 +65,7 @@ TEST(msh_t_01_d_test, test) {
   auto b = isa::geo::make_point(100, 0);
   auto c = isa::geo::make_point(0, 100);
   auto p = isa::geo::make_point(50, 49);
-  bool res = pso::msh::t_01::d_tria_pt().run(a, b, c, p);
+  bool res = pso::msh::t_01::D_tria_pt().run(a, b, c, p);
   EXPECT_TRUE(res);
 }
 
@@ -93,7 +93,7 @@ TEST(max_common_sequence_test, test) {
 TEST(subarray_with_max_sum_test, test) {
   std::vector<int> a{-9, 3, 14, -10};
 
-  pso::dynp::subarray_with_max_sum_res_s res;
+  pso::dynp::Subarray_with_max_sum_res res;
   pso::dynp::find_subarray_with_max_sum(a, res);
 
   EXPECT_EQ(res.beg, 1);
@@ -103,7 +103,7 @@ TEST(subarray_with_max_sum_test, test) {
 
 TEST(turtle_travel_test, test) {
   std::vector<std::vector<int>> a{{8, 20, 40}, {5, 11, 27}};
-  pso::dynp::turtle_travel_res_s res;
+  pso::dynp::Turtle_travel_res res;
   pso::dynp::turtle_travel(a, 2, 3, res);
 
   EXPECT_EQ(res.sum, 83);
@@ -116,7 +116,7 @@ TEST(largest_square_test, test) {
       {1, 1, 1, 1, 1, 1, 1}, {1, 0, 1, 1, 1, 1, 1}, {1, 1, 0, 0, 1, 1, 0},
   };
 
-  pso::dynp::largest_square_res_s res;
+  pso::dynp::Largest_square_res res;
   pso::dynp::largest_square(a, 6, 7, res);
 
   EXPECT_EQ(res.side, 3);
@@ -125,38 +125,38 @@ TEST(largest_square_test, test) {
 }
 
 TEST(msh_t_06_a_test, test) {
-  std::vector<isa::range_i_u> ranges{{10, 20}, {30, 40}};
-  int res = pso::msh::t_06::a_cover().run(ranges);
+  std::vector<isa::Range_i> ranges{{10, 20}, {30, 40}};
+  int res = pso::msh::t_06::A_cover().run(ranges);
   EXPECT_EQ(res, 20);
 }
 
 TEST(msh_t_06_a_test, test_over) {
-  std::vector<isa::range_i_u> ranges{{10, 20}, {15, 22}};
-  int res = pso::msh::t_06::a_cover().run(ranges);
+  std::vector<isa::Range_i> ranges{{10, 20}, {15, 22}};
+  int res = pso::msh::t_06::A_cover().run(ranges);
   EXPECT_EQ(res, 12);
 }
 
 TEST(msh_t_02_d_segments, test) {
-  isa::geo::segment_s<int> seg1{{1, 1}, {4, 4}};
-  isa::geo::segment_s<int> seg2{{3, 2}, {5, 2}};
+  isa::geo::Segment<int> seg1{{1, 1}, {4, 4}};
+  isa::geo::Segment<int> seg2{{3, 2}, {5, 2}};
 
-  auto res = pso::msh::t_02::d_segments().run(seg1, seg2);
+  auto res = pso::msh::t_02::D_segments().run(seg1, seg2);
   EXPECT_EQ(res, false);
 
-  isa::geo::segment_s<int> seg3{{3, 2}, {1, 3}};
+  isa::geo::Segment<int> seg3{{3, 2}, {1, 3}};
 
-  auto res2 = pso::msh::t_02::d_segments().run(seg1, seg3);
+  auto res2 = pso::msh::t_02::D_segments().run(seg1, seg3);
   EXPECT_EQ(res2, true);
 
-  isa::geo::segment_s<int> seg4{{4, 4}, {5, 2}};
+  isa::geo::Segment<int> seg4{{4, 4}, {5, 2}};
 
-  auto res3 = pso::msh::t_02::d_segments().run(seg1, seg4);
+  auto res3 = pso::msh::t_02::D_segments().run(seg1, seg4);
   EXPECT_EQ(res3, true);
 }
 
 TEST(t_04_a_perfect, test) {
   std::vector<std::size_t> res;
-  pso::msh::t_04::a_perfect().run(1, 40, res);
+  pso::msh::t_04::A_perfect().run(1, 40, res);
 
   EXPECT_EQ(res.size(), 2);
 }
@@ -182,64 +182,64 @@ TEST(t_11_a_circarea, test) {
 }
 
 TEST(t_05_a_friendly, test) {
-  auto res = pso::msh::t_05::a_friendly().run(200, 300);
-  pso::msh::t_05::details::divs_s exp{220, 284};
+  auto res = pso::msh::t_05::A_friendly().run(200, 300);
+  pso::msh::t_05::details::Divs exp{220, 284};
   EXPECT_EQ(*(res.begin()), exp);
 }
 
 TEST(t_04_d_area, test) {
-  std::vector<isa::geo::point_s<int>> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
-  auto res = pso::msh::t_04::d_area().run(points);
+  std::vector<isa::geo::Point<int>> points{{0, 4}, {0, 0}, {3, 0}, {1, 1}};
+  auto res = pso::msh::t_04::D_area().run(points);
   EXPECT_EQ(3.5, res);
 }
 
 TEST(t_05_f_birthday, test) {
-  auto days = pso::msh::t_05::f_birthday().run(29, 2, 28, 2, 2001);
+  auto days = pso::msh::t_05::F_birthday().run(29, 2, 28, 2, 2001);
   EXPECT_EQ(1096, days);
 
-  days = pso::msh::t_05::f_birthday().run(5, 5, 19, 4, 2002);
+  days = pso::msh::t_05::F_birthday().run(5, 5, 19, 4, 2002);
   EXPECT_EQ(16, days);
 
-  days = pso::msh::t_05::f_birthday().run(19, 4, 19, 4, 2002);
+  days = pso::msh::t_05::F_birthday().run(19, 4, 19, 4, 2002);
   EXPECT_EQ(0, days);
 
-  days = pso::msh::t_05::f_birthday().run(29, 2, 28, 2, 1992);
+  days = pso::msh::t_05::F_birthday().run(29, 2, 28, 2, 1992);
   EXPECT_EQ(1, days);
 }
 
 TEST(t_05_e_scale, test) {
-  auto res = pso::msh::t_05::e_scale().run("29234652", 10, 36);
+  auto res = pso::msh::t_05::E_scale().run("29234652", 10, 36);
   EXPECT_EQ("HELLO", res);
 
-  res = pso::msh::t_05::e_scale().run("78887", 20, 36);
+  res = pso::msh::t_05::E_scale().run("78887", 20, 36);
   EXPECT_EQ("PG6F", res);
 
-  res = pso::msh::t_05::e_scale().run("78887", 14, 25);
+  res = pso::msh::t_05::E_scale().run("78887", 14, 25);
   EXPECT_EQ("II21", res);
 }
 
 TEST(iom_01_a_timer, test) {
-  auto res = pso::iom::t_01::a_timer().run("10:20:50", "15:50:20");
+  auto res = pso::iom::t_01::A_timer().run("10:20:50", "15:50:20");
   EXPECT_EQ("2:11:10+1 days", res);
 }
 
 TEST(iom_01_c_treasure, test) {
-  using step_u = pso::iom::t_01::c_treasure::step_s;
+  using step_u = pso::iom::t_01::C_treasure::step_s;
   std::vector<step_u> steps{{1, 3}, {3, 1}, {1, 1}, {3, 3}, {5, 2}, {7, 1}};
-  auto res = pso::iom::t_01::c_treasure().run(steps);
+  auto res = pso::iom::t_01::C_treasure().run(steps);
   EXPECT_EQ(res.x, 3);
   EXPECT_EQ(res.y, 2);
 }
 
 TEST(iom_03_a_max_mult, test_pos_and_neg) {
-  auto res = pso::iom::t_03::a_max_mult().run({3, 5, 1, 7, 9, 0, 9, -3, 10});
+  auto res = pso::iom::t_03::A_max_mult().run({3, 5, 1, 7, 9, 0, 9, -3, 10});
   EXPECT_EQ(res.x1, 10);
   EXPECT_EQ(res.x2, 9);
   EXPECT_EQ(res.x3, 9);
 }
 
 TEST(iom_03_a_max_mult, test_all_neg) {
-  auto res = pso::iom::t_03::a_max_mult().run({-8, -3, -5, -1, -7});
+  auto res = pso::iom::t_03::A_max_mult().run({-8, -3, -5, -1, -7});
   EXPECT_EQ(res.x1, -1);
   EXPECT_EQ(res.x2, -3);
   EXPECT_EQ(res.x3, -5);
@@ -249,7 +249,7 @@ TEST(iom_03_d_square, test) {
   constexpr int n = 4;
   auto res = pso::iom::t_03::d_square().run(n, 2, 2);
   int arr[n][n] = {{1, 1, 1, 1}, {0, 0, 0, 0}, {1, 1, 1, 1}, {0, 0, 0, 0}};
-  auto exp = isa::lia::matrix_s<int>::create<n, n>(arr);
+  auto exp = isa::lia::Matrix<int>::create<n, n>(arr);
   EXPECT_EQ(res, exp);
 }
 
@@ -261,14 +261,14 @@ TEST(misc_is_uniq_chars, test) {
 }
 
 TEST(msh_01_f_poker, test) {
-  auto s_impossible = pso::msh::t_01::f_poker().run(5, 5, 5, 5, 5);
-  auto s_four_of_kind = pso::msh::t_01::f_poker().run(4, 4, 4, 4, 1);
-  auto s_full_house = pso::msh::t_01::f_poker().run(5, 7, 5, 7, 7);
-  auto s_straight = pso::msh::t_01::f_poker().run(5, 7, 8, 6, 4);
-  auto s_three_of_kind = pso::msh::t_01::f_poker().run(8, 8, 8, 2, 1);
-  auto s_two_pair = pso::msh::t_01::f_poker().run(5, 8, 5, 8, 1);
-  auto s_one_pair = pso::msh::t_01::f_poker().run(5, 7, 5, 8, 1);
-  auto s_nothing = pso::msh::t_01::f_poker().run(1, 3, 5, 7, 9);
+  auto s_impossible = pso::msh::t_01::F_poker().run(5, 5, 5, 5, 5);
+  auto s_four_of_kind = pso::msh::t_01::F_poker().run(4, 4, 4, 4, 1);
+  auto s_full_house = pso::msh::t_01::F_poker().run(5, 7, 5, 7, 7);
+  auto s_straight = pso::msh::t_01::F_poker().run(5, 7, 8, 6, 4);
+  auto s_three_of_kind = pso::msh::t_01::F_poker().run(8, 8, 8, 2, 1);
+  auto s_two_pair = pso::msh::t_01::F_poker().run(5, 8, 5, 8, 1);
+  auto s_one_pair = pso::msh::t_01::F_poker().run(5, 7, 5, 8, 1);
+  auto s_nothing = pso::msh::t_01::F_poker().run(1, 3, 5, 7, 9);
 
   EXPECT_EQ(s_impossible, "impossible");
   EXPECT_EQ(s_four_of_kind, "four of a kind");

@@ -11,26 +11,26 @@
 #include "isa/str/str_utils.hh"
 
 namespace pso::iom::t_01 {
-struct a_timer {
+struct A_timer {
   /*
    * time - hh:mm:ss
    * interval - h:m:s
    * return - hh:mm:ss + n days
    */
   std::string run(const std::string &time, const std::string &interval) {
-    tm_s ttm = tm_s::parse(time);
-    tm_s itm = tm_s::parse(interval);
+    Tm ttm = Tm::parse(time);
+    Tm itm = Tm::parse(interval);
 
     const int total_secs = ttm.to_secs() + itm.to_secs();
 
-    int m_h = total_secs % tm_s::SECS_IN_HOUR;
-    int r_h = (total_secs - m_h) / tm_s::SECS_IN_HOUR;
-    int m_m = m_h % tm_s::SECS_IN_MIN;
+    int m_h = total_secs % Tm::SECS_IN_HOUR;
+    int r_h = (total_secs - m_h) / Tm::SECS_IN_HOUR;
+    int m_m = m_h % Tm::SECS_IN_MIN;
 
     int secs = m_m;
-    int mins = (m_h - m_m) / tm_s::SECS_IN_MIN;
-    int hours = r_h % tm_s::HOURS_IN_DAY;
-    int days = (r_h - hours) / tm_s::HOURS_IN_DAY;
+    int mins = (m_h - m_m) / Tm::SECS_IN_MIN;
+    int hours = r_h % Tm::HOURS_IN_DAY;
+    int days = (r_h - hours) / Tm::HOURS_IN_DAY;
 
     std::ostringstream ss;
 
@@ -43,7 +43,7 @@ struct a_timer {
   }
 
 private:
-  struct tm_s {
+  struct Tm {
     int h, m, s;
     int to_secs() const { return h * SECS_IN_HOUR + m * SECS_IN_MIN + s; }
 
@@ -51,17 +51,17 @@ private:
     static const int SECS_IN_MIN = 60;
     static const int HOURS_IN_DAY = 24;
 
-    static tm_s parse(const std::string &s) {
+    static Tm parse(const std::string &s) {
       std::vector<std::string> parts = isa::str::str_split(s, ':');
       const auto n = parts.size();
       if (n == 3) {
-        return tm_s{idx(parts, 0), idx(parts, 1), idx(parts, 2)};
+        return Tm{idx(parts, 0), idx(parts, 1), idx(parts, 2)};
       }
       if (n == 2) {
-        return tm_s{0, idx(parts, 0), idx(parts, 1)};
+        return Tm{0, idx(parts, 0), idx(parts, 1)};
       }
       if (n == 1) {
-        return tm_s{0, 0, idx(parts, 0)};
+        return Tm{0, 0, idx(parts, 0)};
       }
       throw std::runtime_error("illegal format");
     }
@@ -72,13 +72,13 @@ private:
   };
 };
 
-struct c_treasure {
+struct C_treasure {
   struct step_s {
     int dir;
     int size;
   };
 
-  isa::geo::point_s<double> run(const std::vector<step_s> &steps) {
+  isa::geo::Point<double> run(const std::vector<step_s> &steps) {
     const auto a = std::cos(45 * M_PI / 180);
 
     auto r = isa::geo::make_point(0.0, 0.0);

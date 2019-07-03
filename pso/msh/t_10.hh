@@ -3,7 +3,7 @@
 #include <string>
 
 namespace pso::msh::t_10 {
-struct b_fibostr {
+struct B_fibostr {
   int run(int n, const std::string &s) {
     std::string a("a");
     int ra = a == s ? 1 : 0;

@@ -13,7 +13,7 @@
 #include "isa/ar/ar.hh"
 
 namespace pso::msh::t_01 {
-struct a_primes {
+struct A_primes {
   void run(int m, int n, std::vector<int> &res) {
     assert(m <= n);
     for (int i = m; i <= n; ++i) {
@@ -24,7 +24,7 @@ struct a_primes {
   }
 };
 
-struct b_expr {
+struct B_expr {
   void run(const std::vector<int> &nums, int s, std::string &res) {
     const std::size_t n = nums.size();
     const std::size_t nn = (n - 1) * (n - 1);
@@ -62,15 +62,15 @@ private:
   }
 };
 
-struct c_incseq {
+struct C_incseq {
   std::vector<int> run(const std::vector<int> &a) {
     std::vector<int> res;
     return res;
   }
 };
 
-struct d_tria_pt {
-  using pti = isa::geo::point_s<int>;
+struct D_tria_pt {
+  using pti = isa::geo::Point<int>;
   bool run(const pti &a, const pti &b, const pti &c, const pti &p) {
     using namespace isa::geo;
     auto x1 = cross_product(a, b, p);
@@ -80,7 +80,7 @@ struct d_tria_pt {
   }
 };
 
-struct e_power {
+struct E_power {
   std::string run(unsigned a, unsigned n) {
     using tt = unsigned;
     assert(1 <= a && a <= 9);
@@ -109,7 +109,7 @@ struct e_power {
   }
 };
 
-struct f_poker {
+struct F_poker {
   std::string run(int x1, int x2, int x3, int x4, int x5) {
     constexpr unsigned int n = 14;
     int a[n]{0};

@@ -3,16 +3,16 @@
 #include <memory>
 
 namespace pso {
-struct single_linked_list_node_s {
+struct Single_linked_list_node {
   int data;
-  std::shared_ptr<single_linked_list_node_s> next = nullptr;
+  std::shared_ptr<Single_linked_list_node> next = nullptr;
 };
 
-using sln_u = single_linked_list_node_s;
-using slnp_u = std::shared_ptr<single_linked_list_node_s>;
+using Sln = Single_linked_list_node;
+using Slnp = std::shared_ptr<Single_linked_list_node>;
 
-slnp_u make_sln(int data, slnp_u next) {
-  slnp_u res(new sln_u{data, next});
+Slnp make_sln(int data, Slnp next) {
+  Slnp res(new Sln{data, next});
   return res;
 }
 

@@ -11,7 +11,7 @@
 
 namespace isa {
 template <typename T, int Rows, int Cols>
-using arr2_u = std::array<std::array<int, Cols>, Rows>;
+using Arr2_i = std::array<std::array<int, Cols>, Rows>;
 
 template <typename T> T min_of(const T &a, const T &b) {
   return std::min(a, b);
@@ -38,24 +38,24 @@ bool all_eq(const T &a, const T &b, const R &... c) {
   return a == b && all_eq(b, c...);
 }
 
-template <typename T> struct acc_trait_s;
-template <> struct acc_trait_s<int> { using R = long; };
-template <> struct acc_trait_s<float> { using R = double; };
+template <typename T> struct Acc_trait;
+template <> struct Acc_trait<int> { using R = long; };
+template <> struct Acc_trait<float> { using R = double; };
 
-struct add_policy_s {
+struct Add_policy {
   template <typename T, typename R> static void calc(R &res, const T &value) {
     res += value;
   }
 };
 
-struct mul_policy_s {
+struct Mul_policy {
   template <typename T, typename R> static void calc(R &res, const T &value) {
     res *= value;
   }
 };
 
-template <typename T, typename Policy = add_policy_s,
-          typename Trait = acc_trait_s<T>>
+template <typename T, typename Policy = Add_policy,
+          typename Trait = Acc_trait<T>>
 auto acc(T *beg, T *end, const typename Trait::R &initial) {
   auto res = initial;
   while (beg != end) {
@@ -65,7 +65,7 @@ auto acc(T *beg, T *end, const typename Trait::R &initial) {
   return res;
 }
 
-template <typename From, typename To> class maybe_cast_s {
+template <typename From, typename To> class Maybe_cast {
   struct A {};
   struct B {
     A t[2];

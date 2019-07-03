@@ -21,7 +21,7 @@ int first_digit(int x) {
   }
   return x;
 }
-}
+} // namespace details
 
 int sum_rec(const std::vector<int> &v) { return details::sum_rec_imp(v, 0); }
 
@@ -40,10 +40,10 @@ std::string compose_max(const std::vector<int> &v) {
   return oss.str();
 }
 
-void remove_dups_from_unsorted_linked_list(pso::slnp_u node) {
+void remove_dups_from_unsorted_linked_list(pso::Slnp node) {
   std::set<int> set;
   auto x = node;
-  pso::slnp_u prev = nullptr;
+  pso::Slnp prev = nullptr;
   while (x != nullptr) {
     if (set.find(x->data) != set.end()) { // contains
       prev->next = x->next;
@@ -77,8 +77,8 @@ bool is_uniq_chars(const std::string &s) {
   return true;
 }
 
-pso::slnp_u nth_to_last_linked_list(pso::slnp_u x, int n) {
-  pso::slnp_u y = x;
+pso::Slnp nth_to_last_linked_list(pso::Slnp x, int n) {
+  pso::Slnp y = x;
   int i = 0;
   while (y != nullptr && i < n) {
     y = y->next;
@@ -100,5 +100,5 @@ bool is_permutation(const std::string &s1, const std::string &s2) {
 
 void replace_spaces(std::string &s) {}
 
-bool is_palindrome(pso::slnp_u head) {}
-}
+bool is_palindrome(pso::Slnp head) {}
+} // namespace pso::misc

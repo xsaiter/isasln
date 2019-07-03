@@ -8,10 +8,10 @@
 
 namespace isa::geo {
 template <typename T>
-std::stack<point_s<T>> graham_scan(std::vector<point_s<T>> points) {
+std::stack<Point<T>> graham_scan(std::vector<Point<T>> points) {
   const std::size_t n = points.size();
 
-  std::stack<point_s<T>> hull;
+  std::stack<Point<T>> hull;
 
   if (n < 4) {
     for (auto &i : points) {
@@ -38,7 +38,7 @@ std::stack<point_s<T>> graham_scan(std::vector<point_s<T>> points) {
 
   std::advance(beg, 1);
 
-  std::sort(beg, points.end(), [&](const point_s<T> &p1, const point_s<T> &p2) {
+  std::sort(beg, points.end(), [&](const Point<T> &p1, const Point<T> &p2) {
     T r = cross_product(pivot, p1, p2);
     if (r == 0) {
       auto d1 = distance2(pivot, p1);

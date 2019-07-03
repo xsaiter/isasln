@@ -14,34 +14,34 @@ int add_least_to_palindrome(const std::string &s);
 int house_robber(const std::vector<int> &a);
 int max_common_sequence(const std::string &s1, const std::string &s2);
 
-struct subarray_with_max_sum_res_s {
+struct Subarray_with_max_sum_res {
   int beg, end, sum;
 };
 
 void find_subarray_with_max_sum(const std::vector<int> &a,
-                                subarray_with_max_sum_res_s &res);
+                                Subarray_with_max_sum_res &res);
 
-struct turtle_travel_res_s {
-  struct cell_s {
+struct Turtle_travel_res {
+  struct Cell {
     int x, y, val;
-    cell_s(int x_, int y_, int val_) : x(x_), y(y_), val(val_) {}
+    Cell(int x_, int y_, int val_) : x(x_), y(y_), val(val_) {}
   };
 
   int sum;
-  std::vector<cell_s> path;
+  std::vector<Cell> path;
 };
 
 void turtle_travel(const std::vector<std::vector<int>> &a, int rows, int cols,
-                   turtle_travel_res_s &res);
+                   Turtle_travel_res &res);
 
-struct largest_square_res_s {
+struct Largest_square_res {
   int bottom_right_row;
   int bottom_right_col;
   int side;
 };
 
 void largest_square(const std::vector<std::vector<int>> &a, int rows, int cols,
-                    largest_square_res_s &res);
+                    Largest_square_res &res);
 
 static int find(const std::string &s, int i, int j) {
   if (i >= j) {
@@ -85,7 +85,7 @@ std::size_t levenshtein_distance(const std::string &from,
                                  const std::string &to) {
   std::size_t n = from.size();
   std::size_t m = to.size();
-  isa::lia::matrix_s<std::size_t> d(n, m, 0);
+  isa::lia::Matrix<std::size_t> d(n, m, 0);
   for (std::size_t i = 0; i < n; ++i) {
     for (std::size_t j = 0; j < m; ++j) {
       if (i == 0 && j == 0) {
@@ -171,7 +171,7 @@ int max_common_sequence(const std::string &s1, const std::string &s2) {
 }
 
 void find_subarray_with_max_sum(const std::vector<int> &a,
-                                subarray_with_max_sum_res_s &res) {
+                                Subarray_with_max_sum_res &res) {
   const int n = a.size();
 
   int beg = 0;
@@ -209,7 +209,7 @@ void find_subarray_with_max_sum(const std::vector<int> &a,
 }
 
 void turtle_travel(const std::vector<std::vector<int>> &a, int rows, int cols,
-                   turtle_travel_res_s &res) {
+                   Turtle_travel_res &res) {
   int b[rows][cols];
   int i, j;
 
@@ -232,7 +232,7 @@ void turtle_travel(const std::vector<std::vector<int>> &a, int rows, int cols,
   i = rows - 1;
   j = 0;
 
-  res.path.push_back(turtle_travel_res_s::cell_s(i, j, a[i][j]));
+  res.path.push_back(Turtle_travel_res::Cell(i, j, a[i][j]));
 
   while (i != 0 || j != cols - 1) {
     if (i == 0) {
@@ -245,12 +245,12 @@ void turtle_travel(const std::vector<std::vector<int>> &a, int rows, int cols,
       --i;
     }
 
-    res.path.push_back(turtle_travel_res_s::cell_s(i, j, a[i][j]));
+    res.path.push_back(Turtle_travel_res::Cell(i, j, a[i][j]));
   }
 }
 
 void largest_square(const std::vector<std::vector<int>> &a, int rows, int cols,
-                    largest_square_res_s &res) {
+                    Largest_square_res &res) {
   int b[rows][cols];
 
   for (int i = 0; i < rows; ++i) {

@@ -13,14 +13,14 @@
 
 namespace pso::msh::t_05 {
 namespace details {
-struct divs_s {
+struct Divs {
   int x, y;
 };
 
-int operator<(const divs_s &a, const divs_s &b);
-bool operator==(const divs_s &a, const divs_s &b);
-bool operator!=(const divs_s &a, const divs_s &b);
-int operator<(const divs_s &a, const divs_s &b) {
+int operator<(const Divs &a, const Divs &b);
+bool operator==(const Divs &a, const Divs &b);
+bool operator!=(const Divs &a, const Divs &b);
+int operator<(const Divs &a, const Divs &b) {
   if (a == b) {
     return 0;
   }
@@ -39,19 +39,19 @@ int operator<(const divs_s &a, const divs_s &b) {
   return 0;
 }
 
-bool operator==(const divs_s &a, const divs_s &b) {
+bool operator==(const Divs &a, const Divs &b) {
   return (a.x == b.x && a.y == b.y) || (a.x == b.y && a.y == b.x);
 }
-bool operator!=(const divs_s &a, const divs_s &b) { return !(a == b); }
+bool operator!=(const Divs &a, const Divs &b) { return !(a == b); }
 } // namespace details
 
-struct a_friendly {
-  std::set<details::divs_s> run(int m, int n) {
-    std::set<details::divs_s> res;
+struct A_friendly {
+  std::set<details::Divs> run(int m, int n) {
+    std::set<details::Divs> res;
     for (int i = m; i < n; ++i) {
       for (int j = i + 1; j < n; ++j) {
         if (is_friendly(i, j)) {
-          res.insert(details::divs_s{i, j});
+          res.insert(details::Divs{i, j});
         }
       }
     }
@@ -78,14 +78,14 @@ private:
   }
 };
 
-struct b_bracket2 {
+struct B_bracket2 {
   std::vector<std::string> run(int n) {
     std::vector<std::string> res;
     return res;
   }
 };
 
-struct f_birthday {
+struct F_birthday {
   int run(int birth_day, int birth_month, int cur_day, int cur_month,
           int cur_year) {
     if (birth_month == cur_month && birth_day == cur_day) {
@@ -169,7 +169,7 @@ private:
  * scale
  */
 
-struct mod_s {
+struct Mod {
   std::string div;
   int rem; // remainder
 };
@@ -181,8 +181,8 @@ inline static std::string to_str(int val) { return std::to_string(val); }
 /*
  * a/b
  */
-mod_s div10(const std::string &a, int b) {
-  mod_s res;
+Mod div10(const std::string &a, int b) {
+  Mod res;
 
   const std::size_t n = a.size();
 
@@ -243,7 +243,7 @@ mod_s div10(const std::string &a, int b) {
   return res;
 }
 
-struct e_scale {
+struct E_scale {
   std::string run(const std::string &val, int val_sys, int sys) {
     std::string s = to_10_from(val, val_sys);
     return from_10_to(s, sys);
@@ -254,7 +254,7 @@ private:
     std::string res;
     std::string s = val;
     while (true) {
-      mod_s m = div10(s, sys);
+      Mod m = div10(s, sys);
       res += to_char_sys(m.rem);
       s = m.div;
       const std::size_t len = s.size();

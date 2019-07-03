@@ -14,7 +14,7 @@
 #include "t_02.hh"
 
 namespace pso::msh::t_02 {
-struct a_primes2 {
+struct A_primes2 {
   std::vector<int> run(int m, int n) {
     std::vector<int> res;
     for (int i = m; i <= n; ++i) {
@@ -26,7 +26,7 @@ struct a_primes2 {
   }
 };
 
-struct b_permut {
+struct B_permut {
   std::vector<std::string> run(std::string &s) {
     std::vector<std::string> res;
     const int n = static_cast<int>(s.size());
@@ -54,28 +54,28 @@ private:
   }
 };
 
-struct c_route {
-  isa::lia::matrix_s<char> run(isa::lia::matrix_s<int> &nums) {
-    isa::lia::matrix_s<char> res(nums.n(), nums.m());
+struct C_route {
+  isa::lia::Matrix<char> run(isa::lia::Matrix<int> &nums) {
+    isa::lia::Matrix<char> res(nums.n(), nums.m());
     return res;
   }
 };
 
-struct d_segments {
-  bool run(const isa::geo::segment_s<int> &s1,
-           const isa::geo::segment_s<int> &s2) {
+struct D_segments {
+  using Segment_i = isa::geo::Segment<int>;
+  bool run(const Segment_i &s1, const Segment_i &s2) {
     return isa::geo::segments_intersect(s1, s2);
   }
 };
 
-struct e_longsum {
+struct E_longsum {
   std::string run(const std::string &n, std::string &m) {
     std::string res;
     return res;
   }
 };
 
-struct f_spiral {
+struct F_spiral {
   void run(int n) {
     for (int i = 0; i < n; ++i) {
       std::printf("\n");

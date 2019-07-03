@@ -3,7 +3,7 @@
 #include <map>
 
 namespace isa::ar {
-class catalan_s {
+class Catalan {
 public:
   unsigned long get_number(unsigned int n) const;
 

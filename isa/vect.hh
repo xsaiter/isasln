@@ -3,24 +3,23 @@
 #include <algorithm>
 
 namespace isa {
-template <typename T> class vect_s {
+template <typename T> class Vect {
 public:
-  using iter_u = T *;
-  using const_iter_u = const T *;
+  using Iter = T *;
+  using Const_iter = const T *;
 
-  using iter_ref_u = T &;
-  using const_iter_ref_u = const T &;
+  using Iter_ref = T &;
+  using Const_iter_ref = const T &;
 
-  vect_s(std::size_t capacity)
+  Vect(std::size_t capacity)
       : capacity_(capacity), len_(0), elems_(new T[capacity]) {}
 
-  vect_s() : vect_s(DEFAULT_CAPACITY) {}
+  Vect() : Vect(DEFAULT_CAPACITY) {}
 
   static const int DEFAULT_CAPACITY = 16;
 
-  iter_ref_u operator[](std::size_t i) { return elems_[i]; }
-
-  const_iter_ref_u &operator[](std::size_t i) const { return elems_[i]; }
+  Iter_ref operator[](std::size_t i) { return elems_[i]; }
+  Const_iter_ref &operator[](std::size_t i) const { return elems_[i]; }
 
   void push_back(const T &elem) {
     if (capacity_ == len_) {
@@ -32,13 +31,13 @@ public:
     elems_[len_++] = elem;
   }
 
-  iter_u begin() { return elems_; }
+  Iter begin() { return elems_; }
 
-  const_iter_u begin() const { return elems_; }
+  Const_iter begin() const { return elems_; }
 
-  const_iter_u end() const { return elems_ + len_; }
+  Const_iter end() const { return elems_ + len_; }
 
-  iter_u end() { return elems_ + len_; }
+  Iter end() { return elems_ + len_; }
 
   std::size_t len() const noexcept { return len_; }
 

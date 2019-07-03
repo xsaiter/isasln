@@ -89,7 +89,7 @@ TEST(test_bloom_filter, bloom_filter) {
 TEST(test_aho_corasick, aho_corasick) {
   std::string s = "sheshe";
   std::vector<std::string> patterns = {"he", "she", "hello"};
-  isa::str::aho_corasick_s ac(patterns);
+  isa::str::Aho_corasick ac(patterns);
   auto result = ac.search(s);
 
   EXPECT_EQ(result.size(), 4);
@@ -103,12 +103,12 @@ TEST(test_str, remove_words_with_consecutive_repeated_letters) {
 }
 
 TEST(test_ranges, insert_range) {
-  std::vector<isa::range_s<int>> ranges = {{1, 2}, {4, 5}, {9, 15}};
-  isa::range_s<int> range(8, 11);
+  std::vector<isa::Range<int>> ranges = {{1, 2}, {4, 5}, {9, 15}};
+  isa::Range<int> range(8, 11);
 
   auto res = isa::insert_range(ranges, range);
 
-  std::vector<isa::range_s<int>> expected = {{1, 2}, {4, 5}, {8, 15}};
+  std::vector<isa::Range<int>> expected = {{1, 2}, {4, 5}, {8, 15}};
 
   EXPECT_EQ(expected.size(), res.size());
 
@@ -268,19 +268,19 @@ TEST(test_vigenere_cipher, test) {
 }
 
 TEST(test_matrix_add, test) {
-  isa::lia::matrix_s<> a(3, 3, 2);
-  isa::lia::matrix_s<> res = a + 10;
+  isa::lia::Matrix<> a(3, 3, 2);
+  isa::lia::Matrix<> res = a + 10;
 
-  isa::lia::matrix_s<> expected(3, 3, 12);
+  isa::lia::Matrix<> expected(3, 3, 12);
 
   EXPECT_TRUE(res == expected);
 }
 
 TEST(test_matrix_add_self, test) {
-  isa::lia::matrix_s<int> m(2, 3, 5);
+  isa::lia::Matrix<int> m(2, 3, 5);
   m += 10;
 
-  isa::lia::matrix_s<> expected(2, 3, 15);
+  isa::lia::Matrix<> expected(2, 3, 15);
 
   EXPECT_TRUE(m == expected);
 }
@@ -289,19 +289,19 @@ TEST(test_matrix_create, test) {
   constexpr int n = 2;
   constexpr int m = 2;
   int a[n][m] = {{1, 1}, {1, 1}};
-  auto res = isa::lia::matrix_s<int>::create<n, m>(a);
+  auto res = isa::lia::Matrix<int>::create<n, m>(a);
 
-  isa::lia::matrix_s<> expected(n, m, 1);
+  isa::lia::Matrix<> expected(n, m, 1);
 
   EXPECT_TRUE(res == expected);
 }
 
 TEST(test_vec_add, test) {
-  isa::lia::vec_s<int> a(2, 2);
+  isa::lia::Vec<int> a(2, 2);
 
-  isa::lia::vec_s<int> b(2, 3);
+  isa::lia::Vec<int> b(2, 3);
 
-  isa::lia::vec_s<int> r = a + b + a;
+  isa::lia::Vec<int> r = a + b + a;
 
   EXPECT_EQ(r.size(), 2);
 
@@ -311,11 +311,11 @@ TEST(test_vec_add, test) {
 }
 
 TEST(test_vec_mul, test) {
-  isa::lia::vec_s<int> a(2, 2);
+  isa::lia::Vec<int> a(2, 2);
 
-  isa::lia::vec_s<int> b(2, 3);
+  isa::lia::Vec<int> b(2, 3);
 
-  isa::lia::vec_s<int> r = a * b;
+  isa::lia::Vec<int> r = a * b;
 
   EXPECT_EQ(r.size(), 2);
 

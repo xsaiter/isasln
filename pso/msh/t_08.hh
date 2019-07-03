@@ -4,7 +4,7 @@
 #include <cmath>
 
 namespace pso::msh::t_08 {
-struct d_sphera_arc {
+struct D_sphera_arc {
   double run(double r, double lge_1, double lte_1, double lge_2, double lte_2) {
     double x1 = r * std::cos(lge_1) * std::cos(lte_1);
     double y1 = r * std::cos(lge_1) * std::sin(lte_1);

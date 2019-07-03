@@ -1,7 +1,7 @@
 #include "catalan.hh"
 
 namespace isa::ar {
-unsigned long catalan_s::get_number(unsigned int n) const {
+unsigned long Catalan::get_number(unsigned int n) const {
   if (contains_key(n)) {
     return nums_.find(n)->second;
   }
@@ -27,7 +27,7 @@ unsigned long catalan_s::get_number(unsigned int n) const {
   return res;
 }
 
-bool catalan_s::contains_key(const unsigned int &key) const {
+bool Catalan::contains_key(const unsigned int &key) const {
   return nums_.find(key) != nums_.end();
 }
 } // namespace isa::ar

@@ -9,8 +9,8 @@
 #include "isa/ranges.hh"
 
 namespace pso::msh::t_06 {
-struct a_cover {
-  int run(const std::vector<isa::range_i_u> &ranges) {
+struct A_cover {
+  int run(const std::vector<isa::Range_i> &ranges) {
     struct wrap_s {
       int v, t;
     };
@@ -51,15 +51,15 @@ struct a_cover {
   }
 };
 
-struct b_sums {
+struct B_sums {
   int run(const std::vector<int> &nums) { return 0; }
 };
 
-struct d_rectarea {
-  int run(const std::vector<isa::geo::rect_s<int>> &rects) { return 0; }
+struct D_rectarea {
+  int run(const std::vector<isa::geo::Rect<int>> &rects) { return 0; }
 };
 
-struct e_lines {
+struct E_lines {
   struct route_s {
     std::vector<std::vector<char>> a;
   };

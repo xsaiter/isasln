@@ -7,7 +7,7 @@
 #include "isa/geo/geo.hh"
 
 namespace pso::msh::t_04 {
-struct a_perfect {
+struct A_perfect {
   void run(std::size_t m, std::size_t n, std::vector<std::size_t> &res) {
     assert(m < n);
     for (std::size_t i = m; i <= n; ++i) {
@@ -18,8 +18,8 @@ struct a_perfect {
   }
 };
 
-struct d_area {
-  double run(const std::vector<isa::geo::point_s<int>> &points) {
+struct D_area {
+  double run(const std::vector<isa::geo::Point<int>> &points) {
     const std::size_t n = points.size();
     if (n < 2) {
       return 0;

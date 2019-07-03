@@ -4,14 +4,14 @@
 #include "aho_corasick.hh"
 
 namespace isa::str {
-aho_corasick_s::aho_corasick_s(const std::vector<std::string> &patterns)
+Aho_corasick::Aho_corasick(const std::vector<std::string> &patterns)
     : patterns_(patterns), root_(std::make_shared<node_s>()) {
   build_machine();
 }
 
-std::vector<aho_corasick_s::result_s>
-aho_corasick_s::search(const std::string &text) const {
-  std::vector<aho_corasick_s::result_s> result;
+std::vector<Aho_corasick::result_s>
+Aho_corasick::search(const std::string &text) const {
+  std::vector<Aho_corasick::result_s> result;
 
   node_ptr_u current = root_;
   const std::size_t len = text.size();
@@ -41,12 +41,12 @@ aho_corasick_s::search(const std::string &text) const {
   return result;
 }
 
-void aho_corasick_s::build_machine() {
+void Aho_corasick::build_machine() {
   build_go();
   build_failure();
 }
 
-void aho_corasick_s::build_go() {
+void Aho_corasick::build_go() {
   unsigned int n = 0;
 
   root_->n = n++;
@@ -71,7 +71,7 @@ void aho_corasick_s::build_go() {
   }
 }
 
-void aho_corasick_s::build_failure() {
+void Aho_corasick::build_failure() {
   std::queue<node_ptr_u> q;
   bool first = true;
 
@@ -121,7 +121,7 @@ void aho_corasick_s::build_failure() {
   root_->failure = root_;
 }
 
-aho_corasick_s::node_ptr_u aho_corasick_s::next_state(node_ptr_u node,
+Aho_corasick::node_ptr_u Aho_corasick::next_state(node_ptr_u node,
                                                       char c) const {
   auto i = std::find_if(node->children.begin(), node->children.end(),
                         [&](const node_ptr_u &n) { return n->c == c; });
@@ -131,9 +131,9 @@ aho_corasick_s::node_ptr_u aho_corasick_s::next_state(node_ptr_u node,
   return nullptr;
 }
 
-aho_corasick_s::node_ptr_u
-aho_corasick_s::make_node(char c, unsigned int n,
-                          aho_corasick_s::node_ptr_u parent) const {
+Aho_corasick::node_ptr_u
+Aho_corasick::make_node(char c, unsigned int n,
+                          Aho_corasick::node_ptr_u parent) const {
   node_ptr_u node = std::make_shared<node_s>();
   node->c = c;
   node->n = n;
@@ -141,7 +141,7 @@ aho_corasick_s::make_node(char c, unsigned int n,
   return node;
 }
 
-void aho_corasick_s::append(std::vector<result_s> &result, node_ptr_u node,
+void Aho_corasick::append(std::vector<result_s> &result, node_ptr_u node,
                             std::size_t end) const {
   if (node->has_output) {
     result.emplace_back(node->output, end);

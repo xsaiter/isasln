@@ -4,38 +4,38 @@
 #include <set>
 
 namespace isa {
-template <typename T> class disjoint_sets_s {
+template <typename T> class Disjoint_sets {
 public:
-  struct item_s {
-    explicit item_s(const T &data_) : data(data_) {}
+  struct Item {
+    explicit Item(const T &data_) : data(data_) {}
 
     T data;
-    mutable std::shared_ptr<item_s> parent;
+    mutable std::shared_ptr<Item> parent;
     mutable int rank;
 
     void set_parent(const T &data) const {
-      parent = std::make_shared<item_s>(data);
+      parent = std::make_shared<Item>(data);
     }
 
     void inc_rank() const { ++rank; }
 
-    friend bool operator<(const item_s &lhs, const item_s &rhs) {
+    friend bool operator<(const Item &lhs, const Item &rhs) {
       return lhs.data < rhs.data;
     }
 
-    friend bool operator==(const item_s &lhs, const item_s &rhs) {
+    friend bool operator==(const Item &lhs, const Item &rhs) {
       return lhs.data == rhs.data;
     }
 
-    friend bool operator!=(const item_s &lhs, const item_s &rhs) {
+    friend bool operator!=(const Item &lhs, const Item &rhs) {
       return !(lhs == rhs);
     }
   };
 
-  void add(const T &data) { items_.insert(item_s(data)); }
+  void add(const T &data) { items_.insert(Item(data)); }
 
   T find(const T &data) {
-    auto i = items_.find(item_s(data));
+    auto i = items_.find(Item(data));
 
     if (i == items_.end()) {
       throw std::logic_error("not found");
@@ -60,8 +60,8 @@ public:
       return;
     }
 
-    auto axi = items_.find(item_s(ax));
-    auto bxi = items_.find(item_s(bx));
+    auto axi = items_.find(Item(ax));
+    auto bxi = items_.find(Item(bx));
 
     if (*axi != *bxi) {
       if (axi->rank > bxi->rank) {
@@ -75,6 +75,6 @@ public:
   }
 
 private:
-  std::set<item_s> items_;
+  std::set<Item> items_;
 };
 } // namespace isa

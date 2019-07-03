@@ -7,8 +7,8 @@
 
 namespace pso::msh::t_11 {
 struct d_circarea {
-  double run(const isa::geo::circle_s<double> &c1,
-             const isa::geo::circle_s<double> &c2) {
+  double run(const isa::geo::Circle<double> &c1,
+             const isa::geo::Circle<double> &c2) {
     const auto r = c1.r + c2.r;
     const auto l =
         std::sqrt(std::pow(c2.x - c1.x, 2) + std::pow(c2.y - c2.y, 2));

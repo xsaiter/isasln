@@ -5,49 +5,49 @@
 #include <vector>
 
 namespace isa::misc {
-class knight_tour_s {
+class Knight_tour {
 public:
-  struct cell_s {
+  struct Cell {
     std::size_t x_;
     std::size_t y_;
-    cell_s(std::size_t x, std::size_t y) : x_(x), y_(y) {}
+    Cell(std::size_t x, std::size_t y) : x_(x), y_(y) {}
 
-    bool operator==(const cell_s &other) {
+    bool operator==(const Cell &other) {
       return x_ == other.x_ && y_ == other.y_;
     }
   };
 
-  class route_s {
+  class Route {
   public:
-    route_s() : cells_(new std::vector<cell_s>) {}
-    std::shared_ptr<std::vector<cell_s>> cells() const;
+    Route() : cells_(new std::vector<Cell>) {}
+    std::shared_ptr<std::vector<Cell>> cells() const;
     bool is_success() const;
 
   private:
-    friend class knight_tour_s;
+    friend class Knight_tour;
 
-    std::shared_ptr<std::vector<cell_s>> cells_;
+    std::shared_ptr<std::vector<Cell>> cells_;
     bool success_;
 
     void set_success(bool success);
     std::size_t size() const;
-    bool exists(const cell_s &cell) const;
+    bool exists(const Cell &cell) const;
   };
 
-  knight_tour_s(std::size_t width, std::size_t height, const cell_s &start);
-  route_s find_route();
+  Knight_tour(std::size_t width, std::size_t height, const Cell &start);
+  Route find_route();
 
 private:
   std::size_t width_;
   std::size_t height_;
   std::size_t ncells_;
-  cell_s start_;
+  Cell start_;
   const int shifts_[2][8] = {{-2, -1, 1, 2, 2, 1, -1, -2},
                              {1, 2, 2, 1, -1, -2, -2, -1}};
 
-  bool try_find(route_s &route, const cell_s &cell);
-  std::shared_ptr<std::vector<cell_s>> next_moves(route_s &route,
-                                                  const cell_s &current) const;
-  bool valid_cell(const cell_s &c) const;
+  bool try_find(Route &route, const Cell &cell);
+  std::shared_ptr<std::vector<Cell>> next_moves(Route &route,
+                                                const Cell &current) const;
+  bool valid_cell(const Cell &c) const;
 };
 } // namespace isa::misc

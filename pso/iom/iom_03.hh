@@ -8,13 +8,13 @@
 #include "isa/lia/matrix.hh"
 
 namespace pso::iom::t_03 {
-struct a_max_mult {
-  struct res_s {
+struct A_max_mult {
+  struct Res {
     int x1, x2, x3;
-    res_s(int x1_, int x2_, int x3_) : x1(x1_), x2(x2_), x3(x3_) {}
+    Res(int x1_, int x2_, int x3_) : x1(x1_), x2(x2_), x3(x3_) {}
   };
 
-  res_s run(const std::vector<int> &v) {
+  Res run(const std::vector<int> &v) {
     const int l = 30000;
 
     int mx1, mx2, mx3;
@@ -57,20 +57,20 @@ struct a_max_mult {
     }
 
     if (all_pos || all_neg) {
-      return res_s(mx1, mx2, mx3);
+      return Res(mx1, mx2, mx3);
     }
     if (mx2 * mx3 > mn1 * mn2) {
-      return res_s(mx1, mx2, mx3);
+      return Res(mx1, mx2, mx3);
     }
-    return res_s(mx1, mn2, mn1);
+    return Res(mx1, mn2, mn1);
   }
 };
 
 struct d_square {
-  isa::lia::matrix_s<int> run(int n, int k, int s) {
-    isa::lia::matrix_s<int> res(n, n, 0);
+  isa::lia::Matrix<int> run(int n, int k, int s) {
+    isa::lia::Matrix<int> res(n, n, 0);
 
-    isa::lia::matrix_s<int> sub(k, k, 0);
+    isa::lia::Matrix<int> sub(k, k, 0);
 
     int ones = 0;
 

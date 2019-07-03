@@ -2,19 +2,19 @@
 #include <algorithm>
 
 namespace isa::misc {
-using cells_u = std::vector<all_queens_s::cell_s>;
+using cells_u = std::vector<All_queens::Cell>;
 using cells_ptr_u = std::shared_ptr<cells_u>;
 
-all_queens_s::position_s::position_s() : cells_(new cells_u) {}
-all_queens_s::all_queens_s(std::size_t n) : n_(n) {}
+All_queens::Position::Position() : cells_(new cells_u) {}
+All_queens::All_queens(std::size_t n) : n_(n) {}
 
-all_queens_s::position_s all_queens_s::find_position() {
-  position_s pos;
+All_queens::Position All_queens::find_position() {
+  Position pos;
   pos.set_success(try_find(pos));
   return pos;
 }
 
-bool all_queens_s::try_find(position_s &pos) {
+bool All_queens::try_find(Position &pos) {
   auto moves = next_moves(pos);
 
   for (auto m = moves->begin(); m != moves->end(); ++m) {
@@ -30,7 +30,7 @@ bool all_queens_s::try_find(position_s &pos) {
   return check_position(pos) && pos.size() == n_;
 }
 
-cells_ptr_u all_queens_s::next_moves(position_s &pos) const {
+cells_ptr_u All_queens::next_moves(Position &pos) const {
   cells_ptr_u moves(new cells_u);
   int nx = 0;
 
@@ -44,13 +44,13 @@ cells_ptr_u all_queens_s::next_moves(position_s &pos) const {
   }
 
   for (int y = 0; y < 8; ++y) {
-    moves->push_back(all_queens_s::cell_s(nx + 1, y + 1));
+    moves->push_back(All_queens::Cell(nx + 1, y + 1));
   }
 
   return moves;
 }
 
-bool all_queens_s::check_position(position_s &pos) const {
+bool All_queens::check_position(Position &pos) const {
   for (auto c = pos.cells()->begin(); c != pos.cells()->end(); ++c) {
     for (int s = 0; s < 6; ++s) {
       std::size_t x = (*c).x_;
@@ -80,7 +80,7 @@ bool all_queens_s::check_position(position_s &pos) const {
           ++y;
           break;
         }
-        cell_s cc(x, y);
+        Cell cc(x, y);
         if (std::find(pos.cells()->begin(), pos.cells()->end(), cc) !=
             pos.cells()->end()) {
           return false;

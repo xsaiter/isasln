@@ -5,9 +5,9 @@
 #include <vector>
 
 namespace isa::str {
-class aho_corasick_s {
+class Aho_corasick {
 public:
-  explicit aho_corasick_s(const std::vector<std::string> &patterns);
+  explicit Aho_corasick(const std::vector<std::string> &patterns);
 
   struct result_s {
     result_s(const std::string &pattern_, std::size_t end_)
