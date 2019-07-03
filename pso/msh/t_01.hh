@@ -70,28 +70,29 @@ struct c_incseq {
 };
 
 struct d_tria_pt {
-  bool run(const isa::geo::point_s<int> &a, const isa::geo::point_s<int> &b,
-           const isa::geo::point_s<int> &c, const isa::geo::point_s<int> &p) {
-    auto x1 = isa::geo::cross_product(a, b, p);
-    auto x2 = isa::geo::cross_product(b, c, p);
-    auto x3 = isa::geo::cross_product(c, a, p);
+  using pti = isa::geo::point_s<int>;
+  bool run(const pti &a, const pti &b, const pti &c, const pti &p) {
+    using namespace isa::geo;
+    auto x1 = cross_product(a, b, p);
+    auto x2 = cross_product(b, c, p);
+    auto x3 = cross_product(c, a, p);
     return (x1 > 0 && x2 > 0 && x3 > 0) || (x1 < 0 && x2 < 0 && x3 < 0);
   }
 };
 
 struct e_power {
   std::string run(unsigned a, unsigned n) {
-    using type = unsigned;
+    using tt = unsigned;
     assert(1 <= a && a <= 9);
     assert(1 <= n && n <= 7000);
-    std::vector<type> v(n, 0);
+    std::vector<tt> v(n, 0);
     v[0] = 1;
-    type len = 1;
-    for (type i = 0; i < n; ++i) {
-      type q = 0;
-      for (type j = 0; j < len; ++j) {
-        type t = v[j] * a + q;
-        type rem = t % 10;
+    tt len = 1;
+    for (tt i = 0; i < n; ++i) {
+      tt q = 0;
+      for (tt j = 0; j < len; ++j) {
+        tt t = v[j] * a + q;
+        tt rem = t % 10;
         v[j] = rem;
         q = (t - rem) / 10;
       }
@@ -103,7 +104,7 @@ struct e_power {
     std::string s;
     s.reserve(len);
     std::transform(v.rbegin() + n - len, v.rend(), std::back_inserter(s),
-                   [](type x) { return std::to_string(x)[0]; });
+                   [](tt x) { return std::to_string(x)[0]; });
     return s;
   }
 };

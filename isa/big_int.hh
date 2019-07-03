@@ -11,7 +11,7 @@ namespace isa {
 template <std::size_t SYS> class big_int_s {
 public:
   static big_int_s from(const std::string &s) {
-    big_int_s res(s);
+    big_int_s res;
     std::size_t i = 0;
     auto d = res.d_;
     std::size_t n = s.size();
@@ -51,6 +51,11 @@ public:
     return res;
   }
 
+  friend big_int_s operator*(const big_int_s &x, const big_int_s &y) {
+    big_int_s res;
+    return res;
+  }
+
 private:
   big_int_s() : d_(2) {}
 
@@ -58,4 +63,5 @@ private:
   std::size_t d_;
   std::vector<int> vec_;
 };
+
 } // namespace isa

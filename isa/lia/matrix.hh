@@ -90,9 +90,7 @@ template <typename U, typename X>
 matrix_s<U, X> operator*(const matrix_s<U, X> &a, const matrix_s<U, X> &b) {
   int n = a.n_;
   int m = b.m_;
-
   matrix_s<U, X> res(n, m);
-
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
       for (int k = 0; k < a.m_; ++k) {
@@ -100,7 +98,6 @@ matrix_s<U, X> operator*(const matrix_s<U, X> &a, const matrix_s<U, X> &b) {
       }
     }
   }
-
   return res;
 }
 

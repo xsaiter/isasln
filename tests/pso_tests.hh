@@ -65,9 +65,7 @@ TEST(msh_t_01_d_test, test) {
   auto b = isa::geo::make_point(100, 0);
   auto c = isa::geo::make_point(0, 100);
   auto p = isa::geo::make_point(50, 49);
-
-  pso::msh::t_01::d_tria_pt t;
-  bool res = t.run(a, b, c, p);
+  bool res = pso::msh::t_01::d_tria_pt().run(a, b, c, p);
   EXPECT_TRUE(res);
 }
 
