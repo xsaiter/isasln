@@ -5,6 +5,7 @@
 #include "pso/core.hh"
 #include <algorithm>
 #include <cassert>
+#include <cstdio>
 
 namespace pso::msh::t_03 {
 struct A_pfactor {
@@ -50,7 +51,26 @@ struct E_longprod {
   }
 };
 
-struct f_serpent {
-  void run(int n) {}
+struct F_serpent {
+  using tu = unsigned;
+  void run(tu n) {
+    std::vector<tu> v(n * n, 0);
+    for (tu i = 0; i < n; ++i) {
+      for (tu j = 0; j < n; ++j) {
+        v[i, j] = 10;
+      }
+    }
+    print(v, n);
+  }
+
+  void print(const std::vector<tu> &v, tu n) {
+    for (tu i = 0; i < n; ++i) {
+      for (tu j = 0; j < n; ++j) {
+        std::printf("%d ", v[i]);
+      }
+      std::printf("");
+    }
+    std::fflush(stdout);
+  }
 };
 } // namespace pso::msh::t_03

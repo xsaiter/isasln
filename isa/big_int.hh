@@ -12,9 +12,9 @@ template <std::size_t SYS> class Big_int {
 public:
   static Big_int from(const std::string &s) {
     Big_int res;
-    std::size_t i = 0;
     auto d = res.d_;
-    std::size_t n = s.size();
+    std::size_t i = 0;
+    const std::size_t n = s.size();
     while (i < n) {
       int pos = res.n_ - i - d;
       if (pos < 0) {
@@ -22,7 +22,7 @@ public:
         pos = 0;
       }
       auto num = std::stoi(s.substr(pos, d), nullptr, 10);
-      res.vec_.push_back(num);
+      res.v_.push_back(num);
       i += d;
     }
     return res;
@@ -30,8 +30,8 @@ public:
 
   std::string to() const {
     std::ostringstream ss;
-    auto i = vec_.rbegin();
-    while (i != vec_.rend()) {
+    auto i = v_.rbegin();
+    while (i != v_.rend()) {
       auto nums = isa::ar::num_digits(*i);
       if (nums == d_) {
         ss << *i;
@@ -61,7 +61,7 @@ private:
 
   std::size_t n_;
   std::size_t d_;
-  std::vector<int> vec_;
+  std::vector<int> v_;
 };
 
 } // namespace isa
