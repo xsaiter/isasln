@@ -4,16 +4,16 @@
 #include "aho_corasick.hh"
 
 namespace isa::str {
-Aho_corasick::Aho_corasick(const std::vector<std::string> &patterns)
-    : patterns_(patterns), root_(std::make_shared<node_s>()) {
+AhoCorasick::AhoCorasick(const std::vector<std::string> &patterns)
+    : patterns_(patterns), root_(std::make_shared<Node>()) {
   build_machine();
 }
 
-std::vector<Aho_corasick::result_s>
-Aho_corasick::search(const std::string &text) const {
-  std::vector<Aho_corasick::result_s> result;
+std::vector<AhoCorasick::Result>
+AhoCorasick::search(const std::string &text) const {
+  std::vector<AhoCorasick::Result> result;
 
-  node_ptr_u current = root_;
+  NodePtr current = root_;
   const std::size_t len = text.size();
 
   for (std::size_t i = 0; i < len; ++i) {
@@ -22,7 +22,7 @@ Aho_corasick::search(const std::string &text) const {
 
     while (loop) {
       loop = false;
-      node_ptr_u next = next_state(current, c);
+      NodePtr next = next_state(current, c);
       if (next) {
         current = next;
         append(result, current, i);
@@ -41,26 +41,26 @@ Aho_corasick::search(const std::string &text) const {
   return result;
 }
 
-void Aho_corasick::build_machine() {
+void AhoCorasick::build_machine() {
   build_go();
   build_failure();
 }
 
-void Aho_corasick::build_go() {
+void AhoCorasick::build_go() {
   unsigned int n = 0;
 
   root_->n = n++;
   root_->parent = root_;
 
   for (const std::string &pattern : patterns_) {
-    node_ptr_u current = root_;
+    NodePtr current = root_;
 
     for (const char c : pattern) {
-      node_ptr_u next = next_state(current, c);
+      NodePtr next = next_state(current, c);
       if (next) {
         current = next;
       } else {
-        node_ptr_u node = make_node(c, n++, current);
+        NodePtr node = make_node(c, n++, current);
         current->children.push_back(node);
         current = node;
       }
@@ -71,26 +71,26 @@ void Aho_corasick::build_go() {
   }
 }
 
-void Aho_corasick::build_failure() {
-  std::queue<node_ptr_u> q;
+void AhoCorasick::build_failure() {
+  std::queue<NodePtr> q;
   bool first = true;
 
-  node_ptr_u node = root_;
+  NodePtr node = root_;
   q.push(node);
 
   while (!q.empty()) {
     node = q.front();
     q.pop();
 
-    for (node_ptr_u child : node->children) {
+    for (NodePtr child : node->children) {
       q.push(child);
       if (first) {
         child->failure = root_;
         first = false;
       } else {
-        std::vector<node_ptr_u> path;
+        std::vector<NodePtr> path;
 
-        node_ptr_u q = child;
+        NodePtr q = child;
         path.push_back(q);
 
         while (q->parent != q) {
@@ -105,7 +105,7 @@ void Aho_corasick::build_failure() {
         const std::size_t path_len = path.size();
 
         for (std::size_t i = 0; i < path_len; ++i) {
-          for (node_ptr_u p : q->children) {
+          for (NodePtr p : q->children) {
             if (p != path[i] && p->c == path[i]->c) {
               q = p;
               break;
@@ -121,27 +121,27 @@ void Aho_corasick::build_failure() {
   root_->failure = root_;
 }
 
-Aho_corasick::node_ptr_u Aho_corasick::next_state(node_ptr_u node,
+AhoCorasick::NodePtr AhoCorasick::next_state(NodePtr node,
                                                       char c) const {
   auto i = std::find_if(node->children.begin(), node->children.end(),
-                        [&](const node_ptr_u &n) { return n->c == c; });
+                        [&](const NodePtr &n) { return n->c == c; });
   if (i != node->children.end()) {
     return *i;
   }
   return nullptr;
 }
 
-Aho_corasick::node_ptr_u
-Aho_corasick::make_node(char c, unsigned int n,
-                          Aho_corasick::node_ptr_u parent) const {
-  node_ptr_u node = std::make_shared<node_s>();
+AhoCorasick::NodePtr
+AhoCorasick::make_node(char c, unsigned int n,
+                          AhoCorasick::NodePtr parent) const {
+  NodePtr node = std::make_shared<Node>();
   node->c = c;
   node->n = n;
   node->parent = parent;
   return node;
 }
 
-void Aho_corasick::append(std::vector<result_s> &result, node_ptr_u node,
+void AhoCorasick::append(std::vector<Result> &result, NodePtr node,
                             std::size_t end) const {
   if (node->has_output) {
     result.emplace_back(node->output, end);

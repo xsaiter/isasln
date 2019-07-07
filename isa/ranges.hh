@@ -16,9 +16,9 @@ template <typename T> struct Range {
   }
 };
 
-using Range_i = Range<int>;
+using RangeInt = Range<int>;
 template <typename T> using Ranges = std::vector<Range<T>>;
-using Ranges_i = Ranges<int>;
+using RangesInt = Ranges<int>;
 
 template <typename T> Ranges<T> recude_ranges(const Ranges<T> &ranges) {
   struct Entry {

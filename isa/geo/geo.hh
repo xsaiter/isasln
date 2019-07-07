@@ -87,7 +87,6 @@ template <typename T>
 bool segments_intersect(const Segment<T> &s1, const Segment<T> &s2) {
   auto r1 = cross_product(s1.p1, s1.p2, s2.p1);
   auto r2 = cross_product(s1.p1, s1.p2, s2.p2);
-
   auto r3 = cross_product(s2.p1, s2.p2, s1.p1);
   auto r4 = cross_product(s2.p1, s2.p2, s1.p2);
 
@@ -95,23 +94,18 @@ bool segments_intersect(const Segment<T> &s1, const Segment<T> &s2) {
       ((r3 > 0 && r4 < 0) || (r3 < 0 && r4 > 0))) {
     return true;
   }
-
   if (r1 == 0) {
     return is_point_on_segment(s1, s2.p1);
   }
-
   if (r2 == 0) {
     return is_point_on_segment(s1, s2.p2);
   }
-
   if (r3 == 0) {
     return is_point_on_segment(s2, s1.p1);
   }
-
   if (r4 == 0) {
     return is_point_on_segment(s2, s1.p2);
   }
-
   return false;
 }
 

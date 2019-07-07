@@ -43,8 +43,8 @@ struct D_postcard_and_envelope {
 struct E_longprod {
   std::string run(const std::string &m, std::string &n) {
     constexpr int sys = 100;
-    auto bim = isa::Big_int<sys>::from(m);
-    auto bin = isa::Big_int<sys>::from(n);
+    auto bim = isa::BigInt<sys>::from(m);
+    auto bin = isa::BigInt<sys>::from(n);
     auto bres = bin * bim;
     auto res = bres.to();
     return res;
@@ -57,7 +57,7 @@ struct F_serpent {
     std::vector<tu> v(n * n, 0);
     for (tu i = 0; i < n; ++i) {
       for (tu j = 0; j < n; ++j) {
-        v[i, j] = 10;
+        auto d = i % 2;
       }
     }
     print(v, n);

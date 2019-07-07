@@ -4,7 +4,7 @@
 #include <stack>
 
 namespace isa::safe {
-template <typename T> class Safe_stack {
+template <typename T> class SafeStack {
 public:
   void push(const T &elem) {}
 

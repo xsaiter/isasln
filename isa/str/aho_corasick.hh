@@ -5,42 +5,41 @@
 #include <vector>
 
 namespace isa::str {
-class Aho_corasick {
+class AhoCorasick {
 public:
-  explicit Aho_corasick(const std::vector<std::string> &patterns);
+  explicit AhoCorasick(const std::vector<std::string> &patterns);
 
-  struct result_s {
-    result_s(const std::string &pattern_, std::size_t end_)
+  struct Result {
+    Result(const std::string &pattern_, std::size_t end_)
         : pattern(pattern_), end(end_) {}
     std::string pattern;
     std::size_t end;
   };
 
-  std::vector<result_s> search(const std::string &text) const;
+  std::vector<Result> search(const std::string &text) const;
 
 private:
-  struct node_s;
-  using node_ptr_u = std::shared_ptr<node_s>;
+  struct Node;
+  using NodePtr = std::shared_ptr<Node>;
 
-  struct node_s {
+  struct Node {
     char c;
     unsigned int n;
-    node_ptr_u parent;
-    std::vector<node_ptr_u> children;
-    node_ptr_u failure;
+    NodePtr parent;
+    std::vector<NodePtr> children;
+    NodePtr failure;
     bool has_output;
     std::string output;
   };
 
   std::vector<std::string> patterns_;
-  node_ptr_u root_;
+  NodePtr root_;
 
   void build_machine();
   void build_go();
   void build_failure();
-  node_ptr_u next_state(node_ptr_u node, char c) const;
-  node_ptr_u make_node(char c, unsigned int n, node_ptr_u parent) const;
-  void append(std::vector<result_s> &result, node_ptr_u node,
-              std::size_t end) const;
+  NodePtr next_state(NodePtr node, char c) const;
+  NodePtr make_node(char c, unsigned int n, NodePtr parent) const;
+  void append(std::vector<Result> &result, NodePtr node, std::size_t end) const;
 };
 } // namespace isa::str

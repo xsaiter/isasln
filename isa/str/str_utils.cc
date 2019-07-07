@@ -134,7 +134,7 @@ remove_words_with_consecutive_repeated_letters(const std::string &s) {
 }
 
 void find_longest_repeated_substr(const std::string &str,
-                                  longest_repeated_substr_s &res) {
+                                  Longest_repeated_substr &res) {
   struct pos_s {
     pos_s(const std::string &s_, int pos_) : s(s_), pos(pos_) {}
     std::string s;

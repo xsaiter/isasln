@@ -87,10 +87,10 @@ void gnome_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
 template <typename Iter,
           typename Cmp =
               std::less<typename std::iterator_traits<Iter>::value_type>>
-class heap_sort_s {
+class HeapSort {
 public:
   static void perform(Iter beg, Iter end, Cmp cmp = Cmp()) {
-    heap_sort_s s(beg, end, cmp);
+    HeapSort s(beg, end, cmp);
     s.sort();
   }
 
@@ -99,10 +99,10 @@ private:
   Iter end_;
   Cmp cmp_;
 
-  heap_sort_s(Iter beg, Iter end, Cmp cmp = Cmp())
+  HeapSort(Iter beg, Iter end, Cmp cmp = Cmp())
       : beg_(beg), end_(end), cmp_(cmp) {}
-  heap_sort_s(const heap_sort_s &) = delete;
-  heap_sort_s &operator=(const heap_sort_s &) = delete;
+  HeapSort(const HeapSort &) = delete;
+  HeapSort &operator=(const HeapSort &) = delete;
 
   void sort() {
     build_heap();
@@ -160,7 +160,7 @@ private:
 template <typename Iter,
           typename Cmp =
               std::less<typename std::iterator_traits<Iter>::value_type>>
-class merge_sort_s {
+class MergeSort {
 public:
   static void sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
     const std::size_t n = std::distance(beg, end);

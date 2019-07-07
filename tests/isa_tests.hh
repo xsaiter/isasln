@@ -89,7 +89,7 @@ TEST(test_bloom_filter, bloom_filter) {
 TEST(test_aho_corasick, aho_corasick) {
   std::string s = "sheshe";
   std::vector<std::string> patterns = {"he", "she", "hello"};
-  isa::str::Aho_corasick ac(patterns);
+  isa::str::AhoCorasick ac(patterns);
   auto result = ac.search(s);
 
   EXPECT_EQ(result.size(), 4);
@@ -207,7 +207,7 @@ TEST(test_graph, dfs_paths) {
 TEST(test_str, find_longest_repeated_substr) {
   std::string s = "to be or not to be";
 
-  isa::str::longest_repeated_substr_s res;
+  isa::str::Longest_repeated_substr res;
   isa::str::find_longest_repeated_substr(s, res);
 
   EXPECT_EQ(res.all_pos.size(), 2);
