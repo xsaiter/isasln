@@ -1,8 +1,8 @@
 #include "knight_tour.hh"
 
 namespace isa::misc {
-using cells_u = std::vector<Knight_tour::Cell>;
-using cells_ptr_u = std::shared_ptr<cells_u>;
+using Cells = std::vector<Knight_tour::Cell>;
+using Cells_ptr = std::shared_ptr<Cells>;
 
 Knight_tour::Knight_tour(std::size_t width, std::size_t height,
                              const Cell &start)
@@ -19,7 +19,7 @@ bool Knight_tour::Route::exists(const Cell &cell) const {
   return std::find(cells_->begin(), cells_->end(), cell) != cells_->end();
 }
 
-cells_ptr_u Knight_tour::Route::cells() const { return cells_; }
+Cells_ptr Knight_tour::Route::cells() const { return cells_; }
 
 Knight_tour::Route Knight_tour::find_route() {
   Route res;
@@ -44,9 +44,9 @@ bool Knight_tour::try_find(Route &route, const Cell &cell) {
   return route.size() == ncells_;
 }
 
-cells_ptr_u Knight_tour::next_moves(Route &route,
+Cells_ptr Knight_tour::next_moves(Route &route,
                                       const Cell &current) const {
-  cells_ptr_u res(new cells_u);
+  Cells_ptr res(new Cells);
   for (int i = 0; i < 8; ++i) {
     Cell next(current.x_ + shifts_[0][i], current.y_ + shifts_[1][i]);
     if (valid_cell(next) && !route.exists(next)) {

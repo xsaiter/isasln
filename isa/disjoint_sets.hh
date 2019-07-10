@@ -4,7 +4,7 @@
 #include <set>
 
 namespace isa {
-template <typename T> class DisjointSets {
+template <typename T> class Disjoint_sets {
 public:
   struct Item {
     explicit Item(const T &data_) : data(data_) {}

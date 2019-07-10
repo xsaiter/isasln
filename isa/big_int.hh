@@ -8,10 +8,10 @@
 #include "ar/ar.hh"
 
 namespace isa {
-template <std::size_t SYS> class BigInt {
+template <std::size_t SYS> class Big_int {
 public:
-  static BigInt from(const std::string &s) {
-    BigInt res;
+  static Big_int from(const std::string &s) {
+    Big_int res;
     auto d = res.d_;
     std::size_t i = 0;
     const std::size_t n = s.size();
@@ -46,18 +46,18 @@ public:
     return ss.str();
   }
 
-  friend BigInt operator+(const BigInt &x, const BigInt &y) {
-    BigInt res;
+  friend Big_int operator+(const Big_int &x, const Big_int &y) {
+    Big_int res;
     return res;
   }
 
-  friend BigInt operator*(const BigInt &x, const BigInt &y) {
-    BigInt res;
+  friend Big_int operator*(const Big_int &x, const Big_int &y) {
+    Big_int res;
     return res;
   }
 
 private:
-  BigInt() : d_(2) {}
+  Big_int() : d_(2) {}
 
   std::size_t n_;
   std::size_t d_;

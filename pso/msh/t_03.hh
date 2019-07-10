@@ -43,8 +43,8 @@ struct D_postcard_and_envelope {
 struct E_longprod {
   std::string run(const std::string &m, std::string &n) {
     constexpr int sys = 100;
-    auto bim = isa::BigInt<sys>::from(m);
-    auto bin = isa::BigInt<sys>::from(n);
+    auto bim = isa::Big_int<sys>::from(m);
+    auto bin = isa::Big_int<sys>::from(n);
     auto bres = bin * bim;
     auto res = bres.to();
     return res;
@@ -53,22 +53,38 @@ struct E_longprod {
 
 struct F_serpent {
   using tu = unsigned;
+
   void run(tu n) {
-    std::vector<tu> v(n * n, 0);
+    const tu m = n * n;
+    std::vector<tu> v(m, 0);
     for (tu i = 0; i < n; ++i) {
       for (tu j = 0; j < n; ++j) {
-        auto d = i % 2;
+        tu s = 0;
+        tu k = i + j + 1;
+        if (k <= n) {
+          s = k * (k + 1) / 2;
+          if (k % 2 != 0) {
+            s = s - (k - 1 - j);
+          } else {
+            s = s - j;
+          }
+        } else {
+          tu prev = v[(n - 1 - i) * n + (n - 1 - j)];
+          s = m - prev + 1;
+        }
+        v[i * n + j] = s;
       }
     }
-    print(v, n);
+    print(v, m, n);
   }
 
-  void print(const std::vector<tu> &v, tu n) {
-    for (tu i = 0; i < n; ++i) {
-      for (tu j = 0; j < n; ++j) {
-        std::printf("%d ", v[i]);
+private:
+  void print(const std::vector<tu> &v, tu m, tu n) {
+    for (tu i = 0; i < m; ++i) {
+      if (i % n == 0 && i > 0) {
+        std::printf("\n");
       }
-      std::printf("");
+      std::printf("%5d ", v[i]);
     }
     std::fflush(stdout);
   }

@@ -22,7 +22,7 @@ std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
   std::sort(edges.begin(), edges.end(),
             [](const edge_u &x, const edge_u &y) { return x.w < y.w; });
 
-  DisjointSets<int> ds;
+  Disjoint_sets<int> ds;
 
   auto end = edges.end();
 

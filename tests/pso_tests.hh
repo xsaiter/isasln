@@ -125,13 +125,13 @@ TEST(largest_square_test, test) {
 }
 
 TEST(msh_t_06_a_test, test) {
-  std::vector<isa::RangeInt> ranges{{10, 20}, {30, 40}};
+  std::vector<isa::Range_i> ranges{{10, 20}, {30, 40}};
   int res = pso::msh::t_06::A_cover().run(ranges);
   EXPECT_EQ(res, 20);
 }
 
 TEST(msh_t_06_a_test, test_over) {
-  std::vector<isa::RangeInt> ranges{{10, 20}, {15, 22}};
+  std::vector<isa::Range_i> ranges{{10, 20}, {15, 22}};
   int res = pso::msh::t_06::A_cover().run(ranges);
   EXPECT_EQ(res, 12);
 }

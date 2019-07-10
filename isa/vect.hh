@@ -6,10 +6,10 @@ namespace isa {
 template <typename T> class Vect {
 public:
   using Iter = T *;
-  using ConstIter = const T *;
+  using Const_iter = const T *;
 
-  using IterRef = T &;
-  using ConstIterRef = const T &;
+  using Iter_ref = T &;
+  using Const_iter_ref = const T &;
 
   Vect(std::size_t capacity)
       : capacity_(capacity), len_(0), elems_(new T[capacity]) {}
@@ -18,8 +18,8 @@ public:
 
   static const int DEFAULT_CAPACITY = 16;
 
-  IterRef operator[](std::size_t i) { return elems_[i]; }
-  ConstIterRef &operator[](std::size_t i) const { return elems_[i]; }
+  Iter_ref operator[](std::size_t i) { return elems_[i]; }
+  Const_iter_ref &operator[](std::size_t i) const { return elems_[i]; }
 
   void push_back(const T &elem) {
     if (capacity_ == len_) {
@@ -34,8 +34,8 @@ public:
   Iter begin() { return elems_; }
   Iter end() { return elems_ + len_; }
 
-  ConstIter begin() const { return elems_; }
-  ConstIter end() const { return elems_ + len_; }
+  Const_iter begin() const { return elems_; }
+  Const_iter end() const { return elems_ + len_; }
 
   std::size_t len() const noexcept { return len_; }
   std::size_t capacity() const noexcept { return capacity_; }

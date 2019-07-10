@@ -6,10 +6,10 @@
 #include <queue>
 
 namespace isa::safe {
-template <typename T> class SafeQueue {
+template <typename T> class Safe_queue {
 public:
-  SafeQueue() {}
-  SafeQueue(const SafeQueue<T> &other) { q_ = other.q_; }
+  Safe_queue() {}
+  Safe_queue(const Safe_queue<T> &other) { q_ = other.q_; }
 
   void push(const T &elem) {
     std::lock_guard<std::mutex> l(mutex_);

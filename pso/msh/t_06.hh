@@ -10,7 +10,7 @@
 
 namespace pso::msh::t_06 {
 struct A_cover {
-  int run(const std::vector<isa::RangeInt> &ranges) {
+  int run(const std::vector<isa::Range_i> &ranges) {
     struct wrap_s {
       int v, t;
     };
