@@ -58,21 +58,21 @@ struct F_serpent {
     const tu m = n * n;
     std::vector<tu> v(m, 0);
     for (tu i = 0; i < n; ++i) {
-      for (tu j = 0; j < n; ++j) {
-        tu s = 0;
+      for (tu j = 0; j < n - i; ++j) {
         tu k = i + j + 1;
-        if (k <= n) {
-          s = k * (k + 1) / 2;
-          if (k % 2 != 0) {
-            s = s - (k - 1 - j);
-          } else {
-            s = s - j;
-          }
+        tu s = k * (k + 1) / 2;
+        if (k % 2 != 0) {
+          s -= k - 1 - j;
         } else {
-          tu prev = v[(n - 1 - i) * n + (n - 1 - j)];
-          s = m - prev + 1;
+          s -= j;
         }
         v[i * n + j] = s;
+      }
+    }
+    for (tu i = 0; i < n; ++i) {
+      for (tu j = n - i; j < n; ++j) {
+        tu p = v[(n - 1 - i) * n + (n - 1 - j)];
+        v[i * n + j] = m - p + 1;
       }
     }
     print(v, m, n);
