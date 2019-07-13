@@ -61,6 +61,8 @@ Circle<T> make_circle(const T &x, const T &y, const T &r) {
   return Circle<T>{x, y, r};
 }
 
+enum class Orientations { Clockwise, Counterclockwise, Collinear };
+
 /*
   > 0 if a, b, c - clockwise
   < 0 - counterclockwise
@@ -71,9 +73,22 @@ T cross_product(const Point<T> &a, const Point<T> &b, const Point<T> &c) {
   return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
 }
 
+template <typename T, typename Compare>
+Orientations orientation(const Point<T> &a, const Point<T> &b,
+                         const Point<T> &c) {
+  auto r = cross_product(a, b, c);
+  if (r > 0) {
+    return Orientations::Clockwise;
+  }
+  if (r < 0) {
+    return Orientations::Clockwise;
+  }
+  return Orientations::Collinear;
+}
+
 template <typename T> T distance2(const Point<T> &a, const Point<T> &b) {
-  T dx = a.x - b.x;
-  T dy = a.y - b.y;
+  auto dx = a.x - b.x;
+  auto dy = a.y - b.y;
   return dx * dx + dy * dy;
 }
 
