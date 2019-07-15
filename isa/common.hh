@@ -78,7 +78,28 @@ public:
   enum { yes = sizeof(as_t(type_from())) == sizeof(A) };
 };
 
-template <typename FwdIter> void shift(FwdIter beg, FwdIter end, int pos = 1) {
-  std::rotate(beg, beg + pos, end);
+template <typename FwdIt> void shift(FwdIt beg_it, FwdIt end_it, int pos = 1) {
+  std::rotate(beg_it, beg_it + pos, end_it);
+}
+
+template <typename It = std::string::iterator>
+std::string convert_to_str(It beg_it, It end_it) {
+  return std::string(beg_it, end_it);
+}
+
+template <typename It, typename OutIt, typename Separator, typename Convert>
+void split(It beg_it, It end_it, OutIt out_it, const Separator &separator,
+           Convert convert) {
+  auto it = beg_it;
+  while (it != end_it) {
+    auto sep_it = std::find(it, end_it, separator);
+    *out_it = convert(it, sep_it);
+    ++out_it;
+    if (sep_it == end_it) {
+      it = end_it;
+    } else {
+      it = std::next(sep_it);
+    }
+  }
 }
 } // namespace isa

@@ -75,13 +75,14 @@ T cross_product(const Point<T> &a, const Point<T> &b, const Point<T> &c) {
 
 template <typename T, typename Compare>
 Orientations orientation(const Point<T> &a, const Point<T> &b,
-                         const Point<T> &c) {
+                         const Point<T> &c, Compare compare) {
   auto r = cross_product(a, b, c);
-  if (r > 0) {
+  auto x = compare(r, 0);
+  if (x > 0) {
     return Orientations::Clockwise;
   }
-  if (r < 0) {
-    return Orientations::Clockwise;
+  if (x < 0) {
+    return Orientations::Counterclockwise;
   }
   return Orientations::Collinear;
 }
