@@ -21,7 +21,21 @@ struct A_perfect {
 };
 
 struct B_decomp {
-  void run(int n) {}
+  using Res = std::vector<std::string>;
+  Res run(int n) {
+    std::vector<Entry> ve;
+    for (int i = 1; i <= n - 1; ++i) {
+      for (int j = 0; j < n; ++j) {
+      }
+    }
+    Res res;
+    return res;
+  }
+
+private:
+  struct Entry {
+    std::vector<int> vals;
+  };
 };
 
 struct D_area {
