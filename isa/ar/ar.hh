@@ -55,10 +55,36 @@ template <std::size_t N> void inc(std::bitset<N> &b) {
 }
 
 std::vector<std::size_t> sieve_of_erat(std::size_t n);
-
 std::size_t num_digits(std::size_t n);
-
 std::size_t fact(std::size_t n);
-
 bool is_perfect_num(std::size_t n);
+
+template <typename T> struct Prime_num_iterator {
+  Prime_num_iterator(const T &n, const T &limit) : n_(n), limit_(limit) {}
+  T operator*() { return n_; }
+  Prime_num_iterator &operator++() {
+    ++n_;
+    while (!is_prime(n_)) {
+      ++n_;
+      if (n_ >= limit_) {
+        n_ = limit_;
+        break;
+      }
+    }
+    return *this;
+  }
+  bool operator==(const Prime_num_iterator &o) { return n_ == o.n_; }
+  bool operator!=(const Prime_num_iterator &o) { return !operator==(o); }
+
+private:
+  T n_, limit_;
+};
+
+template <typename T = std::size_t> struct Prime_nums {
+  Prime_nums(const T &from_, const T &to_) : from(from_), to(to_) {}
+  T from, to;
+  Prime_num_iterator<T> begin() { return Prime_num_iterator(from, to); }
+  Prime_num_iterator<T> end() { return Prime_num_iterator(to, to); }
+};
+
 } // namespace isa::ar

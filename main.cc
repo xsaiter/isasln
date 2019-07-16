@@ -7,10 +7,11 @@
 #include "pso/core.hh"
 
 int main(int argc, char *argv[]) {
-  std::vector<std::string> res;
-  std::string s = "aa-bb-cc-dd";
-  isa::split(s.begin(), s.end(), std::back_inserter(res), '-',
-             isa::convert_to_str<>);
+  std::vector<int> primes;
+  isa::ar::Prime_nums<int> nums(4, 8);
+  for (auto num : nums) {
+    primes.push_back(num);
+  }
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
