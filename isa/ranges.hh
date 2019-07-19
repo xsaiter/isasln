@@ -30,8 +30,8 @@ template <typename T> Ranges<T> recude_ranges(const Ranges<T> &ranges) {
     v.push_back({r.l, true});
     v.push_back({r.r, false});
   }
-  std::sort(v.begin(), v.end(),
-            [](const auto &e1, const auto &e2) { return e1.x < e2.x; });
+  auto cmp = [](const auto &a, const auto &b) { return a.x < b.x; };
+  std::sort(v.begin(), v.end(), cmp);
   Ranges<T> res;
   int n = 0;
   T l;

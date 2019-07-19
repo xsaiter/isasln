@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <set>
 #include <stack>
 #include <utility>
 #include <vector>
@@ -23,7 +24,7 @@ struct A_perfect {
 struct B_decomp {
   using Res = std::vector<std::string>;
   Res run(int n) {
-    std::vector<Entry> ve;
+    std::set<Entry> ve;
     for (int i = 1; i <= n - 1; ++i) {
       for (int j = 0; j < n; ++j) {
       }
