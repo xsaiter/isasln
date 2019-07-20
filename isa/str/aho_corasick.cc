@@ -4,14 +4,14 @@
 #include "aho_corasick.hh"
 
 namespace isa::str {
-Aho_corasick::Aho_corasick(const std::vector<std::string> &patterns)
+Aho_Corasick::Aho_Corasick(const std::vector<std::string> &patterns)
     : patterns_(patterns), root_(std::make_shared<Node>()) {
   build_machine();
 }
 
-std::vector<Aho_corasick::Result>
-Aho_corasick::search(const std::string &text) const {
-  std::vector<Aho_corasick::Result> result;
+std::vector<Aho_Corasick::Result>
+Aho_Corasick::search(const std::string &text) const {
+  std::vector<Aho_Corasick::Result> result;
 
   Node_ptr current = root_;
   const std::size_t len = text.size();
@@ -41,12 +41,12 @@ Aho_corasick::search(const std::string &text) const {
   return result;
 }
 
-void Aho_corasick::build_machine() {
+void Aho_Corasick::build_machine() {
   build_go();
   build_failure();
 }
 
-void Aho_corasick::build_go() {
+void Aho_Corasick::build_go() {
   unsigned int n = 0;
 
   root_->n = n++;
@@ -71,7 +71,7 @@ void Aho_corasick::build_go() {
   }
 }
 
-void Aho_corasick::build_failure() {
+void Aho_Corasick::build_failure() {
   std::queue<Node_ptr> q;
   bool first = true;
 
@@ -121,7 +121,7 @@ void Aho_corasick::build_failure() {
   root_->failure = root_;
 }
 
-Aho_corasick::Node_ptr Aho_corasick::next_state(Node_ptr node,
+Aho_Corasick::Node_ptr Aho_Corasick::next_state(Node_ptr node,
                                                       char c) const {
   auto i = std::find_if(node->children.begin(), node->children.end(),
                         [&](const Node_ptr &n) { return n->c == c; });
@@ -131,9 +131,9 @@ Aho_corasick::Node_ptr Aho_corasick::next_state(Node_ptr node,
   return nullptr;
 }
 
-Aho_corasick::Node_ptr
-Aho_corasick::make_node(char c, unsigned int n,
-                          Aho_corasick::Node_ptr parent) const {
+Aho_Corasick::Node_ptr
+Aho_Corasick::make_node(char c, unsigned int n,
+                          Aho_Corasick::Node_ptr parent) const {
   Node_ptr node = std::make_shared<Node>();
   node->c = c;
   node->n = n;
@@ -141,7 +141,7 @@ Aho_corasick::make_node(char c, unsigned int n,
   return node;
 }
 
-void Aho_corasick::append(std::vector<Result> &result, Node_ptr node,
+void Aho_Corasick::append(std::vector<Result> &result, Node_ptr node,
                             std::size_t end) const {
   if (node->has_output) {
     result.emplace_back(node->output, end);

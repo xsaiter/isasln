@@ -5,6 +5,7 @@ CONFIG -= qt
 
 HEADERS += \
     isa/ar/ar.hh \
+    isa/segment_tree.hh \
     isa/str/str_utils.hh \
     isa/geo/geo.hh \
     isa/parsing/postfix_to_infix.hh \
@@ -56,6 +57,7 @@ HEADERS += \
     pso/iom/iom_02.hh \
     pso/iom/iom_03.hh \
     pso/misc/misc_01.hh \
+    pso/preu/p_01_10.hh \
     pso/shen/shen_01.hh \
     pso/shen/shen_02.hh \
     pso/prb/prb_01.hh \
