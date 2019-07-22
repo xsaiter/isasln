@@ -59,20 +59,21 @@ std::size_t num_digits(std::size_t n);
 std::size_t fact(std::size_t n);
 bool is_perfect_num(std::size_t n);
 
-template <typename T = std::size_t> struct Prime_nums {
+template <typename F, typename T = std::size_t> struct Nums {
   struct Iterator;
 
-  Prime_nums(const T &from_, const T &to_) : from(from_), to(to_) {}
+  Nums(const T &from_, const T &to_) : from(from_), to(to_) {}
 
-  Iterator begin() { return Iterator(from, to); }
-  Iterator end() { return Iterator(to, to); }
+  Iterator begin() { return Iterator(from, to, f); }
+  Iterator end() { return Iterator(to, to, f); }
 
   struct Iterator {
-    Iterator(const T &n, const T &limit) : n_(n), limit_(limit) {}
+    Iterator(const T &n, const T &limit, const F &f)
+        : n_(n), limit_(limit), f_(f) {}
     T operator*() { return n_; }
     Iterator &operator++() {
       ++n_;
-      while (!is_prime(n_)) {
+      while (!f_(n_)) {
         ++n_;
         if (n_ >= limit_) {
           n_ = limit_;
@@ -86,10 +87,25 @@ template <typename T = std::size_t> struct Prime_nums {
 
   private:
     T n_, limit_;
+    F f_;
   };
 
 private:
   T from, to;
+  F f;
 };
 
+namespace details {
+template <typename T> struct Is_prime_num_policy {
+  bool operator()(T x) const { return is_prime(x); }
+};
+
+struct Is_perfect_num_policy {
+  bool operator()(std::size_t x) const { return is_perfect_num(x); }
+};
+} // namespace details
+
+template <typename T>
+using Is_prime_num = Nums<details::Is_prime_num_policy<T>, T>;
+using Is_perfect_num = Nums<details::Is_perfect_num_policy, std::size_t>;
 } // namespace isa::ar

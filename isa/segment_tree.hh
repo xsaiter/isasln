@@ -3,9 +3,9 @@
 #include <vector>
 
 namespace isa {
-template <typename T = int> class Segment_tree {
+template <typename T = int, typename C = std::vector<T>> class Segment_tree {
 public:
 private:
-  std::vector<T> v_;
+  C c_;
 };
 } // namespace isa

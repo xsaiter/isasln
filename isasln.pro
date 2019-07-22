@@ -5,6 +5,8 @@ CONFIG -= qt
 
 HEADERS += \
     isa/ar/ar.hh \
+    isa/fenwick_tree.hh \
+    isa/rb_tree.hh \
     isa/segment_tree.hh \
     isa/str/str_utils.hh \
     isa/geo/geo.hh \

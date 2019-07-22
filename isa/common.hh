@@ -70,12 +70,12 @@ template <typename From, typename To> class Maybe_cast {
   struct B {
     A t[2];
   };
-  static A as_t(To);
-  static B as_t(...);
+  static A x(To);
+  static B x(...);
   static From type_from();
 
 public:
-  enum { yes = sizeof(as_t(type_from())) == sizeof(A) };
+  enum { yes = sizeof(x(type_from())) == sizeof(A) };
 };
 
 template <typename FwdIt> void shift(FwdIt beg_it, FwdIt end_it, int pos = 1) {
