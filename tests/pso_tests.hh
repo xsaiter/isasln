@@ -176,7 +176,7 @@ TEST(is_perfec_test, test) {
 TEST(t_11_a_circarea, test) {
   auto c1 = isa::geo::make_circle(20.0, 30.0, 15.0);
   auto c2 = isa::geo::make_circle(40.0, 30.0, 30.0);
-  auto res = pso::msh::t_11::d_circarea().run(c1, c2);
+  auto res = pso::msh::t_11::D_circarea().run(c1, c2);
   auto cmp = std::abs(608.37 - res) <= 0.1;
   EXPECT_TRUE(cmp);
 }

@@ -11,14 +11,14 @@
 namespace pso::msh::t_06 {
 struct A_cover {
   int run(const std::vector<isa::Range_i> &ranges) {
-    struct wrap_s {
+    struct Wrap {
       int v, t;
     };
 
     const std::size_t n = ranges.size();
     const std::size_t m = 2 * n;
 
-    std::vector<wrap_s> ws;
+    std::vector<Wrap> ws;
     ws.reserve(m);
 
     for (std::size_t i = 0; i < n; ++i) {
@@ -26,9 +26,8 @@ struct A_cover {
       ws.push_back({ranges[i].r, 1});
     }
 
-    std::sort(ws.begin(), ws.end(), [](const wrap_s &lhs, const wrap_s &rhs) {
-      return lhs.v < rhs.v;
-    });
+    std::sort(ws.begin(), ws.end(),
+              [](const Wrap &lhs, const Wrap &rhs) { return lhs.v < rhs.v; });
 
     int res = 0;
     int s = 0;
@@ -60,12 +59,11 @@ struct D_rectarea {
 };
 
 struct E_lines {
-  struct route_s {
+  struct Route {
     std::vector<std::vector<char>> a;
   };
 
-  bool run(const std::vector<std::vector<char>> &a, std::size_t n,
-           route_s &res) {
+  bool run(const std::vector<std::vector<char>> &a, std::size_t n, Route &res) {
     isa::graphs::lee_opts_s opts;
     opts.rows = opts.cols = n;
     opts.a.resize(n, std::vector<int>(n));

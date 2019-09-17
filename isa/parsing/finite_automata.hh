@@ -10,9 +10,9 @@
 #include "isa/graphs/paths.hh"
 
 namespace isa::parsing {
-template <typename Input, typename State = int> class dfa_s {
+template <typename Input, typename State = int> class DFA {
 public:
-  explicit dfa_s(const State &start_state)
+  explicit DFA(const State &start_state)
       : start_state_(start_state), state_(start_state_) {}
 
   void add_state(const State &state, bool is_final) {

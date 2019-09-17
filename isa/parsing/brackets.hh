@@ -9,9 +9,9 @@ bool check_balanced_brackets(const std::string &s);
  * s->
  * s->(s)s
  */
-class balanced_brackets_parser_s {
+class Balanced_brackets_parser {
 public:
-  explicit balanced_brackets_parser_s(const std::string &s) : s_(s), i_(0) {}
+  explicit Balanced_brackets_parser(const std::string &s) : s_(s), i_(0) {}
 
   bool parse() { return parse_s() && i_ == s_.length(); }
 

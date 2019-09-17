@@ -6,7 +6,7 @@
 #include "isa/geo/geo.hh"
 
 namespace pso::msh::t_11 {
-struct d_circarea {
+struct D_circarea {
   double run(const isa::geo::Circle<double> &c1,
              const isa::geo::Circle<double> &c2) {
     const auto r = c1.r + c2.r;
