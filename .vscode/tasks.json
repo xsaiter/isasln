@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "command": "bash",
+    "args": [
+        "-c"
+    ],
+    "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+    },
+    "tasks": [
+        {
+            "label": "cmake debug",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "args": [
+                "./build.sh"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
