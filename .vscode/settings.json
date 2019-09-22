@@ -28,6 +28,7 @@
     "files.associations": {
         "algorithm": "cpp",
         "vector": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "new": "cpp"
     }
 }
