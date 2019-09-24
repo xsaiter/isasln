@@ -16,6 +16,8 @@ Slnp make_sln(int data, Slnp next) {
   return res;
 }
 
+int test_foo() { return 100; }
+
 bool is_leap_year(int year) {
   return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
 }
