@@ -11,7 +11,9 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-add_executable(isa-tests main.cpp)
+file(GLOB_RECURSE src_list "*.hpp" "*.cpp")
+
+add_executable(isa-tests ${src_list})
 
 target_link_libraries(isa-tests isa ${GTEST_LIBRARIES} Threads::Threads)
 
