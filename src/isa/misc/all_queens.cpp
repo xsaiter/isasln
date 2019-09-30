@@ -5,7 +5,7 @@ namespace isa::misc {
 using Cells = std::vector<All_queens::Cell>;
 using Cells_ptr = std::shared_ptr<Cells>;
 
-All_queens::Position::Position() : cells_(new Cells) {}
+All_queens::Position::Position() : cells_(new Cells), success_(false) {}
 All_queens::All_queens(std::size_t n) : n_(n) {}
 
 All_queens::Position All_queens::find_position() {
