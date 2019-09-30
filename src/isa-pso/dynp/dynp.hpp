@@ -9,6 +9,8 @@
 #include "isa/common.hpp"
 #include "isa/lia/matrix.hpp"
 
+#define NOMINMAX
+
 namespace pso::dynp {
 int add_least_to_palindrome(const std::string &s);
 int house_robber(const std::vector<int> &a);
@@ -116,8 +118,11 @@ int max_common_sequence(const std::string &s1, const std::string &s2) {
   const int n1 = s1.size();
   const int n2 = s2.size();
 
-  int b[n1][n2];
-  bool a[n1][n2];
+  std::vector<std::vector<int>> b;
+  b.resize(n1, std::vector<int>(n2, 0));
+
+  std::vector<std::vector<bool>> a;
+  a.resize(n1, std::vector<bool>(n2, false));
 
   bool first = false;
   for (int i = 0; i < n1; ++i) {
@@ -210,7 +215,8 @@ void find_subarray_with_max_sum(const std::vector<int> &a,
 
 void turtle_travel(const std::vector<std::vector<int>> &a, int rows, int cols,
                    Turtle_travel_res &res) {
-  int b[rows][cols];
+  std::vector<std::vector<int>> b;
+  b.resize(rows, std::vector<int>(cols, 0));
   int i, j;
 
   for (i = rows - 1; i >= 0; --i) {
@@ -251,7 +257,8 @@ void turtle_travel(const std::vector<std::vector<int>> &a, int rows, int cols,
 
 void largest_square(const std::vector<std::vector<int>> &a, int rows, int cols,
                     Largest_square_res &res) {
-  int b[rows][cols];
+  std::vector<std::vector<int>> b;
+  b.resize(rows, std::vector<int>(cols, 0));
 
   for (int i = 0; i < rows; ++i) {
     for (int j = 0; j < cols; ++j) {

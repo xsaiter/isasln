@@ -9,6 +9,7 @@
 
 #include "isa/geo/geo.hpp"
 #include "isa/str/str_utils.hpp"
+#include "common.hpp"
 
 namespace pso::iom::t_01 {
 struct A_timer {
@@ -79,7 +80,7 @@ struct C_treasure {
   };
 
   isa::geo::Point<double> run(const std::vector<step_s> &steps) {
-    const auto a = std::cos(45 * M_PI / 180);
+    const auto a = std::cos(45 * ISA_PI / 180);
 
     auto r = isa::geo::make_point(0.0, 0.0);
 

@@ -109,7 +109,7 @@ auto operator*(const Vec<T, R1> &v1, const Vec<T, R2> &v2) {
 }
 
 template <typename T, typename R1, typename R2>
-auto operator-(const Vec<T, R1> &v1, const Vec<T, R2> &v2) {
+auto operator-(const Vec<T, R1> &v1, const Vec<T, R2> &v2) {    
   return Vec<T, Vec_sub<T, R1, R2>>(Vec_sub<T, R1, R2>(v1.elems(), v2.elems()));
 }
 

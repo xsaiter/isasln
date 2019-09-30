@@ -8,6 +8,7 @@
 
 #define NOMINMAX
 #define ISA_UNUSED(x) ((void)(x))
+#define ISA_PI 3.14
 
 namespace isa {
 template <typename T, int Rows, int Cols>

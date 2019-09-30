@@ -94,7 +94,8 @@ int str_levenshtein_distance(const std::string &from, const std::string &to) {
   const std::size_t n = from.size();
   const std::size_t m = to.size();
 
-  int d[n][m];
+  std::vector<std::vector<int>> d;
+  d.resize(n, std::vector<int>(m, 0));
 
   for (std::size_t i = 0; i < n; ++i) {
     for (std::size_t j = 0; j < m; ++j) {

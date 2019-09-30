@@ -10,7 +10,7 @@
 namespace isa {
 template <std::size_t SYS> class Big_int {
 public:
-  static Big_int from(const std::string &s) {
+  static Big_int from(const std::string &s) {      
     Big_int res;
     auto d = res.d_;
     std::size_t i = 0;

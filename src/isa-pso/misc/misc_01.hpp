@@ -66,7 +66,7 @@ bool str_is_rotation(const std::string &s1, const std::string &s2) {
 }
 
 bool is_uniq_chars(const std::string &s) {
-  u_int8_t x = 0;
+  long long x = 0;
   for (char c : s) {
     int v = c - 'a';
     if ((x & 1 << v) > 0) {

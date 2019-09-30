@@ -20,7 +20,7 @@ struct D_sphera_arc {
 
     double d = std::sqrt(dx * dx + dy * dy + dz * dz);
     auto a = 2 * std::asin(d / (2 * r));
-    auto res = 2 * M_PI * r * a / 360;
+    auto res = 2 * ISA_PI * r * a / 360;
     return res;
   }
 };
