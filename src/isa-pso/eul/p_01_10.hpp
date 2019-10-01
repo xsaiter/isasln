@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace pso::preu {
+namespace pso::eul {
 struct P_01 {
   int run() {
     const int n = 1000;
@@ -17,7 +17,11 @@ struct P_01 {
   }
 };
 
-struct P_02 {};
+struct P_02 {
+  int run() {
+
+  }
+};
 
 struct P_03 {
   std::size_t run() {}
@@ -26,4 +30,4 @@ struct P_03 {
 struct P_04 {
   void run() {}
 };
-} // namespace pso::preu
+}  // namespace pso::eul::p_01_10

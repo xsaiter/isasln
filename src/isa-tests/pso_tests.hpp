@@ -224,7 +224,7 @@ TEST(iom_01_a_timer, test) {
 }
 
 TEST(iom_01_c_treasure, test) {
-  using step_u = pso::iom::t_01::C_treasure::step_s;
+  using step_u = pso::iom::t_01::C_treasure::Step;
   std::vector<step_u> steps{{1, 3}, {3, 1}, {1, 1}, {3, 3}, {5, 2}, {7, 1}};
   auto res = pso::iom::t_01::C_treasure().run(steps);
   EXPECT_EQ(res.x, 3);

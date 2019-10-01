@@ -13,7 +13,8 @@ int main(int argc, char const *argv[]) {
   vv[8][4] = 10;
 
   std::vector<int> v{100, 5, 3, 13, 23};
-  std::string s;
+  auto x = v.begin();  
+  std::string s;  
   isa::lia::Matrix<int> m(5, 5);
 
   auto elems = m * m;

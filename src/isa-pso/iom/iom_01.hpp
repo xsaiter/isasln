@@ -7,9 +7,9 @@
 #include <string>
 #include <vector>
 
+#include "common.hpp"
 #include "isa/geo/geo.hpp"
 #include "isa/str/str_utils.hpp"
-#include "common.hpp"
 
 namespace pso::iom::t_01 {
 struct A_timer {
@@ -43,7 +43,7 @@ struct A_timer {
     return ss.str();
   }
 
-private:
+ private:
   struct Tm {
     int h, m, s;
     int to_secs() const { return h * SECS_IN_HOUR + m * SECS_IN_MIN + s; }
@@ -73,18 +73,18 @@ private:
   };
 };
 
+struct B_go_home {};
+
 struct C_treasure {
-  struct step_s {
+  struct Step {
     int dir;
     int size;
   };
 
-  isa::geo::Point<double> run(const std::vector<step_s> &steps) {
+  isa::geo::Point<double> run(const std::vector<Step> &steps) {
     const auto a = std::cos(45 * ISA_PI / 180);
-
     auto r = isa::geo::make_point(0.0, 0.0);
-
-    for (const step_s &step : steps) {
+    for (const Step &step : steps) {
       if (step.dir == 1) {
         r.y += step.size;
       } else if (step.dir == 2) {
@@ -107,8 +107,19 @@ struct C_treasure {
         r.y += step.size * a;
       }
     }
-
     return r;
   }
 };
-} // namespace pso::iom::t_01
+
+struct D {};
+
+struct E {};
+
+struct F {};
+
+struct G {};
+
+struct H {};
+
+struct I {};
+}  // namespace pso::iom::t_01

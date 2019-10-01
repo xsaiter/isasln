@@ -1,9 +1,19 @@
 #pragma once
 
-#include "isa/geo/geo.hpp"
+#include <algorithm>
 #include <cmath>
+#include "isa/geo/geo.hpp"
 
 namespace pso::msh::t_08 {
+struct A_nosum {
+  int run(std::vector<int> &nums) {
+    std::sort(nums.begin(), nums.end());
+    auto s = std::accumulate(nums.begin(), nums.end(), 0);
+    for (auto i = 0; i < s; ++i) {      
+    }
+  }
+};
+
 struct D_sphera_arc {
   double run(double r, double lge_1, double lte_1, double lge_2, double lte_2) {
     double x1 = r * std::cos(lge_1) * std::cos(lte_1);
@@ -24,4 +34,4 @@ struct D_sphera_arc {
     return res;
   }
 };
-} // namespace pso::msh::t_08
+}  // namespace pso::msh::t_08
