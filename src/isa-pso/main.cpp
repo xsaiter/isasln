@@ -4,7 +4,11 @@
 #include <string>
 #include "rb_tree.hpp"
 
+#include "shen/shen_01.hpp"
+
 int main(int argc, char const *argv[]) {
+  pso::shen::t_01::T_01_01_01 t;
+  t.run();
   int n = 5;  
 
   std::vector<std::vector<int>> vv;
