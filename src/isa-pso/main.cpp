@@ -1,28 +1,18 @@
 #include "core.hpp"
 #include "isa/sort.hpp"
 #include "lia/matrix.hpp"
-#include <string>
 #include "rb_tree.hpp"
+#include <string>
 
 #include "shen/shen_01.hpp"
 
+#include "msh/t_08.hpp"
+
+#include "utils.hpp"
+
 int main(int argc, char const *argv[]) {
-  pso::shen::t_01::T_01_01_01 t;
-  t.run();
-  int n = 5;  
-
-  std::vector<std::vector<int>> vv;
-  vv.resize(10, std::vector<int>(5, 0));
-  
-  vv[8][4] = 10;
-
-  std::vector<int> v{100, 5, 3, 13, 23};
-  auto x = v.begin();  
-  std::string s;  
-  isa::lia::Matrix<int> m(5, 5);
-
-  auto elems = m * m;
-
-  isa::sorting::bubble_sort(v.begin(), v.end());
+  pso::msh::t_08::A_nosum a;
+  std::vector<int> v{1, 2, 4, 8};
+  auto res = a.run(v);
   return 0;
 }

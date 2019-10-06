@@ -43,7 +43,7 @@ struct A_timer {
     return ss.str();
   }
 
- private:
+private:
   struct Tm {
     int h, m, s;
     int to_secs() const { return h * SECS_IN_HOUR + m * SECS_IN_MIN + s; }
@@ -122,4 +122,4 @@ struct G {};
 struct H {};
 
 struct I {};
-}  // namespace pso::iom::t_01
+} // namespace pso::iom::t_01

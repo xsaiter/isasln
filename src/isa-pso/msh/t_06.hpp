@@ -27,7 +27,7 @@ struct A_cover {
     }
 
     std::sort(ws.begin(), ws.end(),
-              [](const Wrap &lhs, const Wrap &rhs) { return lhs.v < rhs.v; });
+              [](const auto &lhs, const auto &rhs) { return lhs.v < rhs.v; });
 
     int res = 0;
     int s = 0;
@@ -52,6 +52,13 @@ struct A_cover {
 
 struct B_sums {
   int run(const std::vector<int> &nums) { return 0; }
+};
+
+struct C_dategame {
+  int run(int d, int m) {
+    int res = 0;
+    return res;
+  }
 };
 
 struct D_rectarea {
