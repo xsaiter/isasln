@@ -106,6 +106,6 @@ struct Is_perfect_num_policy {
 } // namespace details
 
 template <typename T>
-using Is_prime_num = Nums<details::Is_prime_num_policy<T>, T>;
-using Is_perfect_num = Nums<details::Is_perfect_num_policy, std::size_t>;
+using Is_prime_nums = Nums<details::Is_prime_num_policy<T>, T>;
+using Is_perfect_nums = Nums<details::Is_perfect_num_policy, std::size_t>;
 } // namespace isa::ar
