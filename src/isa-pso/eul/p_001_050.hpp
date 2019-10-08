@@ -28,4 +28,11 @@ struct P_003 {
 struct P_004 {
   void run() {}
 };
-}  // namespace pso::eul::p_001_10
+
+struct P_015 {
+  int run(int n) {
+    int res = 0;
+    return res;
+  }
+};
+} // namespace pso::eul::p_001_10

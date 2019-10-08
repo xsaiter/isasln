@@ -5,12 +5,12 @@
 #include <vector>
 
 namespace isa::sorting {
-template <typename Iter, typename Cmp = std::less<
-                             typename std::iterator_traits<Iter>::value_type>>
-void bubble_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
-  for (Iter i = beg; i != end; ++i) {
+template <typename It, typename Cmp = std::less<
+                           typename std::iterator_traits<It>::value_type>>
+void bubble_sort(It beg, It end, Cmp cmp = Cmp()) {
+  for (It i = beg; i != end; ++i) {
     bool swapped = false;
-    for (Iter j = beg + 1; j != end; ++j) {
+    for (It j = beg + 1; j != end; ++j) {
       if (cmp(*j, *(j - 1))) {
         std::iter_swap(j, j - 1);
         swapped = true;
@@ -22,11 +22,11 @@ void bubble_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
   }
 }
 
-template <typename Iter, typename Cmp = std::less<
-                             typename std::iterator_traits<Iter>::value_type>>
-void insertion_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
-  for (Iter i = beg; i != end; ++i) {
-    Iter j = i;
+template <typename It, typename Cmp = std::less<
+                           typename std::iterator_traits<It>::value_type>>
+void insertion_sort(It beg, It end, Cmp cmp = Cmp()) {
+  for (It i = beg; i != end; ++i) {
+    It j = i;
     while (j != beg && cmp(*j, *(j - 1))) {
       std::iter_swap(j, j - 1);
       --j;
@@ -34,14 +34,14 @@ void insertion_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
   }
 }
 
-template <typename Iter, typename Cmp = std::less<
-                             typename std::iterator_traits<Iter>::value_type>>
-void shell_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
+template <typename It, typename Cmp = std::less<
+                           typename std::iterator_traits<It>::value_type>>
+void shell_sort(It beg, It end, Cmp cmp = Cmp()) {
   int n = std::distance(beg, end);
   for (int d = n / 2; d >= 1; d /= 2) {
-    Iter i = beg;
+    It i = beg;
     while (i != end) {
-      Iter j = i;
+      It j = i;
       while (j != beg && cmp(*j, *(j - 1))) {
         std::iter_swap(j, j - 1);
         j = std::prev(j, d);
@@ -54,12 +54,12 @@ void shell_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
   }
 }
 
-template <typename Iter, typename Cmp = std::less<
-                             typename std::iterator_traits<Iter>::value_type>>
-void selection_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
-  for (Iter i = beg; i != end; ++i) {
-    Iter pos = i;
-    for (Iter j = i; j != end; ++j) {
+template <typename It, typename Cmp = std::less<
+                           typename std::iterator_traits<It>::value_type>>
+void selection_sort(It beg, It end, Cmp cmp = Cmp()) {
+  for (It i = beg; i != end; ++i) {
+    It pos = i;
+    for (It j = i; j != end; ++j) {
       if (cmp(*j, *pos)) {
         pos = j;
       }
@@ -70,10 +70,10 @@ void selection_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
   }
 }
 
-template <typename Iter, typename Cmp = std::less<
-                             typename std::iterator_traits<Iter>::value_type>>
-void gnome_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
-  Iter i = std::next(beg, 1);
+template <typename It, typename Cmp = std::less<
+                           typename std::iterator_traits<It>::value_type>>
+void gnome_sort(It beg, It end, Cmp cmp = Cmp()) {
+  It i = std::next(beg, 1);
   while (i != end) {
     if (i == beg || cmp(*i, *(i - 1))) {
       ++i;
@@ -84,29 +84,29 @@ void gnome_sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
   }
 }
 
-template <typename Iter,
+template <typename It,
           typename Cmp =
-              std::less<typename std::iterator_traits<Iter>::value_type>>
+              std::less<typename std::iterator_traits<It>::value_type>>
 class Heap_sort {
 public:
-  static void perform(Iter beg, Iter end, Cmp cmp = Cmp()) {
+  static void perform(It beg, It end, Cmp cmp = Cmp()) {
     Heap_sort s(beg, end, cmp);
     s.sort();
   }
 
 private:
-  Iter beg_;
-  Iter end_;
+  It beg_;
+  It end_;
   Cmp cmp_;
 
-  Heap_sort(Iter beg, Iter end, Cmp cmp = Cmp())
+  Heap_sort(It beg, It end, Cmp cmp = Cmp())
       : beg_(beg), end_(end), cmp_(cmp) {}
   Heap_sort(const Heap_sort &) = delete;
   Heap_sort &operator=(const Heap_sort &) = delete;
 
   void sort() {
     build_heap();
-    Iter cur = end_;
+    It cur = end_;
     for (auto i = std::prev(end_); i != beg_; --i) {
       std::swap(*beg_, *i);
       cur = std::prev(cur);
@@ -130,21 +130,21 @@ private:
     down_heap(end_, beg_);
   }
 
-  void down_heap(Iter n, Iter i) {
+  void down_heap(It n, It i) {
     int di = std::distance(beg_, i);
     int dn = std::distance(beg_, n);
 
-    Iter p = i;
+    It p = i;
 
     if (2 * di < dn) {
-      Iter p1 = std::next(beg_, 2 * di);
+      It p1 = std::next(beg_, 2 * di);
       if (*p1 > *i) {
         p = p1;
       }
     }
 
     if (2 * di + 1 < dn) {
-      Iter p2 = std::next(beg_, 2 * di + 1);
+      It p2 = std::next(beg_, 2 * di + 1);
       if (*p2 > *p) {
         p = p2;
       }
@@ -157,22 +157,22 @@ private:
   }
 };
 
-template <typename Iter,
+template <typename It,
           typename Cmp =
-              std::less<typename std::iterator_traits<Iter>::value_type>>
+              std::less<typename std::iterator_traits<It>::value_type>>
 class Merge_sort {
 public:
-  static void sort(Iter beg, Iter end, Cmp cmp = Cmp()) {
+  static void sort(It beg, It end, Cmp cmp = Cmp()) {
     const std::size_t n = std::distance(beg, end);
 
     int step = 2;
     int diff = 1;
 
     while (step < 2 * n) {
-      Iter i = beg;
+      It i = beg;
       while (i != end) {
-        Iter mid;
-        Iter cend;
+        It mid;
+        It cend;
 
         int x = std::distance(beg, i) + step;
 
@@ -203,7 +203,7 @@ public:
   }
 
 private:
-  static void merge(Iter beg, Iter mid, Iter end, Cmp cmp) {
+  static void merge(It beg, It mid, It end, Cmp cmp) {
     auto d = std::distance(beg, end);
     if (d == 1) {
       return;
