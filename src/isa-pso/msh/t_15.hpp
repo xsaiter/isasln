@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -7,57 +8,57 @@
 namespace pso::msh::t_15 {
 struct F_polymul {
   struct Term {
+    bool add;
     int factor;
-    int d;
+    int degree;
   };
 
   using Terms = std::vector<Term>;
 
   std::string run(const std::string &x, const std::string &y) {
-    std::string res;
-    const int nx = x.size();
-    const int ny = y.size();
+    auto tx = split_to_terms(x);
+    auto ty = split_to_terms(y);
+    auto tr = mul(tx, ty);
+    auto res = write_to_str(reduce(tr));
     return res;
   }
 
-  std::vector<Term> mul(const std::vector<Term> &ts1,
-                        const std::vector<Term> &ts2) {
-    std::vector<Term> res;
-    return res;
+  std::string write_to_str(const Terms &ts) {
+    std::string r;
+    return r;
   }
 
-  Term mul(const Term &t1, const Term &t2) {
-    Term res;
+  Terms reduce(Terms &ts) {
+    Terms r;
+    std::sort(std::begin(ts), std::end(ts),
+              [](const Term &x, const Term &y) { return x.degree > y.degree; });
 
-    return res;
+    return r;
   }
 
-  std::vector<Term> split_to_terms(const std::string &s) {
-    std::vector<Term> res;
-    const int n = s.size();
-    int i = 0;
-    while (i < n) {
-      Term t;
-      char c = s[i];
-      if (std::isdigit(c)) {
-        std::ostringstream fa;
-        fa << c;
-        while (i < n) {
-          if (std::isdigit(s[i])) {
-            fa << s[i];
-            ++i;
-          } else {
-            --i;
-            break;
-          }
-        }
-      } else if (c == 'x') {
-
-      } else {
-        throw "unexpected char";
+  std::vector<Term> mul(const Terms &x, const Terms &y) {
+    std::vector<Term> r;
+    const auto nx = x.size();
+    const auto ny = y.size();
+    for (std::size_t i = 0; i < nx; ++i) {
+      for (std::size_t j = 0; j < ny; ++j) {
+        auto t = mul(x[i], y[j]);
+        r.push_back(t);
       }
-      ++i;
     }
+    return r;
+  }
+
+  Term mul(const Term &x, const Term &y) {
+    Term r;
+    r.add = x.add && y.add;
+    r.factor = x.factor * y.factor;
+    r.degree = x.degree + y.degree;
+    return r;
+  }
+
+  Terms split_to_terms(const std::string &s) {
+    Terms res;
     return res;
   }
 };
