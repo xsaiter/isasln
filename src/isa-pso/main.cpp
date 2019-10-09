@@ -11,8 +11,8 @@
 #include "utils.hpp"
 
 int main(int argc, char const *argv[]) {
-  pso::msh::t_08::A_nosum a;
+  pso::msh::t_08::A_nosum x;
   std::vector<int> v{1, 2, 4, 8};
-  auto res = a.run(v);
+  auto res = x.run(v);
   return 0;
 }

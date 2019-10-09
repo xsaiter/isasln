@@ -12,7 +12,7 @@ bool lee_alg(const lee_opts_s &opts, std::vector<lee_cell_s> &result) {
   auto rows = opts.rows;
   auto cols = opts.cols;
 
-  std::vector<std::vector<lee_cell_s>> cc;    
+  std::vector<std::vector<lee_cell_s>> cc;
   cc.resize(rows, std::vector<lee_cell_s>(cols));
 
   for (int i = 0; i < rows; ++i) {

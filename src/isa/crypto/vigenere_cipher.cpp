@@ -23,11 +23,11 @@ static char char_to_decrypt(char x, char y) {
 }
 
 static std::string prepare_key(const std::string &key, int should_size) {
-  const auto size = key.size();
-  const auto mod = should_size % size;
-  const auto n = should_size / size;
+  const std::size_t size = key.size();
+  const std::size_t mod = should_size % size;
+  const std::size_t n = should_size / size;
   std::ostringstream ss;
-  for (auto i = 0; i < n; ++i) {
+  for (std::size_t i = 0; i < n; ++i) {
     ss << key;
   }
   ss << key.substr(0, mod);

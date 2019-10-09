@@ -11,3 +11,5 @@ add_executable(isa-pso ${src_list})
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
 target_link_libraries(isa-pso isa)
+
+#target_compile_options(isa-pso PRIVATE -Werror -Wall -Wextra)
