@@ -4,38 +4,38 @@
 #include <set>
 
 namespace isa {
-template <typename T>
-class Disjoint_sets {
- public:
+template <typename T> class Disjoint_sets {
+private:
   struct Item {
-    explicit Item(const T& data_) : data(data_) {}
+    explicit Item(const T &data_) : data(data_) {}
 
     T data;
     mutable std::shared_ptr<Item> parent;
     mutable int rank;
 
-    void set_parent(const T& data) const {
+    void set_parent(const T &data) const {
       parent = std::make_shared<Item>(data);
     }
 
     void inc_rank() const { ++rank; }
 
-    friend bool operator<(const Item& lhs, const Item& rhs) {
+    friend bool operator<(const Item &lhs, const Item &rhs) {
       return lhs.data < rhs.data;
     }
 
-    friend bool operator==(const Item& lhs, const Item& rhs) {
+    friend bool operator==(const Item &lhs, const Item &rhs) {
       return lhs.data == rhs.data;
     }
 
-    friend bool operator!=(const Item& lhs, const Item& rhs) {
+    friend bool operator!=(const Item &lhs, const Item &rhs) {
       return !(lhs == rhs);
     }
   };
 
-  void add(const T& data) { items_.insert(Item(data)); }
+public:
+  void add(const T &data) { items_.insert(Item(data)); }
 
-  T find(const T& data) {
+  T find(const T &data) {
     auto i = items_.find(Item(data));
 
     if (i == items_.end()) {
@@ -53,7 +53,7 @@ class Disjoint_sets {
     return x;
   }
 
-  void union_for(const T& a, const T& b) {
+  void unit(const T &a, const T &b) {
     auto ax = find(a);
     auto bx = find(b);
 
@@ -75,7 +75,7 @@ class Disjoint_sets {
     }
   }
 
- private:
+private:
   std::set<Item> items_;
 };
-}  // namespace isa
+} // namespace isa

@@ -39,7 +39,7 @@ std::vector<typename Graph::edge_u> mst_kruskal(const Graph &g) {
 
     if (ra != rb) {
       res.push_back(*i);
-      ds.union_for(ra, rb);
+      ds.unit(ra, rb);
     }
   }
 

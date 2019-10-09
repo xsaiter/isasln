@@ -24,8 +24,19 @@ struct F_polymul {
   }
 
   std::string write_to_str(const Terms &ts) {
-    std::string r;
-    return r;
+    std::ostringstream ss;
+    for (const Term &t : ts) {
+      ss << t.add ? "+" : "-";
+      ss << t.factor;
+      if (t.degree > 0) {
+        ss << "x";
+        if (t.degree > 1) {
+          ss << t.degree;
+        }
+      }
+    }
+    std::string res = ss.str();
+    return res;
   }
 
   Terms reduce(Terms &ts) {

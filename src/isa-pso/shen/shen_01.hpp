@@ -30,6 +30,7 @@ struct T_01_01_03 {
   void run() {
     int a = 1;
     int b = 2;
+    std::string s;
   }
 };
-}  // namespace pso::shen
+} // namespace pso::shen::t_01

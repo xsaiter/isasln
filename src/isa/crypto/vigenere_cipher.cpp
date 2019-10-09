@@ -7,8 +7,8 @@ namespace isa::crypto {
 static const char A = 'A';
 static const int N = 26;
 
-static inline int idx(char c) { return c - A; }
-static inline char sym(int i) { return static_cast<char>(A + i); }
+int idx(char c) { return c - A; }
+char sym(int i) { return static_cast<char>(A + i); }
 
 static char char_to_encrypt(char x, char y) {
   return sym((idx(x) + idx(y)) % N);
