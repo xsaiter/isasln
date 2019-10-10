@@ -25,7 +25,6 @@
         "(gdb) test"
     ],
     "gtest-adapter.supportLocation": true,
-    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
     "files.associations": {
         "array": "cpp",
         "atomic": "cpp",
