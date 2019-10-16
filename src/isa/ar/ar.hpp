@@ -55,8 +55,11 @@ template <std::size_t N> void inc(std::bitset<N> &b) {
 }
 
 std::vector<std::size_t> sieve_of_erat(std::size_t n);
+
 std::size_t num_digits(std::size_t n);
+
 std::size_t fact(std::size_t n);
+
 bool is_perfect_num(std::size_t n);
 
 template <typename F, typename T = std::size_t> struct Nums {
@@ -65,6 +68,7 @@ template <typename F, typename T = std::size_t> struct Nums {
   Nums(const T &from_, const T &to_) : from(from_), to(to_) {}
 
   Iterator begin() { return Iterator(from, to, f); }
+
   Iterator end() { return Iterator(to, to, f); }
 
   struct Iterator {
@@ -107,5 +111,6 @@ struct Is_perfect_num_policy {
 
 template <typename T>
 using Is_prime_nums = Nums<details::Is_prime_num_policy<T>, T>;
+
 using Is_perfect_nums = Nums<details::Is_perfect_num_policy, std::size_t>;
 } // namespace isa::ar
