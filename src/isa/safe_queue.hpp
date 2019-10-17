@@ -14,12 +14,12 @@ public:
   void push(const T &elem) {
     std::lock_guard<std::mutex> l(mutex_);
     q_.push(elem);
-    var_.notify_one();
+    cv_.notify_one();
   }
 
   void wait_and_pull(T &elem) {
     std::unique_lock<std::mutex> l(mutex_);
-    var_.wait(l, [this] { return !q_.empty(); });
+    cv_.wait(l, [this] { return !q_.empty(); });
     elem = q_.front();
     q_.pop();
   }
@@ -42,6 +42,6 @@ public:
 private:
   std::queue<T> q_;
   std::mutex mutex_;
-  std::condition_variable var_;
+  std::condition_variable cv_;
 };
 } // namespace isa::safe

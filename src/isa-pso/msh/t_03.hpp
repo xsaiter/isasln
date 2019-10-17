@@ -52,15 +52,15 @@ struct E_longprod {
 };
 
 struct F_serpent {
-  using tu = unsigned;
+  using T = unsigned;
 
-  void run(tu n) {
-    const tu m = n * n;
-    std::vector<tu> v(m, 0);
-    for (tu i = 0; i < n; ++i) {
-      for (tu j = 0; j < n - i; ++j) {
-        tu k = i + j + 1;
-        tu s = k * (k + 1) / 2;
+  void run(T n) {
+    const T m = n * n;
+    std::vector<T> v(m, 0);
+    for (T i = 0; i < n; ++i) {
+      for (T j = 0; j < n - i; ++j) {
+        T k = i + j + 1;
+        T s = k * (k + 1) / 2;
         if (k % 2 != 0) {
           s -= k - 1 - j;
         } else {
@@ -69,9 +69,9 @@ struct F_serpent {
         v[i * n + j] = s;
       }
     }
-    for (tu i = 0; i < n; ++i) {
-      for (tu j = n - i; j < n; ++j) {
-        tu p = v[(n - 1 - i) * n + (n - 1 - j)];
+    for (T i = 0; i < n; ++i) {
+      for (T j = n - i; j < n; ++j) {
+        T p = v[(n - 1 - i) * n + (n - 1 - j)];
         v[i * n + j] = m - p + 1;
       }
     }
@@ -79,8 +79,8 @@ struct F_serpent {
   }
 
 private:
-  void print(const std::vector<tu> &v, tu m, tu n) {
-    for (tu i = 0; i < m; ++i) {
+  void print(const std::vector<T> &v, T m, T n) {
+    for (T i = 0; i < m; ++i) {
       if (i % n == 0 && i > 0) {
         std::printf("\n");
       }
