@@ -7,6 +7,8 @@
 namespace isa::str {
 void str_remove_spaces(std::string &s);
 
+void str_remove_space_c(char *s);
+
 void str_to_upper(std::basic_string<char> &s);
 
 std::vector<std::string> str_split(const std::string &s, char delim);

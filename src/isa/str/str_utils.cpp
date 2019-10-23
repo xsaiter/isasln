@@ -12,6 +12,20 @@ void str_remove_spaces(std::string &s) {
           s.end());
 }
 
+void str_remove_space_c(char *s) {
+  char *t = s;
+  while (*t != '\0') {
+    if (*t != 32) {
+      if (s != t) {
+        *s = *t;
+      }
+      ++s;
+    }
+    ++t;
+  }
+  *s = '\0';
+}
+
 void str_to_upper(std::basic_string<char> &s) {
   std::locale loc;
   for (std::basic_string<char>::iterator p = s.begin(); p != s.end(); ++p) {
