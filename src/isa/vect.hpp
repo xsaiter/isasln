@@ -3,23 +3,53 @@
 #include <algorithm>
 
 namespace isa {
-template <typename T> class Vect {
+template <typename T, T default_initial = 0, T default_capacity = (1 << 4)>
+class Vect {
 public:
-  using Iter = T *;
-  using Const_iter = const T *;
+  using value_type = T;
+  using iterator = T *;
+  using const_iterator = const T *;
 
-  using Iter_ref = T &;
-  using Const_iter_ref = const T &;
+  using reference = T &;
+  using const_reference = const T &;
 
-  Vect(std::size_t capacity)
-      : capacity_(capacity), len_(0), elems_(new T[capacity]) {}
+  using size_type = std::size_t;
 
-  Vect() : Vect(DEFAULT_CAPACITY) {}
+  Vect(const T &initial = default_initial) : Vect(default_capacity, initial) {}
 
-  static const int DEFAULT_CAPACITY = 16;
+  Vect(size_type capacity, const T &initial = default_initial)
+      : capacity_(capacity), len_(0), elems_(new T[capacity]) {
+    std::fill(elems_, elems_ + capacity_, initial);
+  }
 
-  Iter_ref operator[](std::size_t i) { return elems_[i]; }
-  Const_iter_ref &operator[](std::size_t i) const { return elems_[i]; }
+  Vect(std::initializer_list<T> il) : Vect(il.size()) {
+    for (const auto &x : il) {
+      push_back(x);
+    }
+  }
+
+  Vect(const Vect &that) {}
+
+  Vect &operator=(const Vect &that) { return *this; }
+
+  Vect(Vect &&that) {
+    elems_ = that.elems_;
+    len_ = that.len_;
+    capacity_ = that.capacity_;
+  }
+
+  Vect &operator=(Vect &&that) {
+    delete[] elems_;
+    elems_ = that.elems_;
+    len_ = that.len_;
+    capacity_ = that.capacity_;
+    return *this;
+  }
+
+  ~Vect() noexcept { delete[] elems_; }
+
+  reference operator[](size_type i) { return elems_[i]; }
+  const_reference &operator[](size_type i) const { return elems_[i]; }
 
   void push_back(const T &elem) {
     if (capacity_ == len_) {
@@ -31,29 +61,32 @@ public:
     elems_[len_++] = elem;
   }
 
-  Iter begin() { return elems_; }
-  Iter end() { return elems_ + len_; }
+  iterator begin() { return elems_; }
+  iterator end() { return elems_ + len_; }
 
-  Const_iter begin() const { return elems_; }
-  Const_iter end() const { return elems_ + len_; }
+  const_iterator cbegin() const { return elems_; }
+  const_iterator cend() const { return elems_ + len_; }
 
-  std::size_t len() const noexcept { return len_; }
-  std::size_t capacity() const noexcept { return capacity_; }
+  size_type len() const noexcept { return len_; }
+  size_type capacity() const noexcept { return capacity_; }
+
+  T *data() noexcept { return elems_; }
+  const T *data() const noexcept { return elems_; }
 
 private:
-  std::size_t capacity_;
-  std::size_t len_;
+  size_type capacity_;
+  size_type len_;
   T *elems_;
 
-  static T *new_copy(T *s, std::size_t ns, std::size_t nr) {
-    T *r = new T[nr];
+  static T *new_copy(T *s, size_type current_size, size_type new_size) {
+    T *result = new T[new_size];
     try {
-      std::copy(s, s + ns, r);
+      std::copy(s, s + current_size, result);
     } catch (...) {
-      delete[] r;
+      delete[] result;
       throw;
     }
-    return r;
+    return result;
   }
 };
 } // namespace isa
