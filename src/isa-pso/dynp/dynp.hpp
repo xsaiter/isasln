@@ -114,9 +114,18 @@ std::size_t levenshtein_distance(const std::string &from,
   return d(n - 1, m - 1);
 }
 
+template <typename T> using Mat = std::vector<std::vector<T>>;
+using S = std::size_t;
+
+template <typename T> Mat<T> new_mat(S rows, S cols, T initial) {
+  Mat<T> res;
+  res.resize(rows, std::vector<T>(cols, initial));
+  return res;
+}
+
 int max_common_sequence(const std::string &s1, const std::string &s2) {
-  const int n1 = s1.size();
-  const int n2 = s2.size();
+  const S n1 = s1.size();
+  const S n2 = s2.size();
 
   std::vector<std::vector<int>> b;
   b.resize(n1, std::vector<int>(n2, 0));
@@ -125,7 +134,7 @@ int max_common_sequence(const std::string &s1, const std::string &s2) {
   a.resize(n1, std::vector<bool>(n2, false));
 
   bool first = false;
-  for (int i = 0; i < n1; ++i) {
+  for (S i = 0; i < n1; ++i) {
     if (first) {
       b[i][0] = 1;
     } else {
@@ -140,7 +149,7 @@ int max_common_sequence(const std::string &s1, const std::string &s2) {
   }
 
   first = false;
-  for (int j = 0; j < n2; ++j) {
+  for (S j = 0; j < n2; ++j) {
     if (first) {
       b[0][j] = 1;
     } else {
@@ -154,16 +163,16 @@ int max_common_sequence(const std::string &s1, const std::string &s2) {
     }
   }
 
-  for (int i = 0; i < n1; ++i) {
-    for (int j = 0; j < n2; ++j) {
+  for (S i = 0; i < n1; ++i) {
+    for (S j = 0; j < n2; ++j) {
       if (s1[i] == s2[j]) {
         a[i][j] = true;
       }
     }
   }
 
-  for (int i = 1; i < n1; ++i) {
-    for (int j = 1; j < n2; ++j) {
+  for (S i = 1; i < n1; ++i) {
+    for (S j = 1; j < n2; ++j) {
       int m = std::max(b[i - 1][j], b[i][j - 1]);
       if (a[i][j]) {
         m = std::max(m, b[i - 1][j - 1] + 1);

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "isa/geo/geo.hpp"
+#include <algorithm>
 #include <string>
 
 namespace pso::msh::t_10 {
@@ -45,6 +47,24 @@ private:
       }
     }
     return res;
+  }
+};
+
+struct D_border {
+  using Pt = isa::geo::Point<int>;
+  using Pts = std::vector<Pt>;
+
+  int run(Pts pts) {
+    const auto n = pts.size();
+    if (n < 3) {
+      return 0;
+    }
+    auto s = 0;
+    for (auto i = 1; i < n - 1; ++i) {
+      auto p = isa::geo::cross_product(pts[0], pts[i], pts[i + 1]);
+      s += p / 2;
+    }
+    // auto xleft = std::min(pts)
   }
 };
 } // namespace pso::msh::t_10

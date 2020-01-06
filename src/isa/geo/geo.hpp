@@ -78,13 +78,9 @@ Orientations orientation(const Point<T> &a, const Point<T> &b,
                          const Point<T> &c, Compare compare) {
   auto r = cross_product(a, b, c);
   auto x = compare(r, 0);
-  if (x > 0) {
-    return Orientations::Clockwise;
-  }
-  if (x < 0) {
-    return Orientations::Counterclockwise;
-  }
-  return Orientations::Collinear;
+  return x == 0 ? Orientations::Collinear
+                : (x > 0 ? Orientations::Clockwise
+                         : Orientations::Counterclockwise);
 }
 
 template <typename T> T distance2(const Point<T> &a, const Point<T> &b) {

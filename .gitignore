@@ -9,6 +9,7 @@
 *.o
 *.obj
 *.orig
+*.out
 *.rej
 *.so
 *.so.*

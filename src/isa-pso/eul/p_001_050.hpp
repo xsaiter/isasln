@@ -5,14 +5,15 @@
 #include <string>
 #include <vector>
 
+#include "../core.hpp"
+
 #include "ar/ar.hpp"
 
 namespace pso::eul::p_001_050 {
 struct P_001 {
-  int run() {
-    const int n = 1000;
-    int res = 0;
-    for (auto i = 3; i < n; ++i) {
+  LL run(LL n = 1000) {
+    LL res = 0;
+    for (LL i = 3; i < n; ++i) {
       if (i % 3 == 0 || i % 5 == 0) {
         res += i;
       }

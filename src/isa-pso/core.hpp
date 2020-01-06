@@ -2,6 +2,8 @@
 
 #include <memory>
 
+using LL = long long;
+
 namespace pso {
 struct Single_linked_list_node {
   int data;

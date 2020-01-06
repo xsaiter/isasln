@@ -24,6 +24,23 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "make debug",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/src/codef/goodbye2019/a"
+            },
+            "args": [
+                "make"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }
