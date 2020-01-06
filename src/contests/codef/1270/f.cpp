@@ -2,4 +2,10 @@
 
 using namespace std;
 
-int main() { return 0; }
+int main() {
+  std::string si;
+  getline(cin, si);
+  cout << si << endl;
+  // getline(cin, si);
+  return 0;
+}

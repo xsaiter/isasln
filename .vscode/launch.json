@@ -12,7 +12,7 @@
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "cmake debug",
+            "preLaunchTask": "cmake build",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -45,17 +45,17 @@
             ]
         },
         {
-            "name": "(gdb) codef",
+            "name": "(gdb) contests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/src/contests/codef/1270/build/a.out",
+            "program": "${workspaceFolder}/src/contests/codef/1270/build/f.out",
             "args": [
                 "<",
-                "${workspaceFolder}/src/contests/codef/1270/a.txt"
+                "${workspaceFolder}/src/contests/codef/1270/f.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "make build",
+            "preLaunchTask": "contests build",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

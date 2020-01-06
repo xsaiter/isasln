@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char const *argv[]) {
   int tt;
   cin >> tt;
   for (int t = 0; t < tt; ++t) {
