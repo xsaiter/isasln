@@ -11,7 +11,7 @@ public:
   }
 
   template <int N, int M> static Matrix<T> create(const T array[N][M]) {
-    Matrix<T> res(N, M);
+    Matrix<T> res(N, M);    
     for (int i = 0; i < N; ++i) {
       for (int j = 0; j < M; ++j) {
         res.elems_[i][j] = array[i][j];

@@ -12,7 +12,7 @@
     },
     "tasks": [
         {
-            "label": "cmake debug",
+            "label": "cmake build",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceRoot}"
@@ -26,10 +26,10 @@
             }
         },
         {
-            "label": "make debug",
+            "label": "make build",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/src/codef/goodbye2019/a"
+                "cwd": "${workspaceRoot}/src/contests/codef/1270"
             },
             "args": [
                 "make"
