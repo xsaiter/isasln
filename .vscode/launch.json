@@ -48,10 +48,10 @@
             "name": "(gdb) contests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/src/contests/codef/1270/build/f.out",
+            "program": "${workspaceFolder}/src/contests/codef/1270/build/b.out",
             "args": [
                 "<",
-                "${workspaceFolder}/src/contests/codef/1270/f.txt"
+                "${workspaceFolder}/src/contests/codef/1270/b.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

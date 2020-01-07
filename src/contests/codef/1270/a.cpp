@@ -20,7 +20,7 @@ int main(int argc, char const *argv[]) {
       cin >> x;
       c2 = max(c2, x);
     }
-    cout << ((c1 > c2) ? "yes" : "no") << endl;
+    cout << ((c1 > c2) ? "YES" : "NO") << endl;
   }
   return 0;
 }
