@@ -26,10 +26,10 @@
             }
         },
         {
-            "label": "contests build",
+            "label": "olymp build",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/src/contests/codef/1270"
+                "cwd": "${workspaceRoot}/src/olymp/codef/contests/1270"
             },
             "args": [
                 "make"
