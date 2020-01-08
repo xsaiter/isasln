@@ -45,7 +45,7 @@
             ]
         },
         {
-            "name": "(gdb) olymp",
+            "name": "(gdb) codef",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/src/olymp/codef/contests/1270/build/c.out",
@@ -55,7 +55,30 @@
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "olymp build",
+            "preLaunchTask": "codef build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) acmp",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/olymp/acmp/0001/build/2.out",
+            "args": [
+                "<",
+                "${workspaceFolder}/src/olymp/acmp/0001/2.txt"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "acmp build",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

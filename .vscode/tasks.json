@@ -26,10 +26,27 @@
             }
         },
         {
-            "label": "olymp build",
+            "label": "codef build",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceRoot}/src/olymp/codef/contests/1270"
+            },
+            "args": [
+                "make"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "acmp build",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/src/olymp/acmp/0001"
             },
             "args": [
                 "make"
