@@ -71,10 +71,10 @@
             "name": "(gdb) acmp",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/src/olymp/acmp/0001/build/6.out",
+            "program": "${workspaceFolder}/src/olymp/acmp/0001/build/9.out",
             "args": [
                 "<",
-                "${workspaceFolder}/src/olymp/acmp/0001/6.txt"
+                "${workspaceFolder}/src/olymp/acmp/0001/9.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
