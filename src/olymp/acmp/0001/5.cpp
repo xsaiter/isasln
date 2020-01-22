@@ -7,6 +7,7 @@ using vi = vector<int>;
 using vi64 = vector<i64>;
 
 #define All(c) begin(c), end(c)
+#define Print_i(c) copy(All(c), ostream_iterator<int>(cout, " "))
 
 int main() {
   int n;
@@ -24,9 +25,9 @@ int main() {
       b.push_back(c);
     }
   }
-  copy(begin(a), end(a), ostream_iterator<int>(cout, " "));
+  Print_i(a);
   cout << "\n";
-  copy(begin(b), end(b), ostream_iterator<int>(cout, " "));
+  Print_i(b);
   cout << "\n";
   cout << ((b.size() >= a.size()) ? "YES" : "NO") << endl;
   return 0;
