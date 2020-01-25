@@ -58,6 +58,23 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "mesh build",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/src/olymp/mesh/01"
+            },
+            "args": [
+                "make"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }
