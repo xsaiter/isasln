@@ -10,18 +10,20 @@ int main() {
     cin >> a[i];
   }
   int res = 0;
-  auto m = begin(a);
-  auto t = m;
-  auto e = end(a);
-  int pos = 1;
-  while (m != e) {
-    t = m;
-    m = max_element(m, e);
-    if (m != e) {
-      pos += distance(t, m);
-      res += (*m) * pos;
-      m = next(m);
+  int m = 0, mj = 0, pmj = 0;
+  int i = 0;
+  while (i < n) {
+    m = a[i];
+    for (int j = i; j < n; ++j) {
+      if (a[j] > m) {
+        m = a[j];
+        mj = j;
+      }
     }
+    res += m * (mj - pmj + 1);
+    ++mj;
+    i = mj;
+    pmj = mj;
   }
   cout << res << endl;
   return 0;
