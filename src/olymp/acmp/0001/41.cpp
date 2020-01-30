@@ -2,30 +2,22 @@
 
 using namespace std;
 
+#define N 201
+
+int b[N];
+
 int main() {
-  int n;
+  int n, v;
   cin >> n;
-  vector<int> a(n);
   for (int i = 0; i < n; ++i) {
-    scanf("%d", &a[i]);
+    scanf("%d", &v);
+    ++(b[v + 100]);
   }
-  constexpr int s = 201;
-  int b[s];
-  memset(b, 0, sizeof(int) * s);
-  for (int i = 0; i < n; ++i) {
-    b[a[i] + 100]++;
-  }
-  int k = 0;
-  for (int i = 0; i < s; ++i) {
-    if (b[i] > 0) {
-      for (int j = 0; j < b[i]; ++j) {
-        a[k] = i - 100;
-        ++k;
-      }
+  for (int i = 0; i < N; ++i) {
+    v = b[i];
+    for (int j = 0; j < v; ++j) {
+      printf("%d ", i - 100);
     }
-  }
-  for (int i = 0; i < n; ++i) {
-    printf("%d ", a[i]);
   }
   fflush(stdout);
   return 0;
