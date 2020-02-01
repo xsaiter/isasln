@@ -2,25 +2,20 @@
 
 using namespace std;
 
-using vi = vector<int>;
+using i64 = long long;
+using vi64 = vector<i64>;
 
 int main() {
-  int k, n;
+  i64 k, n;
   cin >> k >> n;
-  vi a(n, 0);
-  int res = 0;
-  if (n < k) {
-    res = pow(2, k - 1);
-  } else {
-    for (int i = 0; i < n; ++i) {
-      if (i < k) {
-        a[i] = pow(2, i);
-      } else {
-        for (int j = 0; j < i; ++j) {
-        }
-      }
+  ++n;
+  vi64 a(n, 0);
+  a[0] = 1;
+  for (i64 i = 1; i < n; ++i) {
+    for (i64 j = 1; j <= min(k, i); ++j) {
+      a[i] += a[i - j];
     }
   }
-  cout << res << endl;
+  cout << a[n - 1] << endl;
   return 0;
 }
