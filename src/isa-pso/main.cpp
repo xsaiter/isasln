@@ -27,8 +27,7 @@ struct Item {
 int main(int argc, char const *argv[]) {
   // boost::geometry::convex_hull<int, int>(nullptr, nullptr);
 
-  boost::container::slist<int> list;  
-
+  boost::container::slist<int> list;
 
   list.push_front(100);
   list.push_front(200);
