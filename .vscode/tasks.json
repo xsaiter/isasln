@@ -1,80 +1,64 @@
 {
-    "version": "2.0.0",
-    "command": "bash",
-    "args": [
-        "-c"
-    ],
-    "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "new"
+  "version": "2.0.0",
+  "command": "bash",
+  "args": ["-c"],
+  "presentation": {
+    "echo": true,
+    "reveal": "always",
+    "focus": true,
+    "panel": "new"
+  },
+  "tasks": [
+    {
+      "label": "cmake build",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceRoot}"
+      },
+      "args": ["./build.sh"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     },
-    "tasks": [
-        {
-            "label": "cmake build",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceRoot}"
-            },
-            "args": [
-                "./build.sh"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "codef build",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceRoot}/src/olymp/codef/contests/1270"
-            },
-            "args": [
-                "make"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "acmp build",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceRoot}/src/olymp/acmp/0001"
-            },
-            "args": [
-                "make"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "mesh build",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceRoot}/src/olymp/mesh/01"
-            },
-            "args": [
-                "make"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": [
-                "$gcc"
-            ]
-        }
-    ]
+    {
+      "label": "codef build",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceRoot}/src/olymp/codef/contests/1270"
+      },
+      "args": ["make"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "acmp build",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceRoot}/src/olymp/acmp/0002"
+      },
+      "args": ["make"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "mesh build",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceRoot}/src/olymp/mesh/01"
+      },
+      "args": ["make"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
 }
