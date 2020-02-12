@@ -38,7 +38,7 @@
       "label": "acmp build",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceRoot}/src/olymp/acmp/0002"
+        "cwd": "${workspaceRoot}/src/olymp/acmp/0001"
       },
       "args": ["make"],
       "group": {
