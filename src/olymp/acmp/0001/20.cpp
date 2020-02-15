@@ -11,10 +11,10 @@ int main() {
   for (int i = 0; i < n; ++i) {
     cin >> a[i];
   }
-  int max_res = 1;
+  int max_res = 0;
   for (int i = 0; i < n; ++i) {
     int t = 0;
-    int res = 1;
+    int res = 0;
     for (int j = i; j < n - 1; ++j) {
       if (a[j] < a[j + 1]) {
         if (t == 0) {
