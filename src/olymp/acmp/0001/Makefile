@@ -1,2 +1,2 @@
 all:
-	g++ -g -Wall 20.cpp -o build/20.out
+	g++ -g -Wall 32.cpp -o build/32.out
