@@ -1,2 +1,2 @@
 all:
-	g++ -g -Wall a.cpp -o build/a.out
+	g++ -g -Wall d.cpp -o build/d.out
