@@ -1,2 +1,2 @@
 all:
-	g++ -std=c++17 -g -Wall 66.cpp -o build/66.out
+	g++ -std=c++17 -g -Wall 57.cpp -o build/57.out
