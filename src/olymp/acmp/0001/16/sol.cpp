@@ -17,9 +17,9 @@ int rec(int k, int p) {
 }
 
 int main() {
-  int n;
-  cin >> n;  
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
   int res = rec(n + 1, n);
-  printf("%d", res);
+  cout << res << endl;
   return 0;
 }
