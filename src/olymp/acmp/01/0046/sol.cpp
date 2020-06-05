@@ -3,16 +3,20 @@
 using namespace std;
 
 int main() {
-  ios::sync_with_stdio(0);
+  ios::sync_with_stdio(false);
   cin.tie(0);
   int n;
   cin >> n;
+  string res;
   string s = "2.7182818284590452353602875";
-  if (n > 0) {
-    cout << s.substr(0, 2) + s.substr(2, n) << endl;
+  if (n == 0) {
+    res = "3";
   } else {
-    cout << "3" << endl;
+    int len = s.size();
+    for (int i = 0; i < n; ++i) {
+
+    }
   }
-  fflush(stdout);
+  cout << res << endl;
   return 0;
 }
