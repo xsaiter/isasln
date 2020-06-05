@@ -1,59 +1,33 @@
 #include <bits/stdc++.h>
 
-#define N 1001
-
-int a[N];
-bool b[N];
-bool mask[N];
-
 using namespace std;
 
-void init_a() {
-  fill_n(a, N, 0);
-}
-
-void init_b() {
-  fill_n(b, N, false);
-}
-
-void init_mask(int x) {  
-  fill_n(mask, N, false);
-  fill_n(mask, x, true);
-}
-
-bool solve(int n, int x) {
-  init_mask(x);
-  init_b();
-  for (int i = 0; i < n; ++i) {
-    b[i] = (a[i] % 2) == 0 ? false : true;
-  }
-  do {
-    bool z = false;
-    for (int i = 0; i < n; ++i) {
-      if (mask[i]) {
-        z ^= b[i];
-      }
-    }
-    if (z) {
-      return true;
-    } 
-  } while (prev_permutation(mask, mask + n));
-  return false;
-}
+int a[2];
 
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
   int tt;
-  cin >> tt;    
-  for (int t = 0; t < tt; ++t) {
+  cin >> tt;
+  while (tt--) {
     int n, x;
     cin >> n >> x;
-    init_a();
+    int e;
+    a[0] = a[1] = 0;    
     for (int i = 0; i < n; ++i) {
-      cin >> a[i];
-    }	
-    cout << (solve(n, x) ? "yes" : "no") << endl;
+      cin >> e;
+      ++a[e % 2];
+    }      
+    int r = false;
+    for (int i = 1; i <= a[1]; i += 2) {
+      if (x - i < 0) {
+        break;
+      }
+      if (x - i <= a[0]) {
+        r = true;
+        break;
+      }
+    }
+    cout << (r ? "yes" : "no") << "\n";
   }
+  cout << endl;
   return 0;
 }
