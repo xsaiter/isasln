@@ -4,7 +4,7 @@
 
 int a[N];
 bool b[N];
-int mask[N];
+bool mask[N];
 
 using namespace std;
 
@@ -17,8 +17,8 @@ void init_b() {
 }
 
 void init_mask(int x) {  
-  fill_n(mask, N, 0);
-  fill_n(mask, x, 1);
+  fill_n(mask, N, false);
+  fill_n(mask, x, true);
 }
 
 bool solve(int n, int x) {
