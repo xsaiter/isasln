@@ -4,10 +4,17 @@
 
 using namespace std;
 
-int solve(ll a, ll b) {
-  if (a == b) {
-    return 0;
-  }
+int compress(int x) {
+  int res = 0;  
+  int a = x % 3;
+  res += (x - a) / 3;  
+  int b = a % 2;
+  res += (a - b) / 2;
+  res += b;
+  return res;
+}
+
+int solve(ll a, ll b) {  
   int res = 0;
   if (a < b) {
     while (a < b) {
@@ -17,16 +24,20 @@ int solve(ll a, ll b) {
     if (a != b) {
       res = -1;
     }
-  } else {
-    while (a > b) {
-      a >>= 1;
+  } else if (a > b) {
+    while (a > b && (a & 1) != 1) {
+      a >>= 1;      
       ++res;
     }
     if (a != b) {
       res = -1;
     }
+  } else {
+    res = 0;
   }
-  
+  if (res > 0) {
+    res = compress(res);
+  }  
   return res;
 }
 
