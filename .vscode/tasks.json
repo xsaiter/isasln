@@ -25,7 +25,7 @@
       "label": "codef build",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceRoot}/src/olymp/codef/contests/1363"
+        "cwd": "${workspaceRoot}/src/olymp/codef/contests"
       },
       "args": ["make"],
       "group": {
