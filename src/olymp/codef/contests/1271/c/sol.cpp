@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main() {
+int main() {      
   int n, sx, sy;
   cin >> n >> sx >> sy;
   vector<int> x(n), y(n);
