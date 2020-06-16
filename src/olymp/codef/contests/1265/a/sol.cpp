@@ -5,6 +5,24 @@
 
 using namespace std;
 
+int gen(int x, int y) {
+  while (x == y) {
+    if (++x > 2) {
+      x = 0;
+    }
+  }  
+  return x;
+}
+
+int gen(int x, int y, int z) {
+  while (x == y || x == z) {
+    if (++x > 2) {
+      x = 0;
+    }
+  }
+  return x;
+}
+
 pair<string, bool> solve(const string &s) {
   int n = (int)s.size();
   vector<char> r(n);
@@ -17,32 +35,26 @@ pair<string, bool> solve(const string &s) {
       }
       r[i] = s[i];
     } else {      
-      char c;
-      if (i > 0) {
-        if (r[i - 1] == 'a') {
-          c = 'b';
-        } else if (r[i - 1] == 'b') {
-          c = 'c';
-        } else if (r[i - 1] == 'c') {
-          c = 'a';
-        }
-      } else {
-        c = 'a';
-      }
-      if (i < n - 1) {
-        if (s[i + 1] == c) {
-          int x = (int)c - (int)'a';
-          char cand;
-          if (i == 0) {
-            cand = (char)((int)'a' + (2 - x));
+      char c = 'a';
+      if (n > 1) {        
+        int x = c - 'a';
+        if (i == 0) { // first
+          if (s[i + 1] != '?') {            
+            int nx = s[i + 1] - 'a';
+            c = 'a' + gen(x, nx);
+          }                    
+        } else if (i < n - 1) { // middle
+          if (s[i + 1] != '?') {            
+            int nx = s[i + 1] - 'a';          
+            int px = r[i - 1] - 'a';
+            c = 'a' + gen(x, nx, px);
           } else {
-            int px = (int)r[i - 1] - (int)'a';
-            cand = (char)((int)'a' + (3 - (x + px)));
-          }          
-          if (c == cand && r[i - 1] == cand) {
-            return {"", false};
+            int nx = r[i - 1] - 'a';
+            c = 'a' + gen(x, nx);
           }
-          c = cand;
+        } else { // last          
+          int nx = r[i - 1] - 'a';
+          c = 'a' + gen(x, nx);
         }
       }
       r[i] = c;      
