@@ -16,8 +16,6 @@
 #include "graphs/graph.hpp"
 #include <iterator>
 
-#include <boost/container/slist.hpp>
-
 #include "dynp/dynp.hpp"
 
 struct Item {
@@ -25,16 +23,11 @@ struct Item {
 };
 
 int main(int argc, char const *argv[]) {
-  // boost::geometry::convex_hull<int, int>(nullptr, nullptr);
-
-  boost::container::slist<int> list;
-
-  list.push_front(100);
-  list.push_front(200);
+  // boost::geometry::convex_hull<int, int>(nullptr, nullptr); 
 
   auto ma = pso::dynp::new_mat<int>(10, 20, 500);
 
-  std::vector<Item> items;
+  std::vector<Item> items;  
   items.push_back({1, 1});
   items.push_back({1, 2});
   items.push_back({-3, 4});

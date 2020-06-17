@@ -18,6 +18,10 @@ pdd calc_ht(double a, double s, double z) {
 }
 
 int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.precision(12);
+  cout << fixed;
   int n, h;
   cin >> n >> h;    
   double ss = 0.5 * h * 1;
@@ -41,7 +45,8 @@ int main() {
     res[i] = cur;
   }
   for (int i = 0; i < m; ++i) {
-    printf("%.12lf ", res[i]);
+    cout << res[i] << " ";
+    //printf("%.12lf ", res[i]);
   }
   cout << endl;
   return 0;
