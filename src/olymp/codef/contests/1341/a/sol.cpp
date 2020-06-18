@@ -9,13 +9,7 @@ using pii = pair<int, int>;
 bool solve(int n, int a, int b, int c, int d) {
   pii p = {(a - b) * n, (a + b) * n};
   pii q = {c - d, c + d};
-  if (p.fi <= q.fi && p.se >= q.fi) {    
-    return true;
-  }
-  if (p.fi >= q.fi && p.fi <= q.se) {    
-    return true;
-  }
-  return false;
+  return (p.fi <= q.fi && p.se >= q.fi) || (p.fi >= q.fi && p.fi <= q.se);
 }
 
 int main() {
