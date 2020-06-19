@@ -5,16 +5,16 @@ using namespace std;
 using i64 = long long;
 
 int main() {
-  ios::sync_with_stdio(0);
-  cin.tie(0);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
   int n, s;
   cin >> n >> s;
   vector<int> a(n);
   for (int i = 0; i < n; ++i) {
     cin >> a[i];
   }
-  i64 lim = 1 << (n - 1);
-  i64 i = 0;
+  int lim = 1 << (n - 1);
+  int i;
   i64 res;
   for (i = 0; i < lim; ++i) {
     res = a[0];
