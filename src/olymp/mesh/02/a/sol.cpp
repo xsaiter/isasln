@@ -3,7 +3,7 @@
 using namespace std;
 
 bool is_prime(int x, const vector<int> &v) {
-  if (x > 0 && x < 4) { 
+  if (x > 0 && x < 4) {
     return true;
   }
   int n = v.size();
@@ -22,14 +22,16 @@ int main() {
   cin >> m >> n;
   bool has = false;
   vector<int> v;
-  for (int i = m; i <= n; ++i) {    
+  for (int i = 2; i <= n; ++i) {
     if (is_prime(i, v)) {
-      has = true;
       v.push_back(i);
-      cout << i << "\n";
+      if (i >= m) {
+        has = true;
+        cout << i << "\n";
+      }
     }
   }
-  if (!has) { 
+  if (!has) {
     cout << "Absent";
   }
   cout << endl;

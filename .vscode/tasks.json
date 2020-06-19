@@ -51,7 +51,7 @@
       "label": "mesh build",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceRoot}/src/olymp/mesh/01"
+        "cwd": "${workspaceRoot}/src/olymp/mesh"
       },
       "args": ["make"],
       "group": {
