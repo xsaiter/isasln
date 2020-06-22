@@ -6,35 +6,29 @@
 using namespace std;
 using pii = pair<int, int>;
 
-struct S {
-  int t[3];
-};
+auto greater_pii = [](const pii &l, const pii &r) { return l.se < r.se; };
+using PQ = priority_queue<pii, vector<pii>, decltype(greater_pii)>;
 
+struct S { int t[3]; };
 vector<S> ss;
 
-bool can(vector<pii> &v) {  
-  int n = (int)v.size();
-  if (n < 3 || v[2].se == 0) {
+bool can(PQ &pq) {  
+  int n = (int)pq.size();
+  if (n < 3) {
     return false;
   }
+  auto a = pq.top(); pq.pop();
+  auto b = pq.top(); pq.pop();
+  auto c = pq.top(); pq.pop();
   S s;
-  s.t[0] = v[0].fi; v[0].se--;
-  s.t[1] = v[1].fi; v[1].se--;
-  s.t[2] = v[2].fi; v[2].se--; 
-  sort(begin(s.t), end(s.t), [](auto x, auto y) { return x > y; });
-  ss.push_back(s);    
-  for (int i = 0; i < 3; ++i) {
-    if (n > 3 && v[i].se < v[3].se) {
-      swap(v[i], v[3]);
-      for (int j = 3; j < n - 1; ++j) {
-        if (v[j].se < v[j + 1].se) {
-          swap(v[j], v[j + 1]);
-        } else {
-          break;
-        }
-      }
-    }
-  }  
+  s.t[0] = a.fi; a.se--;
+  s.t[1] = b.fi; b.se--;
+  s.t[2] = c.fi; c.se--;
+  sort(begin(s.t), end(s.t), greater<int>());
+  ss.push_back(s);
+  if (a.se > 0) pq.push(a); 
+  if (b.se > 0) pq.push(b); 
+  if (c.se > 0) pq.push(c);
   return true;
 }
 
@@ -56,9 +50,9 @@ int main() {
     } else {
       v.push_back({r[i], 1});
     }
-  }
-  sort(begin(v), end(v), [](const auto &x, const auto &y) { return x.se > y.se; });
-  while (can(v)) { }  
+  }  
+  PQ pq(begin(v), end(v), greater_pii);
+  while (can(pq)) { }  
   cout << ss.size() << "\n";  
   for (auto &x : ss) {
     cout << x.t[0] << " " << x.t[1] << " " << x.t[2] << "\n";
