@@ -43,6 +43,33 @@
       }
     },
     {
+      "label": "codef build windows",
+      "type": "shell",
+      "command": "c:\\cygwin64\\bin\\g++.exe",
+      "options": {
+        "cwd": "${workspaceRoot}/src/olymp/codef/contests"
+      },
+      "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": true
+      }
+    },
+    {
       "label": "acmp build",
       "type": "shell",
       "options": {
