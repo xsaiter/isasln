@@ -2,14 +2,13 @@
 
 using namespace std;
 
-string s;
-ostringstream os;
-
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+  string s;  
   cin >> s;
   int n = (int)s.size();
+  ostringstream os;
   int i;
   if (s[0] == 'f') {
     os << "ftp"; i = 3;
@@ -18,8 +17,7 @@ int main() {
   }
   os << "://";
   int j = n - 1;
-  while (true) {    
-    if (s[j] == 'u' && s[j - 1] == 'r') break;
+  while (s[j] != 'u' || s[j - 1] != 'r') {    
     --j;
   }
   for (int k = i; k < j - 1; ++ k) {
