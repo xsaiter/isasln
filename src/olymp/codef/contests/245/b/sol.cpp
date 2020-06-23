@@ -20,7 +20,7 @@ int main() {
   while (s[j] != 'u' || s[j - 1] != 'r') {    
     --j;
   }
-  for (int k = i; k < j - 1; ++ k) {
+  for (int k = i; k < j - 1; ++k) {
     os << s[k];
   }
   os << ".ru";
