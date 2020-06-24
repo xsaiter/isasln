@@ -11,12 +11,10 @@ int main() {
     int a, b, n;
     cin >> a >> b >> n;
     int i = 0;
-    int mi = min(a, b);
-    int ma = max(a, b);    
-    if (ma <= n) {
-      int t = min(a, b);
-      t += max(a, b);
-
+    while (max(a, b) <= n) {
+      if (a < b) { a += b; } 
+      else { b += a; }
+      ++i;
     }
     cout << i << "\n";
   }
