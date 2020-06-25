@@ -10,21 +10,24 @@ int main() {
   cin >> k;
   string s = "codeforces";
   int n = (int)s.size();
-  i64 x, y, ii;
-  i64 len = 2;  
+  int pos = n;
+  i64 x = 1, y = 1, len = 1;  
   while (y < k) {
-    x = 1, y = 1;   
+    x = 1, y = 1; ++len;
     for (int i = 0; i < n; ++i) {
       x *= len;
       int j = n - 1 - i;
+      y = 1;
       while (j--) y *= (len - 1);
       y *= x;
-      if (y >= k) { ii = i; break; }
-    }
+      if (y >= k) {
+        pos = i;
+        break;
+      }
+    }    
   }
   for (int j = 0; j < n; ++j) {
-    int t;    
-    if (j < ii) { t = len; } else  { t = len - 1; }
+    int t = (j <= pos) ? len : (len - 1);    
     while (t--) cout << s[j];
   }
   cout << endl;
