@@ -13,10 +13,11 @@ int main() {
     if (x < mi) {
       me = mi;
       mi = x;
-    } else {      
+    } else if (x > mi) {      
       me = min(x, me);
     }
-  }
-  cout << me << endl;
+  }  
+  if (me < 101 && mi != me) { cout << me; } else { cout << "NO"; }
+  cout << endl;
   return 0;
 }
