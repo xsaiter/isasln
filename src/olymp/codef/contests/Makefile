@@ -1,2 +1,2 @@
 all:
-	g++ -g -Wall 140/c/sol.cpp -o 140/c/sol.out
+	g++ -g -Wall 50/c/sol.cpp -o 50/c/sol.out

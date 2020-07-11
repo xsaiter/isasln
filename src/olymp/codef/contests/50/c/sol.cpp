@@ -2,13 +2,17 @@
 
 using namespace std;
 
-struct P { int x, y; };
+struct P {
+  int x, y;
+};
 
-int orient(P p, P q, P r) { 
-  int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);   
-  if (val == 0) return 0;
-  return (val > 0) ? 1 : 2;
-} 
+int rot(const P &a, const P &b, const P &c) {
+  int r = (b.x - a.x) * (c.y - b.y) - (b.y - a.y) * (c.x - b.x);
+  if (r == 0) {
+    return 0;
+  }
+  return (r > 0) ? 1 : -1;
+}
 
 int dist2(const P &a, const P &b) {
   int dx = a.x - b.x;
@@ -16,75 +20,83 @@ int dist2(const P &a, const P &b) {
   return dx * dx + dy * dy;
 }
 
-P next_top(stack<P> &h) { 
-  P p = h.top(); h.pop(); 
-  P res = h.top(); 
-  h.push(p); 
-  return res; 
-} 
-
-stack<P> get_hull(vector<P> &points, int n) {  
+stack<P> get_hull(vector<P> &points, int n) {
   stack<P> res;
-  if (n < 4) {
-    for (auto &p : points) res.push(p);
+  if (n <= 3) {
+    for (auto &p : points) {
+      res.push(p);
+    }
     return res;
   }
-  int min_y_pos = 0;
-  int min_y = points[0].y;
-  for (int i = 1; i < n; ++i) {
-    if (points[i].y < min_y) {
-      min_y = points[i].y;
-      min_y_pos = i;
+  auto CmpSortAll = [](const P &l, const P &r) {
+    if (l.y == r.y) {
+      return l.x < r.x;
     }
-  }
-  std::swap(points[0], points[min_y_pos]);
-  auto fi = points[0];
+    return l.y < r.y;
+  };
+  sort(begin(points), end(points), CmpSortAll);
+  auto p0 = points[0];
   auto beg = begin(points);
   std::advance(beg, 1);
-  std::sort(beg, points.end(), [&](const auto &a, const auto &b) {
-    int cp = orient(a, b, fi);
-    if (cp == 0) return dist2(fi, a) > dist2(fi, b); else return cp > 0;
-  });
-  res.push(points[0]); res.push(points[1]); res.push(points[2]);
+  auto CmpSortRest = [&](const auto &a, const auto &b) {
+    int x = rot(a, b, p0);
+    if (x == 0) {
+      return dist2(p0, a) > dist2(p0, b);
+    } else {
+      return x > 0;
+    }
+  };
+  std::sort(beg, points.end(), CmpSortRest);
+  res.push(points[0]);
+  res.push(points[1]);
+  res.push(points[2]);
   for (int i = 3; i < n; ++i) {
-    while (orient(next_top(res), res.top(), points[i]) != 2) res.pop(); 
-    res.push(points[i]); 
+    while (!res.empty()) {
+      auto top = res.top();
+      res.pop();
+      if (res.empty())
+        break;
+      auto next_top = res.top();
+      res.push(top);
+      auto rr = rot(next_top, top, points[i]);
+      if (rr == 1)
+        break;
+      res.pop();
+    }
+    res.push(points[i]);
   }
   return res;
 }
 
-void debug_hull(stack<P> &h) {
-  while (!h.empty()) {
-    P p = h.top(); h.pop();
-    cout << p.x << " " << p.y << "\n";
-  }
-  cout << endl;
-}
-
-int solve(vector<P> &points, int n) { 
+int solve(vector<P> &points, int n) {
   int res = 0;
-  auto Len = [](const auto &l, const auto &r) { return max(abs(l.x - r.x), abs(l.y - r.y)); };  
+  auto Len = [](const P &l, const P &r) {
+    return max(abs(l.x - r.x), abs(l.y - r.y));
+  };
   stack<P> h = get_hull(points, n);
-  debug_hull(h);
-  return 0;
   int m = (int)h.size();
-  if (m == 1) return 4;
   if (m == 2) {
-    auto a = h.top(); h.pop();
-    auto b = h.top(); h.pop();
+    auto a = h.top();
+    h.pop();
+    auto b = h.top();
+    h.pop();
     return 4 + Len(a, b);
   }
-  P fi = h.top(); h.pop();
-  P prev = fi;  
+  P p0 = h.top();
+  h.pop();
+  P next_top = p0;
   while (true) {
-    P cur = h.top(); h.pop();
-    res += Len(cur, prev);
+    if (h.empty())
+      break;
+    P top = h.top();
+    h.pop();
+    res += Len(top, next_top);
     if (h.empty()) {
-      res += Len(cur, fi);
+      res += Len(top, p0);
       break;
     }
-    prev = cur;
-  }  
+    next_top = top;
+  }
   res += 4;
   return res;
 }
@@ -99,7 +111,7 @@ int main() {
     int x, y;
     cin >> x >> y;
     points[i] = {x, y};
-  }  
+  }
   cout << solve(points, n) << endl;
   return 0;
 }
