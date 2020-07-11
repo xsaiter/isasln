@@ -1,26 +1,39 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+using T = long long;
 
 struct P {
-  int x, y;
+  T x, y;
 };
 
-int rot(const P &a, const P &b, const P &c) {
-  int r = (b.x - a.x) * (c.y - b.y) - (b.y - a.y) * (c.x - b.x);
+struct P_cmp {
+  bool operator()(const P &l, const P &r) const {
+    if (l.x < r.x)
+      return true;
+    else if (l.x > r.x)
+      return false;
+    if (l.y < r.y)
+      return true;
+    return false;
+  }
+};
+
+T rot(const P &a, const P &b, const P &c) {
+  T r = (b.x - a.x) * (c.y - b.y) - (b.y - a.y) * (c.x - b.x);
   if (r == 0) {
     return 0;
   }
   return (r > 0) ? 1 : -1;
 }
 
-int dist2(const P &a, const P &b) {
-  int dx = a.x - b.x;
-  int dy = a.y - b.y;
+T dist2(const P &a, const P &b) {
+  T dx = a.x - b.x;
+  T dy = a.y - b.y;
   return dx * dx + dy * dy;
 }
 
-stack<P> get_hull(vector<P> &points, int n) {
+stack<P> make_hull(vector<P> &points, int n) {
   stack<P> res;
   if (n <= 3) {
     for (auto &p : points) {
@@ -28,39 +41,40 @@ stack<P> get_hull(vector<P> &points, int n) {
     }
     return res;
   }
-  auto CmpSortAll = [](const P &l, const P &r) {
+  auto cmp_sort_all = [](const P &l, const P &r) {
     if (l.y == r.y) {
       return l.x < r.x;
     }
     return l.y < r.y;
   };
-  sort(begin(points), end(points), CmpSortAll);
+  sort(begin(points), end(points), cmp_sort_all);
   auto p0 = points[0];
   auto beg = begin(points);
   std::advance(beg, 1);
-  auto CmpSortRest = [&](const auto &a, const auto &b) {
-    int x = rot(a, b, p0);
-    if (x == 0) {
-      return dist2(p0, a) > dist2(p0, b);
-    } else {
-      return x > 0;
+  auto cmp_sort_rest = [&](const auto &a, const auto &b) {
+    int r = rot(a, b, p0);
+    if (r == 0) {
+      return dist2(p0, a) < dist2(p0, b);
     }
+    return r > 0;
   };
-  std::sort(beg, points.end(), CmpSortRest);
+  std::sort(beg, points.end(), cmp_sort_rest);
   res.push(points[0]);
   res.push(points[1]);
-  res.push(points[2]);
-  for (int i = 3; i < n; ++i) {
+  for (int i = 2; i < n; ++i) {
     while (!res.empty()) {
       auto top = res.top();
       res.pop();
-      if (res.empty())
+      if (res.empty()) {
+        res.push(top);
         break;
+      }
       auto next_top = res.top();
       res.push(top);
-      auto rr = rot(next_top, top, points[i]);
-      if (rr == 1)
+      auto r = rot(next_top, top, points[i]);
+      if (r == 1) {
         break;
+      }
       res.pop();
     }
     res.push(points[i]);
@@ -68,31 +82,22 @@ stack<P> get_hull(vector<P> &points, int n) {
   return res;
 }
 
-int solve(vector<P> &points, int n) {
-  int res = 0;
-  auto Len = [](const P &l, const P &r) {
+T solve(vector<P> &points, int n) {
+  T res = 0;
+  auto len = [](const P &l, const P &r) {
     return max(abs(l.x - r.x), abs(l.y - r.y));
   };
-  stack<P> h = get_hull(points, n);
-  int m = (int)h.size();
-  if (m == 2) {
-    auto a = h.top();
-    h.pop();
-    auto b = h.top();
-    h.pop();
-    return 4 + Len(a, b);
-  }
-  P p0 = h.top();
-  h.pop();
+  stack<P> hull = make_hull(points, n);
+  int m = (int)hull.size();
+  P p0 = hull.top();
+  hull.pop();
   P next_top = p0;
-  while (true) {
-    if (h.empty())
-      break;
-    P top = h.top();
-    h.pop();
-    res += Len(top, next_top);
-    if (h.empty()) {
-      res += Len(top, p0);
+  while (!hull.empty()) {
+    P top = hull.top();
+    hull.pop();
+    res += len(top, next_top);
+    if (hull.empty()) {
+      res += len(top, p0);
       break;
     }
     next_top = top;
@@ -106,12 +111,13 @@ int main() {
   cin.tie(nullptr);
   int n;
   cin >> n;
-  vector<P> points(n);
+  set<P, P_cmp> s;
   for (int i = 0; i < n; ++i) {
-    int x, y;
+    T x, y;
     cin >> x >> y;
-    points[i] = {x, y};
+    s.insert({x, y});
   }
-  cout << solve(points, n) << endl;
+  vector<P> p(begin(s), end(s));
+  cout << solve(p, (int)p.size()) << endl;
   return 0;
 }
