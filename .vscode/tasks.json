@@ -45,16 +45,11 @@
     {
       "label": "codef build windows",
       "type": "shell",
-      "command": "c:\\cygwin64\\bin\\g++.exe",
       "options": {
-        "cwd": "${workspaceRoot}/src/olymp/codef/contests"
+        "cwd": "${workspaceRoot}/src/olymp/codef/contests/60/a"
       },
-      "args": [
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
-      ],
+      "command": "C:\\MinGW\\bin\\mingw32-g++.exe",
+      "args": ["-g", "sol.cpp", "-o", "sol.exe"],
       "group": {
         "kind": "build",
         "isDefault": true

@@ -48,14 +48,41 @@
       "name": "(gdb) codef",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/src/olymp/codef/contests/51/a/sol.out",
-      "args": ["<", "${workspaceFolder}/src/olymp/codef/contests/51/a/in"],
+      "program": "${workspaceFolder}/src/olymp/codef/contests/60/a/sol.exe",
+      "args": ["<", "${workspaceFolder}/src/olymp/codef/contests/60/a/in"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "codef build",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      "name": "(gdb) codef windows",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\src\\olymp\\codef\\contests\\60\\a\\sol.exe",
+      "args": [
+        "<",
+        "${workspaceFolder}\\src\\olymp\\codef\\contests\\60\\a\\in"
+      ],
+      //"launchCompleteCommand": "exec-run",
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "codef build windows",
+      "environment": [],
+      "externalConsole": false,
+      "windows": {
+        "miDebuggerPath": "c:\\MinGW\\bin\\gdb.exe",
+        "MIMode": "gdb"
+      },
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
