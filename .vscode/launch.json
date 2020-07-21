@@ -68,10 +68,10 @@
       "name": "(gdb) codef windows",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}\\src\\olymp\\codef\\contests\\60\\a\\sol.exe",
+      "program": "${workspaceFolder}\\src\\olymp\\codef\\contests\\363\\c\\sol.exe",
       "args": [
         "<",
-        "${workspaceFolder}\\src\\olymp\\codef\\contests\\60\\a\\in"
+        "${workspaceFolder}\\src\\olymp\\codef\\contests\\363\\c\\in"
       ],
       //"launchCompleteCommand": "exec-run",
       "stopAtEntry": false,
@@ -80,7 +80,7 @@
       "environment": [],
       "externalConsole": false,
       "windows": {
-        "miDebuggerPath": "c:\\MinGW\\bin\\gdb.exe",
+        "miDebuggerPath": "c:\\cygwin64\\bin\\gdb.exe",
         "MIMode": "gdb"
       },
       "setupCommands": [

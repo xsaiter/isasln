@@ -48,7 +48,7 @@
       "options": {
         "cwd": "${workspaceRoot}/src/olymp/codef/contests/60/a"
       },
-      "command": "C:\\MinGW\\bin\\mingw32-g++.exe",
+      "command": "C:\\cygwin64\\bin\\g++.exe",
       "args": ["-g", "sol.cpp", "-o", "sol.exe"],
       "group": {
         "kind": "build",
