@@ -48,7 +48,7 @@
       "name": "(gdb) codef",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/src/olymp/codef/contests/60/a/sol.exe",
+      "program": "${workspaceFolder}/src/olymp/codef/contests/60/a/sol.out",
       "args": ["<", "${workspaceFolder}/src/olymp/codef/contests/60/a/in"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

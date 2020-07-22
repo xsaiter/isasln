@@ -63,7 +63,6 @@ int main() {
   int n, m;
   cin >> n >> m;
   vector<P> pp(m);
-
   cin >> ws;
   for (int i = 0; i < m; ++i) {
     string s;
