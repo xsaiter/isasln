@@ -46,7 +46,7 @@
       "label": "codef build windows",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceRoot}/src/olymp/codef/contests/60/a"
+        "cwd": "${workspaceRoot}/src/olymp/codef/contests/363/c"
       },
       "command": "C:\\cygwin64\\bin\\g++.exe",
       "args": ["-g", "sol.cpp", "-o", "sol.exe"],

@@ -69,18 +69,17 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}\\src\\olymp\\codef\\contests\\363\\c\\sol.exe",
-      "args": [
-        "<",
-        "${workspaceFolder}\\src\\olymp\\codef\\contests\\363\\c\\in"
-      ],
+      "args": ["<", "in"],
+      // "args": ["<", "${workspaceFolder}/src/olymp/codef/contests/363/c/in"],
       //"launchCompleteCommand": "exec-run",
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "codef build windows",
       "environment": [],
-      "externalConsole": false,
+      "externalConsole": true,
       "windows": {
         "miDebuggerPath": "c:\\cygwin64\\bin\\gdb.exe",
+        // "miDebuggerArgs": "H:\\in",
         "MIMode": "gdb"
       },
       "setupCommands": [
