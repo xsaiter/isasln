@@ -3,20 +3,47 @@
 using namespace std;
 using R = long long;
 
-R sum_range(const vector<R> &s, int n, int head, int tail) {
-  if (head < 0)
-    return s[tail - 1];
-  return s[tail - 1] - s[head];
+R sum_range(const vector<int> &a, int from, int to) {
+  R s = 0;
+  for (int i = from; i < to; ++i) {
+    s += a[i];
+  }
+  return s;
 }
 
-int solve(vector<R> &s, vector<int> &a, int n) {
-  if (s[n - 1] % 2 == 1)
-    return 1;
-  for (int i = n - 2; i >= 0; --i) {
-    if (s[i] % 2 == 1) {
-      break;
+int other_player(int player) { return player == 1 ? 2 : 1; }
+int rem_of_player(int player) { return player == 1 ? 1 : 0; }
+
+int solve(const vector<int> &a, int n) {
+  int player = 1;
+  int i = 0;
+  auto can_move = [&](R s) {
+    int rem = rem_of_player(player);
+    int k = n - 1;
+    bool can = false;
+    while (k >= 0) {
+      s -= a[k];
+      if (s % 2 == rem) {
+        i = k;
+        can = true;
+        break;
+      }
+      --k;
     }
+    return can;
+  };
+  while (true) {
+    auto s = sum_range(a, i, n);
+    auto rem = rem_of_player(player);
+    if (s % 2 == rem) {
+      return player;
+    }
+    if (!can_move(s)) {
+      return other_player(player);
+    }
+    player = other_player(player);
   }
+  return player;
 }
 
 int main() {
@@ -28,14 +55,6 @@ int main() {
   for (int i = 0; i < n; ++i) {
     cin >> a[i];
   }
-  vector<R> s(n);
-  s[0] = a[0];
-  for (int i = 1; i < n; ++i) {
-    s[i] = s[i - 1] + a[i];
-  }
-  cout << (solve(s, a, n) == 1 ? "First" : "Second") << endl;
-  // n = c + n
-  // c = c + c
-  // c = n + n
+  cout << (solve(a, n) == 1 ? "First" : "Second") << endl;
   return 0;
 }
