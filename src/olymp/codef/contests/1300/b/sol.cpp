@@ -2,11 +2,6 @@
 
 using namespace std;
 
-int solve(vector<int> &a, int m) {
-  int res = 0;
-  return res;
-}
-
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -20,7 +15,9 @@ int main() {
     for (int i = 0; i < m; ++i) {
       cin >> a[i];
     }
-    cout << solve(a, m) << "\n";
+    sort(begin(a), end(a));  
+    int res = abs(a[m / 2 - 1] - a[m / 2]);
+    cout << res << "\n";
   }
   cout << endl;
   return 0;
