@@ -1,2 +1,2 @@
 all:
-	g++ -g -Wall 1291/a/sol.cpp -o 1291/a/sol.out
+	g++ -g -Wall 1291/b/sol.cpp -o 1291/b/sol.out
