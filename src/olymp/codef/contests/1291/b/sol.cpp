@@ -21,6 +21,8 @@ string solve(vector<int> &a, int n) {
 }
 
 int main() {
+  Solution sln;
+  auto ress = sln.letterCombinations("2");
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
   int t;
