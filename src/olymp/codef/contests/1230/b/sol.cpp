@@ -3,6 +3,13 @@
 using namespace std;
 
 int main() {
+  int x = 2000000000;
+  ListNode *head = new ListNode(1);
+  head->next = new ListNode(2);
+  head->next->next = new ListNode(3);
+  Solution ss;
+  ListNode *ans = ss.rotateRight(head, 2000000);
+
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
   int n, k;
