@@ -3,7 +3,7 @@
 using namespace std;
 using M = vector<vector<int>>;
 
-void show_matrix(M &m, int n) {
+void show_matrix(const M &m, int n) {
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
       cout << m[i][j];
@@ -12,12 +12,17 @@ void show_matrix(M &m, int n) {
   }
 }
 
-bool solve(M &m, int n) {
-  for (int i = n - 1; i >= 0; --i) {
-    for (int j = n - 1; j >= 0; --j) {
-      
+bool is_failed(const M &m, int n, int i, int j) {
+  return m[i][j] == 1 && m[i + 1][j] == 0 && m[i][j + 1] == 0;
+}
+
+bool solve(const M &m, int n) {
+  for (int i = n - 2; i >= 0; --i) {
+    for (int j = n - 2; j >= 0; --j) {
+      if (is_failed(m, n, i, j)) return false;
     }
   }
+  return true;
 }
 
 int main() {
