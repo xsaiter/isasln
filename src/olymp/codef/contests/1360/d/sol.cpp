@@ -2,9 +2,20 @@
 
 using namespace std;
 
-int solve(int n, int k) {
-  int res = 0;
-    
+int solve(int n, int k) {  
+  int res = n;
+  if (n == k) return 1;
+  if (k == 1) return n;
+  for (int i = 1; i * i <= n; ++i) {
+    if (n % i == 0) {
+      if (i <= k) {
+        res = min(res, n / i);
+      }
+      if (n / i <= k) {
+        res = min(res, i);
+      }
+    }
+  }
   return res;
 }
 
@@ -16,7 +27,8 @@ int main() {
   while (t--) {
     int n, k;
     cin >> n >> k;
-    printf("%d\n", solve(n ,k));
-	}
+    cout << solve(n, k) << "\n";
+  }
+  cout << endl;
   return 0;
 }
