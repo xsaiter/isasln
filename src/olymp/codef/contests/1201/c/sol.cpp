@@ -5,7 +5,7 @@ using namespace std;
 int solve(vector<int> &a, int n) {
   int res = 0;
   sort(begin(a), end(a));
-  return res;
+  return a[(n - 1) % 2];
 }
 
 int main() {
