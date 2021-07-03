@@ -7,7 +7,8 @@ int solve(vector<int> &a, int n, int x) {
     return 1;
   }
   int mx = *max_element(begin(a), end(a));
-  return max(2, (x + mx - 1) / mx);
+  int s = x + mx - 1;
+  return max(2, (s - (s % mx)) / mx);
 }
 
 int main() {
