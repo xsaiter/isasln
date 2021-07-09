@@ -1,10 +1,14 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-using LL = long long;
+using R = long long;
 
-LL solve(int a, int b, int x, int y, int n) {
-  LL res = 0;
+R solve(int a, int b, int x, int y, int n) {  
+  R res = 0;
+  int aa = a - x;
+  int bb = b - y;
+  if (a == b) {    
+  } 
   return res;
 }
 
