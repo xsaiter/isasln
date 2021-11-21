@@ -10,7 +10,7 @@ L solve(L n, L m, L x) {
   return (i - 1) * m + j;  
 }
 
-int main() {
+int main() {  
   int tt;
   cin >> tt;
   while (tt--) {
