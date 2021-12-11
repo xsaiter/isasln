@@ -5,7 +5,7 @@ using namespace std;
 bool solve(string &s, int a, int b) {
   int n = a + b;
   int i = 0, j = n - 1, cnt = 0;  
-  while (i < j && a >= 0 && b >= 0) {
+  while (i < j) {
     if (s[i] == '?' && s[j] == '?') {
       ++cnt;
     } else if (s[i] != '?' && s[j] != '?') {
@@ -13,22 +13,23 @@ bool solve(string &s, int a, int b) {
         return false;
       }
     } else {
-      if (s[i] == '?') {
-        if (s[j] == '0') --a; else --b;
+      if (s[i] == '?') {        
         s[i] = s[j];        
-      } else if (s[j] == '?') {
-        if (s[i] == '0') -- a; else --b;
+      } else if (s[j] == '?') {        
         s[j] = s[i];
       }
     }
     ++i; --j;
   }  
+  for (int i = 0; i < n; ++i) {
+    if (s[i] == '0') --a;
+    else if (s[i] == '1') --b;
+  }
   while (cnt--) {
     if (a > 2) a -= 2;
     else if (b > 2) b -= 2;
   }
-  if (cnt == 0 && a == 0 && b == 0) return true;
-  return false;
+  return (cnt == 0 && a == 0 && b == 0);
 }
 
 int main() {
