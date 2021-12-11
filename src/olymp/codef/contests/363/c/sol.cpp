@@ -1,10 +1,22 @@
 #include <bits/stdc++.h>
 
+#define DEBUG
+
+#if DEBUG
+
+#endif
+
 using namespace std;
 
-int main() {
+int main(int argc, char **argv) {
+  for (int i = 0; i < argc; ++i) {
+    string s(argv[i]);
+    cout << s << endl;
+  }
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
+  int x;
+  cin >> x;
   string s;
   cin >> s;
   int n = (int)s.size();
