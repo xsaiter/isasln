@@ -4,10 +4,11 @@ using namespace std;
 
 bool solve(string &s, int a, int b) {
   int n = a + b;
-  int i = 0, j = n - 1, cnt = 0;  
+  int i = 0, j = n - 1;  
+  vector<int> pos;
   while (i < j) {
     if (s[i] == '?' && s[j] == '?') {
-      ++cnt;
+      pos.push_back(i);      
     } else if (s[i] != '?' && s[j] != '?') {
       if (s[i] != s[j]) {
         return false;
@@ -21,15 +22,25 @@ bool solve(string &s, int a, int b) {
     }
     ++i; --j;
   }  
-  for (int i = 0; i < n; ++i) {
-    if (s[i] == '0') --a;
-    else if (s[i] == '1') --b;
+  for (int k = 0; k < n; ++k) {
+    if (s[k] == '0') --a;
+    else if (s[k] == '1') --b;
   }
-  while (cnt--) {
-    if (a > 2) a -= 2;
-    else if (b > 2) b -= 2;
-  }
-  return (cnt == 0 && a == 0 && b == 0);
+  int m = (int)pos.size();
+  bool suc = true;
+  for (int k = 0; k < m; ++k) {
+    if (a >= 2) {
+      s[pos[k]] = '0'; s[n - 1 - pos[k]] = '0';
+      a -= 2;
+    } else if (b >= 2) {
+      b -= 2;
+      s[pos[k]] = '1'; s[n - 1 - pos[k]] = '1';
+    } else {
+      suc = false;
+      break;
+    }
+  }  
+  return (suc && a == 0 && b == 0);
 }
 
 int main() {
