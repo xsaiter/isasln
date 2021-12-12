@@ -4,7 +4,7 @@ using namespace std;
 
 bool solve(string &s, int a, int b) {
   int n = a + b;
-  int i = 0, j = n - 1;  
+  int i = 0, j = n - 1, mid = -1;  
   vector<int> pos;
   while (i < j) {
     if (s[i] == '?' && s[j] == '?') {
@@ -21,7 +21,10 @@ bool solve(string &s, int a, int b) {
       }
     }
     ++i; --j;
-  }  
+  }
+  if (n % 2 != 0 && s[i] == '?') {
+    mid = i;
+  }
   for (int k = 0; k < n; ++k) {
     if (s[k] == '0') --a;
     else if (s[k] == '1') --b;
@@ -39,8 +42,15 @@ bool solve(string &s, int a, int b) {
       suc = false;
       break;
     }
-  }  
-  return (suc && a == 0 && b == 0);
+  }
+  if (mid > -1) {
+    if (a > 0) {
+      s[mid] = '0'; --a; mid = -1;
+    } else if (b > 0) {
+      s[mid] = '1'; --b; mid = -1;
+    }
+  }
+  return (suc && a == 0 && b == 0 && mid == -1);
 }
 
 int main() {
