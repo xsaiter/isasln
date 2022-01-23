@@ -3,19 +3,17 @@
 using namespace std;
 
 void solve(int n, int k, vector<int> &a) {
-  int i = 0, j = 0;   
-  while (i < n && k > 0) {
-    for (j = i + 1; j < n; ++j) {
-      if (a[i] > a[j]) {
-        a[i] -= a[j];
-        a[j] = 0;        
-      } else {
-        a[j] -= a[i];
-        a[i] = 0;
-      }
-      if (j == n) break;
-      i = j;
-    }   
+  for (int i = 0; i < n - 1 && k > 0; ++i) {
+    if (a[i] == 0) continue;
+    if (a[i] < k) {
+      k -= a[i];      
+      a[n - 1] += a[i];      
+      a[i] = 0;
+    } else {      
+      a[i] -= k;
+      a[n - 1] += k;      
+      k = 0;            
+    }
   }  
 }
 
