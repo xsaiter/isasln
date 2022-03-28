@@ -1,11 +1,5 @@
 #include <bits/stdc++.h>
 
-#define DEBUG
-
-#if DEBUG
-
-#endif
-
 using namespace std;
 
 int main(int argc, char **argv) {
