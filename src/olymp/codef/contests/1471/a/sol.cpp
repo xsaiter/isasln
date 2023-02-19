@@ -5,30 +5,28 @@ using namespace std;
 using L = long long;
 
 struct Res {
-  L mi, ma;
+  int mi, ma;
 };
 
-Res solve(vector<int> &a, int n, int x) {
-  Res res;
+L calc(L t, int x) {
+  long double r = (long double)t / (long double)x;
+  return (L)ceill(r);
+}
+
+Res solve(vector<int> &a, int n, int x) {  
   L mi = 0, ma = 0;  
   for (int i = 0; i < n; ++i) {
-    ma += a[i];
+    ma += calc(a[i], x);
   }
-  ma = calc(ma, x);
+  L cur = 0;  
   for (int i = 0; i < n; ++i) {
-    L tmp = ma + x;
-    if (tmp % x == 0) {
-      mi += tmp;
-    }
+    cur += a[i];
   }
+  mi += calc(cur, x);
+  Res res;
   res.mi = mi;
   res.ma = ma;
   return res; 
-}
-
-L calc(L t, L x) {
-  double res = t / x + 0.5;
-  return (L)res;
 }
 
 int main() {
@@ -42,6 +40,8 @@ int main() {
       cin >> a[i];
     }
     Res res = solve(a, n, x);
+    cout << res.mi << " " << res.ma << "\n";
   }
+  cout << endl;
   return 0;
 }
