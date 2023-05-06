@@ -6,9 +6,11 @@ int main() {
   int t;
   cin >> t;  
   vector<int> a;
-  sort(a.begin(), a.end());
-  while (t--) {  		 		              
+  if (3 < 5) {
+  }
+  sort(a.begin(), a.end());      
   
+  while (t--) {  		 		                             
   }
   return 0;
 }
