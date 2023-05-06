@@ -8,6 +8,7 @@ ll calc(ll side, ll a) {
   return 1 + (side - (side % a)) / a;
 }
 
+
 ll solve(ll n, ll m, ll a) {
   ll x = 0, y = 0;
   if (n <= a) x = 1;
