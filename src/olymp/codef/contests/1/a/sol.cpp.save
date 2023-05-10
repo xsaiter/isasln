@@ -4,8 +4,7 @@ using namespace std;
 using ll = long long;
 
 ll calc(ll side, ll a) {
-  if (side % a == 0) return side / a; 
-  return 1 + (side - (side % a)) / a;
+  if (side % a == 0) return side / a;  return 1 + (side - (side % a)) / a;
 }
 
 
