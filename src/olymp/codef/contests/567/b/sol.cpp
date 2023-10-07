@@ -9,11 +9,10 @@ struct Rec {
 
 int solve(int n, const vector<Rec> &a) {
   int res = 0;
-  for (int i = 0; i < n; ++i) {
-    if (a[i].c == '+') {
-      ++res;
-    } else {
-    }
+  int cur = 0;
+  int len = 0;
+  bool state = false;    
+  for (int i = 0; i < n; ++i) {    
   }
   return res;
 }
