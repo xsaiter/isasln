@@ -32,7 +32,7 @@ Res get_res(char x, char y) {
   return res;
 }
 
-Res search(string s) {
+Res search(const string &s) {
   if (s[0] == '?') {
     return get_res(s[1], s[2]);
   }
@@ -47,7 +47,7 @@ Res search(string s) {
   return res;
 }
 
-char solve(string a, string b, string c) {
+char solve(const string &a, const string &b, const string &c) {
   Res res = search(a);
   if (res.yes) {
     return res.c;
