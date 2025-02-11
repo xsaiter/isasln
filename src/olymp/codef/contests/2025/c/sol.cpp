@@ -4,60 +4,60 @@ using namespace std;
 
 struct Rec {
   int len;  
-  int value;
+  int v;
 };
 
 int solve(int n, int k, vector<int> &a) {      
   sort(begin(a), end(a));
   vector<Rec> b;
-  int cur = a[0];
+  int v = a[0];
   int len = 1;
   for (int i = 1; i < n; ++i) {                
-    if (a[i] == cur) {
+    if (a[i] == v) {
       ++len;
     } else {
-      Rec rec;
-      rec.len = len;
-      rec.value = cur;
+      Rec rec {
+        .len = len,
+        .v = v
+      };      
       b.push_back(rec);
       len = 1;
-      cur = a[i];
+      v = a[i];
     }
   }
-  Rec last;
-  last.len = len;
-  last.value = cur;
+  Rec last {
+    .len = len,
+    .v = v
+  };
   b.push_back(last);
 
   sort(begin(b), end(b), 
     [](const Rec &x,  const Rec &y) {
-      return x.value < y.value; });
-        
-  // 3 4 5 6 7   9 10 11 12 13 14 15 16 17 18   25 26 27
+      return x.v < y.v; });        
 
   int m = (int)b.size();
-  int p = 0, q = 0, loc = 0, res = 0;
+  int p = 0, q = 0, buf = 0, res = 0;  
   while (true) {
     if (q - p + 1 <= k) {
-      loc += b[q].len;
-      res = max(res, loc);      
+      buf += b[q].len;
+      res = max(res, buf);      
     } else {      
-      ++p;
-      q = p;
-      res = max(res, loc);
-      loc = b[p].len;
-      res = max(res, loc);
+      ++p;      
+      res = max(res, buf);
+      buf -= b[p - 1].len;      
+      buf += b[q].len;
+      res = max(res, buf);
     }    
     ++q;
-    if (q == m) {
+    if (p == m || q == m) {
       break;
     }
-    if (b[q].value != b[q - 1].value + 1) {     
+    if (b[q].v != b[q - 1].v + 1) {     
       p = q;
       q = p;        
-      res = max(res, loc);
-      loc = 0;
-    }
+      res = max(res, buf);
+      buf = 0;      
+    } 
   }
   return res;
 }
