@@ -30,41 +30,34 @@ int solve(int n, int k, vector<int> &a) {
   b.push_back(last);
 
   sort(begin(b), end(b), 
-    [](const Rec &x,  const Rec &y) { 
-      return x.value < y.value; });  
+    [](const Rec &x,  const Rec &y) {
+      return x.value < y.value; });
+        
+  // 3 4 5 6 7   9 10 11 12 13 14 15 16 17 18   25 26 27
 
-  int m = (int)b.size();  
-  
-  for (int i = 0; i < m; ++i) {
-    cout << b[i].value << "-" << b[i].len << '\t';
-  }  
-
-  // 4-5  5-2  6-2 result = 9
-  // 2-2 3-3 4-3 5-2 result = 6 (k = 2)
-
-  int res = 0;
-  int p = 0, q = 0;  
-  int loc = b[p].len;  
-  while (p < m && q < m) {
+  int m = (int)b.size();
+  int p = 0, q = 0, loc = 0, res = 0;
+  while (true) {
     if (q - p + 1 <= k) {
-      ++q;
       loc += b[q].len;
-    } else {
+      res = max(res, loc);      
+    } else {      
+      ++p;
+      q = p;
       res = max(res, loc);
-      loc -= b[p].len;
-      ++p;      
+      loc = b[p].len;
+      res = max(res, loc);
     }    
-    if (b[q] + 1 == b[q + 1]) {
-      ++q;
-    } else {
-      p = q;
-    }
     ++q;
-    if (q >= m) {
+    if (q == m) {
       break;
     }
-    loc += b[q].len;      
-    res = max(res, loc);    
+    if (b[q].value != b[q - 1].value + 1) {     
+      p = q;
+      q = p;        
+      res = max(res, loc);
+      loc = 0;
+    }
   }
   return res;
 }
@@ -78,13 +71,9 @@ int main() {
     vector<int> a(n);
     for (int i = 0; i < n; ++i) {
       cin >> a[i];
-    }
-    cout << "t=" << t << '\n';
-    int res = solve(n, k, a);
-    cout << "__result: " << res << "\n\n";
+    }    
+    cout << solve(n, k, a) << "\n";
   }
   cout << endl;
   return 0;
 }
-
-vector<int> a(n);
