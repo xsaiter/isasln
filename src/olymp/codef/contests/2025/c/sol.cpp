@@ -7,9 +7,7 @@ struct Rec {
   int v;
 };
 
-int solve(int n, int k, vector<int> &a) {      
-  sort(begin(a), end(a));
-  vector<Rec> b;
+void init(int n, const vector<int> &a, vector<Rec> &result) {    
   int v = a[0];
   int len = 1;
   for (int i = 1; i < n; ++i) {                
@@ -20,7 +18,7 @@ int solve(int n, int k, vector<int> &a) {
         .len = len,
         .v = v
       };      
-      b.push_back(rec);
+      result.push_back(rec);
       len = 1;
       v = a[i];
     }
@@ -29,13 +27,19 @@ int solve(int n, int k, vector<int> &a) {
     .len = len,
     .v = v
   };
-  b.push_back(last);
+  result.push_back(last);
 
-  sort(begin(b), end(b), 
+  sort(begin(result), end(result), 
     [](const Rec &x,  const Rec &y) {
-      return x.v < y.v; });        
+      return x.v < y.v; });          
+}
 
+int solve(int n, int k, vector<int> &a) {
+  sort(begin(a), end(a));  
+  vector<Rec> b;
+  init(n, a, b);
   int m = (int)b.size();
+
   int p = 0, q = 0, buf = 0, res = 0;  
   while (true) {
     if (q - p + 1 <= k) {
@@ -72,7 +76,7 @@ int main() {
     for (int i = 0; i < n; ++i) {
       cin >> a[i];
     }    
-    cout << solve(n, k, a) << "\n";
+    cout << solve(n, k, a) << '\n';
   }
   cout << endl;
   return 0;
