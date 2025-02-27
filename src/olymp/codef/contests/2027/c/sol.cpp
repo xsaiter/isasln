@@ -2,23 +2,30 @@
 
 using namespace std;
 
-// 0 < i <= len(a) and a[i] = len(a) + 1 - i
-// adding (i - 1) of 0 at the ending of array
+using C = long long;
 
-int dp(int n, int len, vector<int> &a, vector<int> &idx) {
-  int res = n;
-  for (int i = 0; i < n; ++i) {
-    if (a[i] == len + 1 - i) {      
-      int add = i - 1;
-      res = max(res + add, dp(n, len + add, a));
-    }
+// 0 < i <= len(a) and a[i] = len(a) + 1 - i
+// add (i - 1) zeros to the the end of array
+
+C dp(int n, vector<C> &a, C k, map<C, C> &m) {    
+  if (m.count(k)) {
+    return m[k];
   }
-  return res;
+  auto best = k;
+  for (int i = 0; i < n; ++i) {    
+    auto j = i + 1;
+    if (a[i] == k + 1 - j && j - 1 > 0) {      
+      C res = dp(n, a, k + j - 1, m);      
+      best = max(best, res);      
+    }    
+  }  
+  m.insert(pair<C, C>(k, best));
+  return best;
 }
 
-int solve(int n, vector<int> &a) {
-  vector<int> idx(n);
-  return dp(n, n, a);
+C solve(int n, vector<C> &a) {  
+  map<C, C> m;
+  return dp(n, a, n, m);
 }
 
 int main() {
@@ -27,11 +34,11 @@ int main() {
   while (t--) {
     int n;
     cin >> n;
-    vector<int> a(n);
+    vector<C> a(n);
     for (int i = 0; i < n; ++i) {
       cin >> a[i];
     }
-    cout << solve(n, a) << '\n';
+    cout << solve(n, a) << '\n';        
   }
   cout << endl;
   return 0;
