@@ -10,11 +10,12 @@ using Matrix = vector<vector<int>>;
 
 int solve(int n, int m, vector<int> &r) {
   int res = 0;  
-  vector<vector<int>> d;
-  int I = 0, S = 0;
-  int dn = 0, dm = 0;
-  for (int i = 0; i < dn; ++i) {    
-    for (int j = 0; j < dm; ++j) {
+  vector<vector<int>> d(n);
+  int I = 0, S = 0;    
+  for (int i = 0; i < n; ++i) {
+    auto elm = find(begin(d), end(d), i);
+    auto v = *elm;
+    if (v.exists(0)) {
       
     }
   }
