@@ -22,6 +22,9 @@ vector<int> solve(int n, const vector<int> &p, const string &s) {
       j = p[j] - 1;      
     }    
     nc++;
+    /*if (k[i] != -1) {
+      f[i] = g[k[i]];
+    }*/
   }
   for (int i = 0; i < n; ++i) {
     if (k[i] != -1) {
