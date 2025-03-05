@@ -2,36 +2,30 @@
 
 using namespace std;
 
-vector<int> solve(int n, const vector<int> &p, const string &s) {
-  vector<int> f(n, 0);
+void solve(int n, const vector<int> &p, const string &s, vector<int> &f) {  
   vector<int> g(n, 0);
   vector<int> k(n, -1);  
+  vector<int> visited(n, 0);
   int nc = 0;
   for (int i = 0; i < n; ++i) {
-    if (k[i] != -1) {      
+    if (k[i] != -1) {
+      f[i] = g[k[i]];      
       continue;
     }
-    int j = i;
-    vector<int> vis(n, 0);    
-    while (vis[j] != 1) {      
+    int j = i;    
+    while (visited[j] != 1) {      
       k[j] = nc;    
       if (s[j] == '0') {        
-        g[nc]++;
+        ++g[nc];
       }
-      vis[j] = 1;
+      visited[j] = 1;
       j = p[j] - 1;      
     }    
-    nc++;
-    /*if (k[i] != -1) {
-      f[i] = g[k[i]];
-    }*/
-  }
-  for (int i = 0; i < n; ++i) {
+    ++nc;
     if (k[i] != -1) {
       f[i] = g[k[i]];
     }
-  }
-  return f;
+  }    
 }
 
 int main() {
@@ -46,7 +40,8 @@ int main() {
     }
     string s;
     cin >> s;
-    vector<int> f = solve(n, p, s);
+    vector<int> f(n, 0);
+    solve(n, p, s, f);
     for (int i = 0; i < n; ++i) {
       cout << f[i] << ' ';
     }
