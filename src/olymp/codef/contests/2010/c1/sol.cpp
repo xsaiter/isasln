@@ -2,27 +2,39 @@
 
 using namespace std;
 
-struct Res {
-  string s;
+struct Res {  
   bool yes;
+  string s;
 };
 
-// abbc -> abc
-// abababab -> ababab ababab
-               //ababab
-// 1 2 1 3 2 1 3
+const int NO_POS = -1;
 
-Res solve(string &t) {
-  Res no = { .yes = false };  
+Res solve(string &t) {  
   int n = (int)t.size();
-  int K = n / 2;
-  for (int k = 1; k < K; ++k) {
+  int kk = (n - (n % 2)) / 2;
+  if (n % 2 != 0) {
+    ++kk;
+  }
+  int pos = NO_POS;
+  for (int k = 1; k < kk; ++k) {
+    pos = k;
     for (int i = k; i < n; ++i) {
-      if (t[i] == t[j]) {        
+      if (t[i - k] != t[i]) {
+        pos = NO_POS;
+        break;
       }
     }    
+    if (pos != NO_POS) {
+      break;
+    }
   }
-  return no;
+  if (pos == NO_POS) {
+    return Res { .yes = false };
+  }  
+  return Res { 
+    .yes = true, 
+    .s = t.substr(pos, n - pos) 
+  };  
 }
 
 int main() {
