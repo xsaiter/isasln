@@ -1,33 +1,54 @@
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
-
+using L = long long;
+ 
 struct P {
   int x, y;
 };
-
-int solve(int n, vector<P> &a) {
-  int res = 0;
-  vector<int> b, c;
-  for (int i = 0; i < n; ++i) {
-    if (a[i].y == 0) {
-      b.push_back(a[i].x);
-    } else {
-      c.push_back(a[i].x);
+ 
+bool is_hit(const vector<int> &a, int n, int x) {  
+  if (x < 0 || n < x) {
+    return false;
+  }
+  return a[x] == 1;
+}
+ 
+L cnt(const vector<int> &b, const vector<int> &c, int nb, int nc, int nnb) {
+  L res = 0;
+  for (int i = 0; i <= nc; ++i) {    
+    if (c[i] == 0) {
+      continue;
     }
-  }
-  sort(begin(b), end(b));
-  sort(begin(c), end(c)); 
-    
-  int nb = (int)b.size();
-  int nc = (int)c.size();
-  int p = 0, q = 0;
-  while (p < nb && q < nc) {    
-    ++p; ++q;
-  }
+    if (is_hit(b, nb, i)) {
+      res += nnb - 1;            
+    }        
+    if (is_hit(b, nb, i - 1) && is_hit(b, nb, i + 1)) {      
+      res += 1;
+    }
+  }  
   return res;
 }
-
+ 
+L solve(int n, vector<P> &a) {  
+  vector<int> b(n + 1, 0);
+  vector<int> c(n + 1, 0);
+  int nb = -1, nc = -1, nnb = 0, nnc = 0;
+  for (int i = 0; i < n; ++i) {
+    if (a[i].y == 0) {
+      b[a[i].x] = 1;
+      nb = max(nb, a[i].x);
+      ++nnb;
+    } else {
+      c[a[i].x] = 1;
+      nc = max(nc, a[i].x);
+      ++nnc;
+    }
+  }
+  return cnt(b, c, nb, nc, nnb) + 
+         cnt(c, b, nc, nb, nnc);
+}
+ 
 int main() {
   int t;
   cin >> t;
