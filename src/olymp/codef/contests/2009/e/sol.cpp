@@ -16,8 +16,8 @@ L calc(L k, L i, L s) {
 vector<L> search(L k, L l, L r, L s) {
   if (r - l < K) {
     vector<L> res;   
-    for (L i = 0; i <= K; ++i) {
-      res.push_back(l + i);
+    for (L i = l; i <= r; ++i) {
+      res.push_back(i);
     }    
     return res;
   }  
