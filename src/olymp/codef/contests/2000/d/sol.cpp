@@ -2,8 +2,12 @@
 
 using namespace std;
 
-int solve(int n, vector<int> &a, string &s) {
+int solve(int n, const vector<int> &a, const string &s) {
   int res = 0;
+  int l = 0, r = 0;  
+  while (true) {
+       
+  }
   return res;
 }
 
