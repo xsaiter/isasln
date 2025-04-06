@@ -3,44 +3,27 @@
 using namespace std;
 
 using L = long long;
-using M = vector<vector<int>>;
 
-L spect(int w, const vector<int> &a) {
-  L res = 0L;
-  return res;
+L cnt(L i, L j, L n, L m, L k) {
+  L x = min(i, n - k) - max((L)-1, i - k);
+  L y = min(j, m - k) - max((L)-1, j - k);
+  return x * y;
 }
 
-L count_sq(int n, int k) {  
-  if (n < k) {
-    return 0;
-  }
-  if (n == k) {
-    return 1;
-  }
-  L d = (L)(n - k);
-  return d * d;  
-}
-
-int center(int x) {
-  int rem = x % 2;
-  if (rem == 0) {
-    return x / 2;
-  }
-  return (x + 1) / 2;
-}
-
-L solve(int n, int m, int k, int w, vector<int> &a) {
+L solve(L n, L m, L k, L w, vector<L> &a) {  
   sort(begin(a), end(a), greater<>());
-  L res = 0L;
-  int W = n * m;
-  M d(n, vector<int>(m, 0));
-  int cn = center(n), cm = center(m);    
-  int i = 0;
-  while (i < w) {        
-    d[cn][cm] = a[i];
-    if (cn < cm) {      
+  L N = n * m;
+  vector<L> b(N, 0L);  
+  for (L i = 0; i < n; ++i) {
+    for (L j = 0; j < m; ++j) {
+      b[i + j] = cnt(i + 1, j + 1, n, m, k);
     }
-    ++i;    
+  }  
+  sort(begin(b), end(b), greater<>());
+  L res = 0L;
+  L nn = min(N, w);
+  for (L i = 0; i < nn; ++i) {
+    res += b[i] * a[i];
   }
   return res;
 }
@@ -49,11 +32,11 @@ int main() {
   int t;
   cin >> t;
   while (t--) {
-    int n, m, k;
+    L n, m, k;
     cin >> n >> m >> k;
-    int w;
+    L w;
     cin >> w;
-    vector<int> a(w);
+    vector<L> a(w);
     for (int i = 0; i < w; ++i) {
       cin >> a[i];
     }
@@ -62,4 +45,3 @@ int main() {
   cout << endl;
   return 0;
 }
-// 4 + 4 + 4 + 3 + 3 + 2
