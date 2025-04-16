@@ -2,12 +2,26 @@
 
 using namespace std;
 
+using L = long long;
+
 struct P {
   L x, y;
 };
 
-bool solve(int n, vector<P> &c, P a, P b) {
-  return false;
+L dist(const P&a, const P &b) {
+  return (a.x - b.x) * (a.x - b.x) + 
+    (a.y - b.y) * (a.y - b.y);
+}
+
+bool solve(int n, const vector<P> &c, const P &a, const P &b) {
+  L d = dist(a, b);
+  for (int i = 0; i < n; ++i) {     
+    L d2 = dist(c[i], b);
+    if (d2 <= d) {
+      return false;
+    }
+  }
+  return true;
 }
 
 int main() {
@@ -24,7 +38,8 @@ int main() {
     cin >> a.x >> a.y;
     P b;
     cin >> b.x >> b.y;
-
+    cout << (solve(n, c, a, b) ? "YES" : "NO") << '\n';
   }
-  return 0
+  cout << endl;
+  return 0;
 }
