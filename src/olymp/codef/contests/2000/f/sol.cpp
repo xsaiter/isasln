@@ -7,77 +7,41 @@ struct R {
   int a, b;
 };
 
-struct RCmp {
-  bool operator ()(const R &x, const R &y) const {   
-    return min(x.a, x.b) < min(y.a, y.b);
-  }
-};
+const int INF = 1e9;
 
-void sort(vector<R> &vec) {
-  sort(begin(vec), end(vec), RCmp());
-}
-
-int solve(int n, int k, vector<R> &rr) {
-  int res = 0;
-  sort(rr);
-  int i = 0;
-  R r = rr[i];
-  while (k > 0) {     
-    if (r.a < r.b) {
-      res += r.a;
-      --k;
-      r.b--;
-      if (r.b == 0) {
-        k -= r.a;
+int solve(int n, int k, const vector<R> &rr) {    
+  vector<int> dp(k + 1, INF);  
+  dp[0] = 0;
+  int ii = 0;
+  while (ii < n) {
+    int a = rr[ii].a;
+    int b = rr[ii].b;
+    int cnt = 0;
+    int cost = 0;
+    vector<int> q(k + 1, INF);
+    q[0] = 0;
+    while (cnt < k && (a > 0 || b > 0)) {
+      if (a < b) {
+        swap(a, b);
       }
-    } else if (r.a > r.b) {
-      res += r.b;
-      --k;
-      r.a--;
-      if (r.a == 0) {
-        k -= r.b;
-      }
-    } else {
-      res += r.a;
-      --k;
-      r.b--;
-      if (r.b == 0) {
-        k -= r.a;
-      }
-    }
-    if (r.a == 0 || r.b == 0) {
-      ++i;
-      if (i == n) {
-        break;
-      }
-      r = rr[i];
+      ++cnt;
+      cost += b;
+      --a;
+      q[cnt] = cost;
     }    
-  }
-  if (k > 0) {
-    return -1;
-  }
-  return res;
-}
-
-int solve2(int n, int k, const vector<R> &rr) {  
-  // i - number of rects
-  // j - number of points
-  M dp(n + 1, vector<int>(k + 1, INT_MAX));  
-  dp[0][0] = 0;
-  for (int i = 1; i <= n; ++i) {
-    int a = rr[i].a;
-    int b = rr[i].b;
-    int cost = 0;    
-    for (int j = 1; j <= k; ++j) {
-      dp[i][j] = min(dp[i][j], dp[i - 1][j - 1] + cost);
-      if (a >= b) {
-        --a; cost += b;
-      } else {
-        --b; cost += a;
+    for (int i = k; i >= 0; --i) {
+      dp[i] = min(dp[i], q[i]);
+      for (int j = 1; j <= k; ++j) {        
+        for (int ii = 1; ii <= k - j; ++ii) {
+          if (j + ii == i) {
+            dp[i] = min(dp[i], dp[j] + q[ii]);              
+          }
+        }        
       }
     }    
+    ++ii;
   }
-  return dp[n][k];
+  return (dp[k] == INF ? -1 : dp[k]);
 }
 
 int main() {
@@ -90,7 +54,7 @@ int main() {
     for (int i = 0; i < n; ++i) {
       cin >> rr[i].a >> rr[i].b;
     }
-    cout << solve2(n, k, rr) << '\n';
+    cout << solve(n, k, rr) << '\n';
   }
   cout << endl;
   return 0;
