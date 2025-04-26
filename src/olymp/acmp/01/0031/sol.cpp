@@ -2,10 +2,8 @@
 
 using namespace std;
 
-int n, k;
-
 int main(){
-  scanf("%d %d", &n, &k);
-  printf("%d, %d", n, k);
+  int n, k;
+  cin >> n >> k;
   return 0;  
 }
