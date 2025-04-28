@@ -2,9 +2,6 @@
 
 using namespace std;
 
-constexpr int M = 1000;
-int a[M];
-
 bool is_prime(int x) {
   for (int i = 2; i * i <= x; ++i) {
     if (x % i == 0) {
@@ -15,22 +12,44 @@ bool is_prime(int x) {
 }
 
 int len(int x) {
-  int r = 0;
-  while (x != 0) {
-    auto p = x % 10;
-    x = (x - p) / 10;
+  int r = 1;
+  while (x > 9) {
+    int rem = x % 10;
+    x = (x - rem) / 10;
     ++r;
   }
   return r;
 }
 
-int main() {
-  int y = len(7899);
-  int m;
-  cin >> m;
-  for (int i = 2; i < 1000; ++i) {
-    if (is_prime(i)) {
+int to_dig(char c) {
+  return (int)c - (int)'0';
+}
+
+int solve(int pos, string &s) {  
+  return to_dig(s[pos]);
+}
+
+string build() {
+  ostringstream os;
+  for (int j = 2; j <= 200000; ++j) {
+    if (is_prime(j)) {
+      os << to_string(j);
     }
   }
+  return os.str(); 
+}
+
+int main() {  
+  int m;
+  cin >> m;
+  vector<int> a(m);
+  for (int i = 0; i < m; ++i) {
+    cin >> a[i];
+  }
+  string s = build();
+  for (int i = 0; i < m; ++i) {    
+    cout << solve(a[i] - 1, s);
+  }
+  cout << endl;
   return 0;
 }

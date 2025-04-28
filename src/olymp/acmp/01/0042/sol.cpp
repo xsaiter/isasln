@@ -1,12 +1,17 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+using L = long long;
 
-int main() {
-  ios::sync_with_stdio(0);
-  cin.tie(0);
-  int n;
+L solve(L n) {
+  L res = 1;
+  L x = 1;
+  return res;
+}
+
+int main() {  
+  L n;
   cin >> n;
-
+  cout << solve(n) << endl;
   return 0;
 }
