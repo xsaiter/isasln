@@ -29,7 +29,7 @@ R solve(int n, const vector<int> &a) {
     }    
   }
   reverse(b.begin(), b.end());
-  res.b=  b;
+  res.b = b;
   return res;
 }
 
