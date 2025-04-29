@@ -16,14 +16,20 @@ R solve(int n, const vector<int> &a) {
   }
   R res;
   res.sum = dp[n];
-  for (int i = n; i >= 1; --i) {
-    int d = dp[i] - a[i - 1];
-    if (d == dp[i - 1]) {
-      res.b.push_back(i);
-    } else {
-      res.b.push_back(i - 1);
-    }
+  int j = n;  
+  vector<int> b;
+  while (j >= 1) {
+    int d = dp[j] - a[j - 1];
+    if (d == dp[j - 1]) {
+      b.push_back(j);
+      j -= 1;
+    } else if (d == dp[j - 2]) {            
+      b.push_back(j);
+      j -= 2;
+    }    
   }
+  reverse(b.begin(), b.end());
+  res.b=  b;
   return res;
 }
 
