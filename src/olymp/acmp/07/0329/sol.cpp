@@ -13,9 +13,7 @@ R solve(int n, const vector<int> &a) {
   dp[1] = a[0];
   for (int i = 1; i < n; ++i) {    
     dp[i + 1] = max(dp[i], dp[i - 1]) + a[i];    
-  }
-  R res;
-  res.sum = dp[n];
+  }  
   int j = n;  
   vector<int> b;
   while (j >= 1) {
@@ -28,9 +26,8 @@ R solve(int n, const vector<int> &a) {
       j -= 2;
     }    
   }
-  reverse(b.begin(), b.end());
-  res.b = b;
-  return res;
+  reverse(b.begin(), b.end());  
+  return R { .sum = dp[n], .b = b };
 }
 
 int main() {
