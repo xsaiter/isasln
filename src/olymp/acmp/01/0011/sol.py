@@ -1,17 +1,12 @@
-import sys
- 
-n, k = map(int, input().split())
+k, n = map(int, input().split())
 n += 1
 
-dp = []
-
-print(n)
-print(k)
+dp = [0] * n
 
 dp[0] = 1
-for i in range(n):
-    for j in range(k, i):
+for i in range(1, n):  
+    for j in range(1, min(k, i) + 1):
         dp[i] = dp[i] + dp[i - j]
 
-print(n)
+print(dp[n - 1])
 
