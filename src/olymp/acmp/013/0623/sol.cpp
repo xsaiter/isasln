@@ -11,7 +11,7 @@ L solve(int n) {
   L x = 1, y = 1, tmp = 1;  
   for (int i = 3; i <= n; ++i) {
     tmp = y;
-    y = x + y;
+    y = (x + y) % 10;
     x = tmp;            
   }
   return y;
@@ -22,7 +22,7 @@ int main() {
   cin >> n;  
   ++n;
   L r = solve(n);
-  cout << (r % 10) << endl;
+  cout << r << endl;
   return 0;
 }
 

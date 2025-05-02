@@ -1,5 +1,9 @@
+import math
+
 k, n = map(int, input().split())
 n += 1
+
+math.sqrt(n)
 
 dp = [0] * n
 

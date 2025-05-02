@@ -2,19 +2,18 @@
 
 using namespace std;
 
-bool solve(int a, int x) {
-  if (a == 0) {
-    return (x % 2 == 1);
+bool solve(string &s, int x) {
+  if (s == "School" && x % 2 == 0) {
+    return false;
   }
-  return (x % 2 == 1);
+  return true;
 }
 
 int main() {
   string s;
-  cin >> s;
-  int a = (s == "Home") ? 0 : 1;
+  cin >> s;  
   int x;
   cin >> x;
-  cout << (solve(a, x) ? "Yes" : "No") << endl;
+  cout << (solve(s, x) ? "Yes" : "No") << endl;
   return 0;
 }
