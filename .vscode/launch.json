@@ -3,16 +3,17 @@
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
-  "configurations": [
+  "configurations": [    
     {
-      "name": "(gdb) Launch",
+      "name": "acmp debug",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/src/isa-pso/isa-pso",
-      "args": [],
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [
+        "<${fileDirname}//in",
+      ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "cmake build",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
@@ -22,124 +23,22 @@
           "text": "-enable-pretty-printing",
           "ignoreFailures": true
         }
-      ]
-    },
-    {
-      "name": "(gdb) test",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/build/src/isa-tests/isa-tests",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
-      "preLaunchTask": "cmake build",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    },
-    {
-      "name": "(gdb) codef",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/src/olymp/codef/contests/1307/b/sol.out",
-      "args": [
-        "<",
-        "${workspaceFolder}/src/olymp/codef/contests/1307/b/in"
       ],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
-      "preLaunchTask": "codef build",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    },
-    {
-      "name": "(gdb) codef windows",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}\\src\\olymp\\codef\\contests\\363\\c\\sol.exe",
-      "args": [
-        "<",
-        "d:\\work\\in"
-      ],
-      // "args": [
-      //   "1",
-      //   "<",
-      //   "${workspaceFolder}/src/olymp/codef/contests/363/c/in"
-      // ],
-      // "args": [
-      //   "<",
-      //   "${workspaceFolder}/in"
-      // ],
-      //"launchCompleteCommand": "exec-run",
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
-      "preLaunchTask": "codef build windows",
-      "environment": [],
-      "externalConsole": true,
-      "windows": {
-        "miDebuggerPath": "c:\\MinGW\\bin\\gdb.exe",
-        // "miDebuggerArgs": "d:\\work\\in",
-        "MIMode": "gdb"
-      },
-      // "console": "integratedTerminal",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    },
-    {
-      "name": "(gdb) acmp",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/src/olymp/acmp/0002/build/57.out",
-      "args": [
-        "<",
-        "${workspaceFolder}/src/olymp/acmp/0002/data/57.txt"
-      ],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
       "preLaunchTask": "acmp build",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
+      "windows": {
+        "miDebuggerPath": "gdb.exe"
+      },
     },
     {
-      "name": "(gdb) mesh",
+      "name": "acmp debug 2",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/src/olymp/mesh/02/a/sol.out",
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
       "args": [
-        "<",
-        "${workspaceFolder}/src/olymp/mesh/02/a/in"
+        "<${fileDirname}//in2",
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "mesh build",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
@@ -149,7 +48,11 @@
           "text": "-enable-pretty-printing",
           "ignoreFailures": true
         }
-      ]
+      ],
+      "preLaunchTask": "acmp build",
+      "windows": {
+        "miDebuggerPath": "gdb.exe"
+      },
     }
   ]
 }

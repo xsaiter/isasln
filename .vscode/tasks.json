@@ -1,7 +1,9 @@
 {
   "version": "2.0.0",
   "command": "bash",
-  "args": ["-c"],
+  "args": [
+    "-c"
+  ],
   "presentation": {
     "echo": true,
     "reveal": "always",
@@ -15,10 +17,11 @@
       "options": {
         "cwd": "${workspaceRoot}"
       },
-      "args": ["./build.sh"],
+      "args": [
+        "./build.sh"
+      ],
       "group": {
         "kind": "build",
-        "isDefault": true
       }
     },
     {
@@ -27,12 +30,16 @@
       "options": {
         "cwd": "${workspaceRoot}/src/olymp/codef/contests"
       },
-      "args": ["make"],
+      "args": [
+        "make"
+      ],
       "group": {
         "kind": "build",
-        "isDefault": true
+        "isDefault": false
       },
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [
+        "$gcc"
+      ],
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -49,12 +56,19 @@
         "cwd": "${workspaceRoot}/src/olymp/codef/contests/363/c"
       },
       "command": "C:\\MinGW\\bin\\g++.exe",
-      "args": ["-g", "sol.cpp", "-o", "sol.exe"],
+      "args": [
+        "-g",
+        "sol.cpp",
+        "-o",
+        "sol.exe"
+      ],
       "group": {
         "kind": "build",
-        "isDefault": true
+        "isDefault": false
       },
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [
+        "$gcc"
+      ],
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -67,28 +81,76 @@
     {
       "label": "acmp build",
       "type": "shell",
+      "command": "g++.exe",
       "options": {
-        "cwd": "${workspaceRoot}/src/olymp/acmp/0002"
+        "cwd": "${workspaceFolder}"
       },
-      "args": ["make"],
+      "args": [
+        "-pipe",
+        // "-fsanitize=signed-integer-overflow,undefined", Causes compilation error in Windows
+        "-g",
+        "-march=native",
+        "-O2",
+        "-std=c++20",
+        "-Wall",
+        "-Wshadow",
+        "-Wno-unused-result",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}.exe"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": ["$gcc"]
+      "problemMatcher": [
+        "$gcc"
+      ]
     },
     {
-      "label": "mesh build",
+      "label": "acmp run 1",
       "type": "shell",
-      "options": {
-        "cwd": "${workspaceRoot}/src/olymp/mesh"
-      },
-      "args": ["make"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "problemMatcher": ["$gcc"]
-    }
+      "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [
+        "<${fileDirname}//in",
+      ],
+    },
+    {
+      "label": "acmp run 2",
+      "type": "shell",
+      "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [
+        "<${fileDirname}//in2",
+      ],
+    },
+    {
+      "label": "acmp run 3",
+      "type": "shell",
+      "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [
+        "<${fileDirname}//in3",
+      ],
+    },
+    {
+      "label": "acmp run 4",
+      "type": "shell",
+      "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [
+        "<${fileDirname}//in4",
+      ],
+    },
+    {
+      "label": "acmp run -1",
+      "type": "shell",
+      "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [
+        "<${fileDirname}//in2",
+      ],
+    },
+    {
+      "label": "acmp run -2 (powershell)",
+      "type": "shell",
+      "command": "Get-Content ${fileDirname}\\in4 | ${fileDirname}\\${fileBasenameNoExtension}.exe",
+    },
   ]
 }

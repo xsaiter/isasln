@@ -5,8 +5,7 @@ using namespace std;
 using L = long long;
 
 int main() {
-  L k, n;
-  cin >> k >> n;
+  L k = 5, n = 6;
   ++n;
   vector<L> dp(n, 0);
   dp[0] = 1;
