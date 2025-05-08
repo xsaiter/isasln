@@ -6,36 +6,53 @@ const double PI = 3.1415926;
 const double EPS = 0.001;
 
 struct P {
-  int x, y;
+  double x, y;
 };
 
-bool eq(double a, double b) {
+bool c_eq(double a, double b) {
   return abs(a - b) <= EPS;
 }
 
-double area(int r) {
-  return PI * pow((double)r, 2);
+bool c_less(double a, double b) {
+  return a < b && !c_eq(a, b);
 }
 
-double dist(P &a, P &b) {
-  return sqrt(pow(abs(a.x - b.x), 2) + pow(abs(a.y - b.y), 2));
+bool c_less_eq(double a, double b) {
+  return c_eq(a, b) || c_less(a, b);
 }
 
-bool solve(P &c1, P &c2, int r, int s) {
-  double d = dist(c1, c2);
-  if (dist <= 2 * r) {
-    return 2 * area(r) > s;
+double area(double r) {
+  return PI * pow(r, 2);
+}
+
+double dist(const P &a, const P &b) {
+  return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+}
+
+double area_inter(double d, double r) {
+  return 2 * pow(r, 2) * acos(d / (2 * r)) - (d / 2) * sqrt(4 * pow(r, 2) - pow(d, 2));
+}
+
+bool solve(const P &c1, const P &c2, double r, double s) {
+  double a = area(r);
+  double d = dist(c1, c2);  
+  if (c_eq(d, 0.0)) {
+    return c_less(s, a);
   }
-  return false;
+  if (c_less_eq(2.0 * r, d)) {
+    return c_less(s, 2 * a);
+  }  
+  double aa = 2 * a - area_inter(d, r);
+  return c_less(s, aa);  
 }
 
 int main() {
   P c1, c2;
-  cin >> c1.x >> x1.y;
-  cin >> c2.x >> x2.y;
-  int r;
+  cin >> c1.x >> c1.y;
+  cin >> c2.x >> c2.y;
+  double r;
   cin >> r;
-  int s;
+  double s;
   cin >> s;
   cout << (solve(c1, c2, r, s) ? "YES" : "NO");
   return 0;

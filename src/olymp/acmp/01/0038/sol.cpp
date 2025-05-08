@@ -2,12 +2,11 @@
 
 using namespace std;
 
-// 3 2 5 4
-
 int solve(int n, vector<int> &a) {
-  vector<int> dp(n);
+  vector<vector<int>> dp(n + 1, vector<int>(n + 1));
   for (int i = 0; i < n; ++i) {
-    dp[]    
+    for (int j = 0; j < n; ++j) {
+    }  
   }
   return 0;
 }
