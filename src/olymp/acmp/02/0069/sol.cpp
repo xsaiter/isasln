@@ -2,24 +2,27 @@
 
 using namespace std;
 
-constexpr double eps = 1e-3;
+const double EPS = 0.001;
+const double PI = 3.1415926;
 
-bool less_than(double a, double b) {
-  return (b - a) > ((fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * eps);
+bool c_eq(double a, double b) {
+  return abs(a - b) < EPS;
+}
+
+bool c_less(double a, double b) {
+  return a < b && !c_eq(a, b);
+}
+
+bool solve(double n, double a) {
+  double fi = (2 * PI) / (2 * n);
+  double x = 1 / cos(fi) - tan(fi);
+  double d = (a / 2) * x;
+  return c_less(d, 1);  
 }
 
 int main() {
-  int n, a;
-  cin >> n >> a;
-  double fi = (2.0 * 3.14159265358979323846) / (2.0 * (double)n);
-  double x = 1 / cos(fi) - tan(fi);
-  double res = ((double)a / 2.0) * x;
-  bool cmp = less_than(res, 1.0);
-  if (cmp) {
-    cout << "YES";
-  } else {
-    cout << "NO";
-  }
-  cout << endl;
+  double n, a;
+  cin >> n >> a;  
+  cout << (solve(n, a) ? "YES" : "NO") << endl;
   return 0;
 }
