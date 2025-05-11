@@ -11,16 +11,16 @@ int sum_range(const vector<int> &a, int from, int to) {
 }
 
 int solve(int n, vector<int> &a) {
-  vector<vector<int>> dp(n + 1, vector<int>(n + 1));
+  vector<vector<int>> dp(n, vector<int>(n));
   for (int i = 0; i < n; ++i) {
     dp[i][i] = a[i];
   }
   for (int k = 2; k < n; ++k) {
     for (int i = 0; i < n - k + 1; ++i) {
-      int j = i + k - 1;
+      int j = i + k;
       dp[i][j] = max(
-        a[j] + sum_range(a, i + 1, j) - dp[i - 1][j],
-        a[j] + sum_range(a, i, j - 1) - dp[i][j - 1]
+        a[j] + sum_range(a, i + 1, j) - dp[i + 1][j - 1], 
+        a[j] + sum_range(a, i, j - 1) - dp[i][j - 2]
       );
     }
   }
