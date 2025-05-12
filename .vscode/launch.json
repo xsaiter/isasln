@@ -55,12 +55,38 @@
       },
     },
     {
-      "name": "acmp python",
+      "name": "cp python",
       "type": "debugpy",
       "request": "launch",
       "program": "${file}",
+      "console": "integratedTerminal",
       "args": [
-        "<in",
+        "<",
+        "${fileDirname}\\in",
+      ],
+      "cwd": "${fileDirname}",
+    },
+    {
+      "name": "cp python 2",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": [
+        "<",
+        "${fileDirname}\\in2",
+      ],
+      "cwd": "${fileDirname}",
+    },
+    {
+      "name": "cp python 3",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": [
+        "<",
+        "${fileDirname}\\in3",
       ],
       "cwd": "${fileDirname}",
     }
