@@ -6,7 +6,7 @@ struct R {
   int x, y;
 };
 
-vector<int> solve(int n, vector<int>& a, int m, vector<R>& b) {
+vector<int> solve(int n, vector<int> &a, int m, vector<R> &b) {
   vector<int> c(n);
   
   return c;
