@@ -20,7 +20,7 @@ int solve(int n, int m, vector<string>& a) {
       d = min(d, b_beg - a_end - 1);
     }
   }
-  return d == 1e9 ? 0 : d;
+  return d == INF ? 0 : d;
 }
 
 int main() {
