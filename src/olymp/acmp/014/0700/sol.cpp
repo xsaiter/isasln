@@ -11,14 +11,14 @@ struct Res {
 
 Res solve(L n, L v, L k) {
   Res res { .yes = true, .v = 0 };
-  L V = n * v;  
-  for (L i = 1; i <= n - 1; ++i) {
-    L rem = v - k * i;
-    if (rem <= 0) {
+  L V = 0;  
+  for (L i = 0; i < n; ++i) {
+    L m = v - k * i;
+    if (m <= 0) {
       res.yes = false;
-      rem = 0;
+      m = 0;
     }
-    V -= rem;
+    V += m;
   }
   res.v = V;  
   return res;
