@@ -4,7 +4,7 @@ using namespace std;
 
 using M = vector<vector<int>>;
 
-bool can_b(int v, vector<bool> &b, int k) {
+bool can_b(int v, const vector<bool> &b, int k) {
   return v >= 0 && v <= k - 1 && !b[v];
 }
 
