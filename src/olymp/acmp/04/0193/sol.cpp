@@ -10,12 +10,20 @@ struct R {
   P a, b;
 };
 
+P new_p(int x, int y) {
+  return P {.x = x, .y = y};
+}
+
+R new_r(cosnt P &a, const P &b) {
+  return R {.a = a, .b = b};
+}
+
 vector<R> solve(int n, int m, int k, vector<vector<int>> &a) {  
   vector<vector<P>> b(k, vector<P>());
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
       if (a[i][j] != 0) {
-        b[a[i][j]].push_back(P { .x = i, .y =j });
+        b[a[i][j]].push_back(new_(i, j));
       }
     }
   }
