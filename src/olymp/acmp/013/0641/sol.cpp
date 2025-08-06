@@ -2,59 +2,51 @@
 
 using namespace std;
 
-const int MAXD = 10;
+const int M = 10;
 
-int di(char c) {
+int ci(char c) {
   return (int)c - (int)'0';
 }
 
-bool valid(const string &s, int n, int p, int q) {
-  for (int i = 0; i < n; ++i) {
-    if (i != p && i != q) {
-      if (di(s[i]) != 0) {
-        return true;
-      }
-      return true;
-    }
-  }
-  return false;
+int len(const string &s) {
+  return (int)s.size();
 }
 
-int pos(const string &s, int n, vector<int> &v) {
-  int mi = MAXD;
+int pos(const string &s) {  
+  const int n = len(s);
+  for (int i = 0; i < n - 1; ++i) {
+    int d = ci(s[i + 1]) - ci(s[i]);
+    if (d > 0) {
+      return i;
+    } 
+  }  
   int ans = -1;
-  for (int i = n - 1; i >= 0; --i) {
-    if (v.find(i) != v.end()) {
-      int d = di(s[i]);
-      if (d < mi) {
-        mi = d;
-        ans = i;
-      }
+  int m = M;
+  for (int i = 0; i < n; ++i) {
+    int d = ci(s[i]);
+    if (d < m) {
+      m = d;
+      ans = i;
     }
   }
   return ans;
 }
 
-vector<int> vec(int x) {
-  vector<int> res {x};
-  return res;
+string rm(const string &s, int k) {
+  const int n = len(s);
+  ostringstream oss;
+  for (int i = 0; i < n; ++i) {
+    if (i != k) {
+      oss << s[i];
+    }    
+  }
+  return oss.str();
 }
 
 int main() {
   string s;
-  cin >> s;
-  int n = (int)s.size();
-  int p = pos(s, n, vec(-1));
-  int q = pos(s, n, vec(p));
-  while (!valid(s, n, p, q)) {
-    vector<int> v {p, q};
-    p = pos(s, n, v);
-  }
-  for (int i = 0; i < n; ++i) {
-    if (i != p && i != q) {
-      cout << s[i];
-    }
-  }
-  cout << endl;
+  cin >> s;    
+  string t = rm(s, pos(s));  
+  cout << rm(t, pos(t)) << endl;
   return 0;
 }
