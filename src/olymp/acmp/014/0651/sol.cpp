@@ -9,7 +9,7 @@ struct R {
     return v < other.v;
   }
 
-  bool operator==(const R& other) const {
+  bool operator==(const R &other) const {
     return v == other.v;
   }
 };

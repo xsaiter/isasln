@@ -12,6 +12,7 @@ string to_str(const vector<int> &a) {
 
 vector<int> ma(int m) {
   vector<int> a;
+  return a;
 }
 
 vector<int> mi(int m) {
