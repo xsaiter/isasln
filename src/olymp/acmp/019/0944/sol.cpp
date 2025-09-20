@@ -4,16 +4,14 @@ using namespace std;
 
 const int INF = 1e9;
 
-vector<int> load_dp(int n, const vector<int> &a, int s) {  
+vector<int> load_dp(int n, const vector<int>& a, int s) {
   vector<int> dp(s + 1);
-  dp[0] = 0; 
-  for (int x = 1; x <= s; x++) {
+  for (int x = 1; x <= s; ++x) {
     dp[x] = INF;
     for (int i = 0; i < n; ++i) {
-      int c = a[i];
-      int j = x - c;
-      if (j >= 0) {
-        dp[x] = min(dp[x], dp[j] + 1);
+      int k = x - a[i];
+      if (k >= 0) {
+        dp[x] = min(dp[x], dp[k] + 1);
       }
     }
   }
@@ -33,7 +31,7 @@ int main() {
   cin >> k;
   vector<int> b(k);
   for (int i = 0; i < k; ++i) {
-    cin >> b[i];    
+    cin >> b[i];
   }
   int mx = *max_element(begin(b), end(b));
   vector<int> dp = load_dp(n, a, mx);
