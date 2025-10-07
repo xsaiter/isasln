@@ -2,14 +2,21 @@
 
 using namespace std;
 
+const int N = 26;
+
+int code_of(char c) {
+  return (int)c - (int)'a';
+}
+
 int solve(const string &s, int n) {  
-  set<string> ss;
-  for (int i = 0; i < n; ++i) {   
-    for (int j =0; j < n; ++j) {
-      
-    }
+  vector<vector<int>> t(N, vector<int>());
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      int ci = code_of(s[i]);
+      int cj = code_of(s[j]);
+    }    
   }
-  return ss.size();
+  return 0;
 }
 
 int main() {
