@@ -4,8 +4,6 @@ using namespace std;
 
 using A = vector<vector<vector<char>>>;
 
-const int INF = 1e9;
-
 int path(int nb, const vector<vector<int>> &b, int x, int y) {
   queue<int> q;
   vector<bool> vi(nb);
@@ -55,23 +53,14 @@ int solve(const A &a, int h, int m, int n) {
           b[c].push_back(cc);
           b[cc].push_back(c);          
         }
+        if (k != h - 1) {
+          int cc = (k + 1) * n * m + i * n + j;
+          b[c].push_back(cc);
+        }
       }
     }
   }
   return path(nb, b, x, y) * 5;
-}
-
-void show_a(const A &a, int h, int m, int n) {
-  for (int k = 0; k < h; ++k) {
-    for (int i = 0; i < m; ++i) {
-      for (int j = 0; j < n; ++j) {
-        cout << a[k][i][j];
-      }
-      cout << '\n';
-    }
-    cout << '\n';
-  }    
-  cout << endl;
 }
 
 int main() {  
