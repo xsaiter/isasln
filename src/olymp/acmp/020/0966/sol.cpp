@@ -45,7 +45,7 @@ int solve(int n, const vector<R> &a, int t) {
   int ans = 0;
   vector<W> acts;  
   for (int i = 0; i < k; ++i) {
-    int m = (int)c.size();
+    int m = (int)b.size();
     for (int j = 0; j < m; ++j) {
       int dt = b[i].t - acts[j].t;
       ans += dt * acts[j].v;
@@ -53,8 +53,7 @@ int solve(int n, const vector<R> &a, int t) {
     if (b[i].beg) {
       acts.push_back(b[i]);
     } else {
-      for (int j = 0; j < m; ++j) {
-        
+      for (int j = 0; j < m; ++j) {        
       }
     }    
   }
@@ -62,14 +61,12 @@ int solve(int n, const vector<R> &a, int t) {
 }
 
 int main() {
-  int n;
-  cin >> n;
+  int n; cin >> n;
   vector<R> a(n);
   for (int i = 0; i < n; ++i) {
     cin >> a[i].l >> a[i].r >> a[i].v;
   }
-  int t;
-  cin >> t;
+  int t; cin >> t;
   cout << solve(n, a, t) << endl;
   return 0;
 }
