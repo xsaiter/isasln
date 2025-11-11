@@ -3,7 +3,9 @@ n, k = map(int, input().split())
 
 def solve():
     j = 1
-    while True:
+    r = 0
+    ok = False
+    while not ok:
         x = j
         r = x * n + k
         ok = True
@@ -13,9 +15,8 @@ def solve():
                 break
             x = r // (n - 1)
             r = x * n + k
-        if ok:
-            return r
         j += 1
+    return r
 
 
 print(solve())
