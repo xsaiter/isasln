@@ -79,7 +79,7 @@
       }
     },
     {
-      "label": "acmp build",
+      "label": "cpp build",
       "type": "shell",
       "command": "g++.exe",
       "options": {
@@ -90,8 +90,8 @@
         // "-fsanitize=signed-integer-overflow,undefined", Causes compilation error in Windows
         "-g",
         "-march=native",
-        "-O2",
-        "-std=c++20",
+        "-O0",
+        "-std=c++23",
         "-Wall",
         "-Wshadow",
         "-Wno-unused-result",
@@ -108,7 +108,7 @@
       ]
     },
     {
-      "label": "acmp run 1",
+      "label": "cpp run 1",
       "type": "shell",
       "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
       "args": [
@@ -116,7 +116,7 @@
       ],
     },
     {
-      "label": "acmp run 2",
+      "label": "cpp run 2",
       "type": "shell",
       "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
       "args": [
@@ -124,7 +124,7 @@
       ],
     },
     {
-      "label": "acmp run 3",
+      "label": "cpp run 3",
       "type": "shell",
       "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
       "args": [
@@ -132,7 +132,7 @@
       ],
     },
     {
-      "label": "acmp run 4",
+      "label": "cpp run 4",
       "type": "shell",
       "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
       "args": [
