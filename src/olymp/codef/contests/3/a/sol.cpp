@@ -29,37 +29,58 @@ int main() {
   P q = parse_p(t);
   int dx = q.x - p.x;
   int dy = q.y - p.y;
-  int mi = min(abs(dx), abs(dy));
-  if (dx > 0) {
-    if (dy > 0) {
-      for (int i = 1; i <= dx; ++i) {
-        cout << "RU";
+
+  int a = min(abs(dx), abs(dy));
+  int b = max(abs(dy), abs(dx)) - min(abs(dx), abs(dy));
+
+  cout << a + b << '\n';
+  
+  if (dx >= 0) {
+    if (dy >= 0) {      
+      for (int i = 1; i <= a; ++i) {
+        cout << "RU\n";
       }
-      for (int i = 1; i <= abs(dy) - abs(dx); ++i) {
-        cout << "U";
+      for (int i = 1; i <= b; ++i) {        
+        if (abs(dx) < abs(dy)) {
+          cout << "U\n";
+        } else {
+          cout << "R\n";
+        }
       }
-    } else {
-      for (int i = 1; i <= dx; ++i) {
-        cout << "RD";
+    } else {      
+      for (int i = 1; i <= a; ++i) {
+        cout << "RD\n";
       }
-      for (int i = 1; i <= abs(dy) - abs(dx); ++i) {
-        cout << "D";
+      for (int i = 1; i <= b; ++i) {
+        if (abs(dx) < abs(dy)) {
+          cout << "D\n";
+        } else {
+          cout << "R\n";
+        }
       }
     }
   } else {
-    if (dy > 0) {
-      for (int i = 1; i <= dx; ++i) {
-        cout << "LU";
+    if (dy >= 0) {      
+      for (int i = 1; i <= a; ++i) {
+        cout << "LU\n";
       }
-      for (int i = 1; i <= abs(dy) - abs(dx); ++i) {
-        cout << "U";
+      for (int i = 1; i <= b; ++i) {
+        if (abs(dx) < abs(dy)) {
+          cout << "U\n";
+        } else {
+          cout << "L\n";
+        }
       }
     } else {
-      for (int i = 1; i <= dx; ++i) {
-        cout << "LD";
+      for (int i = 1; i <= a; ++i) {
+        cout << "LD\n";
       }
-      for (int i = 1; i <= abs(dy) - abs(dx); ++i) {
-        cout << "D";
+      for (int i = 1; i <= b; ++i) {
+        if (abs(dx) < abs(dy)) {
+          cout << "D\n";
+        } else {
+          cout << "L\n";
+        }
       }
     }
   }
