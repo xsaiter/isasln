@@ -2,27 +2,35 @@
 
 using namespace std;
 
-#define MP make_pair
-#define i64 long long
-#define forn(i, n) for(int i = 0; i < n; ++i)
-#define PB push_back
-#define F first
-#define S second
-#define vi vector<int>
-#define vi64 vector<i64>
-
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr);
-  ios::sync_with_stdio(0);
-  cin.tie(0);
   int n, m;
   cin >> n >> m;
-  vector<vector<int>> a(n, vector<int>(m, 0));
+  vector<vector<int>> a(n, vector<int>(m));
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
-    printf("%d %d", n, m);
+      cin >> a[i][j];
     }
   }
+  int mi = INT_MIN;
+  for (int i = 0; i < n; ++i) {
+    int ri = INT_MAX;
+    for (int j = 0; j < m; ++j) {      
+      if (a[i][j] < ri) {
+        ri = a[i][j];
+      }
+    }
+    mi = max(mi, ri);
+  }
+  int ma = INT_MAX;
+  for (int j = 0; j < m; ++j) {
+    int ci = INT_MIN;
+    for (int i = 0; i < n; ++i) {
+      if (a[i][j] > ci) {
+        ci = a[i][j];
+      }
+    }
+    ma = min(ma, ci);
+  }
+  cout << mi << ' ' << ma << endl;
   return 0;
 }
