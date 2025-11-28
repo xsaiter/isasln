@@ -1,7 +1,8 @@
-def solve(n):
-    pass
-
-
 n = int(input())
 
-print(solve(n))
+
+def solve():
+    return 45**n
+
+
+print(solve())
