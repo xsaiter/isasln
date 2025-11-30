@@ -2,32 +2,29 @@
 
 using namespace std;
 
-int M = 1e6;
+int MOD = 1e6;
 
-int solve(int k) {  
-  if (k == 0) {
-    return 1;  
-  }
-  if (k < 10) {
-    return 0;
-  }  
-  vector<int> dp(k + 1, 0);    
-  dp[10] = 2;  
-  dp[11] = 2;
-  dp[12] = 2;  
-  for (int i = 13; i <= k; ++i) {
-    int rem = i % 10;
-    if (rem == 0) {
-      dp[i] = (dp[i - 10]) % M;
-    } else if (rem == 1) {
-      dp[i] = (dp[i - 11] + dp[i - 10]) % M;
-    } else if (rem == 2) {
-      dp[i] = (dp[i - 12] + dp[i - 11] + dp[i - 10]) % M;
-    } else {
-      dp[i] = 0;
+int solve(int k) {   
+  vector<vector<int>> dp(k + 11, vector<int>(4));
+  dp[10][1] = 2;
+  for (int h = 10; h < k + 1; ++h) {
+    for (int s = 1; s < 4; ++s) {
+      if (dp[h][s] == 0) {
+        continue;
+      }
+      if (s < 3 and h + 1 <= k) {
+        dp[h + 1][s + 1] = (dp[h + 1][s + 1] + dp[h][s]) % MOD;
+      }
+      if (h + 10 <= k) {
+        dp[h + 10][1] = (dp[h + 10][1] + dp[h][s]) % MOD;
+      }            
     }
   }
-  return dp[k];
+  int ans = 0;
+  for (int j = 0; j < 4; ++j) {
+    ans += dp[k][j];
+  }
+  return ans % MOD;    
 }
 
 int main() {
