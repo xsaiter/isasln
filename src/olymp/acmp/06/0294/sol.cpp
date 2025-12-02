@@ -2,23 +2,44 @@
 
 using namespace std;
 
-int cost(const vector<int> &a) {
-  return a[0] * a[1] * a[2] / 100;
+struct C {
+  int k, l, m;  
+
+  int lost() const {
+    return k * l / 100;
+  }
+  int present() const {
+    return k - lost();
+  }
+  int present_cost() const {
+    return present() * m;
+  }
+  int lost_cost() const {
+   return lost() * m;
+  }
+};
+
+int extra_cost(const C &a, const C &b) {
+  int na = a.present();
+  int nb = b.present();
+  if (na == nb) {
+    return 0;
+  }
+  if (na > nb) {
+    return (na - nb) * a.m;
+  }
+  return (nb - na) * b.m;
 }
 
-int cost2(const vector<int> &a, const vector<int> &b) {
-  return min(a[0] * a[1] / 100, 0) * b[2];
-}
-
-int solve(const vector<int> &a, const vector<int> &b) {  
-  return cost(a) + cost(b);
+int solve(const C &a, const C &b) {
+  return a.lost_cost() + b.lost_cost() + extra_cost(a, b);  
 }
 
 int main() {
-  vector<int> a(3);
-  cin >> a[0] >> a[1] >> a[2];
-  vector<int> b(3);
-  cin >> b[0] >> b[1] >> b[2];
+  C a;
+  cin >> a.k >> a.l >> a.m;
+  C b;
+  cin >> b.k >> b.l >> b.m;
   cout << solve(a, b) << endl;
   return 0;
 }
