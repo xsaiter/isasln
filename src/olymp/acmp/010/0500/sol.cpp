@@ -7,8 +7,7 @@ struct P {
 };
 
 int solve(int n, vector<P> &a) {
-  int res = 0;
-  return res;
+  
 }
 
 int main() {

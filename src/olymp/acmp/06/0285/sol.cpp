@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool solve(int n, int m, vector<int> &a) {
+bool solve(int n, int m, vector<int>& a) {
   int mx = *max_element(a.begin(), a.end());
   if (mx > m) {
     return false;
@@ -21,10 +21,10 @@ bool solve(int n, int m, vector<int> &a) {
   bool ans = false;
   function<void(int)> Gen = [&](int k) {
     if (k == n + 1) {
-      int sum =0;
-      for (const auto &x : b) {
+      int sum = 0;
+      for (const auto& x : b) {
         sum += a[x - 1];
-      }            
+      }
       if (sum == m && (all - m) <= m) {
         ans = true;
       }
@@ -33,8 +33,8 @@ bool solve(int n, int m, vector<int> &a) {
       Gen(k + 1);
       b.pop_back();
       Gen(k + 1);
-    }  
-  };
+    }
+    };
   Gen(1);
   return ans;
 }
