@@ -103,6 +103,14 @@
         "kind": "build",
         "isDefault": true
       },
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": false
+      },
       "problemMatcher": [
         "$gcc"
       ]
