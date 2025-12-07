@@ -2,12 +2,6 @@
 
 using namespace std;
 
-/*
-x = 9 * 9 + 9
-(k - 1) * (k - 1) + (k - 1)
-0000 11111 22222 99999
-1239 01239 01239 01239
-*/
 int solve(int n, int k) {  
   vector<int> dp(n + 1);
   dp[1] = k;  
