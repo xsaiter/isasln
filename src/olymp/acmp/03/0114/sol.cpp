@@ -4,20 +4,11 @@ using namespace std;
 
 int solve(int n, int k) {  
   vector<int> dp(n + 1);
-  dp[1] = k;  
+  dp[0] = 1;
+  dp[1] = k - 1;
   for (int i = 2; i <= n; ++i) {
-    int x = k;
-    if (i == n) {
-      x = k - 1;
-    } else {
-      if (i % 2 == 0) {
-        x = k - 1;
-      } else {
-        x = k;
-      }
-    }    
-    dp[i] = dp[i - 1] * x;
-  }
+    dp[i] = (k - 1) * (dp[i - 1] + dp[i - 2]);
+  }  
   return dp[n];
 }
 
