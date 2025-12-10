@@ -2,13 +2,14 @@
 
 using namespace std;
 
-int solve(const vector<vector<int> &a, int n) {  
-  set<int> rows;
-  set<int> cols;
+int solve(int n, const vector<vector<int>>& a) {
   vector<vector<int>> dp(n + 1, vector<int>(n + 1));
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-      dp[i][j] = a[i][j] + max(dp[i + 1][j], dp[i][j - 1]);
+  vector<bool> cc(n + 1, false);
+  for (int i = 1; i <= n; ++i) {
+    for (int j = 1; j <= n; ++j) {
+      if (!cc[j]) {
+        cc[j] = true;
+      }
     }
   }
   return dp[n][n];
@@ -17,12 +18,12 @@ int solve(const vector<vector<int> &a, int n) {
 int main() {
   int n;
   cin >> n;
-  vector<vector<int> a(n, vector<int>(n));
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j< n; ++j) {
+  vector<vector<int>> a(n + 1, vector<int>(n + 1));
+  for (int i = 1; i <= n; ++i) {
+    for (int j = 1; j <= n; ++j) {
       cin >> a[i][j];
     }
   }
-  cout << solve(a, n) << endl;
+  cout << solve(n, a) << endl;
   return 0;
 }
