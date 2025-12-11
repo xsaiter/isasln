@@ -12,17 +12,6 @@ char to_ch(int x) {
   return (char)(x + (int)'a');
 }
 
-string remove_spaces(const string &s) {
-  int n = (int)s.size();
-  ostringstream oss;
-  for (int i = 0; i < n; ++i) {
-    if (s[i] != ' ') {
-      oss << s[i];
-    }
-  }
-  return oss.str();
-}
-
 string ltrim(const string &s) {
   ostringstream oss;
   int n = (int)s.size();
@@ -53,8 +42,10 @@ string rtrim(const string &s) {
       start = false;
       oss << s[i];
     }
-  }
-  return oss.str();
+  }  
+  string ans = oss.str();
+  reverse(ans.begin(), ans.end());
+  return ans;
 }
 
 string trim(const string &s) {
@@ -62,33 +53,29 @@ string trim(const string &s) {
 }
 
 bool find_key(const string &str, const string &t, vector<int> &key) {    
-  string s = trim(str);
-  int n = (int)s.size(); 
-  int m = (int)t.size();
-  if (n != m) {
+  string s = trim(str);  
+  int n = (int)s.size();   
+  if (n != (int)t.size()) {
     return false;
   }  
   for (int i = 0; i < n; ++i) {
     if (s[i] == ' ' || t[i] == ' ') {
       continue;
     }
-    int x = key[ord(s[i])];
-    if (x == -1) {
-      key[ord(s[i])] = (int)ord(t[i]);
+    int k = ord(s[i]);  
+    if (key[k] == -1) {
+      key[k] = (int)ord(t[i]);
     }
   }  
   ostringstream oss;
   for (int i = 0; i < n; ++i) {
     if (s[i] == ' ') {
-      continue;
+      oss << ' ';
+    } else {
+      oss << to_ch(key[ord(s[i])]);
     }
-    oss << to_ch(key[ord(s[i])]);
   }
-  string r = oss.str();
-  if (r != t) {
-    return false;
-  }
-  return true;
+  return oss.str() == t;  
 }
 
 int main() {    
