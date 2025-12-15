@@ -2,52 +2,39 @@
 
 using namespace std;
 
-int solve(vector<int> &a, int n) {
-  int res = 0;
-  if (n == 0) return 0;
-  sort(begin(a), end(a));
-  int x = 0, y = 0;
-  bool fx = false, fy = false;
+int solve(int n, vector<int> &a) {
+  int m = 101;
+  vector<int> b(m, 0);
   for (int i = 0; i < n; ++i) {
-    if (i % 2 == 0) {
-      if (!fx) {
-        if (a[i] - x <= 1) {
-          x = a[i];
-        } else {
-          ++x;
-          fx = true;
-        }
-      }      
-    } else {
-      if (!fy) {
-        if (a[i] - y <= 1) {
-          y = a[i];
-        } else {
-          ++y;
-          fy = true;
+    b[a[i]]++;
+  }  
+  for (int i = 0; i < m; ++i) {
+    if (b[i] == 0) {
+      for (int j = 0; j < m; ++j) {
+        if (b[j] == 0) {
+          return i + j;
         }
       }
-    }    
+    } else {
+      b[i]--;
+    }
   }
-  if (!fx) ++x;
-  if (!fy) ++y;
-  res = x + y;
-  return res;
+  throw "ERR";
 }
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
-  int t;
-  cin >> t;
-  while (t--) {
+  int tt;
+  cin >> tt;
+  while (tt--) {
     int n;
     cin >> n;
     vector<int> a(n);
     for (int i = 0; i < n; ++i) {
       cin >> a[i];
     }
-    cout << solve(a, n) << "\n";
+    cout << solve(n, a) << '\n';
   }
   cout << endl;
   return 0;
