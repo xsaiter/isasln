@@ -25,9 +25,7 @@ int main() {
   int best_len = -1;
   int p = 0;
   while (p < n) {
-    int z = 0;
-    int len = 0;    
-    int cur = 0;    
+    int z = 0, len = 0, cur = 0;    
     for (int i = p; i < n; ++i) {      
       if (s[i] == '(') {
         ++z;
