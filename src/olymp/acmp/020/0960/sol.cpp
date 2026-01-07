@@ -1,17 +1,21 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+using L = long long;
 
-bool is_abc(string &s, int p) {
-  return s[p] == 'a' && s[p + 1] == 'b' && s[p + 2] == 'c';
-}
-
-int solve(string &s) {
+L solve(const string& s) {
   int n = (int)s.size();
-  vector<int> dp(n + 1);
-  dp[3] = (is_abc(s, 0) ? 1 : 0);
-
-  return dp[n];
+  L dp_a = 0, dp_b = 0, dp_c = 0;
+  for (int i = 0; i < n; ++i) {
+    if (s[i] == 'a') {
+      dp_a += 1;
+    } else if (s[i] == 'b') {
+      dp_b += dp_a;
+    } else if (s[i] == 'c') {
+      dp_c += dp_b;
+    }
+  }
+  return dp_c;
 }
 
 int main() {
