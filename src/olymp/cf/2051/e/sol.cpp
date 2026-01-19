@@ -4,32 +4,29 @@ using namespace std;
 
 using L = long long;
 
-L solve(int n, int k, vector<L> &a, vector<L> &b) {  
-  set<L> sa, sb;  
-  for (int i = 0; i < n; ++i) {    
-    sa.insert(a[i]);
-    sb.insert(b[i]);
-  }
-  vector<L> c(2 * n);
-  for (int i = 0; i < n; ++i) {
-    c[2 * i] = a[i];
-    c[2 * i + 1] = b[i];
-  }
-  L ans = 0LL;        
-  for (int i = 0; i < 2 * n; ++i) {    
-    auto it = sb.lower_bound(c[i]);
-    int nb = distance(sb.begin(), it);
-    it = sa.lower_bound(c[i]);
-    int na = n - distance(sa.begin(), it);    
-    int cnt = nb - na;
-    if (k >= cnt) {
-      ans = max(ans, c[i] * nb);
-    }    
-  }  
+L solve(int n, int k, vector<L> &a, vector<L> &b) {
+  L ans = 0LL;
+        
+  sort(a.begin(), a.end());
+  sort(b.begin(), b.end());
+        
+  vector<L> c = a;
+  c.insert(c.end(), b.begin(), b.end());
+        
+  for (int x : c) {
+    int nb = n - (lower_bound(b.begin(), b.end(), x) - b.begin());
+    int na = n - (lower_bound(a.begin(), a.end(), x) - a.begin());      
+    int cnt = nb - na;        
+    if (cnt <= k) {
+      ans = max(ans, (L)x * nb);
+    }
+  }    
   return ans;
 }
 
 int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
   int tt;
   cin >> tt;
   while (tt--) {
