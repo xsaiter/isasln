@@ -4,40 +4,43 @@ using namespace std;
 
 const int INF = 1e9;
 
-void solve(int n, vector<int> &a, int &l, int &r) {
-  int nb = 1e6 + 1;
-  vector<int> b(nb);
+struct R {
+  int k;
+  int p, q;
+};
+
+R new_r(int k, int p, int q) {
+  return R { .k = k, .p = p, .q = q };
+}
+
+void solve(int n, vector<int> &a, int &l, int &r) {  
+  unordered_map<int, R> m;  
   for (int i = 0; i < n; ++i) {
-    b[a[i]] += 1;
-  }  
-  int mx = *max_element(b.begin(), b.end());    
-  vector<int> ss;
-  for (int i = 0; i < nb; ++i) {
-    if (b[i] == mx) {      
-      ss.push_back(i);
+    auto it = m.find(a[i]);
+    if (it != m.end()) {
+      (it->second).q = i;
+      (it->second).k += 1;
+    } else {
+      m.insert({a[i], new_r(1, i, i)});
     }
   }  
-  int dist = INF;
-  for (const auto &x : ss) {
-    int ll = 0;
-    for (int i = 0; i < n; ++i) {
-      if (a[i] == x) {
-        ll = i;
-        break;
+  int max_k = -1; 
+  int min_dist = INF;
+  for (const auto &x : m) {
+    auto v = x.second;    
+    if (max_k == v.k) {      
+      if (min_dist > v.q - v.p) {
+        min_dist = v.q - v.p;
+        l = v.p;
+        r = v.q;
       }
+    } else if (max_k < v.k) {
+      max_k = v.k;       
+      min_dist = v.q - v.p;
+      l = v.p;
+      r = v.q;
     }
-    int rr = 0;
-    for (int i = n - 1; i >= ll; --i) {
-      if (a[i] == x) {
-        rr = i;
-        break;
-      }
-    }
-    if (rr > ll && dist > rr - ll) {
-      dist = rr - ll;
-      l = ll; r = rr;
-    }
-  }  
+  }    
 }
 
 int main() {
