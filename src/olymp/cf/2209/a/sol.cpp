@@ -4,25 +4,27 @@ using namespace std;
 
 using L = long long;
 
-L solve(int n, int c, int k, vector<int> &a) {
-  L ans = 0;
-  sort(a.begin(), a.end());
-  int pos = -1;
+L solve(int n, L c, L k, vector<L> &a) {
+  L cur = c;
+  sort(a.begin(), a.end());  
   for (int i = 0; i < n; ++i) {
-    if (a[i] < c) {
-      c += 
-    }
+    if (a[i] > cur) {
+      break;
+    }    
+    L diff = min(cur - a[i], k);
+    k -= diff;
+    cur += a[i] + diff;
   }
-  return ans;
+  return cur;
 }
 
 int main() {
   int tt;
   cin >> tt;
   while (tt--) {
-    int n, c, k;
+    L n, c, k;
     cin >> n >> c >> k;
-    vector<int> a(n);
+    vector<L> a(n);
     for (int i = 0; i < n; ++i) {
       cin >> a[i];
     }
